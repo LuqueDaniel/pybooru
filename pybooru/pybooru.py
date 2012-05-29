@@ -157,6 +157,15 @@ class Pybooru(object):
 		else:
 			return self._url_build(self.users_url)
 
+	def forum(self, id_=None):
+		self.forum_url = '/forum/index.json?'
+
+		if id_ is not None:
+			self.params = 'parent_id%i' % (id_)
+			return self._url_build(self.forum_url, self.params)
+		else:
+			return self._url_build(sel.forum_url)
+
 
 class PybooruError(Exception):
 	def __init__(self, err_msg, err_code=None, url=None):
