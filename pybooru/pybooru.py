@@ -1,11 +1,19 @@
 #encoding: utf-8
 
-import urllib
-import simplejson
-
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
 __version__ = '1.0.0'
 
+import urllib
+
+try:
+    import simplejson
+except ImportError:
+    try:
+        # Python 2.6 and up
+        import json as simplejson
+    except ImportError:
+    	raise PybooruError('Pybooru requires the simplejson library to work')
+    	
 
 class Pybooru(object):
 	def __init__(self, name=None, siteURL=None):
@@ -183,6 +191,15 @@ class Pybooru(object):
 		if id_ is not None:
 			self.params = 'id=%i&page=%i' % (id_, page)
 			return self._url_build(self.pools_posts_url, self.params)
+		else:
+			print PybooruError('id_ attribute is empty')
+
+	def favorites(self, id_=None):
+		self.favorites = '/favorite/list_users.json?'
+
+		if id_ is not None:
+			self.params = 'id=%i' % (id_)
+			return self._url_build(self.favorites, self.params)
 		else:
 			print PybooruError('id_ attribute is empty')
 
