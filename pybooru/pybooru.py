@@ -124,7 +124,7 @@ class Pybooru(object):
 			self.params = 'query=%s' % (self.query)
 			return self._url_build(self.search_notes_url, self.params)
 		else:
-			PybooruError(' attribute is empty')
+			PybooruError('query attribute is empty')
 
 
 class PybooruError(Exception):
@@ -155,6 +155,7 @@ class PybooruError(Exception):
 
 	def __str__(self):
 		return repr(self.err_msg)
+
 
 if __name__ == '__main__':
 	print PybooruError('import this module into your project to use')
