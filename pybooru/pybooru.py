@@ -43,8 +43,13 @@ class Pybooru(object):
 		except:
 			raise PybooruError('Error in _json_load', self.openURL.getcode(), url)
 
-	def _url_build(self, api_url, params):
+	def _url_build(self, api_url, params=None):
+		if params is not None:
 			self.url_request = self.baseURL + api_url + params
+			self.url_request = self._json_load(self.url_request)
+			return self.url_request
+		else:
+			self.url_request = self.baseURL + api_url
 			self.url_request = self._json_load(self.url_request)
 			return self.url_request
 
@@ -114,7 +119,7 @@ class Pybooru(object):
 			self.params = 'post_id=%i' % (id_)
 			return self._url_build(self.notes_url, self.params)
 		else:
-			print PybooruError('id_ attribute is empty')
+			return self._url_build(self.notes_url)
 
 	def search_notes(self, query=None):
 		self.search_notes_url = '/note/search.json?'

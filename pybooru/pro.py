@@ -2,7 +2,7 @@ from pybooru import Pybooru
 
 client = Pybooru(name='Konachan')
 
-notes = client.search_notes('girl')
+notes = client.notes()
 
 print notes
 
