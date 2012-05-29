@@ -1,18 +1,22 @@
 from pybooru import Pybooru
 
-client = Pybooru(name='konachan')
+client = Pybooru(name='Konachan')
 
-wiki = client.wiki('date',2,1,'girl')
+notes = client.search_notes('girl')
 
-for msg in wiki:
-	print 'Mensaje: %s' % (msg['body']),
+print notes
 
-#posts = client.posts(2,0,'yuri')
+#wiki = client.wiki('yuri', 'date', 2, 1)
+
+#for msg in wiki:
+#	print 'Mensaje: %s' % (msg['body']),
+
+#posts = client.posts('yuri', 2, 0)
 
 #for post in posts:
 #	print 'URL imagen: %s' % (post['file_url'])
 
-#tags = client.tags(100, 0, 'date')
+#tags = client.tags(None, None, 100, 0, 'date')
 
 #print tags
 #for tag in tags:

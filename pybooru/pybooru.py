@@ -48,7 +48,7 @@ class Pybooru(object):
 			self.url_request = self._json_load(self.url_request)
 			return self.url_request
 
-	def posts(self, limit=10, page=1, tags=None):
+	def posts(self, tags=None, limit=10, page=1):
 		self.posts_url = '/post/index.json?'
 		self.params = 'limit=%i&page=%i' % (limit, page)
 
@@ -59,7 +59,7 @@ class Pybooru(object):
 		else:
 			return self._url_build(self.posts_url, self.params)
 
-	def tags(self, limit=100, page=1, order='name', id_=None, after_id=0, name=None):
+	def tags(self, name=None, id_=None, limit=100, page=1, order='name', after_id=0):
 		self.tags_url = '/tag/index.json?'
 
 		if id_ is not None:
@@ -88,14 +88,15 @@ class Pybooru(object):
 			return self._url_build(self.artists_url, self.params)
 
 	def comments(self, id_=None):
-		self.omments_url = 'comment/show.json?'
+		self.comments_url = '/comment/show.json?'
 
 		if id_ is not None:
 			self.params = 'id=%i' % (id_)
+			return self._url_build(self.comments_url, self.params)
 		else:
 			print PybooruError('id_ attribute is empty')
 
-	def wiki(self, order='title', limit=20, page=1, query=None):
+	def wiki(self, query=None, order='title', limit=20, page=1):
 		self.wiki_url = '/wiki/index.json?'
 		self.params = 'order=%s&limit=%i&page=%i' % (order, limit, page)
 
@@ -105,6 +106,26 @@ class Pybooru(object):
 			return self._url_build(self.wiki_url, self.params)
 		else:
 			return self._url_build(self.wiki_url, self.params)
+
+	def notes(self, id_=None):
+		self.notes_url = '/note/index.json?'
+
+		if id_ is not None:
+			self.params = 'post_id=%i' % (id_)
+			return self._url_build(self.notes_url, self.params)
+		else:
+			print PybooruError('id_ attribute is empty')
+
+	def search_notes(self, query=None):
+		self.search_notes_url = '/note/search.json?'
+
+		if query is not None:
+			self.query = str(query)
+			self.params = 'query=%s' % (self.query)
+			return self._url_build(self.search_notes_url, self.params)
+		else:
+			PybooruError(' attribute is empty')
+
 
 class PybooruError(Exception):
 	def __init__(self, err_msg, err_code=None, url=None):
