@@ -11,7 +11,7 @@ setup(
     version=__version__,
     author=__author__ 
     author_email="danielluque14@gmail.com",  
-    url="",  
+    url="https://github.com/LuqueDaniel/pybooru",  
     license="MIT",
     packages=find_packages(),
     include_package_data=True,
