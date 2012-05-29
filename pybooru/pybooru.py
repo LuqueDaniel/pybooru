@@ -131,6 +131,19 @@ class Pybooru(object):
 		else:
 			PybooruError('query attribute is empty')
 
+	def history_notes(self, post_id=None, id_=None, limit=10, page=1):
+		self.history_notes_url = '/note/history.json?'
+
+		if post_id is not None:
+			self.params = 'post_id=%i' % (post_id)
+			return self._url_build(self.history_notes_url, self.params)
+		if id_ is not None:
+			self.params = 'id=%i' % (post_id)
+			return self._url_build(self.history_notes_url, self.params)
+		else:
+			self.params = 'limit=%i&page=%i' % (limit, page)
+			return self._url_build(self.history_notes_url, self.params)
+
 
 class PybooruError(Exception):
 	def __init__(self, err_msg, err_code=None, url=None):
