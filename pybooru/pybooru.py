@@ -137,12 +137,25 @@ class Pybooru(object):
 		if post_id is not None:
 			self.params = 'post_id=%i' % (post_id)
 			return self._url_build(self.history_notes_url, self.params)
-		if id_ is not None:
+		elif id_ is not None:
 			self.params = 'id=%i' % (post_id)
 			return self._url_build(self.history_notes_url, self.params)
 		else:
 			self.params = 'limit=%i&page=%i' % (limit, page)
 			return self._url_build(self.history_notes_url, self.params)
+
+	def users(self, name=None, id_=None):
+		self.users_url = '/user/index.json?'
+
+		if name is not None:
+			self.name = str(name)
+			self.params = 'name=%s' % (self.name)
+			return self._url_build(self.users_url, self.params)
+		elif id_ is not None:
+			self.params = 'id=%i' % (self.id_)
+			return self._url_build(self.users_url, self.params)
+		else:
+			return self._url_build(self.users_url)
 
 
 class PybooruError(Exception):
