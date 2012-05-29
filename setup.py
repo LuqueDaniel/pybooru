@@ -11,8 +11,8 @@ setup(
     version=__version__,
     author=__author__ 
     author_email="danielluque14@gmail.com",  
-    url="http://mundogeek.net/tutorial-python/",  
-    license="GPL",
+    url="",  
+    license="MIT",
     packages=find_packages(),
     include_package_data=True,
     install_requires=['simplejson'],
