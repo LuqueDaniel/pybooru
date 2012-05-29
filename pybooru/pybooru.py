@@ -166,6 +166,26 @@ class Pybooru(object):
 		else:
 			return self._url_build(sel.forum_url)
 
+	def pools(self, query=None, page=1):
+		self.pools_url = '/pool/index.json?'
+
+		if query is not None:
+			self.query = str(query)
+			self.params = 'query=%s' % (self.query)
+			return self._url_build(self.pools_url, self.params)
+		else:
+			self.params = 'page=%i' % (page)
+			return self._url_build(self.pools_url, self.params)
+
+	def pools_posts(self, id_=None, page=1):
+		self.pools_posts_url = '/pool/show.json?'
+
+		if id_ is not None:
+			self.params = 'id=%i&page=%i' % (id_, page)
+			return self._url_build(self.pools_posts_url, self.params)
+		else:
+			print PybooruError('id_ attribute is empty')
+
 
 class PybooruError(Exception):
 	def __init__(self, err_msg, err_code=None, url=None):
