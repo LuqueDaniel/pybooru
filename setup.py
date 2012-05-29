@@ -9,7 +9,7 @@ __version__ = '1.0.0'
 setup(
     name='pybooru',
     version=__version__,
-    author=__author__ 
+    author=__author__,
     author_email="danielluque14@gmail.com",  
     url="https://github.com/LuqueDaniel/pybooru",  
     license="MIT",
