@@ -1,11 +1,16 @@
 from pybooru import Pybooru
 
-client = Pybooru(name='Konachan')
+client = Pybooru(name='konachan')
 
-posts = client.posts(2,0,'yuri')
+wiki = client.wiki('date',2,1,'girl')
 
-for post in posts:
-	print 'URL imagen: %s' % (post['file_url'])
+for msg in wiki:
+	print 'Mensaje: %s' % (msg['body']),
+
+#posts = client.posts(2,0,'yuri')
+
+#for post in posts:
+#	print 'URL imagen: %s' % (post['file_url'])
 
 #tags = client.tags(100, 0, 'date')
 
