@@ -1,0 +1,1 @@
+from pybooru import Pybooru
