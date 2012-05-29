@@ -6,8 +6,8 @@ Installation
 ------------------------------------------------------------------------
 For installation Pybooru
 
-    git clone git://github.com/ryanmcgrath/twython.git
-    cd twython
+    git clone git://github.com/luquedaniel/pybooru.git
+    cd pybooru
     sudo python setup.py install
 
 Example use.
