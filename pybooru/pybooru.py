@@ -1,4 +1,11 @@
+#!/usr/bin/env Python
 #encoding: utf-8
+
+""" 
+	Pybooru is a library for Python for access to API Danbooru based sites.
+
+	Version: 1.0.0
+"""
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
 __version__ = '1.0.0'
@@ -13,7 +20,7 @@ except ImportError:
         import json as simplejson
     except ImportError:
     	raise PybooruError('Pybooru requires the simplejson library to work')
-    	
+
 
 class Pybooru(object):
 	def __init__(self, name=None, siteURL=None):
@@ -29,6 +36,14 @@ class Pybooru(object):
 			print PybooruError('siteURL or name invalid')
 
 	def _site_name(self,name):
+		""" 
+			Site name selector
+			------------------
+			Atributes:
+			------------------
+			name - site name
+		"""
+
 		self.site_list = {'konachan': 'http://konachan.com',
 						  'danbooru': 'http://danbooru.donmai.us',
 						  'yandere': 'https://yande.re',
@@ -43,6 +58,14 @@ class Pybooru(object):
 			print PybooruError('Site name is not valid')
 
 	def _json_load(self, url):
+		""" 
+			JSON Loader
+			-----------
+			Atributes
+			-----------
+			url - url of JSON load
+		"""
+
 		try:
 			self.openURL = urllib.urlopen(url)
 			self.request = self.openURL.read()
@@ -52,6 +75,10 @@ class Pybooru(object):
 			raise PybooruError('Error in _json_load', self.openURL.getcode(), url)
 
 	def _url_build(self, api_url, params=None):
+		"""
+			url Builder for the JSON loader
+		"""
+
 		if params is not None:
 			self.url_request = self.baseURL + api_url + params
 			self.url_request = self._json_load(self.url_request)
