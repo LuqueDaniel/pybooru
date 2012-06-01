@@ -1,0 +1,10 @@
+# Ignore files .pyc
+*.pyc
+
+# ignore test file
+pybooru/pro.py
+
+build/
+dist/
+pybooru.egg-info/
+
