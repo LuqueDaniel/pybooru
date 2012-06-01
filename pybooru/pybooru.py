@@ -4,13 +4,14 @@
 """ 
 	Pybooru is a library for Python for access to API Danbooru based sites.
 
-	Version: 1.0.0
+	Version: 1.1.0
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.0.0'
+__version__ = '1.1.0'
 
 import urllib
+from urlparse import urlparse
 
 try:
     import simplejson
@@ -28,22 +29,14 @@ class Pybooru(object):
 
 		if siteURL is not None:
 			self.siteURL = str(siteURL).lower()
-			self.baseURL = siteURL
+			self._url_validator(self.siteURL)
 		elif name is not None:
 			self.name = str(name).lower()
 			self._site_name(self.name)
 		else:
 			print PybooruError('siteURL or name invalid')
 
-	def _site_name(self,name):
-		""" 
-			Site name selector
-			------------------
-			Atributes:
-			------------------
-			name - site name
-		"""
-
+	def _site_name(self, name):
 		self.site_list = {'konachan': 'http://konachan.com',
 						  'danbooru': 'http://danbooru.donmai.us',
 						  'yandere': 'https://yande.re',
@@ -58,14 +51,6 @@ class Pybooru(object):
 			print PybooruError('Site name is not valid')
 
 	def _json_load(self, url):
-		""" 
-			JSON Loader
-			-----------
-			Atributes
-			-----------
-			url - url of JSON load
-		"""
-
 		try:
 			self.openURL = urllib.urlopen(url)
 			self.request = self.openURL.read()
@@ -87,6 +72,21 @@ class Pybooru(object):
 			self.url_request = self.baseURL + api_url
 			self.url_request = self._json_load(self.url_request)
 			return self.url_request
+
+	def _url_validator(self, url):
+		""" 
+			URL validator for siteURL parameter of Pybooru
+		"""
+
+		self.parse = urlparse(url)
+
+		if (self.parse[0] != 'http' or 'https') or (url[-1] == '/'):
+			if self.parse[0] != 'http' or 'https':
+				self.url = 'http://'+self.parse[1]+self.parse[2]+self.parse[3]
+			if url[-1] == '/':
+				self.url = self.url[:-1]
+
+		self.baseURL = self.url
 
 	def posts(self, tags=None, limit=10, page=1):
 		self.posts_url = '/post/index.json?'
