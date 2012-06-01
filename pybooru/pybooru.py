@@ -237,25 +237,25 @@ class PybooruError(Exception):
 
 		if err_code is not None and url is not None:
 			if err_code == 200:
-				self.err_msg = '%s - ERROR CODE:%i - Request was successful - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - Request was successful - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 403:
-				self.err_msg = '%s - ERROR CODE:%i - Access denied - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - Access denied - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 404:
-				self.err_msg = '%s - ERROR CODE:%i - Not found - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - Not found - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 420:
-				self.err_msg = '%s - ERROR CODE:%i - Record could not be saved - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - Record could not be saved - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 421:
-				self.err_msg = '%s - ERROR CODE:%i - User is throttled, try again later - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - User is throttled, try again later - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 422:
-				self.err_msg = '%s - ERROR CODE:%i - The resource is locked and cannot be modified - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - The resource is locked and cannot be modified - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 423:
-				self.err_msg = '%s - ERROR CODE:%i - Resource already exists - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - Resource already exists - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 424:
-				self.err_msg = '%s - ERROR CODE:%i - The given parameters were invalid - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - The given parameters were invalid - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 500:
-				self.err_msg = '%s - ERROR CODE:%i - Some unknown error occurred on the server - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - Some unknown error occurred on the server - URL: %s" % (self.err_msg, err_code, url)
 			elif err_code == 503:
-				self.err_msg = '%s - ERROR CODE:%i - Server cannot currently handle the request, try again later - URL: %s' % (self.err_msg, err_code, url)
+				self.err_msg = "%s - ERROR CODE:%i - Server cannot currently handle the request, try again later - URL: %s" % (self.err_msg, err_code, url)
 
 	def __str__(self):
 		return repr(self.err_msg)
