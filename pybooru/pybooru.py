@@ -40,7 +40,7 @@ class Pybooru(object):
 		self.site_list = {'konachan': 'http://konachan.com',
 						  'danbooru': 'http://danbooru.donmai.us',
 						  'yandere': 'https://yande.re',
-						  'chan-sankaku': 'htpp://chan.sankakucomplex.com',
+						  'chan-sankaku': 'http://chan.sankakucomplex.com',
 						  'idol-sankaku': 'http://idol.sankakucomplex.com',
 						  '3dbooru': 'http://behoimi.org',
 						  'nekobooru': 'http://nekobooru.net'}
