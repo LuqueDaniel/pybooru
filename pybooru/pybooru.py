@@ -8,7 +8,7 @@
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.1.0'
+__version__ = '1.1.2'
 
 import urllib
 from urlparse import urlparse
