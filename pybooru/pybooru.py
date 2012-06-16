@@ -4,7 +4,7 @@
 """ 
 	Pybooru is a library for Python for access to API Danbooru based sites.
 
-	Version: 1.1.0
+	Version: 1.1.2
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
