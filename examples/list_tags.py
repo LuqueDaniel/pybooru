@@ -1,4 +1,4 @@
-from pybooru import pybooru
+from pybooru import Pybooru
 
 client = pybooru('Danbooru')
 
