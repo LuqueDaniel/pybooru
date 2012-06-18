@@ -4,13 +4,13 @@
 """ 
 	Pybooru is a library for Python for access to API Danbooru based sites.
 
-	Version: 1.1.3
+	Version: 1.1.4
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.1.3'
+__version__ = '1.1.4'
 
-import urllib
+from urllib import urlopen
 from urlparse import urlparse
 
 try:
@@ -52,7 +52,7 @@ class Pybooru(object):
 
 	def _json_load(self, url):
 		try:
-			self.request = urllib.urlopen(url).read()
+			self.request = urlopen(url).read() # urlopen() from module urllib
 			self.response = simplejson.loads(self.request)
 			return self.response
 		except:
