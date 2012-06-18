@@ -52,8 +52,9 @@ class Pybooru(object):
 
 	def _json_load(self, url):
 		try:
-			self.request = urlopen(url).read() # urlopen() from module urllib
-			self.response = simplejson.loads(self.request)
+			self.openURL = urlopen(url) # urlopen() from module urllib
+			self.reading = openURL.read()
+			self.response = simplejson.loads(self.reading)
 			return self.response
 		except:
 			raise PybooruError('Error in _json_load', self.openURL.getcode(), url)
