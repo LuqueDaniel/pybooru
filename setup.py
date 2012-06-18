@@ -4,7 +4,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.1.3'
+__version__ = '1.1.4'
 
 setup(
     name='pybooru',
