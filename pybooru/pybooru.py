@@ -240,6 +240,19 @@ class Pybooru(object):
 		else:
 			print PybooruError('id_ attribute is empty')
 
+	def tag_history(self, post_id=None, user_id=None, user_name=None):
+		self.tag_history_url = '/post_tag_history/index.json?'
+
+		if post_id is not None:
+			self.params = 'post_id=%i' % (post_id)
+			return self._url_build(self.tag_history_url, self.params)
+		if user_id is not None:
+			self.params = 'user_id=%i' % (user_id)
+			return self._url_build(self.tag_history_url, self.params)
+		if user_name is not None:
+			self.user_name = str(user_name)
+			self.params = 'user_name=%s' % (self.user_name)
+			return self._url_build(self.tag_history_url, self.params)
 
 class PybooruError(Exception):
 	def __init__(self, err_msg, err_code=None, url=None):
