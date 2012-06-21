@@ -147,6 +147,16 @@ class Pybooru(object):
 		else:
 			return self._url_build(self.wiki_url, self.params)
 
+	def wiki_history(self, title=None):
+		self.wiki_history_url = '/wiki/history.json?'
+
+		if title is not None:
+			self.title = str(title)
+			self.params = 'title=%s' % (self.title)
+			return self._url_build(self.wiki_history_url, self.params)
+		else:
+			PybooruError('title atribute is required')
+
 	def notes(self, id_=None):
 		self.notes_url = '/note/index.json?'
 
