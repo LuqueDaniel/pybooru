@@ -1,7 +1,7 @@
 #!/usr/bin/env Python
 #encoding: utf-8
 
-""" 
+"""
 	Pybooru is a library for Python for access to API Danbooru based sites.
 
 	Version: 1.3.1
@@ -53,7 +53,7 @@ class Pybooru(object):
 	def _json_load(self, url):
 		try:
 			self.openURL = urlopen(url) # urlopen() from module urllib
-			self.reading = openURL.read()
+			self.reading = self.openURL.read()
 			self.response = simplejson.loads(self.reading)
 			return self.response
 		except:
@@ -74,7 +74,7 @@ class Pybooru(object):
 			return self.url_request
 
 	def _url_validator(self, url):
-		""" 
+		"""
 			URL validator for siteURL parameter of Pybooru
 		"""
 
@@ -209,7 +209,7 @@ class Pybooru(object):
 			self.params = 'parent_id%i' % (id_)
 			return self._url_build(self.forum_url, self.params)
 		else:
-			return self._url_build(sel.forum_url)
+			return self._url_build(self.forum_url)
 
 	def pools(self, query=None, page=1):
 		self.pools_url = '/pool/index.json?'
