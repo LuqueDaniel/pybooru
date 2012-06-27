@@ -9,15 +9,15 @@ client = Pybooru(name='Konachan')
 #wiki = client.wiki('nice', 'date', 2, 1)
 
 #for msg in wiki:
-#	print 'Mensaje: %s' % (msg['body']),
+#    print 'Mensaje: %s' % (msg['body']),
 
 #posts = client.posts('blue_eyes', 2, 0)
 
 #for post in posts:
-#	print 'URL imagen: %s' % (post['file_url'])
+#    print 'URL imagen: %s' % (post['file_url'])
 
 #tags = client.tags(None, None, 100, 0, 'date')
 
 #print tags
 #for tag in tags:
-#	print "Nombre: %s ----- %i" % (tag['name'], tag['type'])
+#    print "Nombre: %s ----- %i" % (tag['name'], tag['type'])
