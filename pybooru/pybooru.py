@@ -4,11 +4,11 @@
 """
     Pybooru is a library for Python for access to API Danbooru based sites.
 
-    version: 1.4.0
+    version: 1.4.1
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.4.0'
+__version__ = '1.4.1'
 
 from urllib import urlopen
 from urlparse import urlparse
