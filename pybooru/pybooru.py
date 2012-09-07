@@ -4,11 +4,11 @@
 """
     Pybooru is a library for Python for access to API Danbooru based sites.
 
-    version: 1.4.1
+    version: 1.4.5
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.4.1'
+__version__ = '1.4.5'
 
 from urllib import urlopen
 from urlparse import urlparse
@@ -17,22 +17,52 @@ try:
     import simplejson
 except ImportError:
     try:
-        # Python 2.6 and up
+        #Python 2.6 and up
         import json as simplejson
     except ImportError:
-        raise PybooruError('Pybooru requires the simplejson library to work')
+        raise Exception('Pybooru requires the simplejson library to work')
+
+
+class PybooruError(Exception):
+    def __init__(self, err_msg, err_code=None, url=None):
+        self.err_msg = err_msg
+
+        if err_code is not None and url is not None:
+            if err_code == 200:
+                self.err_msg = "%s - ERROR CODE:%i - Request was successful - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 403:
+                self.err_msg = "%s - ERROR CODE:%i - Access denied - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 404:
+                self.err_msg = "%s - ERROR CODE:%i - Not found - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 420:
+                self.err_msg = "%s - ERROR CODE:%i - Record could not be saved - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 421:
+                self.err_msg = "%s - ERROR CODE:%i - User is throttled, try again later - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 422:
+                self.err_msg = "%s - ERROR CODE:%i - The resource is locked and cannot be modified - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 423:
+                self.err_msg = "%s - ERROR CODE:%i - Resource already exists - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 424:
+                self.err_msg = "%s - ERROR CODE:%i - The given parameters were invalid - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 500:
+                self.err_msg = "%s - ERROR CODE:%i - Some unknown error occurred on the server - URL: %s" % (self.err_msg, err_code, url)
+            elif err_code == 503:
+                self.err_msg = "%s - ERROR CODE:%i - Server cannot currently handle the request, try again later - URL: %s" % (self.err_msg, err_code, url)
+
+    def __str__(self):
+        return repr(self.err_msg)
 
 
 class Pybooru(object):
     def __init__(self, name=None, siteURL=None):
         self.baseURL = ''
 
-        if siteURL is not None:
-            self.siteURL = str(siteURL).lower()
-            self._url_validator(self.siteURL)
-        elif name is not None:
+        if name is not None:
             self.name = str(name).lower()
             self._site_name(self.name)
+        elif siteURL is not None:
+            self.siteURL = str(siteURL).lower()
+            self._url_validator(self.siteURL)
         else:
             print PybooruError('siteURL or name invalid')
 
@@ -59,7 +89,7 @@ class Pybooru(object):
             return self.response
         except:
             raise PybooruError('Error in _json_load', self.openURL.getcode(),
-                                url)
+                                                                        url)
 
     def _url_build(self, api_url, params=None):
         """
@@ -84,7 +114,9 @@ class Pybooru(object):
 
         if (self.parse[0] != 'http' or 'https') or (url[-1] == '/'):
             if self.parse[0] != 'http' or 'https':
-                self.url = 'http://' + self.parse[1] + self.parse[2] + self.parse[3]
+                self.url = 'http://' + self.parse[1] + self.parse[2] + \
+                self.parse[3]
+                print self.url
             if url[-1] == '/':
                 self.url = self.url[:-1]
 
@@ -101,7 +133,8 @@ class Pybooru(object):
         else:
             return self._url_build(self.posts_url, self.params)
 
-    def tags(self, name=None, id_=None, limit=100, page=1, order='name', after_id=0):
+    def tags(self, name=None, id_=None, limit=100, page=1, order='name',
+                                                            after_id=0):
         self.tags_url = '/tag/index.json?'
 
         if id_ is not None:
@@ -112,7 +145,8 @@ class Pybooru(object):
             self.params = "name=%s" % (self.name)
             return self._url_build(self.tags_url, self.params)
         else:
-            self.params = "limit=%i&page=%i&order=%s&after_id=%i" % (limit, page, order, after_id)
+            self.params = "limit=%i&page=%i&order=%s&after_id=%i" % (limit,
+                                                    page, order, after_id)
             return self._url_build(self.tags_url, self.params)
 
     def artists(self, name=None, id_=None, limit=20, order='name', page=1):
@@ -255,36 +289,6 @@ class Pybooru(object):
             self.user_name = str(user_name)
             self.params = 'user_name=%s' % (self.user_name)
             return self._url_build(self.tag_history_url, self.params)
-
-
-class PybooruError(Exception):
-    def __init__(self, err_msg, err_code=None, url=None):
-        self.err_msg = err_msg
-
-        if err_code is not None and url is not None:
-            if err_code == 200:
-                self.err_msg = "%s - ERROR CODE:%i - Request was successful - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 403:
-                self.err_msg = "%s - ERROR CODE:%i - Access denied - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 404:
-                self.err_msg = "%s - ERROR CODE:%i - Not found - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 420:
-                self.err_msg = "%s - ERROR CODE:%i - Record could not be saved - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 421:
-                self.err_msg = "%s - ERROR CODE:%i - User is throttled, try again later - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 422:
-                self.err_msg = "%s - ERROR CODE:%i - The resource is locked and cannot be modified - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 423:
-                self.err_msg = "%s - ERROR CODE:%i - Resource already exists - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 424:
-                self.err_msg = "%s - ERROR CODE:%i - The given parameters were invalid - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 500:
-                self.err_msg = "%s - ERROR CODE:%i - Some unknown error occurred on the server - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 503:
-                self.err_msg = "%s - ERROR CODE:%i - Server cannot currently handle the request, try again later - URL: %s" % (self.err_msg, err_code, url)
-
-    def __str__(self):
-        return repr(self.err_msg)
 
 
 if __name__ == '__main__':
