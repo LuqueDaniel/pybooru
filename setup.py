@@ -4,10 +4,10 @@ from setuptools import setup
 from setuptools import find_packages
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.4.1'
+__version__ = '1.4.5'
 
 setup(
-    name='pybooru',
+    name='Pybooru',
     version=__version__,
     author=__author__,
     author_email="danielluque14@gmail.com",
