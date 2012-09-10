@@ -4,22 +4,22 @@
 """
     Pybooru is a library for Python for access to API Danbooru based sites.
 
-    version: 1.4.5
-    Under MIT License
+    version: 1.4.7
+    Under a MIT License
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.4.5'
+__version__ = '1.4.7'
 
 from urllib import urlopen
 from urlparse import urlparse
 
 try:
-    import simplejson
+    from simplejson import loads
 except ImportError:
     try:
         #Python 2.6 and up
-        import json as simplejson
+        from json import loads
     except ImportError:
         raise Exception('Pybooru requires the simplejson library to work')
 
@@ -97,35 +97,6 @@ class Pybooru(object):
         else:
             print PybooruError('Site name is not valid')
 
-    def _json_load(self, url):
-        """
-            Function for read and return Json response
-        """
-
-        try:
-            # urlopen() from module urllib
-            self.openURL = urlopen(url)
-            self.reading = self.openURL.read()
-            self.response = simplejson.loads(self.reading)
-            return self.response
-        except:
-            raise PybooruError('Error in _json_load', self.openURL.getcode(),
-                                                                        url)
-
-    def _url_build(self, api_url, params=None):
-        """
-            Url Builder for _json_load
-        """
-
-        if params is not None:
-            self.url_request = self.baseURL + api_url + params
-            self.url_request = self._json_load(self.url_request)
-            return self.url_request
-        else:
-            self.url_request = self.baseURL + api_url
-            self.url_request = self._json_load(self.url_request)
-            return self.url_request
-
     def _url_validator(self, url):
         """
             URL validator for siteURL parameter of Pybooru
@@ -142,6 +113,36 @@ class Pybooru(object):
                 self.url = self.url[:-1]
 
         self.baseURL = self.url
+
+    def _url_build(self, api_url, params=None):
+        """
+            Url Builder for _json_load
+        """
+
+        if params is not None:
+            self.url_request = self.baseURL + api_url + params
+            self.url_request = self._json_load(self.url_request)
+            return self.url_request
+        else:
+            self.url_request = self.baseURL + api_url
+            self.url_request = self._json_load(self.url_request)
+            return self.url_request
+
+    def _json_load(self, url):
+        """
+            Function for read and return Json response
+        """
+
+        try:
+            # urlopen() from module urllib
+            self.openURL = urlopen(url)
+            self.reading = self.openURL.read()
+            #loads() is a function of simplejson module
+            self.response = loads(self.reading)
+            return self.response
+        except:
+            raise PybooruError('Error in _json_load', self.openURL.getcode(),
+                                                                        url)
 
     def posts(self, tags=None, limit=10, page=1):
         self.posts_url = '/post/index.json?'
