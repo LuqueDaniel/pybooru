@@ -12,7 +12,7 @@ setup(
     author=__author__,
     author_email="danielluque14@gmail.com",
     url="https://github.com/LuqueDaniel/pybooru",
-    license="MIT",
+    license="MIT License",
     packages=find_packages(),
     include_package_data=True,
     install_requires=['simplejson'],

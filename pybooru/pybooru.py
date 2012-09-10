@@ -5,6 +5,7 @@
     Pybooru is a library for Python for access to API Danbooru based sites.
 
     version: 1.4.5
+    Under MIT License
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
@@ -24,6 +25,10 @@ except ImportError:
 
 
 class PybooruError(Exception):
+    """
+       Class for Error message
+    """
+
     def __init__(self, err_msg, err_code=None, url=None):
         self.err_msg = err_msg
 
@@ -55,6 +60,14 @@ class PybooruError(Exception):
 
 class Pybooru(object):
     def __init__(self, name=None, siteURL=None):
+        """
+            Pybooru class
+
+            Init parameters:
+                    name: of the site name
+                    siteURL: URL of Danbooru site
+        """
+
         self.baseURL = ''
 
         if name is not None:
@@ -67,6 +80,10 @@ class Pybooru(object):
             print PybooruError('siteURL or name invalid')
 
     def _site_name(self, name):
+        """
+            Function for check name site and get URL
+        """
+
         self.site_list = {'konachan': 'http://konachan.com',
                           'danbooru': 'http://danbooru.donmai.us',
                           'yandere': 'https://yande.re',
@@ -81,6 +98,10 @@ class Pybooru(object):
             print PybooruError('Site name is not valid')
 
     def _json_load(self, url):
+        """
+            Function for read and return Json response
+        """
+
         try:
             # urlopen() from module urllib
             self.openURL = urlopen(url)
@@ -93,7 +114,7 @@ class Pybooru(object):
 
     def _url_build(self, api_url, params=None):
         """
-            Url Builder for the JSON loader
+            Url Builder for _json_load
         """
 
         if params is not None:
