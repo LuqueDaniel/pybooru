@@ -6,5 +6,5 @@ pybooru/pro.py
 
 build/
 dist/
-pybooru.egg-info/
+Pybooru.egg-info/
 
