@@ -13,7 +13,7 @@ For installation Pybooru
 Example use.
 ------------------------------------------------------------------------
 ``` python
-from pybooru import Pybooru
+from Pybooru import Pybooru
 
 client = Pybooru('Konachan')
 

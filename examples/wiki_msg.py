@@ -1,4 +1,4 @@
-from pybooru import Pybooru
+from Pybooru import Pybooru
 
 client = Pybooru('yandere')
 

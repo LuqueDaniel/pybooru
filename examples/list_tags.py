@@ -1,6 +1,6 @@
-from pybooru import Pybooru
+from Pybooru import Pybooru
 
-client = Pybooru('Danbooru')
+client = Pybooru('Konachan')
 
 tags = client.tags(None, None, 100, 0, 'date')
 
