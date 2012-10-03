@@ -3,12 +3,12 @@
 
 """
     Pybooru is a library for Python for access to API Danbooru based sites.
-    Version: 1.4.8
+    Version: 1.4.9
     Under a MIT License
 """
 
 __author__ = 'Daniel Luque <danielluque14@gmail.com>'
-__version__ = '1.4.8'
+__version__ = '1.4.9'
 
 from urllib import urlopen
 from urlparse import urlparse
