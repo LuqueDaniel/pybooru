@@ -7,13 +7,20 @@
     Under a MIT License
 """
 
-__author__ = 'Daniel Luque <danielluque14@gmail.com>'
+__author__ = 'Daniel Luque <danielluque14 at gmail.com>'
 __version__ = '1.4.9'
 
-from urllib import urlopen
+
+#urllib2 imports
+from urllib2 import urlopen
+from urllib2 import URLError
+from urllib2 import HTTPError
+
+#urlparse imports
 from urlparse import urlparse
 
 try:
+    #simplejson imports
     from simplejson import loads
 except ImportError:
     try:
@@ -22,39 +29,29 @@ except ImportError:
     except ImportError:
         raise Exception('Pybooru requires the simplejson library to work')
 
+#pyborru resources import
+from resources import http_status_codes
+
 
 class PybooruError(Exception):
     """
-       Class for Error message
+       Class for return error message
     """
 
     def __init__(self, err_msg, err_code=None, url=None):
-        self.err_msg = err_msg
+        self.msg = err_msg
+        self.code = err_code
 
-        if err_code is not None and url is not None:
-            if err_code == 200:
-                self.err_msg = "%s - ERROR CODE:%i - Request was successful - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 403:
-                self.err_msg = "%s - ERROR CODE:%i - Access denied - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 404:
-                self.err_msg = "%s - ERROR CODE:%i - Not found - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 420:
-                self.err_msg = "%s - ERROR CODE:%i - Record could not be saved - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 421:
-                self.err_msg = "%s - ERROR CODE:%i - User is throttled, try again later - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 422:
-                self.err_msg = "%s - ERROR CODE:%i - The resource is locked and cannot be modified - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 423:
-                self.err_msg = "%s - ERROR CODE:%i - Resource already exists - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 424:
-                self.err_msg = "%s - ERROR CODE:%i - The given parameters were invalid - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 500:
-                self.err_msg = "%s - ERROR CODE:%i - Some unknown error occurred on the server - URL: %s" % (self.err_msg, err_code, url)
-            elif err_code == 503:
-                self.err_msg = "%s - ERROR CODE:%i - Server cannot currently handle the request, try again later - URL: %s" % (self.err_msg, err_code, url)
+        if (err_code is not None) and (err_code in http_status_codes) and (
+            url is not None):
+            self.msg = '%i: %s, %s -- %s -- URL: %s' % (err_code,
+                        http_status_codes[err_code][0],
+                        http_status_codes[err_code][1], self.msg, url)
 
     def __str__(self):
-        return repr(self.err_msg)
+        """This function return self.err_msg"""
+
+        return repr(self.msg)
 
 
 class Pybooru(object):
@@ -79,9 +76,7 @@ class Pybooru(object):
             print PybooruError('siteURL or name invalid')
 
     def _site_name(self, name):
-        """
-            Function for check name site and get URL
-        """
+        """Function for check name site and get URL"""
 
         self.site_list = {'konachan': 'http://konachan.com',
                           'danbooru': 'http://danbooru.donmai.us',
@@ -97,9 +92,7 @@ class Pybooru(object):
             print PybooruError('Site name is not valid')
 
     def _url_validator(self, url):
-        """
-            URL validator for siteURL parameter of Pybooru
-        """
+        """URL validator for siteURL parameter of Pybooru"""
 
         self.parse = urlparse(url)
 
@@ -107,16 +100,13 @@ class Pybooru(object):
             if self.parse[0] != 'http' or 'https':
                 self.url = 'http://' + self.parse[1] + self.parse[2] + \
                 self.parse[3]
-                print self.url
             if url[-1] == '/':
                 self.url = self.url[:-1]
 
         self.baseURL = self.url
 
-    def _url_build(self, api_url, params=None):
-        """
-            Url Builder for _json_load
-        """
+    def _build_url(self, api_url, params=None):
+        """Builder url for _json_load"""
 
         if params is not None:
             self.url_request = self.baseURL + api_url + params
@@ -128,20 +118,20 @@ class Pybooru(object):
             return self.url_request
 
     def _json_load(self, url):
-        """
-            Function for read and return Json response
-        """
+        """Function for read and return JSON response"""
 
         try:
-            # urlopen() from module urllib
+            #urlopen() from module urllib2
             self.openURL = urlopen(url)
             self.reading = self.openURL.read()
             #loads() is a function of simplejson module
             self.response = loads(self.reading)
             return self.response
-        except:
-            raise PybooruError('Error in _json_load', self.openURL.getcode(),
-                                                                        url)
+        except (URLError, HTTPError) as err:
+            if hasattr(err, 'code'):
+                raise PybooruError('in _json_load', err.code, url)
+            else:
+                raise PybooruError('in _json_load %s' % (err.reason), url)
 
     def posts(self, tags=None, limit=10, page=1):
         self.posts_url = '/post/index.json?'
@@ -150,9 +140,9 @@ class Pybooru(object):
         if tags is not None:
             self.tags = str(tags)
             self.params += '&tags=%s' % (tags)
-            return self._url_build(self.posts_url, self.params)
+            return self._build_url(self.posts_url, self.params)
         else:
-            return self._url_build(self.posts_url, self.params)
+            return self._build_url(self.posts_url, self.params)
 
     def tags(self, name=None, id_=None, limit=100, page=1, order='name',
                                                             after_id=0):
@@ -160,15 +150,15 @@ class Pybooru(object):
 
         if id_ is not None:
             self.params = 'id=%i' % (id_)
-            return self._url_build(self.tags_url, self.params)
+            return self._build_url(self.tags_url, self.params)
         if name is not None:
             self.name = str(name)
             self.params = "name=%s" % (self.name)
-            return self._url_build(self.tags_url, self.params)
+            return self._build_url(self.tags_url, self.params)
         else:
             self.params = "limit=%i&page=%i&order=%s&after_id=%i" % (limit,
                                                     page, order, after_id)
-            return self._url_build(self.tags_url, self.params)
+            return self._build_url(self.tags_url, self.params)
 
     def artists(self, name=None, id_=None, limit=20, order='name', page=1):
         self.artists_url = '/artist/index.json?'
@@ -177,19 +167,19 @@ class Pybooru(object):
         if name is not None:
             self.name = str(name)
             self.params += '&name=%s' % (self.name)
-            return self._url_build(self.artists_url, self.params)
+            return self._build_url(self.artists_url, self.params)
         elif id_ is not None:
             self.params = 'id=%i' % (id_)
-            return self._url_build(self.artists_url, self.params)
+            return self._build_url(self.artists_url, self.params)
         else:
-            return self._url_build(self.artists_url, self.params)
+            return self._build_url(self.artists_url, self.params)
 
     def comments(self, id_=None):
         self.comments_url = '/comment/show.json?'
 
         if id_ is not None:
             self.params = 'id=%i' % (id_)
-            return self._url_build(self.comments_url, self.params)
+            return self._build_url(self.comments_url, self.params)
         else:
             print PybooruError('id_ attribute is empty')
 
@@ -200,9 +190,9 @@ class Pybooru(object):
         if query is not None:
             self.query = str(query)
             self.params += '&query=%s' % (self.query)
-            return self._url_build(self.wiki_url, self.params)
+            return self._build_url(self.wiki_url, self.params)
         else:
-            return self._url_build(self.wiki_url, self.params)
+            return self._build_url(self.wiki_url, self.params)
 
     def wiki_history(self, title=None):
         self.wiki_history_url = '/wiki/history.json?'
@@ -210,7 +200,7 @@ class Pybooru(object):
         if title is not None:
             self.title = str(title)
             self.params = 'title=%s' % (self.title)
-            return self._url_build(self.wiki_history_url, self.params)
+            return self._build_url(self.wiki_history_url, self.params)
         else:
             PybooruError('title atribute is required')
 
@@ -219,9 +209,9 @@ class Pybooru(object):
 
         if id_ is not None:
             self.params = 'post_id=%i' % (id_)
-            return self._url_build(self.notes_url, self.params)
+            return self._build_url(self.notes_url, self.params)
         else:
-            return self._url_build(self.notes_url)
+            return self._build_url(self.notes_url)
 
     def search_notes(self, query=None):
         self.search_notes_url = '/note/search.json?'
@@ -229,7 +219,7 @@ class Pybooru(object):
         if query is not None:
             self.query = str(query)
             self.params = 'query=%s' % (self.query)
-            return self._url_build(self.search_notes_url, self.params)
+            return self._build_url(self.search_notes_url, self.params)
         else:
             print PybooruError('query attribute is empty')
 
@@ -238,13 +228,13 @@ class Pybooru(object):
 
         if post_id is not None:
             self.params = 'post_id=%i' % (post_id)
-            return self._url_build(self.history_notes_url, self.params)
+            return self._build_url(self.history_notes_url, self.params)
         elif id_ is not None:
             self.params = 'id=%i' % (post_id)
-            return self._url_build(self.history_notes_url, self.params)
+            return self._build_url(self.history_notes_url, self.params)
         else:
             self.params = 'limit=%i&page=%i' % (limit, page)
-            return self._url_build(self.history_notes_url, self.params)
+            return self._build_url(self.history_notes_url, self.params)
 
     def users(self, name=None, id_=None):
         self.users_url = '/user/index.json?'
@@ -252,21 +242,21 @@ class Pybooru(object):
         if name is not None:
             self.name = str(name)
             self.params = 'name=%s' % (self.name)
-            return self._url_build(self.users_url, self.params)
+            return self._build_url(self.users_url, self.params)
         elif id_ is not None:
             self.params = 'id=%i' % (self.id_)
-            return self._url_build(self.users_url, self.params)
+            return self._build_url(self.users_url, self.params)
         else:
-            return self._url_build(self.users_url)
+            return self._build_url(self.users_url)
 
     def forum(self, id_=None):
         self.forum_url = '/forum/index.json?'
 
         if id_ is not None:
             self.params = 'parent_id%i' % (id_)
-            return self._url_build(self.forum_url, self.params)
+            return self._build_url(self.forum_url, self.params)
         else:
-            return self._url_build(self.forum_url)
+            return self._build_url(self.forum_url)
 
     def pools(self, query=None, page=1):
         self.pools_url = '/pool/index.json?'
@@ -274,17 +264,17 @@ class Pybooru(object):
         if query is not None:
             self.query = str(query)
             self.params = 'query=%s' % (self.query)
-            return self._url_build(self.pools_url, self.params)
+            return self._build_url(self.pools_url, self.params)
         else:
             self.params = 'page=%i' % (page)
-            return self._url_build(self.pools_url, self.params)
+            return self._build_url(self.pools_url, self.params)
 
     def pools_posts(self, id_=None, page=1):
         self.pools_posts_url = '/pool/show.json?'
 
         if id_ is not None:
             self.params = 'id=%i&page=%i' % (id_, page)
-            return self._url_build(self.pools_posts_url, self.params)
+            return self._build_url(self.pools_posts_url, self.params)
         else:
             print PybooruError('id_ attribute is empty')
 
@@ -293,7 +283,7 @@ class Pybooru(object):
 
         if id_ is not None:
             self.params = 'id=%i' % (id_)
-            return self._url_build(self.favorites, self.params)
+            return self._build_url(self.favorites, self.params)
         else:
             print PybooruError('id_ attribute is empty')
 
@@ -302,14 +292,14 @@ class Pybooru(object):
 
         if post_id is not None:
             self.params = 'post_id=%i' % (post_id)
-            return self._url_build(self.tag_history_url, self.params)
+            return self._build_url(self.tag_history_url, self.params)
         if user_id is not None:
             self.params = 'user_id=%i' % (user_id)
-            return self._url_build(self.tag_history_url, self.params)
+            return self._build_url(self.tag_history_url, self.params)
         if user_name is not None:
             self.user_name = str(user_name)
             self.params = 'user_name=%s' % (self.user_name)
-            return self._url_build(self.tag_history_url, self.params)
+            return self._build_url(self.tag_history_url, self.params)
 
 
 if __name__ == '__main__':
