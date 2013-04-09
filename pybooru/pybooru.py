@@ -29,8 +29,9 @@ except ImportError:
     except ImportError:
         raise Exception('Pybooru requires the simplejson library to work')
 
-#pyborru resources import
+#pyborru resources imports
 from resources import http_status_codes
+from resources import site_list
 
 
 class PybooruError(Exception):
@@ -78,16 +79,8 @@ class Pybooru(object):
     def _site_name(self, name):
         """Function for check name site and get URL"""
 
-        self.site_list = {'konachan': 'http://konachan.com',
-                          'danbooru': 'http://danbooru.donmai.us',
-                          'yandere': 'https://yande.re',
-                          'chan-sankaku': 'http://chan.sankakucomplex.com',
-                          'idol-sankaku': 'http://idol.sankakucomplex.com',
-                          '3dbooru': 'http://behoimi.org',
-                          'nekobooru': 'http://nekobooru.net'}
-
-        if name in self.site_list.keys():
-            self.baseURL = self.site_list[name]
+        if name in site_list.keys():
+            self.baseURL = site_list[name]
         else:
             print PybooruError('Site name is not valid')
 

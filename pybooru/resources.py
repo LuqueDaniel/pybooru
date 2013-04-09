@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 
+#site_list
+site_list = {'konachan': 'http://konachan.com',
+             'danbooru': 'http://danbooru.donmai.us',
+             'yandere': 'https://yande.re',
+             'chan-sankaku': 'http://chan.sankakucomplex.com',
+             'idol-sankaku': 'http://idol.sankakucomplex.com',
+             '3dbooru': 'http://behoimi.org',
+             'nekobooru': 'http://nekobooru.net'}
+
 #http_status_codes
 http_status_codes = {
     200: ('OK', 'Request was successful'),
