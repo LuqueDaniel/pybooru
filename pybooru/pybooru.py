@@ -3,7 +3,7 @@
 
 """
     Pybooru is a library for Python for access to API Danbooru based sites.
-    Version: 1.4.9
+
     Under a MIT License
 """
 
@@ -60,14 +60,14 @@ class PybooruError(Exception):
 
 
 class Pybooru(object):
-    def __init__(self, name=None, siteURL=None):
-        """
-            Pybooru class
+    """Pybooru class
 
-            Init parameters:
-                    name: of the site name
-                    siteURL: URL of Danbooru site
-        """
+    init Parameters:
+        name: The site name in site_list
+        siteURL: URL of based Danbooru site
+    """
+
+    def __init__(self, name=None, siteURL=None):
 
         self.baseURL = ''
 

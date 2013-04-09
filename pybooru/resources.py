@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+    This module contain all resources for pybooru
+
+    site_list: Is a dict contains various based Danbooru default sites
+    http_status_codes: Is a dict contains the http status code for Danbooru API
+"""
+
 #site_list
 site_list = {'konachan': 'http://konachan.com',
              'danbooru': 'http://danbooru.donmai.us',
