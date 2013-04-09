@@ -125,6 +125,9 @@ class Pybooru(object):
                 raise PybooruError('in _json_load', err.code, url)
             else:
                 raise PybooruError('in _json_load %s' % (err.reason), url)
+        except ValueError as err:
+            raise PybooruError('JSON Error: %s in line %s column %s' % (
+                               err.msg, err.lineno, err.colno))
 
     def posts(self, tags=None, limit=10, page=1):
         self.posts_url = '/post/index.json?'
