@@ -35,22 +35,26 @@ from resources import site_list
 
 
 class PybooruError(Exception):
-    """
-       Class for return error message
+    """Class for return error message
+
+    msg: The error message
+    http_code: The HTTP status code
+    url: The URL
     """
 
-    def __init__(self, err_msg, err_code=None, url=None):
-        self.msg = err_msg
-        self.code = err_code
+    def __init__(self, msg, http_code=None, url=None):
+        self.msg = msg
+        self.http_code = http_code
+        self.url = url
 
-        if (err_code is not None) and (err_code in http_status_codes) and (
+        if (http_code is not None) and (http_code in http_status_codes) and (
             url is not None):
-            self.msg = '%i: %s, %s -- %s -- URL: %s' % (err_code,
-                        http_status_codes[err_code][0],
-                        http_status_codes[err_code][1], self.msg, url)
+            self.msg = '%i: %s, %s -- %s -- URL: %s' % (http_code,
+                        http_status_codes[http_code][0],
+                        http_status_codes[http_code][1], self.msg, url)
 
     def __str__(self):
-        """This function return self.err_msg"""
+        """This function return self.msg"""
 
         return repr(self.msg)
 
