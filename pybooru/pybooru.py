@@ -81,7 +81,7 @@ class Pybooru(object):
         self.siteName = siteName
         self.siteURL = siteURL
 
-        if not (self.siteURL is not None) and (self.siteName is not None):
+        if (self.siteURL is not None) or (self.siteName is not None):
             if self.siteName is not None:
                 self._site_name(self.siteName.lower())
             elif self.siteURL is not None:
@@ -210,7 +210,7 @@ class Pybooru(object):
             self.params = 'id=%i' % (id_)
             return self._build_url(self.comments_url, self.params)
         else:
-            print PybooruError('id_ attribute is empty')
+            raise PybooruError('id_ attribute is empty')
 
     def wiki(self, query=None, order='title', limit=20, page=1):
         self.wiki_url = '/wiki/index.json?'
