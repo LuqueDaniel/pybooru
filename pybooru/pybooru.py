@@ -102,16 +102,13 @@ class Pybooru(object):
             url: The URL to validate
         """
 
-        self.parse = urlparse(url)
+        #urlparse() from urlparse module
+        parse = urlparse(url)
 
-        if (self.parse[0] != 'http' or 'https') or (url[-1] == '/'):
-            if self.parse[0] != 'http' or 'https':
-                self.url = 'http://' + self.parse[1] + self.parse[2] + \
-                self.parse[3]
-            if url[-1] == '/':
-                self.url = self.url[:-1]
+        if parse.scheme not in ('http', 'https'):
+            url = 'http://' + parse.netloc
 
-        self.baseURL = self.url
+        self.baseURL = url
 
     def _build_url(self, api_url, params=None):
         """Builder url for _json_load
