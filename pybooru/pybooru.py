@@ -100,7 +100,7 @@ class Pybooru(object):
         if siteName in site_list.keys():
             self.siteURL = site_list[siteName]
         else:
-            print PybooruError(
+            raise PybooruError(
                         'The site name is not valid, use siteURL parameter'
                         )
 
@@ -231,7 +231,7 @@ class Pybooru(object):
             self.params = 'title=%s' % (self.title)
             return self._build_url(self.wiki_history_url, self.params)
         else:
-            PybooruError('title atribute is required')
+            raise PybooruError('title atribute is required')
 
     def notes(self, id_=None):
         self.notes_url = '/note/index.json?'
@@ -250,7 +250,7 @@ class Pybooru(object):
             self.params = 'query=%s' % (self.query)
             return self._build_url(self.search_notes_url, self.params)
         else:
-            print PybooruError('query attribute is empty')
+            raise PybooruError('query attribute is empty')
 
     def history_notes(self, post_id=None, id_=None, limit=10, page=1):
         self.history_notes_url = '/note/history.json?'
@@ -305,7 +305,7 @@ class Pybooru(object):
             self.params = 'id=%i&page=%i' % (id_, page)
             return self._build_url(self.pools_posts_url, self.params)
         else:
-            print PybooruError('id_ attribute is empty')
+            raise PybooruError('id_ attribute is empty')
 
     def favorites(self, id_=None):
         self.favorites = '/favorite/list_users.json?'
@@ -314,7 +314,7 @@ class Pybooru(object):
             self.params = 'id=%i' % (id_)
             return self._build_url(self.favorites, self.params)
         else:
-            print PybooruError('id_ attribute is empty')
+            raise PybooruError('id_ attribute is empty')
 
     def tag_history(self, post_id=None, user_id=None, user_name=None):
         self.tag_history_url = '/post_tag_history/index.json?'
@@ -332,4 +332,4 @@ class Pybooru(object):
 
 
 if __name__ == '__main__':
-    print PybooruError('Import this module into your project to use')
+    raise PybooruError('Import this module into your project to use')
