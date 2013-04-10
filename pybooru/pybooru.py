@@ -41,6 +41,11 @@ class PybooruError(Exception):
         msg: The error message
         http_code: The HTTP status code
         url: The URL
+
+    Attributes:
+        msg: Return the error message
+        http_code: Return the HTTP status code
+        url: return the URL
     """
 
     def __init__(self, msg, http_code=None, url=None):
@@ -66,11 +71,15 @@ class Pybooru(object):
     init Parameters:
         siteName: The site name in site_list
         siteURL: URL of based Danbooru site
+
+    Attributes:
+        siteName: Return site name
+        siteURL: Return URL of based danbooru site
     """
 
     def __init__(self, siteName=None, siteURL=None):
-        self.siteURL = siteURL
         self.siteName = siteName
+        self.siteURL = siteURL
 
         if not (self.siteURL is not None) and (self.siteName is not None):
             if self.siteName is not None:
