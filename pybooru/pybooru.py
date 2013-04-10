@@ -64,32 +64,32 @@ class Pybooru(object):
     """Pybooru class
 
     init Parameters:
-        name: The site name in site_list
+        siteName: The site name in site_list
         siteURL: URL of based Danbooru site
     """
 
-    def __init__(self, name=None, siteURL=None):
-        self.baseURL = ''
+    def __init__(self, siteName=None, siteURL=None):
+        self.siteURL = siteURL
+        self.siteName = siteName
 
-        if name is not None:
-            self.name = str(name).lower()
-            self._site_name(self.name)
-        elif siteURL is not None:
-            self.siteURL = str(siteURL).lower()
-            self._url_validator(self.siteURL)
+        if not (self.siteURL is not None) and (self.siteName is not None):
+            if self.siteName is not None:
+                self._site_name(self.siteName.lower())
+            elif self.siteURL is not None:
+                self._url_validator(self.siteURL.lower())
         else:
-            print PybooruError('siteURL or name invalid')
+            raise PybooruError('siteURL and siteName are None')
 
-    def _site_name(self, name):
+    def _site_name(self, siteName):
         """Function for check name site and get URL
 
         Parameters:
-            name: The name of a based Danbooru site. You can get list of sites
-                  in the resources module.
+          siteName: The name of a based Danbooru site. You can get list of sites
+                    in the resources module.
         """
 
-        if name in site_list.keys():
-            self.baseURL = site_list[name]
+        if siteName in site_list.keys():
+            self.siteURL = site_list[siteName]
         else:
             print PybooruError(
                         'The site name is not valid, use siteURL parameter'
@@ -106,9 +106,12 @@ class Pybooru(object):
         parse = urlparse(url)
 
         if parse.scheme not in ('http', 'https'):
-            url = 'http://' + parse.netloc
+            if parse.scheme == '':
+                url = 'http://' + parse.path
+            else:
+                url = 'http://' + parse.netloc
 
-        self.baseURL = url
+        self.siteURL = url
 
     def _build_url(self, api_url, params=None):
         """Builder url for _json_load
@@ -119,11 +122,11 @@ class Pybooru(object):
         """
 
         if params is not None:
-            self.url_request = self.baseURL + api_url + params
+            self.url_request = self.siteURL + api_url + params
             self.url_request = self._json_load(self.url_request)
             return self.url_request
         else:
-            self.url_request = self.baseURL + api_url
+            self.url_request = self.siteURL + api_url
             self.url_request = self._json_load(self.url_request)
             return self.url_request
 
