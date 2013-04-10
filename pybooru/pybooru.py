@@ -37,9 +37,10 @@ from resources import site_list
 class PybooruError(Exception):
     """Class for return error message
 
-    msg: The error message
-    http_code: The HTTP status code
-    url: The URL
+    init Parameters:
+        msg: The error message
+        http_code: The HTTP status code
+        url: The URL
     """
 
     def __init__(self, msg, http_code=None, url=None):
@@ -68,7 +69,6 @@ class Pybooru(object):
     """
 
     def __init__(self, name=None, siteURL=None):
-
         self.baseURL = ''
 
         if name is not None:
@@ -81,7 +81,12 @@ class Pybooru(object):
             print PybooruError('siteURL or name invalid')
 
     def _site_name(self, name):
-        """Function for check name site and get URL"""
+        """Function for check name site and get URL
+
+        Parameters:
+            name: The name of a based Danbooru site. You can get list of sites
+                  in the resources module.
+        """
 
         if name in site_list.keys():
             self.baseURL = site_list[name]
@@ -89,7 +94,11 @@ class Pybooru(object):
             print PybooruError('Site name is not valid')
 
     def _url_validator(self, url):
-        """URL validator for siteURL parameter of Pybooru"""
+        """URL validator for siteURL parameter of Pybooru
+
+        Parameters:
+            url: The URL to validate
+        """
 
         self.parse = urlparse(url)
 
@@ -103,7 +112,12 @@ class Pybooru(object):
         self.baseURL = self.url
 
     def _build_url(self, api_url, params=None):
-        """Builder url for _json_load"""
+        """Builder url for _json_load
+
+        Parameters:
+            api_url: The URL of the API function
+            params: The parameters of the API function
+        """
 
         if params is not None:
             self.url_request = self.baseURL + api_url + params
@@ -115,7 +129,11 @@ class Pybooru(object):
             return self.url_request
 
     def _json_load(self, url):
-        """Function for read and return JSON response"""
+        """Function for read and return JSON response
+
+        Parameters:
+            url: The url for JSON request
+        """
 
         try:
             #urlopen() from module urllib2
