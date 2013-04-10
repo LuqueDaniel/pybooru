@@ -91,7 +91,9 @@ class Pybooru(object):
         if name in site_list.keys():
             self.baseURL = site_list[name]
         else:
-            print PybooruError('Site name is not valid')
+            print PybooruError(
+                        'The site name is not valid, use siteURL parameter'
+                        )
 
     def _url_validator(self, url):
         """URL validator for siteURL parameter of Pybooru
