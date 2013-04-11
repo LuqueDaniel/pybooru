@@ -13,8 +13,7 @@ site_list = {'konachan': 'http://konachan.com',
              'yandere': 'https://yande.re',
              'chan-sankaku': 'http://chan.sankakucomplex.com',
              'idol-sankaku': 'http://idol.sankakucomplex.com',
-             '3dbooru': 'http://behoimi.org',
-             'nekobooru': 'http://nekobooru.net'}
+             '3dbooru': 'http://behoimi.org'}
 
 #http_status_codes
 http_status_codes = {
