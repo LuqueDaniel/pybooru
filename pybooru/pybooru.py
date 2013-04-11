@@ -131,13 +131,13 @@ class Pybooru(object):
         """
 
         if params is not None:
-            self.url_request = self.siteURL + api_url + params
-            self.url_request = self._json_load(self.url_request)
-            return self.url_request
+            url_request = self.siteURL + api_url + params
+            url_request = self._json_load(url_request)
+            return url_request
         else:
-            self.url_request = self.siteURL + api_url
-            self.url_request = self._json_load(self.url_request)
-            return self.url_request
+            url_request = self.siteURL + api_url
+            url_request = self._json_load(url_request)
+            return url_request
 
     def _json_load(self, url):
         """Function for read and return JSON response
@@ -148,11 +148,11 @@ class Pybooru(object):
 
         try:
             #urlopen() from module urllib2
-            self.openURL = urlopen(url)
-            self.reading = self.openURL.read()
+            openURL = urlopen(url)
+            reading = openURL.read()
             #loads() is a function of simplejson module
-            self.response = loads(self.reading)
-            return self.response
+            response = loads(reading)
+            return response
         except (URLError, HTTPError) as err:
             if hasattr(err, 'code'):
                 raise PybooruError('in _json_load', err.code, url)
