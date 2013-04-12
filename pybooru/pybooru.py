@@ -81,13 +81,15 @@ class Pybooru(object):
         self.siteName = siteName
         self.siteURL = siteURL
 
-        if (self.siteURL is not None) or (self.siteName is not None):
-            if self.siteName is not None:
-                self._site_name(self.siteName.lower())
-            elif self.siteURL is not None:
-                self._url_validator(self.siteURL.lower())
+        if (siteURL is not None) or (siteName is not None):
+            if type(siteName) is str:
+                self._site_name(siteName.lower())
+            elif type(siteURL) is str:
+                self._url_validator(siteURL.lower())
+            else:
+                raise PybooruError('Expected type str for siteName and siteURL')
         else:
-            raise PybooruError('siteURL and siteName are None')
+            raise PybooruError('siteName and siteURL are None')
 
     def _site_name(self, siteName):
         """Function for check name site and get URL
