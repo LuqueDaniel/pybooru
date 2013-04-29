@@ -138,7 +138,7 @@ class Pybooru(object):
             url_request = self._json_load(url_request)
             return url_request
         else:
-            url_request = self.siteURL + api_url
+            url_request = self.siteURL + api_base_url[api_url]
             url_request = self._json_load(url_request)
             return url_request
 
