@@ -36,7 +36,7 @@ from resources import site_list
 
 
 class PybooruError(Exception):
-    """Class for return error message
+    """Class for returning error message
 
     init Parameters:
         msg: The error message
@@ -93,7 +93,7 @@ class Pybooru(object):
             raise PybooruError('siteName and siteURL are None')
 
     def _site_name(self, siteName):
-        """Function for check name site and get URL
+        """Function for checking name site and get URL
 
         Parameters:
           siteName: The name of a based Danbooru site. You can get list of sites
@@ -143,7 +143,7 @@ class Pybooru(object):
             return url_request
 
     def _json_load(self, url):
-        """Function for read and return JSON response
+        """Function for reading and returning JSON response
 
         Parameters:
             url: The url for JSON request
