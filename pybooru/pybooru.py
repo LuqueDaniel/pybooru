@@ -166,6 +166,14 @@ class Pybooru(object):
                                err.msg, err.lineno, err.colno))
 
     def posts_list(self, tags=None, limit=10, page=1):
+        """Listing posts
+
+        Parameters:
+            tags: The tags of the posts (Default: None)
+            limit: Limit of posts. Limit of 100 posts per request (Default: 100)
+            page: The page number (Default: 1)
+        """
+
         params = 'limit=%i&page=%i' % (limit, page)
 
         if tags is not None:
