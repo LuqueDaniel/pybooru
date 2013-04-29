@@ -31,6 +31,7 @@ except ImportError:
 
 #pyborru resources imports
 from resources import http_status_codes
+from resources import api_base_url
 from resources import site_list
 
 

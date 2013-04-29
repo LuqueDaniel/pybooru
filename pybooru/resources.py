@@ -15,6 +15,13 @@ site_list = {'konachan': 'http://konachan.com',
              'idol-sankaku': 'http://idol.sankakucomplex.com',
              '3dbooru': 'http://behoimi.org'}
 
+
+#api_base_url for the API functions
+api_base_url = {
+    'posts_list': '/post.json?'
+    }
+
+
 #http_status_codes
 http_status_codes = {
     200: ('OK', 'Request was successful'),
