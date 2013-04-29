@@ -134,7 +134,7 @@ class Pybooru(object):
         """
 
         if params is not None:
-            url_request = self.siteURL + api_url + params
+            url_request = self.siteURL + api_base_url[api_url] + params
             url_request = self._json_load(url_request)
             return url_request
         else:
@@ -165,16 +165,14 @@ class Pybooru(object):
             raise PybooruError('JSON Error: %s in line %s column %s' % (
                                err.msg, err.lineno, err.colno))
 
-    def posts(self, tags=None, limit=10, page=1):
-        self.posts_url = '/post/index.json?'
-        self.params = 'limit=%i&page=%i' % (limit, page)
+    def posts_list(self, tags=None, limit=10, page=1):
+        params = 'limit=%i&page=%i' % (limit, page)
 
         if tags is not None:
-            self.tags = str(tags)
-            self.params += '&tags=%s' % (tags)
-            return self._build_url(self.posts_url, self.params)
+            params += '&tags=%s' % (str(tags))
+            return self._build_url('posts_list', params)
         else:
-            return self._build_url(self.posts_url, self.params)
+            return self._build_url('posts_list', params)
 
     def tags(self, name=None, id_=None, limit=100, page=1, order='name',
                                                             after_id=0):
