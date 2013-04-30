@@ -165,7 +165,7 @@ class Pybooru(object):
             raise PybooruError('JSON Error: %s in line %s column %s' % (
                                err.msg, err.lineno, err.colno))
 
-    def posts_list(self, tags=None, limit=10, page=1):
+    def posts_list(self, tags=None, limit=100, page=1):
         """Listing posts
 
         Parameters:
