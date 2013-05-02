@@ -182,7 +182,7 @@ class Pybooru(object):
         else:
             return self._build_url('posts_list', params)
 
-    def tags_list(self, name=None, id_=None, limit=100, page=1, order='name',
+    def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):
         """Get a list of tags
 
@@ -190,7 +190,7 @@ class Pybooru(object):
             name: The exact name of the tag.
             id_: The id number of the tag.
             limit: How many tags to retrieve. Setting this to 0 will return
-                   every tag.
+                   every tag (Default value: 0).
             page: The page number.
             order: Can be 'date', 'name' or 'count' (Default: name).
             after_id: Return all tags that have an id number greater than this.
