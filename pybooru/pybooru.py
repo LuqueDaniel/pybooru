@@ -1,6 +1,9 @@
 #!/usr/bin/env Python
 #encoding: utf-8
 
+"""
+    This module contain pybooru object class
+"""
 
 #urllib2 imports
 from urllib2 import urlopen
