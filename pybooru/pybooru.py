@@ -211,6 +211,15 @@ class Pybooru(object):
         else:
             return self._build_url('tags_list', params)
 
+    def tags_related(self, tags, type_=None):
+        params = 'tags=%s' % (tags)
+
+        if type_ is not None:
+            params += '&type=%s' % (type_)
+            return self._build_url('tags_related', params)
+        else:
+            return self._build_url('tags_related', params)
+
     def artists(self, name=None, id_=None, limit=20, order='name', page=1):
         self.artists_url = '/artist/index.json?'
         self.params = 'limit=%i&page%i&order=%s' % (limit, page, order)
