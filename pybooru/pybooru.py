@@ -182,21 +182,22 @@ class Pybooru(object):
         else:
             return self._build_url('posts_list', params)
 
-    def tags(self, name=None, id_=None, limit=100, page=1, order='name',
-                                                            after_id=0):
-        self.tags_url = '/tag/index.json?'
+    def tags_list(self, name=None, id_=None, limit=100, page=1, order='name',
+                  after_id=None):
+
+        params = 'limit=%i&page=%i&order=%s' % (limit, page, order)
 
         if id_ is not None:
-            self.params = 'id=%i' % (id_)
-            return self._build_url(self.tags_url, self.params)
-        if name is not None:
-            self.name = str(name)
-            self.params = "name=%s" % (self.name)
-            return self._build_url(self.tags_url, self.params)
+            params += '&id=%i' % (id_)
+            return self._build_url('tags_list', params)
+        elif name is not None:
+            params += "&name=%s" % (str(name))
+            return self._build_url('tags_list', params)
+        elif after_id is not None:
+            params += '&after_id=%i' % (after_id)
+            return self._build_url('tags_list', params)
         else:
-            self.params = "limit=%i&page=%i&order=%s&after_id=%i" % (limit,
-                                                    page, order, after_id)
-            return self._build_url(self.tags_url, self.params)
+            return self._build_url('tags_list', params)
 
     def artists(self, name=None, id_=None, limit=20, order='name', page=1):
         self.artists_url = '/artist/index.json?'
