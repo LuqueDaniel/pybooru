@@ -8,5 +8,5 @@ __author__ = 'Daniel Luque <danielluque14 at gmail.com>'
 __version__ = '2.0-dev'
 
 #pybooru imports
-from pybooru import Pybooru
-from pybooru import PybooruError
+from .pybooru import Pybooru
+from .pybooru import PybooruError

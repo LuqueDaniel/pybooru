@@ -21,9 +21,9 @@ except ImportError:
         raise Exception('Pybooru requires the simplejson library to work')
 
 #pyborru resources imports
-from resources import http_status_codes
-from resources import api_base_url
-from resources import site_list
+from .resources import http_status_codes
+from .resources import api_base_url
+from .resources import site_list
 
 
 class PybooruError(Exception):
