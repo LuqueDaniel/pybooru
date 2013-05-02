@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-    This module contain all resources for pybooru
+    This module contain all resources for pybooru.
 
-    site_list: Is a dict contains various based Danbooru default sites
-    http_status_codes: Is a dict contains the http status code for Danbooru API
+    site_list: Is a dict contains various based Danbooru default sites.
+    api_base_url: Is a dict contain the urls for API functions.
+    http_status_codes: Is a dict contains the http status code for Danbooru API.
 """
 
 #site_list
