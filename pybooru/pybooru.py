@@ -98,7 +98,6 @@ class Pybooru(object):
 
         if params is not None:
             url_request = self.siteURL + api_base_url[api_url] + params
-            print url_request
             url_request = self._json_load(url_request)
             return url_request
         else:
@@ -142,10 +141,9 @@ class Pybooru(object):
         params = 'limit=%i&page=%i' % (limit, page)
 
         if tags is not None:
-            params += '&tags=%s' % (str(tags))
-            return self._build_url('posts_list', params)
-        else:
-            return self._build_url('posts_list', params)
+            params += '&tags=%s' % (tags)
+
+        return self._build_url('posts_list', params)
 
     def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):
@@ -165,15 +163,12 @@ class Pybooru(object):
 
         if id_ is not None:
             params += '&id=%i' % (id_)
-            return self._build_url('tags_list', params)
         elif name is not None:
-            params += "&name=%s" % (str(name))
-            return self._build_url('tags_list', params)
+            params += "&name=%s" % (name)
         elif after_id is not None:
             params += '&after_id=%i' % (after_id)
-            return self._build_url('tags_list', params)
-        else:
-            return self._build_url('tags_list', params)
+
+        return self._build_url('tags_list', params)
 
     def tags_related(self, tags, type_=None):
         """Get a list of related tags.
@@ -188,9 +183,8 @@ class Pybooru(object):
 
         if type_ is not None:
             params += '&type=%s' % (type_)
-            return self._build_url('tags_related', params)
-        else:
-            return self._build_url('tags_related', params)
+
+        return self._build_url('tags_related', params)
 
     def artists_list(self, name=None, order=None, page=1):
         """Get a list of artists.
