@@ -212,6 +212,14 @@ class Pybooru(object):
             return self._build_url('tags_list', params)
 
     def tags_related(self, tags, type_=None):
+        """Get a list of related tags.
+
+        Parameters:
+            tags: The tag names to query.
+            type_: Restrict results to this tag type. Can be general, artist,
+                   copyright, or character (Default value: None).
+        """
+
         params = 'tags=%s' % (tags)
 
         if type_ is not None:
