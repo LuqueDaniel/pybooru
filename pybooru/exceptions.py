@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+    This module contain the exceptions.
+"""
+
 #pybooru impost
 from .resources import http_status_codes
 

@@ -2,7 +2,7 @@
 #encoding: utf-8
 
 """
-    This module contain pybooru object class
+    This module contain pybooru object class.
 """
 
 #urllib2 imports
