@@ -22,7 +22,8 @@ api_base_url = {
     'posts_list': '/post.json?',
     'tags_list': '/tag.json?',
     'tags_related': '/tag/related.json?',
-    'artists_list': '/artist.json?'
+    'artists_list': '/artist.json?',
+    'comments_show': '/comment/show.json?'
     }
 
 

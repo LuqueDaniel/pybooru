@@ -204,12 +204,16 @@ class Pybooru(object):
 
         return self._build_url('artists_list', params)
 
-    def comments(self, id_=None):
-        self.comments_url = '/comment/show.json?'
+    def comments_show(self, id_=None):
+        """Get a specific comment.
+
+        Parameters:
+            id_: The id number of the comment to retrieve.
+        """
 
         if id_ is not None:
-            self.params = 'id=%i' % (id_)
-            return self._build_url(self.comments_url, self.params)
+            params = 'id=%i' % (id_)
+            return self._build_url('comments_show', params)
         else:
             raise PybooruError('id_ attribute is empty')
 
