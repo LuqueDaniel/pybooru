@@ -36,17 +36,17 @@ from resources import site_list
 
 
 class PybooruError(Exception):
-    """Class for returning error message
+    """Class for returning error message.
 
     init Parameters:
-        msg: The error message
-        http_code: The HTTP status code
-        url: The URL
+        msg: The error message.
+        http_code: The HTTP status code.
+        url: The URL.
 
     Attributes:
-        msg: Return the error message
-        http_code: Return the HTTP status code
-        url: return the URL
+        msg: Return the error message.
+        http_code: Return the HTTP status code.
+        url: return the URL.
     """
 
     def __init__(self, msg, http_code=None, url=None):
@@ -67,15 +67,15 @@ class PybooruError(Exception):
 
 
 class Pybooru(object):
-    """Pybooru class
+    """Pybooru class.
 
     init Parameters:
-        siteName: The site name in site_list
-        siteURL: URL of based Danbooru site
+        siteName: The site name in site_list.
+        siteURL: URL of based Danbooru site.
 
     Attributes:
-        siteName: Return site name
-        siteURL: Return URL of based danbooru site
+        siteName: Return site name.
+        siteURL: Return URL of based danbooru site.
     """
 
     def __init__(self, siteName=None, siteURL=None):
@@ -93,7 +93,7 @@ class Pybooru(object):
             raise PybooruError('siteName and siteURL are None')
 
     def _site_name(self, siteName):
-        """Function for checking name site and get URL
+        """Function for checking name site and get URL.
 
         Parameters:
           siteName: The name of a based Danbooru site. You can get list of sites
@@ -108,10 +108,10 @@ class Pybooru(object):
                         )
 
     def _url_validator(self, url):
-        """URL validator for siteURL parameter of Pybooru
+        """URL validator for siteURL parameter of Pybooru.
 
         Parameters:
-            url: The URL to validate
+            url: The URL to validate.
         """
 
         #urlparse() from urlparse module
@@ -126,11 +126,11 @@ class Pybooru(object):
         self.siteURL = url
 
     def _build_url(self, api_url, params=None):
-        """Builder url for _json_load
+        """Builder url for _json_load.
 
         Parameters:
-            api_url: The URL of the API function
-            params: The parameters of the API function
+            api_url: The URL of the API function.
+            params: The parameters of the API function.
         """
 
         if params is not None:
@@ -143,10 +143,10 @@ class Pybooru(object):
             return url_request
 
     def _json_load(self, url):
-        """Function for reading and returning JSON response
+        """Function for reading and returning JSON response.
 
         Parameters:
-            url: The url for JSON request
+            url: The url for JSON request.
         """
 
         try:
@@ -166,12 +166,13 @@ class Pybooru(object):
                                err.msg, err.lineno, err.colno))
 
     def posts_list(self, tags=None, limit=100, page=1):
-        """Listing posts
+        """Get a list of posts.
 
         Parameters:
-            tags: The tags of the posts (Default: None)
-            limit: Limit of posts. Limit of 100 posts per request (Default: 100)
-            page: The page number (Default: 1)
+            tags: The tags of the posts (Default: None).
+            limit: Limit of posts. Limit of 100 posts per request
+                   (Default: 100).
+            page: The page number (Default: 1).
         """
 
         params = 'limit=%i&page=%i' % (limit, page)
@@ -184,7 +185,7 @@ class Pybooru(object):
 
     def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):
-        """Get a list of tags
+        """Get a list of tags.
 
         Parameters:
             name: The exact name of the tag.
