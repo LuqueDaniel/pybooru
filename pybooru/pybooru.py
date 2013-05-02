@@ -98,6 +98,7 @@ class Pybooru(object):
 
         if params is not None:
             url_request = self.siteURL + api_base_url[api_url] + params
+            print url_request
             url_request = self._json_load(url_request)
             return url_request
         else:
@@ -191,19 +192,23 @@ class Pybooru(object):
         else:
             return self._build_url('tags_related', params)
 
-    def artists(self, name=None, id_=None, limit=20, order='name', page=1):
-        self.artists_url = '/artist/index.json?'
-        self.params = 'limit=%i&page%i&order=%s' % (limit, page, order)
+    def artists_list(self, name=None, order=None, page=1):
+        """Get a list of artists.
+
+        Parameters:
+            name: The name (or a fragment of the name) of the artist.
+            order: Can be date or name (Default value: None).
+            page: The page number.
+        """
+
+        params = 'page=%i' % (page)
 
         if name is not None:
-            self.name = str(name)
-            self.params += '&name=%s' % (self.name)
-            return self._build_url(self.artists_url, self.params)
-        elif id_ is not None:
-            self.params = 'id=%i' % (id_)
-            return self._build_url(self.artists_url, self.params)
-        else:
-            return self._build_url(self.artists_url, self.params)
+            params += '&name=%s' % (name)
+        if order is not None:
+            params += '&order=%s' % (order)
+
+        return self._build_url('artists_list', params)
 
     def comments(self, id_=None):
         self.comments_url = '/comment/show.json?'

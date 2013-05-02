@@ -21,7 +21,8 @@ site_list = {'konachan': 'http://konachan.com',
 api_base_url = {
     'posts_list': '/post.json?',
     'tags_list': '/tag.json?',
-    'tags_related': '/tag/related.json?'
+    'tags_related': '/tag/related.json?',
+    'artists_list': '/artist.json?'
     }
 
 
