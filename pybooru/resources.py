@@ -25,7 +25,8 @@ api_base_url = {
     'artists_list': '/artist.json?',
     'comments_show': '/comment/show.json?',
     'wiki_list': '/wiki.json?',
-    'wiki_show': '/wiki/show.json?'
+    'wiki_show': '/wiki/show.json?',
+    'wiki_history': '/wiki/history.json?'
     }
 
 

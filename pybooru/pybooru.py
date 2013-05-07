@@ -252,12 +252,15 @@ class Pybooru(object):
         return self._build_url('wiki_show', params)
 
     def wiki_history(self, title=None):
-        self.wiki_history_url = '/wiki/history.json?'
+        """Get history of specific wiki page.
+
+        Parameters:
+            title: The title of the wiki page to retrieve versions for.
+        """
 
         if title is not None:
-            self.title = str(title)
-            self.params = 'title=%s' % (self.title)
-            return self._build_url(self.wiki_history_url, self.params)
+            params = 'title=%s' % (title)
+            return self._build_url('wiki_history', params)
         else:
             raise PybooruError('title atribute is required')
 
