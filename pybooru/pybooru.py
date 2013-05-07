@@ -328,7 +328,7 @@ class Pybooru(object):
             return self._build_url('users_search')
 
     def forum_list(self, parent_id=None):
-        """Get forum post. If you don't specify any parameters you'll get
+        """Get forum posts. If you don't specify any parameters you'll get
            a listing of all users.
 
         Parameters:
@@ -341,16 +341,21 @@ class Pybooru(object):
         else:
             return self._build_url('forum_list')
 
-    def pools(self, query=None, page=1):
-        self.pools_url = '/pool/index.json?'
+    def pools_list(self, query=None, page=1):
+        """Get pools. If you don't specify any parameters you'll get a
+           list of all pools.
+
+        Parameters:
+            query: The title.
+            page: The page.
+        """
+
+        params = 'page=%i' % (page)
 
         if query is not None:
-            self.query = str(query)
-            self.params = 'query=%s' % (self.query)
-            return self._build_url(self.pools_url, self.params)
-        else:
-            self.params = 'page=%i' % (page)
-            return self._build_url(self.pools_url, self.params)
+            params += '&query=%s' % (query)
+
+        return self._build_url('pools_list', params)
 
     def pools_posts(self, id_=None, page=1):
         self.pools_posts_url = '/pool/show.json?'

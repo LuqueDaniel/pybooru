@@ -31,7 +31,8 @@ api_base_url = {
     'notes_search': '/note/search.json?',
     'notes_history': '/note/history.json?',
     'users_search': '/user.json?',
-    'forum_list': '/forum.json?'
+    'forum_list': '/forum.json?',
+    'pools_list': '/pool.json?'
     }
 
 
