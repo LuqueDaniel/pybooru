@@ -277,13 +277,16 @@ class Pybooru(object):
         else:
             return self._build_url('notes_list')
 
-    def search_notes(self, query=None):
-        self.search_notes_url = '/note/search.json?'
+    def notes_search(self, query=None):
+        """Search specific note.
+
+        Parameters:
+            query: A word or phrase to search for.
+        """
 
         if query is not None:
-            self.query = str(query)
-            self.params = 'query=%s' % (self.query)
-            return self._build_url(self.search_notes_url, self.params)
+            params = 'query=%s' % (query)
+            return self._build_url('notes_search', params)
         else:
             raise PybooruError('query attribute is empty')
 

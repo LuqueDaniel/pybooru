@@ -27,7 +27,8 @@ api_base_url = {
     'wiki_list': '/wiki.json?',
     'wiki_show': '/wiki/show.json?',
     'wiki_history': '/wiki/history.json?',
-    'notes_list': '/note.json?'
+    'notes_list': '/note.json?',
+    'notes_search': '/note/search.json?'
     }
 
 
