@@ -24,7 +24,8 @@ api_base_url = {
     'tags_related': '/tag/related.json?',
     'artists_list': '/artist.json?',
     'comments_show': '/comment/show.json?',
-    'wiki_list': '/wiki.json?'
+    'wiki_list': '/wiki.json?',
+    'wiki_show': '/wiki/show.json?'
     }
 
 
