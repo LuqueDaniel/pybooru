@@ -33,7 +33,8 @@ api_base_url = {
     'users_search': '/user.json?',
     'forum_list': '/forum.json?',
     'pools_list': '/pool.json?',
-    'pools_posts': '/pool/show.json?'
+    'pools_posts': '/pool/show.json?',
+    'favorites_list_users': '/favorite/list_users.json?'
     }
 
 

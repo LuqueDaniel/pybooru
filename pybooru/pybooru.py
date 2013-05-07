@@ -373,12 +373,17 @@ class Pybooru(object):
 
         return self._build_url('pools_posts', params)
 
-    def favorites(self, id_=None):
-        self.favorites = '/favorite/list_users.json?'
+    def favorites_list_users(self, id_=None):
+        """List all users who have added to favorites a specific post.
+
+        Parameters:
+            id_: The post id.
+        """
 
         if id_ is not None:
-            self.params = 'id=%i' % (id_)
-            return self._build_url(self.favorites, self.params)
+            params = 'id=%i' % (id_)
+            response = self._build_url('favorites_list_users', params)
+            return response['favorited_users'].split(',')
         else:
             raise PybooruError('id_ attribute is empty')
 
