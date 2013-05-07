@@ -6,6 +6,7 @@
 """
 
 #urllib2 imports
+from urllib import quote
 from urllib2 import urlopen
 from urllib2 import URLError
 from urllib2 import HTTPError
@@ -88,22 +89,20 @@ class Pybooru(object):
 
         self.siteURL = url
 
-    def _build_url(self, api_url, params=None):
+    def _build_url(self, api_name, params=None):
         """Builder url for _json_load.
 
         Parameters:
-            api_url: The URL of the API function.
+            api_name: The NAME of the API function.
             params: The parameters of the API function.
         """
 
         if params is not None:
-            url_request = self.siteURL + api_base_url[api_url] + params
-            url_request = self._json_load(url_request)
-            return url_request
+            url_request = self.siteURL + api_base_url[api_name] + params
         else:
-            url_request = self.siteURL + api_base_url[api_url]
-            url_request = self._json_load(url_request)
-            return url_request
+            url_request = self.siteURL + api_base_url[api_name]
+
+        return self._json_load(url_request)
 
     def _json_load(self, url):
         """Function for reading and returning JSON response.
@@ -164,7 +163,7 @@ class Pybooru(object):
         if id_ is not None:
             params += '&id=%i' % (id_)
         elif name is not None:
-            params += "&name=%s" % (name)
+            params += "&name=%s" % (quote(name))  # quote() from urllib
         elif after_id is not None:
             params += '&after_id=%i' % (after_id)
 
@@ -198,7 +197,7 @@ class Pybooru(object):
         params = 'page=%i' % (page)
 
         if name is not None:
-            params += '&name=%s' % (name)
+            params += '&name=%s' % (quote(name))  # quote() from urllib
         if order is not None:
             params += '&order=%s' % (order)
 
@@ -229,7 +228,7 @@ class Pybooru(object):
         params = 'order=%s&limit=%i&page=%i' % (order, limit, page)
 
         if query is not None:
-            params += '&query=%s' % (query)
+            params += '&query=%s' % (quote(query))  # quote() from urllib
 
         return self._build_url('wiki_list', params)
 
@@ -242,7 +241,7 @@ class Pybooru(object):
         """
 
         if title is not None:
-            params = 'title=%s' % (title)
+            params = 'title=%s' % (quote(title))  # quote() from urllib
         else:
             raise PybooruError('title attribute is empty')
 
@@ -259,7 +258,7 @@ class Pybooru(object):
         """
 
         if title is not None:
-            params = 'title=%s' % (title)
+            params = 'title=%s' % (quote(title))  # quote() from urllib
             return self._build_url('wiki_history', params)
         else:
             raise PybooruError('title atribute is required')
@@ -285,7 +284,7 @@ class Pybooru(object):
         """
 
         if query is not None:
-            params = 'query=%s' % (query)
+            params = 'query=%s' % (quote(query))  # quote() from urllib
             return self._build_url('notes_search', params)
         else:
             raise PybooruError('query attribute is empty')
@@ -319,7 +318,7 @@ class Pybooru(object):
         """
 
         if name is not None:
-            params = 'name=%s' % (name)
+            params = 'name=%s' % (quote(name))  # quote() from urllib
             return self._build_url('users_search', params)
         elif id_ is not None:
             params = 'id=%i' % (id_)
@@ -353,7 +352,7 @@ class Pybooru(object):
         params = 'page=%i' % (page)
 
         if query is not None:
-            params += '&query=%s' % (query)
+            params += '&query=%s' % (quote(query))  # quote() from urllib
 
         return self._build_url('pools_list', params)
 
@@ -383,6 +382,7 @@ class Pybooru(object):
         if id_ is not None:
             params = 'id=%i' % (id_)
             response = self._build_url('favorites_list_users', params)
+            #Return list with users
             return response['favorited_users'].split(',')
         else:
             raise PybooruError('id_ attribute is empty')
