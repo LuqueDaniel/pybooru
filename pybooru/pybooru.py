@@ -217,16 +217,21 @@ class Pybooru(object):
         else:
             raise PybooruError('id_ attribute is empty')
 
-    def wiki(self, query=None, order='title', limit=20, page=1):
-        self.wiki_url = '/wiki/index.json?'
-        self.params = 'order=%s&limit=%i&page=%i' % (order, limit, page)
+    def wiki_list(self, query=None, order='title', limit=100, page=1):
+        """This function retrieves a list of every wiki page.
+
+        Parameters:
+            query: A word or phrase to search for (Default: None).
+            order: Can be: title, date (Default: title).
+            limit: The number of pages to retrieve (Default: 100).
+            page: The page number.
+        """
+        params = 'order=%s&limit=%i&page=%i' % (order, limit, page)
 
         if query is not None:
-            self.query = str(query)
-            self.params += '&query=%s' % (self.query)
-            return self._build_url(self.wiki_url, self.params)
-        else:
-            return self._build_url(self.wiki_url, self.params)
+            params += '&query=%s' % (query)
+
+        return self._build_url('wiki_list', params)
 
     def wiki_history(self, title=None):
         self.wiki_history_url = '/wiki/history.json?'
