@@ -309,20 +309,25 @@ class Pybooru(object):
 
         return self._build_url('notes_history', params)
 
-    def users(self, name=None, id_=None):
-        self.users_url = '/user/index.json?'
+    def users_search(self, name=None, id_=None):
+        """Search users. If you don't specify any parameters you'll
+           get a listing of all users.
+
+        Parameters:
+            name: The name of the user.
+            id_: The id number of the user.
+        """
 
         if name is not None:
-            self.name = str(name)
-            self.params = 'name=%s' % (self.name)
-            return self._build_url(self.users_url, self.params)
+            params = 'name=%s' % (name)
+            return self._build_url('users_search', params)
         elif id_ is not None:
-            self.params = 'id=%i' % (self.id_)
-            return self._build_url(self.users_url, self.params)
+            params = 'id=%i' % (id_)
+            return self._build_url('users_search', params)
         else:
             return self._build_url(self.users_url)
 
-    def forum(self, id_=None):
+    def forum_list(self, id_=None):
         self.forum_url = '/forum/index.json?'
 
         if id_ is not None:

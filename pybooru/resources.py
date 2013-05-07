@@ -29,7 +29,8 @@ api_base_url = {
     'wiki_history': '/wiki/history.json?',
     'notes_list': '/note.json?',
     'notes_search': '/note/search.json?',
-    'notes_history': '/note/history.json?'
+    'notes_history': '/note/history.json?',
+    'users_search': '/user.json?'
     }
 
 
