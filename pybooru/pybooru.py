@@ -387,20 +387,6 @@ class Pybooru(object):
         else:
             raise PybooruError('id_ attribute is empty')
 
-    def tag_history(self, post_id=None, user_id=None, user_name=None):
-        self.tag_history_url = '/post_tag_history/index.json?'
-
-        if post_id is not None:
-            self.params = 'post_id=%i' % (post_id)
-            return self._build_url(self.tag_history_url, self.params)
-        if user_id is not None:
-            self.params = 'user_id=%i' % (user_id)
-            return self._build_url(self.tag_history_url, self.params)
-        if user_name is not None:
-            self.user_name = str(user_name)
-            self.params = 'user_name=%s' % (self.user_name)
-            return self._build_url(self.tag_history_url, self.params)
-
 
 if __name__ == '__main__':
     raise PybooruError('Import this module into your project to use')
