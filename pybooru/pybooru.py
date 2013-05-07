@@ -373,7 +373,8 @@ class Pybooru(object):
         return self._build_url('pools_posts', params)
 
     def favorites_list_users(self, id_=None):
-        """List all users who have added to favorites a specific post.
+        """Return a list with all users who have added to favorites a specific
+           post.
 
         Parameters:
             id_: The post id.
