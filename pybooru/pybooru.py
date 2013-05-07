@@ -264,14 +264,18 @@ class Pybooru(object):
         else:
             raise PybooruError('title atribute is required')
 
-    def notes(self, id_=None):
-        self.notes_url = '/note/index.json?'
+    def notes_list(self, post_id=None):
+        """Get note list
 
-        if id_ is not None:
-            self.params = 'post_id=%i' % (id_)
-            return self._build_url(self.notes_url, self.params)
+        Parameters:
+            post_id: The post id number to retrieve notes for (Default: None).
+        """
+
+        if post_id is not None:
+            params = 'post_id=%i' % (post_id)
+            return self._build_url('notes_list', params)
         else:
-            return self._build_url(self.notes_url)
+            return self._build_url('notes_list')
 
     def search_notes(self, query=None):
         self.search_notes_url = '/note/search.json?'

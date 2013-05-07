@@ -26,7 +26,8 @@ api_base_url = {
     'comments_show': '/comment/show.json?',
     'wiki_list': '/wiki.json?',
     'wiki_show': '/wiki/show.json?',
-    'wiki_history': '/wiki/history.json?'
+    'wiki_history': '/wiki/history.json?',
+    'notes_list': '/note.json?'
     }
 
 
