@@ -290,18 +290,24 @@ class Pybooru(object):
         else:
             raise PybooruError('query attribute is empty')
 
-    def history_notes(self, post_id=None, id_=None, limit=10, page=1):
-        self.history_notes_url = '/note/history.json?'
+    def notes_history(self, post_id=None, id_=None, limit=10, page=1):
+        """Get history of notes.
+
+        Parameters:
+            post_id: The post id number to retrieve note versions for.
+            id_: The note id number to retrieve versions for.
+            limit: How many versions to retrieve (Default: 10).
+            page: The note id number to retrieve versions for.
+        """
+
+        params = 'limit=%i&page=%i' % (limit, page)
 
         if post_id is not None:
-            self.params = 'post_id=%i' % (post_id)
-            return self._build_url(self.history_notes_url, self.params)
+            params += '&post_id=%i' % (post_id)
         elif id_ is not None:
-            self.params = 'id=%i' % (post_id)
-            return self._build_url(self.history_notes_url, self.params)
-        else:
-            self.params = 'limit=%i&page=%i' % (limit, page)
-            return self._build_url(self.history_notes_url, self.params)
+            params += '&id=%i' % (post_id)
+
+        return self._build_url('notes_history', params)
 
     def users(self, name=None, id_=None):
         self.users_url = '/user/index.json?'
