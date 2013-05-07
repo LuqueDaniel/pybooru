@@ -325,16 +325,21 @@ class Pybooru(object):
             params = 'id=%i' % (id_)
             return self._build_url('users_search', params)
         else:
-            return self._build_url(self.users_url)
+            return self._build_url('users_search')
 
-    def forum_list(self, id_=None):
-        self.forum_url = '/forum/index.json?'
+    def forum_list(self, parent_id=None):
+        """Get forum post. If you don't specify any parameters you'll get
+           a listing of all users.
 
-        if id_ is not None:
-            self.params = 'parent_id%i' % (id_)
-            return self._build_url(self.forum_url, self.params)
+        Parameters:
+            parent_id: The parent ID number. You'll return all the responses to
+                       that forum post.
+        """
+
+        if parent_id is not None:
+            return self._build_url('forum_list', 'parent_id%i' % (parent_id))
         else:
-            return self._build_url(self.forum_url)
+            return self._build_url('forum_list')
 
     def pools(self, query=None, page=1):
         self.pools_url = '/pool/index.json?'
