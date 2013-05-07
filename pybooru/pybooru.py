@@ -358,13 +358,20 @@ class Pybooru(object):
         return self._build_url('pools_list', params)
 
     def pools_posts(self, id_=None, page=1):
-        self.pools_posts_url = '/pool/show.json?'
+        """Get pools posts. If you don't specify any parameters you'll get a
+           list of all pools.
+
+        Parameters:
+            id_: The pool id number.
+            page: The page.
+        """
+
+        params = 'page=%i' % (page)
 
         if id_ is not None:
-            self.params = 'id=%i&page=%i' % (id_, page)
-            return self._build_url(self.pools_posts_url, self.params)
-        else:
-            raise PybooruError('id_ attribute is empty')
+            params += '&id=%i' % (id_)
+
+        return self._build_url('pools_posts', params)
 
     def favorites(self, id_=None):
         self.favorites = '/favorite/list_users.json?'
