@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
     This module contain all resources for pybooru.
 
@@ -10,11 +8,8 @@
 
 #site_list
 site_list = {'konachan': 'http://konachan.com',
-             'danbooru': 'http://danbooru.donmai.us',
-             'yandere': 'https://yande.re',
-             'chan-sankaku': 'http://chan.sankakucomplex.com',
-             'idol-sankaku': 'http://idol.sankakucomplex.com',
-             '3dbooru': 'http://behoimi.org'}
+             'yandere': 'https://yande.re'
+             }
 
 
 #api_base_url for the API functions

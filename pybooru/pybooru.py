@@ -1,6 +1,3 @@
-#!/usr/bin/env Python
-#encoding: utf-8
-
 """
     This module contain pybooru object class.
 """
@@ -24,8 +21,9 @@ except ImportError:
     except ImportError:
         raise Exception('Pybooru requires the simplejson library to work')
 
-#pyborru resources imports
+#pyborru imports
 from .exceptions import PybooruError
+#pybooru resources imports
 from .resources import api_base_url
 from .resources import site_list
 
