@@ -240,11 +240,11 @@ class Pybooru(object):
 
         if title is not None:
             params = 'title=%s' % (quote(title))  # quote() from urllib
+
+            if version is not None:
+                params += '&version=%i' % (version)
         else:
             raise PybooruError('title attribute is empty')
-
-        if version is not None:
-            params += '&version=%i' % (version)
 
         return self._build_url('wiki_show', params)
 
