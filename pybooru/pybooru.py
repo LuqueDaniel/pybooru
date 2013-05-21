@@ -373,7 +373,3 @@ class Pybooru(object):
             return response['favorited_users'].split(',')
         else:
             raise PybooruError('id_ attribute is empty')
-
-
-if __name__ == '__main__':
-    raise PybooruError('Import this module into your project to use')
