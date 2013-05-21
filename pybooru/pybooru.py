@@ -100,7 +100,9 @@ class Pybooru(object):
 
         try:
             #urlopen() from module urllib2
+            #urlencode() from module urllib
             openURL = urlopen(url, urlencode(params))
+            print url + urlencode(params)
             reading = openURL.read()
             #loads() is a function of simplejson module
             response = loads(reading)
@@ -145,14 +147,14 @@ class Pybooru(object):
             after_id: Return all tags that have an id number greater than this.
         """
 
-        params = 'limit=%i&page=%i&order=%s' % (limit, page, order)
+        params = {'limit': limit, 'page': page, 'order': order}
 
         if id_ is not None:
-            params += '&id=%i' % (id_)
+            params['id'] = id_
         elif name is not None:
-            params += "&name=%s" % (quote(name))  # quote() from urllib
+            params['name'] = name
         elif after_id is not None:
-            params += '&after_id=%i' % (after_id)
+            params['after_id'] = after_id
 
         return self._json_load('tags_list', params)
 
@@ -165,10 +167,10 @@ class Pybooru(object):
                    copyright, or character (Default value: None).
         """
 
-        params = 'tags=%s' % (tags)
+        params = {'tags': tags}
 
         if type_ is not None:
-            params += '&type=%s' % (type_)
+            params['type'] = type_
 
         return self._json_load('tags_related', params)
 
@@ -181,12 +183,12 @@ class Pybooru(object):
             page: The page number.
         """
 
-        params = 'page=%i' % (page)
+        params = {'page': page}
 
         if name is not None:
-            params += '&name=%s' % (quote(name))  # quote() from urllib
+            params['name'] = name
         if order is not None:
-            params += '&order=%s' % (order)
+            params['order'] = order
 
         return self._json_load('artists_list', params)
 
@@ -198,7 +200,7 @@ class Pybooru(object):
         """
 
         if id_ is not None:
-            params = 'id=%i' % (id_)
+            params = {'id': id_}
             return self._json_load('comments_show', params)
         else:
             raise PybooruError('id_ attribute is required')
@@ -212,10 +214,11 @@ class Pybooru(object):
             limit: The number of pages to retrieve (Default: 100).
             page: The page number.
         """
-        params = 'order=%s&limit=%i&page=%i' % (order, limit, page)
+
+        params = {'order': order, 'limit': limit, 'page': page}
 
         if query is not None:
-            params += '&query=%s' % (quote(query))  # quote() from urllib
+            params['query'] = query
 
         return self._json_load('wiki_list', params)
 
@@ -228,14 +231,14 @@ class Pybooru(object):
         """
 
         if title is not None:
-            params = 'title=%s' % (quote(title))  # quote() from urllib
+            params = {'title': title}
 
             if version is not None:
-                params += '&version=%i' % (version)
+                params['version'] = version
+
+            return self._json_load('wiki_show', params)
         else:
             raise PybooruError('title attribute is required')
-
-        return self._json_load('wiki_show', params)
 
     def wiki_history(self, title=None):
         """Get history of specific wiki page.
@@ -245,7 +248,7 @@ class Pybooru(object):
         """
 
         if title is not None:
-            params = 'title=%s' % (quote(title))  # quote() from urllib
+            params = {'title': title}
             return self._json_load('wiki_history', params)
         else:
             raise PybooruError('title atribute is required')
@@ -258,7 +261,7 @@ class Pybooru(object):
         """
 
         if post_id is not None:
-            params = 'post_id=%i' % (post_id)
+            params = {'post_id': post_id}
             return self._json_load('notes_list', params)
         else:
             return self._json_load('notes_list')
@@ -271,7 +274,7 @@ class Pybooru(object):
         """
 
         if query is not None:
-            params = 'query=%s' % (quote(query))  # quote() from urllib
+            params = {'query': query}
             return self._json_load('notes_search', params)
         else:
             raise PybooruError('query attribute is required')
@@ -286,12 +289,12 @@ class Pybooru(object):
             page: The note id number to retrieve versions for.
         """
 
-        params = 'limit=%i&page=%i' % (limit, page)
+        params = {'limit': limit, 'page': page}
 
         if post_id is not None:
-            params += '&post_id=%i' % (post_id)
+            params['post_id'] = post_id
         elif id_ is not None:
-            params += '&id=%i' % (post_id)
+            params['id'] = id_
 
         return self._json_load('notes_history', params)
 
@@ -305,10 +308,10 @@ class Pybooru(object):
         """
 
         if name is not None:
-            params = 'name=%s' % (quote(name))  # quote() from urllib
+            params = {'name': name}
             return self._json_load()('users_search', params)
         elif id_ is not None:
-            params = 'id=%i' % (id_)
+            params = {'id': id_}
             return self._json_load('users_search', params)
         else:
             return self._json_load('users_search')
@@ -323,7 +326,8 @@ class Pybooru(object):
         """
 
         if parent_id is not None:
-            return self._json_load('forum_list', 'parent_id%i' % (parent_id))
+            params = {'parent_id': parent_id}
+            return self._json_load('forum_list', params)
         else:
             return self._json_load('forum_list')
 
@@ -336,10 +340,10 @@ class Pybooru(object):
             page: The page.
         """
 
-        params = 'page=%i' % (page)
+        params = {'page': page}
 
         if query is not None:
-            params += '&query=%s' % (quote(query))  # quote() from urllib
+            params['query': query]
 
         return self._json_load('pools_list', params)
 
@@ -352,10 +356,10 @@ class Pybooru(object):
             page: The page.
         """
 
-        params = 'page=%i' % (page)
+        params = {'page': page}
 
         if id_ is not None:
-            params += '&id=%i' % (id_)
+            params['id'] = id_
 
         return self._json_load('pools_posts', params)
 
@@ -368,7 +372,7 @@ class Pybooru(object):
         """
 
         if id_ is not None:
-            params = 'id=%i' % (id_)
+            params = {'id': id_}
             response = self._json_load('favorites_list_users', params)
             #Return list with users
             return response['favorited_users'].split(',')
