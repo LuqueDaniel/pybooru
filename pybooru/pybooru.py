@@ -200,7 +200,7 @@ class Pybooru(object):
             params = 'id=%i' % (id_)
             return self._json_load('comments_show', params)
         else:
-            raise PybooruError('id_ attribute is empty')
+            raise PybooruError('id_ attribute is required')
 
     def wiki_list(self, query=None, order='title', limit=100, page=1):
         """This function retrieves a list of every wiki page.
@@ -232,7 +232,7 @@ class Pybooru(object):
             if version is not None:
                 params += '&version=%i' % (version)
         else:
-            raise PybooruError('title attribute is empty')
+            raise PybooruError('title attribute is required')
 
         return self._json_load('wiki_show', params)
 
@@ -273,7 +273,7 @@ class Pybooru(object):
             params = 'query=%s' % (quote(query))  # quote() from urllib
             return self._json_load('notes_search', params)
         else:
-            raise PybooruError('query attribute is empty')
+            raise PybooruError('query attribute is required')
 
     def notes_history(self, post_id=None, id_=None, limit=10, page=1):
         """Get history of notes.
@@ -372,4 +372,4 @@ class Pybooru(object):
             #Return list with users
             return response['favorited_users'].split(',')
         else:
-            raise PybooruError('id_ attribute is empty')
+            raise PybooruError('id_ attribute is required')
