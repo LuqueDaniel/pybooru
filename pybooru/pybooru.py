@@ -3,7 +3,6 @@
 """
 
 #urllib2 imports
-from urllib import quote
 from urllib import urlencode
 from urllib2 import urlopen
 from urllib2 import URLError
