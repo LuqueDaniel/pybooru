@@ -4,6 +4,7 @@
 
 #urllib2 imports
 from urllib import quote
+from urllib import urlencode
 from urllib2 import urlopen
 from urllib2 import URLError
 from urllib2 import HTTPError
@@ -99,7 +100,7 @@ class Pybooru(object):
 
         try:
             #urlopen() from module urllib2
-            openURL = urlopen(url, params)
+            openURL = urlopen(url, urlencode(params))
             reading = openURL.read()
             #loads() is a function of simplejson module
             response = loads(reading)
@@ -123,10 +124,10 @@ class Pybooru(object):
             page: The page number (Default: 1).
         """
 
-        params = 'limit=%i&page=%i' % (limit, page)
+        params = {'limit': limit, 'page': page}
 
         if tags is not None:
-            params += '&tags=%s' % (tags)
+            params['tags'] = tags
 
         return self._json_load('posts_list', params)
 
