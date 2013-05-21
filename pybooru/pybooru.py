@@ -101,7 +101,6 @@ class Pybooru(object):
             #urlopen() from module urllib2
             #urlencode() from module urllib
             openURL = urlopen(url, urlencode(params))
-            print url + urlencode(params)
             reading = openURL.read()
             #loads() is a function of simplejson module
             response = loads(reading)
