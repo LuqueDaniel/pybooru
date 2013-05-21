@@ -87,31 +87,19 @@ class Pybooru(object):
 
         self.siteURL = url
 
-    def _build_url(self, api_name, params=None):
-        """Builder url for _json_load.
+    def _json_load(self, api_name, params=None):
+        """Function for reading and returning JSON response.
 
         Parameters:
             api_name: The NAME of the API function.
             params: The parameters of the API function.
         """
 
-        if params is not None:
-            url_request = self.siteURL + api_base_url[api_name] + params
-        else:
-            url_request = self.siteURL + api_base_url[api_name]
-
-        return self._json_load(url_request)
-
-    def _json_load(self, url):
-        """Function for reading and returning JSON response.
-
-        Parameters:
-            url: The url for JSON request.
-        """
+        url = self.siteURL + api_base_url[api_name]
 
         try:
             #urlopen() from module urllib2
-            openURL = urlopen(url)
+            openURL = urlopen(url, params)
             reading = openURL.read()
             #loads() is a function of simplejson module
             response = loads(reading)
@@ -140,7 +128,7 @@ class Pybooru(object):
         if tags is not None:
             params += '&tags=%s' % (tags)
 
-        return self._build_url('posts_list', params)
+        return self._json_load('posts_list', params)
 
     def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):
@@ -165,7 +153,7 @@ class Pybooru(object):
         elif after_id is not None:
             params += '&after_id=%i' % (after_id)
 
-        return self._build_url('tags_list', params)
+        return self._json_load('tags_list', params)
 
     def tags_related(self, tags, type_=None):
         """Get a list of related tags.
@@ -181,7 +169,7 @@ class Pybooru(object):
         if type_ is not None:
             params += '&type=%s' % (type_)
 
-        return self._build_url('tags_related', params)
+        return self._json_load('tags_related', params)
 
     def artists_list(self, name=None, order=None, page=1):
         """Get a list of artists.
@@ -199,7 +187,7 @@ class Pybooru(object):
         if order is not None:
             params += '&order=%s' % (order)
 
-        return self._build_url('artists_list', params)
+        return self._json_load('artists_list', params)
 
     def comments_show(self, id_=None):
         """Get a specific comment.
@@ -210,7 +198,7 @@ class Pybooru(object):
 
         if id_ is not None:
             params = 'id=%i' % (id_)
-            return self._build_url('comments_show', params)
+            return self._json_load('comments_show', params)
         else:
             raise PybooruError('id_ attribute is empty')
 
@@ -228,7 +216,7 @@ class Pybooru(object):
         if query is not None:
             params += '&query=%s' % (quote(query))  # quote() from urllib
 
-        return self._build_url('wiki_list', params)
+        return self._json_load('wiki_list', params)
 
     def wiki_show(self, title=None, version=None):
         """Get a specific wiki page.
@@ -246,7 +234,7 @@ class Pybooru(object):
         else:
             raise PybooruError('title attribute is empty')
 
-        return self._build_url('wiki_show', params)
+        return self._json_load('wiki_show', params)
 
     def wiki_history(self, title=None):
         """Get history of specific wiki page.
@@ -257,7 +245,7 @@ class Pybooru(object):
 
         if title is not None:
             params = 'title=%s' % (quote(title))  # quote() from urllib
-            return self._build_url('wiki_history', params)
+            return self._json_load('wiki_history', params)
         else:
             raise PybooruError('title atribute is required')
 
@@ -270,9 +258,9 @@ class Pybooru(object):
 
         if post_id is not None:
             params = 'post_id=%i' % (post_id)
-            return self._build_url('notes_list', params)
+            return self._json_load('notes_list', params)
         else:
-            return self._build_url('notes_list')
+            return self._json_load('notes_list')
 
     def notes_search(self, query=None):
         """Search specific note.
@@ -283,7 +271,7 @@ class Pybooru(object):
 
         if query is not None:
             params = 'query=%s' % (quote(query))  # quote() from urllib
-            return self._build_url('notes_search', params)
+            return self._json_load('notes_search', params)
         else:
             raise PybooruError('query attribute is empty')
 
@@ -304,7 +292,7 @@ class Pybooru(object):
         elif id_ is not None:
             params += '&id=%i' % (post_id)
 
-        return self._build_url('notes_history', params)
+        return self._json_load('notes_history', params)
 
     def users_search(self, name=None, id_=None):
         """Search users. If you don't specify any parameters you'll
@@ -317,12 +305,12 @@ class Pybooru(object):
 
         if name is not None:
             params = 'name=%s' % (quote(name))  # quote() from urllib
-            return self._build_url('users_search', params)
+            return self._json_load()('users_search', params)
         elif id_ is not None:
             params = 'id=%i' % (id_)
-            return self._build_url('users_search', params)
+            return self._json_load('users_search', params)
         else:
-            return self._build_url('users_search')
+            return self._json_load('users_search')
 
     def forum_list(self, parent_id=None):
         """Get forum posts. If you don't specify any parameters you'll get
@@ -334,9 +322,9 @@ class Pybooru(object):
         """
 
         if parent_id is not None:
-            return self._build_url('forum_list', 'parent_id%i' % (parent_id))
+            return self._json_load('forum_list', 'parent_id%i' % (parent_id))
         else:
-            return self._build_url('forum_list')
+            return self._json_load('forum_list')
 
     def pools_list(self, query=None, page=1):
         """Get pools. If you don't specify any parameters you'll get a
@@ -352,7 +340,7 @@ class Pybooru(object):
         if query is not None:
             params += '&query=%s' % (quote(query))  # quote() from urllib
 
-        return self._build_url('pools_list', params)
+        return self._json_load('pools_list', params)
 
     def pools_posts(self, id_=None, page=1):
         """Get pools posts. If you don't specify any parameters you'll get a
@@ -368,7 +356,7 @@ class Pybooru(object):
         if id_ is not None:
             params += '&id=%i' % (id_)
 
-        return self._build_url('pools_posts', params)
+        return self._json_load('pools_posts', params)
 
     def favorites_list_users(self, id_=None):
         """Return a list with all users who have added to favorites a specific
@@ -380,7 +368,7 @@ class Pybooru(object):
 
         if id_ is not None:
             params = 'id=%i' % (id_)
-            response = self._build_url('favorites_list_users', params)
+            response = self._json_load('favorites_list_users', params)
             #Return list with users
             return response['favorited_users'].split(',')
         else:

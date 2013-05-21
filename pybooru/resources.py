@@ -14,22 +14,22 @@ site_list = {'konachan': 'http://konachan.com',
 
 #api_base_url for the API functions
 api_base_url = {
-    'posts_list': '/post.json?',
-    'tags_list': '/tag.json?',
-    'tags_related': '/tag/related.json?',
-    'artists_list': '/artist.json?',
-    'comments_show': '/comment/show.json?',
-    'wiki_list': '/wiki.json?',
-    'wiki_show': '/wiki/show.json?',
-    'wiki_history': '/wiki/history.json?',
-    'notes_list': '/note.json?',
-    'notes_search': '/note/search.json?',
-    'notes_history': '/note/history.json?',
-    'users_search': '/user.json?',
-    'forum_list': '/forum.json?',
-    'pools_list': '/pool.json?',
-    'pools_posts': '/pool/show.json?',
-    'favorites_list_users': '/favorite/list_users.json?'
+    'posts_list': '/post.json',
+    'tags_list': '/tag.json',
+    'tags_related': '/tag/related.json',
+    'artists_list': '/artist.json',
+    'comments_show': '/comment/show.json',
+    'wiki_list': '/wiki.json',
+    'wiki_show': '/wiki/show.json',
+    'wiki_history': '/wiki/history.json',
+    'notes_list': '/note.json',
+    'notes_search': '/note/search.json',
+    'notes_history': '/note/history.json',
+    'users_search': '/user.json',
+    'forum_list': '/forum.json',
+    'pools_list': '/pool.json',
+    'pools_posts': '/pool/show.json',
+    'favorites_list_users': '/favorite/list_users.json'
     }
 
 
