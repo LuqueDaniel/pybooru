@@ -11,6 +11,9 @@ from urllib2 import HTTPError
 #urlparse imports
 from urlparse import urlparse
 
+#hashlib imports
+import hashlib
+
 try:
     #simplejson imports
     from simplejson import loads
@@ -34,15 +37,25 @@ class Pybooru(object):
     init Parameters:
         siteName: The site name in site_list.
         siteURL: URL of based Danbooru site.
+        username: Your username in site
+                  (Required only for functions that modify the content).
+        password: Your user password
+                  (Required only for functions that modify the content).
 
     Attributes:
         siteName: Return site name.
         siteURL: Return URL of based danbooru site.
+        username: Return user name.
+        password: Return password.
     """
 
-    def __init__(self, siteName=None, siteURL=None):
+    def __init__(self, siteName=None, siteURL=None, username=None,
+                 password=None):
+
         self.siteName = siteName
         self.siteURL = siteURL
+        self.username = username
+        self.password = password
 
         if (siteURL is not None) or (siteName is not None):
             if type(siteName) is str:
@@ -63,7 +76,7 @@ class Pybooru(object):
         """
 
         if siteName in site_list.keys():
-            self.siteURL = site_list[siteName]
+            self.siteURL = site_list[siteName]['url']
         else:
             raise PybooruError(
                         'The site name is not valid, use siteURL parameter'
@@ -95,8 +108,30 @@ class Pybooru(object):
             params: The parameters of the API function.
         """
 
-        url = self.siteURL + api_base_url[api_name]
+        url = self.siteURL + api_base_url[api_name]['url']
 
+        #Autentication
+        if api_base_url[api_name]['required_login'] is True:
+            if self.siteName in site_list.keys():
+                if (self.username is not None) and (self.password is not None):
+                    #Set login parameter
+                    params['login'] = self.username
+
+                    #Create hashed string
+                    has_string = site_list[self.siteName]['hashed_string'] % (
+                                    self.password)
+
+                    #Convert hashed_string to SHA1 and return hex string
+                    params['password_hash'] = hashlib.sha1(
+                                                has_string).hexdigest()
+
+                else:
+                    raise PybooruError('username and password is required')
+
+            else:
+                raise PybooruError('Login in %s unsupported' % self.siteName)
+
+        #JSON request
         try:
             #urlopen() from module urllib2
             #urlencode() from module urllib
@@ -202,6 +237,20 @@ class Pybooru(object):
             return self._json_load('comments_show', params)
         else:
             raise PybooruError('id_ attribute is required')
+
+    def comments_destroy(self, id_=None):
+        """Remove a specific comment.
+
+        Parameters:
+            id_: The id number of the comment to remove.
+        """
+
+        if id_ is not None:
+            params = {'id': id_}
+            response = self._json_load('comments_destroy', params)
+            return response['success']
+        else:
+            raise PybooruError('id_ parameter is required')
 
     def wiki_list(self, query=None, order='title', limit=100, page=1):
         """This function retrieves a list of every wiki page.

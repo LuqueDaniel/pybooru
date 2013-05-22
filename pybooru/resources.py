@@ -7,29 +7,70 @@
 """
 
 #site_list
-site_list = {'konachan': 'http://konachan.com',
-             'yandere': 'https://yande.re'
-             }
+site_list = {
+             'konachan': {
+                 'url': 'http://konachan.com',
+                 'hashed_string': 'So-I-Heard-You-Like-Mupkids-?--%s--'},
+
+             'yandere': {
+                 'url': 'https://yande.re',
+                 'hashed_string': 'choujin-steiner--%s--'}
+            }
 
 
 #api_base_url for the API functions
 api_base_url = {
-    'posts_list': '/post.json',
-    'tags_list': '/tag.json',
-    'tags_related': '/tag/related.json',
-    'artists_list': '/artist.json',
-    'comments_show': '/comment/show.json',
-    'wiki_list': '/wiki.json',
-    'wiki_show': '/wiki/show.json',
-    'wiki_history': '/wiki/history.json',
-    'notes_list': '/note.json',
-    'notes_search': '/note/search.json',
-    'notes_history': '/note/history.json',
-    'users_search': '/user.json',
-    'forum_list': '/forum.json',
-    'pools_list': '/pool.json',
-    'pools_posts': '/pool/show.json',
-    'favorites_list_users': '/favorite/list_users.json'
+    'posts_list': {
+        'url': '/post.json',
+        'required_login': False},
+    'tags_list': {
+        'url': '/tag.json',
+        'required_login': False},
+    'tags_related': {
+        'url': '/tag/related.json',
+        'required_login': False},
+    'artists_list': {
+        'url': '/artist.json',
+        'required_login': False},
+    'comments_show': {
+        'url': '/comment/show.json',
+        'required_login': False},
+    'comments_destroy': {
+        'url': '/comment/destroy.json',
+        'required_login': True},
+    'wiki_list': {
+        'url': '/wiki.json',
+        'required_login': False},
+    'wiki_show': {
+        'url': '/wiki/show.json',
+        'required_login': False},
+    'wiki_history': {
+        'url': '/wiki/history.json',
+        'required_login': False},
+    'notes_list': {
+        'url': '/note.json',
+        'required_login': False},
+    'notes_search': {
+        'url': '/note/search.json',
+        'required_login': False},
+    'notes_history': {
+        'url': '/note/history.json',
+        'required_login': False},
+    'users_search': {
+        'url': '/user.json',
+        'required_login': False},
+    'forum_list': {
+        'url': '/forum.json',
+        'required_login': False},
+    'pools_list': {
+        'url': '/pool.json',
+        'required_login': False},
+    'pools_posts': {
+        'url': '/pool/show.json',
+        'required_login': False},
+    'favorites_list_users': {
+        'url': '/favorite/list_users.json',
+        'required_login': False}
     }
 
 
