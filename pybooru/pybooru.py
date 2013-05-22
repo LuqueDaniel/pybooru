@@ -21,7 +21,7 @@ except ImportError:
     except ImportError:
         raise Exception('Pybooru requires the simplejson library to work')
 
-#pyborru imports
+#pyborru exceptions imports
 from .exceptions import PybooruError
 #pybooru resources imports
 from .resources import api_base_url
