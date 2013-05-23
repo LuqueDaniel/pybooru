@@ -166,6 +166,20 @@ class Pybooru(object):
 
         return self._json_load('posts_list', params)
 
+    def posts_revert_tags(self, id_, history_id):
+        """This action reverts a post to a previous set of tags.
+
+        Parameters:
+            id_: The post id number to update.
+            history_id: The id number of the tag history.
+        """
+
+        if type(id_) is int and type(history_id) is int:
+            params = {'id': id_, 'history_id': history_id}
+            return self.json_load('posts_revert_tags', params)
+        else:
+            raise PybooruError('id_ and history_id is expected type int')
+
     def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):
         """Get a list of tags.
