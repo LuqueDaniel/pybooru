@@ -38,6 +38,9 @@ api_base_url = {
     'artists_list': {
         'url': '/artist.json',
         'required_login': False},
+    'artists_destroy': {
+        'url': '/artist/destroy.json',
+        'required_login': True},
     'comments_show': {
         'url': '/comment/show.json',
         'required_login': False},

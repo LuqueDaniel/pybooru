@@ -261,6 +261,18 @@ class Pybooru(object):
 
         return self._json_load('artists_list', params)
 
+    def artists_destroy(self, id_):
+        """This action lets you remove artist (Required login).
+
+        Parameters:
+            id_: The id of the artist to destroy.
+        """
+
+        if type(id_) is int:
+            return self._json_load('artists_destroy', {'id': id_})
+        else:
+            raise PybooruError('id_ is expected type int')
+
     def comments_show(self, id_=None):
         """Get a specific comment.
 
