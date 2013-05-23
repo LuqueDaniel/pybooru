@@ -273,25 +273,25 @@ class Pybooru(object):
         else:
             raise PybooruError('id_ is expected type int')
 
-    def comments_show(self, id_=None):
+    def comments_show(self, id_):
         """Get a specific comment.
 
         Parameters:
             id_: The id number of the comment to retrieve.
         """
 
-        if id_ is not None:
+        if type(id_) is not int:
             params = {'id': id_}
             return self._json_load('comments_show', params)
         else:
-            raise PybooruError('id_ attribute is required')
+            raise PybooruError('id_ is expected type int')
 
     def comments_create(self, post_id, comment_body):
         """This action lets you create a comment (Required login).
 
         Parameters:
-            comment[post_id]: The post id number to which you are responding.
-            comment[body]: The body of the comment.
+            post_id: The post id number to which you are responding.
+            comment_body: The body of the comment.
         """
 
         if type(post_id) is int:
@@ -309,12 +309,12 @@ class Pybooru(object):
             id_: The id number of the comment to remove.
         """
 
-        if id_ is not None:
+        if type(id_) is not int:
             params = {'id': id_}
             response = self._json_load('comments_destroy', params)
             return response['success']
         else:
-            raise PybooruError('id_ parameter is required')
+            raise PybooruError('id_ is expected type int')
 
     def wiki_list(self, query=None, order='title', limit=100, page=1):
         """This function retrieves a list of every wiki page.
