@@ -167,7 +167,8 @@ class Pybooru(object):
         return self._json_load('posts_list', params)
 
     def posts_revert_tags(self, id_, history_id):
-        """This action reverts a post to a previous set of tags.
+        """This action reverts a post to a previous set of tags
+           (Required login)(UNTESTED).
 
         Parameters:
             id_: The post id number to update.
@@ -176,9 +177,30 @@ class Pybooru(object):
 
         if type(id_) is int and type(history_id) is int:
             params = {'id': id_, 'history_id': history_id}
-            return self.json_load('posts_revert_tags', params)
+            return self._json_load('posts_revert_tags', params)
         else:
             raise PybooruError('id_ and history_id is expected type int')
+
+    def posts_vote(self, id_, score):
+        """This action lets you vote for a post (Required login).
+
+        Parameters:
+            id_: The post id.
+            score: Be can:
+                0: No voted or Remove vote.
+                1: Good.
+                2: Great.
+                3: Favorite, add post to favorites.
+        """
+
+        if type(id_) is int and type(score) is int:
+            if score <= 3:
+                params = {'id': id_, 'score': score}
+                return self._json_load('posts_vote', params)
+            else:
+                raise PybooruError('Value of score only can be 0, 1, 2 and 3.')
+        else:
+            raise PybooruError('id_ and score is expected type int')
 
     def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):

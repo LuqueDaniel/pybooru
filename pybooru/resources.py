@@ -26,6 +26,9 @@ api_base_url = {
     'posts_revert_tags': {
         'url': '/post/revert_tags.json',
         'required_login': True},
+    'posts_vote': {
+        'url': '/post/vote.json',
+        'required_login': True},
     'tags_list': {
         'url': '/tag.json',
         'required_login': False},
