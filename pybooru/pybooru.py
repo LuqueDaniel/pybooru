@@ -168,7 +168,7 @@ class Pybooru(object):
 
     def posts_revert_tags(self, id_, history_id):
         """This action reverts a post to a previous set of tags
-           (Required login)(UNTESTED).
+           (Requires login)(UNTESTED).
 
         Parameters:
             id_: The post id number to update.
@@ -182,7 +182,7 @@ class Pybooru(object):
             raise PybooruError('id_ and history_id is expected type int')
 
     def posts_vote(self, id_, score):
-        """This action lets you vote for a post (Required login).
+        """This action lets you vote for a post (Requires login).
 
         Parameters:
             id_: The post id.
@@ -228,7 +228,7 @@ class Pybooru(object):
         return self._json_load('tags_list', params)
 
     def tags_update(self, name, tag_type, is_ambiguous):
-        """This action lets you update tag (Required login)(UNTESTED)
+        """This action lets you update tag (Requires login)(UNTESTED)
 
         Parameters:
             name: The name of the tag to update.
@@ -281,7 +281,7 @@ class Pybooru(object):
         return self._json_load('artists_list', params)
 
     def artists_destroy(self, id_):
-        """This action lets you remove artist (Required login).
+        """This action lets you remove artist (Requires login).
 
         Parameters:
             id_: The id of the artist to destroy.
@@ -306,7 +306,7 @@ class Pybooru(object):
             raise PybooruError('id_ is expected type int')
 
     def comments_create(self, post_id, comment_body):
-        """This action lets you create a comment (Required login).
+        """This action lets you create a comment (Requires login).
 
         Parameters:
             post_id: The post id number to which you are responding.
@@ -322,7 +322,7 @@ class Pybooru(object):
             raise PybooruError('post_id is expected type int')
 
     def comments_destroy(self, id_=None):
-        """Remove a specific comment (Required login).
+        """Remove a specific comment (Requires login).
 
         Parameters:
             id_: The id number of the comment to remove.
@@ -351,6 +351,17 @@ class Pybooru(object):
             params['query'] = query
 
         return self._json_load('wiki_list', params)
+
+    def wiki_create(self, title, body):
+        """This action lets yout create a wiki page (Requires login)(UNTESTED)
+
+        Parameters:
+            title: The title of the wiki page.
+            body: The body of the wiki page.
+        """
+
+        params = {'wiki_page[title]': str(title), 'wiki_page[body]': str(body)}
+        return self._json_load('wiki_create', params)
 
     def wiki_show(self, title=None, version=None):
         """Get a specific wiki page.

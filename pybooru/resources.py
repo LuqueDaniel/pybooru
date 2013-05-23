@@ -56,6 +56,9 @@ api_base_url = {
     'wiki_list': {
         'url': '/wiki.json',
         'required_login': False},
+    'wiki_create': {
+        'url': '/wiki/create.json',
+        'required_login': True},
     'wiki_show': {
         'url': '/wiki/show.json',
         'required_login': False},
