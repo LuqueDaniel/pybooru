@@ -239,7 +239,7 @@ class Pybooru(object):
             raise PybooruError('id_ attribute is required')
 
     def comments_destroy(self, id_=None):
-        """Remove a specific comment.
+        """Remove a specific comment (Required login).
 
         Parameters:
             id_: The id number of the comment to remove.
@@ -285,7 +285,7 @@ class Pybooru(object):
 
             return self._json_load('wiki_show', params)
         else:
-            raise PybooruError('title attribute is required')
+            raise PybooruError('title parameter is required')
 
     def wiki_history(self, title=None):
         """Get history of specific wiki page.
@@ -324,7 +324,7 @@ class Pybooru(object):
             params = {'query': query}
             return self._json_load('notes_search', params)
         else:
-            raise PybooruError('query attribute is required')
+            raise PybooruError('query parameter is required')
 
     def notes_history(self, post_id=None, id_=None, limit=10, page=1):
         """Get history of notes.
@@ -424,4 +424,4 @@ class Pybooru(object):
             #Return list with users
             return response['favorited_users'].split(',')
         else:
-            raise PybooruError('id_ attribute is required')
+            raise PybooruError('id_ parameter is required')
