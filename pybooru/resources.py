@@ -32,6 +32,9 @@ api_base_url = {
     'tags_list': {
         'url': '/tag.json',
         'required_login': False},
+    'tags_update': {
+        'url': '/tag/update.json',
+        'required_login': True},
     'tags_related': {
         'url': '/tag/related.json',
         'required_login': False},

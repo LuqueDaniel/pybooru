@@ -227,6 +227,25 @@ class Pybooru(object):
 
         return self._json_load('tags_list', params)
 
+    def tags_update(self, name, tag_type, is_ambiguous):
+        """This action lets you update tag (Required login)(UNTESTED)
+
+        Parameters:
+            name: The name of the tag to update.
+            tag_type: The tag type.
+                General: 0.
+                artist: 1.
+                copyright: 3.
+                character: 4.
+            is_ambiguous: Whether or not this tag is ambiguous.
+                          Use 1 for true and 0 for false.
+        """
+
+        params = {'name': name, 'tag[tag_type]': tag_type,
+                  'tag[is_ambiguous]': is_ambiguous}
+
+        return self._json_load('tags_update', params)
+
     def tags_related(self, tags, type_=None):
         """Get a list of related tags.
 
