@@ -44,6 +44,9 @@ api_base_url = {
     'comments_show': {
         'url': '/comment/show.json',
         'required_login': False},
+    'comments_create': {
+        'url': '/comment/create.json',
+        'required_login': True},
     'comments_destroy': {
         'url': '/comment/destroy.json',
         'required_login': True},

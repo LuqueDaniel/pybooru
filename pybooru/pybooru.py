@@ -286,6 +286,22 @@ class Pybooru(object):
         else:
             raise PybooruError('id_ attribute is required')
 
+    def comments_create(self, post_id, comment_body):
+        """This action lets you create a comment (Required login).
+
+        Parameters:
+            comment[post_id]: The post id number to which you are responding.
+            comment[body]: The body of the comment.
+        """
+
+        if type(post_id) is int:
+            params = {'comment[post_id]': post_id,
+                      'comment[body]': comment_body}
+            response = self._json_load('comments_create', params)
+            return response['success']
+        else:
+            raise PybooruError('post_id is expected type int')
+
     def comments_destroy(self, id_=None):
         """Remove a specific comment (Required login).
 
