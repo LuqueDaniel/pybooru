@@ -68,6 +68,9 @@ api_base_url = {
     'wiki_destroy': {
         'url': '/wiki/destroy.json',
         'required_login': True},
+    'wiki_lock': {
+        'url': '/wiki/lock.json',
+        'required_login': True},
     'wiki_history': {
         'url': '/wiki/history.json',
         'required_login': False},

@@ -406,6 +406,18 @@ class Pybooru(object):
         response = self._json_load('wiki_destroy', params)
         return response['success']
 
+    def wiki_lock(self, title):
+        """This function lock a specific wiki page (Requires login)(UNTESTED)
+           (Only moderators).
+
+        Params:
+            title: The title of the page to delete.
+        """
+
+        params = {'title': title}
+        response = self._json_load('wiki_lock', params)
+        return response['success']
+
     def wiki_history(self, title=None):
         """Get history of specific wiki page.
 
