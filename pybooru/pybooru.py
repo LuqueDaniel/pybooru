@@ -430,6 +430,18 @@ class Pybooru(object):
         response = self._json_load('wiki_unlock', params)
         return response['success']
 
+    def wiki_revert(self, title, version):
+        """This function rever a specific wiki page (Requires login)(UNTESTED).
+
+        Parameters:
+            title: The title of the wiki page to update.
+            version: The version to revert to.
+        """
+
+        params = {'title': title, 'version': version}
+        response = self._json_load('wiki_revert', params)
+        return response['success']
+
     def wiki_history(self, title=None):
         """Get history of specific wiki page.
 

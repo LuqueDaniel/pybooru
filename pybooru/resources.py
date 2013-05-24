@@ -74,6 +74,9 @@ api_base_url = {
     'wiki_unlock': {
         'url': '/wiki/unlock.json',
         'required_login': True},
+    'wiki_revert': {
+        'url': '/wiki/revert.json',
+        'required_login': True},
     'wiki_history': {
         'url': '/wiki/history.json',
         'required_login': False},
