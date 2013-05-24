@@ -171,21 +171,18 @@ class Pybooru(object):
            (Requires login)(UNTESTED).
 
         Parameters:
-            id_: The post id number to update.
+            id_: The post id number to update (Type: INT).
             history_id: The id number of the tag history.
         """
 
-        if type(id_) is int and type(history_id) is int:
-            params = {'id': id_, 'history_id': history_id}
-            return self._json_load('posts_revert_tags', params)
-        else:
-            raise PybooruError('id_ and history_id is expected type int')
+        params = {'id': id_, 'history_id': history_id}
+        return self._json_load('posts_revert_tags', params)
 
     def posts_vote(self, id_, score):
         """This action lets you vote for a post (Requires login).
 
         Parameters:
-            id_: The post id.
+            id_: The post id (Type: INT).
             score: Be can:
                 0: No voted or Remove vote.
                 1: Good.
@@ -193,14 +190,11 @@ class Pybooru(object):
                 3: Favorite, add post to favorites.
         """
 
-        if type(id_) is int and type(score) is int:
-            if score <= 3:
-                params = {'id': id_, 'score': score}
-                return self._json_load('posts_vote', params)
-            else:
-                raise PybooruError('Value of score only can be 0, 1, 2 and 3.')
+        if score <= 3:
+            params = {'id': id_, 'score': score}
+            return self._json_load('posts_vote', params)
         else:
-            raise PybooruError('id_ and score is expected type int')
+            raise PybooruError('Value of score only can be 0, 1, 2 and 3.')
 
     def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):
@@ -284,56 +278,46 @@ class Pybooru(object):
         """This action lets you remove artist (Requires login).
 
         Parameters:
-            id_: The id of the artist to destroy.
+            id_: The id of the artist to destroy (Type: INT).
         """
 
-        if type(id_) is int:
-            return self._json_load('artists_destroy', {'id': id_})
-        else:
-            raise PybooruError('id_ is expected type int')
+        params = {'id': id_}
+        response = self._json_load('artists_destroy', params)
+        return response['success']
 
     def comments_show(self, id_):
         """Get a specific comment.
 
         Parameters:
-            id_: The id number of the comment to retrieve.
+            id_: The id number of the comment to retrieve (Type: INT).
         """
 
-        if type(id_) is int:
-            params = {'id': id_}
-            return self._json_load('comments_show', params)
-        else:
-            raise PybooruError('id_ is expected type int')
+        params = {'id': id_}
+        return self._json_load('comments_show', params)
 
     def comments_create(self, post_id, comment_body):
         """This action lets you create a comment (Requires login).
 
         Parameters:
-            post_id: The post id number to which you are responding.
+            post_id: The post id number to which you are responding (Type: INT).
             comment_body: The body of the comment.
         """
 
-        if type(post_id) is int:
-            params = {'comment[post_id]': post_id,
-                      'comment[body]': comment_body}
-            response = self._json_load('comments_create', params)
-            return response['success']
-        else:
-            raise PybooruError('post_id is expected type int')
+        params = {'comment[post_id]': post_id,
+                  'comment[body]': comment_body}
+        response = self._json_load('comments_create', params)
+        return response['success']
 
     def comments_destroy(self, id_=None):
         """Remove a specific comment (Requires login).
 
         Parameters:
-            id_: The id number of the comment to remove.
+            id_: The id number of the comment to remove (Type: INT).
         """
 
-        if type(id_) is int:
-            params = {'id': id_}
-            response = self._json_load('comments_destroy', params)
-            return response['success']
-        else:
-            raise PybooruError('id_ is expected type int')
+        params = {'id': id_}
+        response = self._json_load('comments_destroy', params)
+        return response['success']
 
     def wiki_list(self, query=None, order='title', limit=100, page=1):
         """This function retrieves a list of every wiki page.
@@ -376,7 +360,7 @@ class Pybooru(object):
                   'wiki_page[body]': page_body}
         return self._json_load('wiki_update', params)
 
-    def wiki_show(self, title=None, version=None):
+    def wiki_show(self, title, version=None):
         """Get a specific wiki page.
 
         Parameters:
@@ -384,15 +368,12 @@ class Pybooru(object):
             version: The version of the page to retrieve.
         """
 
-        if title is not None:
-            params = {'title': title}
+        params = {'title': title}
 
-            if version is not None:
-                params['version'] = version
+        if version is not None:
+            params['version'] = version
 
-            return self._json_load('wiki_show', params)
-        else:
-            raise PybooruError('title parameter is required')
+        return self._json_load('wiki_show', params)
 
     def wiki_destroy(self, title):
         """This function delete a specific wiki page (Requires login)(UNTESTED)
@@ -442,24 +423,22 @@ class Pybooru(object):
         response = self._json_load('wiki_revert', params)
         return response['success']
 
-    def wiki_history(self, title=None):
+    def wiki_history(self, title):
         """Get history of specific wiki page.
 
         Parameters:
             title: The title of the wiki page to retrieve versions for.
         """
 
-        if title is not None:
-            params = {'title': title}
-            return self._json_load('wiki_history', params)
-        else:
-            raise PybooruError('title atribute is required')
+        params = {'title': title}
+        return self._json_load('wiki_history', params)
 
     def notes_list(self, post_id=None):
         """Get note list
 
         Parameters:
-            post_id: The post id number to retrieve notes for (Default: None).
+            post_id: The post id number to retrieve notes for (Default: None)
+                     (Type: INT).
         """
 
         if post_id is not None:
@@ -468,25 +447,22 @@ class Pybooru(object):
         else:
             return self._json_load('notes_list')
 
-    def notes_search(self, query=None):
+    def notes_search(self, query):
         """Search specific note.
 
         Parameters:
             query: A word or phrase to search for.
         """
 
-        if query is not None:
-            params = {'query': query}
-            return self._json_load('notes_search', params)
-        else:
-            raise PybooruError('query parameter is required')
+        params = {'query': query}
+        return self._json_load('notes_search', params)
 
     def notes_history(self, post_id=None, id_=None, limit=10, page=1):
         """Get history of notes.
 
         Parameters:
             post_id: The post id number to retrieve note versions for.
-            id_: The note id number to retrieve versions for.
+            id_: The note id number to retrieve versions for (Type: INT).
             limit: How many versions to retrieve (Default: 10).
             page: The note id number to retrieve versions for.
         """
