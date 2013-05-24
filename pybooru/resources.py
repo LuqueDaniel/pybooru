@@ -71,6 +71,9 @@ api_base_url = {
     'wiki_lock': {
         'url': '/wiki/lock.json',
         'required_login': True},
+    'wiki_unlock': {
+        'url': '/wiki/unlock.json',
+        'required_login': True},
     'wiki_history': {
         'url': '/wiki/history.json',
         'required_login': False},

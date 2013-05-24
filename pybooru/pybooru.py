@@ -411,11 +411,23 @@ class Pybooru(object):
            (Only moderators).
 
         Params:
-            title: The title of the page to delete.
+            title: The title of the page to lock.
         """
 
         params = {'title': title}
         response = self._json_load('wiki_lock', params)
+        return response['success']
+
+    def wiki_unlock(self, title):
+        """This function unlock a specific wiki page (Requires login)(UNTESTED)
+           (Only moderators).
+
+        Params:
+            title: The title of the page to unlock.
+        """
+
+        params = {'title': title}
+        response = self._json_load('wiki_unlock', params)
         return response['success']
 
     def wiki_history(self, title=None):
