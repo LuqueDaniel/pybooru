@@ -299,7 +299,7 @@ class Pybooru(object):
             id_: The id number of the comment to retrieve.
         """
 
-        if type(id_) is not int:
+        if type(id_) is int:
             params = {'id': id_}
             return self._json_load('comments_show', params)
         else:
@@ -328,7 +328,7 @@ class Pybooru(object):
             id_: The id number of the comment to remove.
         """
 
-        if type(id_) is not int:
+        if type(id_) is int:
             params = {'id': id_}
             response = self._json_load('comments_destroy', params)
             return response['success']
@@ -431,7 +431,7 @@ class Pybooru(object):
         return response['success']
 
     def wiki_revert(self, title, version):
-        """This function rever a specific wiki page (Requires login)(UNTESTED).
+        """This function revert a specific wiki page (Requires login)(UNTESTED).
 
         Parameters:
             title: The title of the wiki page to update.
@@ -499,6 +499,18 @@ class Pybooru(object):
             params['id'] = id_
 
         return self._json_load('notes_history', params)
+
+    def notes_revert(self, id_, version):
+        """This function revert a specific note (Requires login)(UNTESTED).
+
+        Parameters:
+            id_: The note id to update (Type: INT).
+            version: The version to revert to.
+        """
+
+        params = {'id': id_, 'version': version}
+        response = self._json_load('wiki_revert', params)
+        return response['success']
 
     def users_search(self, name=None, id_=None):
         """Search users. If you don't specify any parameters you'll

@@ -89,6 +89,9 @@ api_base_url = {
     'notes_history': {
         'url': '/note/history.json',
         'required_login': False},
+    'notes_revert': {
+        'url': '/note/revert.json',
+        'required_login': True},
     'users_search': {
         'url': '/user.json',
         'required_login': False},
