@@ -353,7 +353,7 @@ class Pybooru(object):
         return self._json_load('wiki_list', params)
 
     def wiki_create(self, title, body):
-        """This action lets yout create a wiki page (Requires login)(UNTESTED)
+        """This action lets you create a wiki page (Requires login)(UNTESTED)
 
         Parameters:
             title: The title of the wiki page.
@@ -362,6 +362,19 @@ class Pybooru(object):
 
         params = {'wiki_page[title]': str(title), 'wiki_page[body]': str(body)}
         return self._json_load('wiki_create', params)
+
+    def wiki_update(self, page_title, new_title, page_body):
+        """This action lets you update a wiki page (Requires login)(UNTESTED)
+
+        Parameters:
+            page_title: The title of the wiki page to update.
+            new_title: The new title of the wiki page.
+            page_body: The new body of the wiki page.
+        """
+
+        params = {'title': page_title, 'wiki_page[title]': new_title,
+                  'wiki_page[body]': page_body}
+        return self._json_load('wiki_update', params)
 
     def wiki_show(self, title=None, version=None):
         """Get a specific wiki page.
