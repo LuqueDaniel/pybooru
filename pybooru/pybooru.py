@@ -603,6 +603,24 @@ class Pybooru(object):
 
         return self._json_load('pools_update', params)
 
+    def pools_create(self, name, is_public, description):
+        """This function create a pool (Require login)(UNTESTED).
+
+        Parameters:
+            name: The name.
+            is_public: 1 or 0, whether or not the pool is public.
+            description: A description of the pool.
+        """
+
+        params = {'pool[name]': name, 'pool[description]': description}
+
+        if is_public <= 1:
+            params['pool[name]'] = is_public
+        else:
+            raise PybooruError('is_public required 1 or 0')
+
+        return self._json_load('pools_create', params)
+
     def favorites_list_users(self, id_):
         """Return a list with all users who have added to favorites a specific
            post.
