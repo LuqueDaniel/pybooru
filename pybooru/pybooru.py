@@ -274,6 +274,23 @@ class Pybooru(object):
 
         return self._json_load('artists_list', params)
 
+    def artists_create(self, name, urls, alias, group):
+        """This function create a artist (Require login)(UNTESTED).
+
+        Parameters:
+            name: The artist's name.
+            urls: A list of URLs associated with the artist, whitespace
+                  delimited.
+            alias: The artist that this artist is an alias for. Simply enter
+                   the alias artist's name.
+            group: The group or cicle that this artist is a member of.
+                   Simply enter the group's name.
+        """
+
+        params = {'artist[name]': name, 'artist[urls]': urls,
+                  'artist[alias]': alias, 'artist[group]': group}
+        return self._json_load('artists_create', params)
+
     def artists_destroy(self, id_):
         """This action lets you remove artist (Requires login).
 
