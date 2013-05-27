@@ -92,6 +92,9 @@ api_base_url = {
     'notes_revert': {
         'url': '/note/revert.json',
         'required_login': True},
+    'notes_create_update': {
+        'url': '/note/update.json',
+        'required_login': True},
     'users_search': {
         'url': '/user.json',
         'required_login': False},
@@ -104,6 +107,9 @@ api_base_url = {
     'pools_posts': {
         'url': '/pool/show.json',
         'required_login': False},
+    'pools_update': {
+        'url': ' /pool/update.json',
+        'required_login': True},
     'favorites_list_users': {
         'url': '/favorite/list_users.json',
         'required_login': False}

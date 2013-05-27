@@ -488,6 +488,36 @@ class Pybooru(object):
         response = self._json_load('wiki_revert', params)
         return response['success']
 
+    def notes_create_update(self, id_=None, post_id, x, y, width, height,
+                            is_active, body):
+        """This function create or update note (Requires login)(UNTESTED).
+
+        Parameters:
+            id_: If you are updating a note, this is the note id number to
+                 update.
+            post_id: The post id number this note belongs to.
+            x: The x coordinate of the note.
+            y: The y coordinate of the note.
+            width: The width of the note.
+            height: The height of the note.
+            is_active: Whether or not the note is visible. Set to 1 for
+                       active, 0 for inactive.
+            body: The note message.
+        """
+
+        params = {'note[post_id]': post_id, 'note[x]': x, 'note[y]': y,
+                  'note[width]': width, 'note[height]': height,
+                  'note[body]': body}
+
+        if id_ is not None:
+            params['id'] = id_
+        if is_active <= 1:
+            params['note[is_active]'] = is_active
+        else:
+            raise PybooruError('is_active parameters required 1 or 0')
+
+        return self._json_load('notes_create_update', params)
+
     def users_search(self, name=None, id_=None):
         """Search users. If you don't specify any parameters you'll
            get a listing of all users.
@@ -553,18 +583,35 @@ class Pybooru(object):
 
         return self._json_load('pools_posts', params)
 
-    def favorites_list_users(self, id_=None):
+    def pools_update(self, id_, name, is_public, description):
+        """This function update a pool (Requires login)(UNTESTED).
+
+        Parameters:
+            id_: The pool id number.
+            name: The name.
+            is_public: 1 or 0, whether or not the pool is public.
+            description: A description of the pool.
+        """
+
+        params = {'id': id_, 'pool[name]': name,
+                  'pool[description]': description}
+
+        if is_public <= 1:
+            params['pool[is_public]'] = is_public
+        else:
+            raise PybooruError('is_public require 1 or 0')
+
+        return self._json_load('pools_update', params)
+
+    def favorites_list_users(self, id_):
         """Return a list with all users who have added to favorites a specific
            post.
 
         Parameters:
-            id_: The post id.
+            id_: The post id (Type: INT).
         """
 
-        if id_ is not None:
-            params = {'id': id_}
-            response = self._json_load('favorites_list_users', params)
-            #Return list with users
-            return response['favorited_users'].split(',')
-        else:
-            raise PybooruError('id_ parameter is required')
+        params = {'id': id_}
+        response = self._json_load('favorites_list_users', params)
+        #Return list with users
+        return response['favorited_users'].split(',')
