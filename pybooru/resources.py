@@ -119,6 +119,9 @@ api_base_url = {
     'pools_add_post': {
         'url': ' /pool/add_post.json',
         'required_login': True},
+    'pools_remove_post': {
+        'url': '/pool/remove_post.json',
+        'required_login': True},
     'favorites_list_users': {
         'url': '/favorite/list_users.json',
         'required_login': False}

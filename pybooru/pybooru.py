@@ -643,6 +643,17 @@ class Pybooru(object):
         params = {'pool_id': pool_id, 'post_id': post_id}
         return self._json_load('pools_add_post', params)
 
+    def pools_remove_post(self, pool_id, post_id):
+        """This function remove a post (Require login)(UNTESTED).
+
+        Parameters:
+            pool_id: The pool to remove the post to.
+            post_id: The post to remove.
+        """
+
+        params = {'pool_id': pool_id, 'post_id': post_id}
+        return self._json_load('pools_remove_post', params)
+
     def favorites_list_users(self, id_):
         """Return a list with all users who have added to favorites a specific
            post.
