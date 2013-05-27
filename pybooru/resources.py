@@ -44,6 +44,9 @@ api_base_url = {
     'artists_create': {
         'url': '/artist/create.json',
         'required_login': True},
+    'artists_update': {
+        'url': '/artist/update.json',
+        'required_login': True},
     'artists_destroy': {
         'url': '/artist/destroy.json',
         'required_login': True},
