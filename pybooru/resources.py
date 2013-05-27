@@ -113,6 +113,9 @@ api_base_url = {
     'pools_create': {
         'url': '/pool/create.json',
         'required_login': True},
+    'pools_destroy': {
+        'url': '/pool/destroy.json',
+        'required_login': True},
     'favorites_list_users': {
         'url': '/favorite/list_users.json',
         'required_login': False}

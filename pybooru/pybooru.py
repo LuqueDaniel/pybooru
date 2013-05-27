@@ -621,6 +621,17 @@ class Pybooru(object):
 
         return self._json_load('pools_create', params)
 
+    def pools_destroy(self, id_):
+        """This function destroy a specific pool (Require login)(UNTESTED).
+
+        Parameters:
+            id_: The pool id number (Type: INT).
+        """
+
+        params = {'id': id_}
+        response = self._json_load('pools_destroy', params)
+        return response['success']
+
     def favorites_list_users(self, id_):
         """Return a list with all users who have added to favorites a specific
            post.
