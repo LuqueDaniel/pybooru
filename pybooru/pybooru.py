@@ -632,6 +632,17 @@ class Pybooru(object):
         response = self._json_load('pools_destroy', params)
         return response['success']
 
+    def pools_add_post(self, pool_id, post_id):
+        """This function add a post (Require login)(UNTESTED).
+
+        Parameters:
+            pool_id: The pool to add the post to.
+            post_id: The post to add.
+        """
+
+        params = {'pool_id': pool_id, 'post_id': post_id}
+        return self._json_load('pools_add_post', params)
+
     def favorites_list_users(self, id_):
         """Return a list with all users who have added to favorites a specific
            post.
