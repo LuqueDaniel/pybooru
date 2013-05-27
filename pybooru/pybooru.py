@@ -166,6 +166,19 @@ class Pybooru(object):
 
         return self._json_load('posts_list', params)
 
+    def posts_destroy(self, id_):
+        """This function destroy a specific post. You must also be the user
+           who uploaded the post (or you must be a moderator).
+           (Requires Login)(UNTESTED).
+
+        Parameters:
+            id_: The id number of the post to delete.
+        """
+
+        params = {'id': id_}
+        response = self._json_load('posts_destroy')
+        return response['success']
+
     def posts_revert_tags(self, id_, history_id):
         """This action reverts a post to a previous set of tags
            (Requires login)(UNTESTED).

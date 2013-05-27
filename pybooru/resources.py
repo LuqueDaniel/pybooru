@@ -23,6 +23,9 @@ api_base_url = {
     'posts_list': {
         'url': '/post.json',
         'required_login': False},
+    'posts_destroy': {
+        'url': '/post/destroy.json',
+        'required_login': True},
     'posts_revert_tags': {
         'url': '/post/revert_tags.json',
         'required_login': True},
