@@ -166,6 +166,50 @@ class Pybooru(object):
 
         return self._json_load('posts_list', params)
 
+    def posts_create(self, tags, file_=None, rating=None, source=None,
+                     is_rating_locked=None, is_note_locked=None,
+                     parent_id=None, md5=None):
+        """This function create a new post. There are only two mandatory
+           fields: you need to supply the tags, and you need to supply the
+           file, either through a multipart form or through a source URL.
+           (Requires login)(UNTESTED).
+
+        Parameters:
+            tags: A space delimited list of tags.
+            file_: The file data encoded as a multipart form.
+            rating: The rating for the post. Can be: safe, questionable, or
+                    explicit.
+            source: If this is a URL, Danbooru will download the file.
+            is_rating_locked: Set to true to prevent others from changing the
+                              rating.
+            is_note_locked: Set to true to prevent others from adding notes.
+            parent_id: The ID of the parent post.
+            md5: Supply an MD5 if you want Danbooru to verify the file after
+                 uploading. If the MD5 doesn't match, the post is destroyed.
+        """
+
+        params = {'post[tags]': tags}
+
+        if source is not None or file_ is not None:
+            if file_ is not None:
+                params['post[file]'] = file_
+            if source is not None:
+                params['post[source]'] = source
+            if rating is not None:
+                params['post[rating]'] = rating
+            if is_rating_locked is not None:
+                params['post[is_rating_locked]'] = is_rating_locked
+            if is_note_locked is not None:
+                params['post[is_note_locked]'] = is_note_locked
+            if parent_id is not None:
+                params['post[parent_id]'] = parent_id
+            if md5 is not None:
+                params['md5'] = md5
+
+            return self._json_load('posts_create', params)
+        else:
+            raise PybooruError('source of file_ is required')
+
     def posts_update(self, id_, tags, file_, rating, source, is_rating_locked,
                      is_note_locked, parent_id):
         """This function update a specific post. Only the id_ parameter is
