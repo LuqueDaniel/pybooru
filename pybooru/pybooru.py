@@ -166,6 +166,44 @@ class Pybooru(object):
 
         return self._json_load('posts_list', params)
 
+    def posts_update(self, id_, tags, file_, rating, source, is_rating_locked,
+                     is_note_locked, parent_id):
+        """This function update a specific post. Only the id_ parameter is
+           required. Leave the other parameters blank if you don't want to
+           change them (Requires login)(UNESTED).
+
+        Parameters:
+            id_: The id number of the post to update (Type: INT).
+            tags: A space delimited list of tags (Type: STR).
+            file_: The file data ENCODED as a multipart form.
+            rating: The rating for the post. Can be: safe, questionable, or
+                    explicit.
+            source: If this is a URL, Danbooru will download the file.
+            is_rating_locked: Set to true to prevent others from changing the
+                              rating.
+            is_note_locked: Set to true to prevent others from adding notes.
+            parent_id: The ID of the parent post.
+        """
+
+        params = {'id': id_}
+
+        if tags is not None:
+            params['post[tags]'] = tags
+        if file_ is not None:
+            params['post[file]'] = file_
+        if rating is not None:
+            params['post[rating]'] = rating
+        if source is not None:
+            params['post[source]'] = source
+        if is_rating_locked is not None:
+            params['post[is_rating_locked]'] = is_rating_locked
+        if is_note_locked is not None:
+            params['post[is_note_locked]'] = is_note_locked
+        if parent_id is not None:
+            params['post[parent_id]'] = parent_id
+
+        return self._json_load('posts_update', params)
+
     def posts_destroy(self, id_):
         """This function destroy a specific post. You must also be the user
            who uploaded the post (or you must be a moderator).

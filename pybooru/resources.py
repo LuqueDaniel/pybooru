@@ -23,6 +23,9 @@ api_base_url = {
     'posts_list': {
         'url': '/post.json',
         'required_login': False},
+    'posts_update': {
+        'url': '/post/update.json',
+        'required_login': True},
     'posts_destroy': {
         'url': '/post/destroy.json',
         'required_login': True},
