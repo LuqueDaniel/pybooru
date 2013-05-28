@@ -628,13 +628,11 @@ class Pybooru(object):
         response = self._json_load('wiki_revert', params)
         return response['success']
 
-    def notes_create_update(self, id_=None, post_id, x, y, width, height,
-                            is_active, body):
+    def notes_create_update(self, post_id, x, y, width, height,
+                            is_active, body, id_=None):
         """This function create or update note (Requires login)(UNTESTED).
 
         Parameters:
-            id_: If you are updating a note, this is the note id number to
-                 update.
             post_id: The post id number this note belongs to.
             x: The x coordinate of the note.
             y: The y coordinate of the note.
@@ -643,6 +641,8 @@ class Pybooru(object):
             is_active: Whether or not the note is visible. Set to 1 for
                        active, 0 for inactive.
             body: The note message.
+            id_: If you are updating a note, this is the note id number to
+                 update.
         """
 
         params = {'note[post_id]': post_id, 'note[x]': x, 'note[y]': y,
