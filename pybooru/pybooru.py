@@ -258,7 +258,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_}
-        response = self._json_load('posts_destroy')
+        response = self._json_load('posts_destroy', params)
         return response['success']
 
     def posts_revert_tags(self, id_, history_id):
