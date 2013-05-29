@@ -1,7 +1,7 @@
 """
 Pybooru
 -------
-Pybooru is a library for Python for access to API Moebooru based sites.
+Pybooru is a library for Python for access to API Danbooru based sites.
 
 Under MIT license.
 """
