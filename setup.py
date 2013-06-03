@@ -4,7 +4,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 __author__ = 'Daniel Luque <danielluque14 at gmail dot com>'
-__version__ = '2.0-dev'
+__version__ = '2.0'
 
 setup(
     name='Pybooru',
