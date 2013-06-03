@@ -1,22 +1,22 @@
-from Pybooru import Pybooru
+from pybooru import Pybooru
 
-client = Pybooru(name='Konachan')
+client = Pybooru(siteName='Konachan')
 
-#notes = client.notes()
+#notes = client.notes_list()
 
 #print notes
 
-#wiki = client.wiki('nice', 'date', 2, 1)
+#wiki = client.wiki_list('nice', 'date', 2, 1)
 
 #for msg in wiki:
 #    print 'Mensaje: %s' % (msg['body']),
 
-#posts = client.posts('blue_eyes', 2, 0)
+#posts = client.posts_list('blue_eyes', 2, 0)
 
 #for post in posts:
 #    print 'URL imagen: %s' % (post['file_url'])
 
-#tags = client.tags(None, None, 100, 0, 'date')
+#tags = client.tags_list(None, None, 100, 0, 'date')
 
 #print tags
 #for tag in tags:

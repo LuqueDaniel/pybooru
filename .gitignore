@@ -2,7 +2,7 @@
 *.pyc
 
 # ignore test file
-pybooru/pro.py
+pro.py
 
 build/
 dist/
