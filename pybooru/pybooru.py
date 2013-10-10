@@ -39,23 +39,27 @@ class Pybooru(object):
         siteURL: URL of based Danbooru site.
         username: Your username in site
                   (Required only for functions that modify the content).
-        password: Your user password
+        password: Your user password in plain text.
                   (Required only for functions that modify the content).
+        hashString: string that is hashed.
+                    (See the API of the site for more information).
 
     Attributes:
         siteName: Return site name.
         siteURL: Return URL of based danbooru site.
         username: Return user name.
-        password: Return password.
+        password: Return password in plain text.
+        hashString: Return hashString.
     """
 
     def __init__(self, siteName=None, siteURL=None, username=None,
-                 password=None):
+                 password=None, hashString=None):
 
         self.siteName = siteName
         self.siteURL = siteURL
         self.username = username
         self.password = password
+        self.hashString = hashString
 
         if (siteURL is not None) or (siteName is not None):
             if type(siteName) is str:
@@ -112,15 +116,22 @@ class Pybooru(object):
 
         #Autentication
         if API_BASE_URL[api_name]['required_login'] is True:
-            if self.siteName in SITE_LIST.keys():
+            if (self.siteName in SITE_LIST.keys()) or (self.hashString is not None):
                 if (self.username is not None) and (self.password is not None):
                     #Set login parameter
                     params['login'] = self.username
 
                     #Create hashed string
-                    has_string = SITE_LIST[self.siteName]['hashed_string'] % (
-                                    self.password)
+                    if self.hashString is not None:
+                        try:
+                            has_string = self.hashString % (self.password)
+                        except TypeError:
+                            raise PybooruError('Use "%s" for hashString')
+                    else:
+                        has_string = SITE_LIST[self.siteName]['hashed_string'] % (
+                                        self.password)
 
+                    #Set password_hash parameter
                     #Convert hashed_string to SHA1 and return hex string
                     params['password_hash'] = hashlib.sha1(
                                                 has_string).hexdigest()
@@ -129,7 +140,7 @@ class Pybooru(object):
                     raise PybooruError('username and password is required')
 
             else:
-                raise PybooruError('Login in %s unsupported' % self.siteName)
+                raise PybooruError('Login in %s unsupported, please use hashString' % self.siteName)
 
         #JSON request
         try:
