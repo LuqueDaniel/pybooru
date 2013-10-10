@@ -27,15 +27,15 @@ except ImportError:
 #pyborru exceptions imports
 from .exceptions import PybooruError
 #pybooru resources imports
-from .resources import api_base_url
-from .resources import site_list
+from .resources import API_BASE_URL
+from .resources import SITE_LIST
 
 
 class Pybooru(object):
     """Pybooru class.
 
     init Parameters:
-        siteName: The site name in site_list.
+        siteName: The site name in SITE_LIST.
         siteURL: URL of based Danbooru site.
         username: Your username in site
                   (Required only for functions that modify the content).
@@ -75,8 +75,8 @@ class Pybooru(object):
                     in the resources module.
         """
 
-        if siteName in site_list.keys():
-            self.siteURL = site_list[siteName]['url']
+        if siteName in SITE_LIST.keys():
+            self.siteURL = SITE_LIST[siteName]['url']
         else:
             raise PybooruError(
                         'The site name is not valid, use siteURL parameter'
@@ -108,17 +108,17 @@ class Pybooru(object):
             params: The parameters of the API function.
         """
 
-        url = self.siteURL + api_base_url[api_name]['url']
+        url = self.siteURL + API_BASE_URL[api_name]['url']
 
         #Autentication
-        if api_base_url[api_name]['required_login'] is True:
-            if self.siteName in site_list.keys():
+        if API_BASE_URL[api_name]['required_login'] is True:
+            if self.siteName in SITE_LIST.keys():
                 if (self.username is not None) and (self.password is not None):
                     #Set login parameter
                     params['login'] = self.username
 
                     #Create hashed string
-                    has_string = site_list[self.siteName]['hashed_string'] % (
+                    has_string = SITE_LIST[self.siteName]['hashed_string'] % (
                                     self.password)
 
                     #Convert hashed_string to SHA1 and return hex string

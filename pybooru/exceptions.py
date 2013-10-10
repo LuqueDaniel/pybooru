@@ -3,7 +3,7 @@
 """
 
 #pybooru impost
-from .resources import http_status_codes
+from .resources import HTTP_STATUS_CODES
 
 
 class PybooruError(Exception):
@@ -25,11 +25,11 @@ class PybooruError(Exception):
         self.http_code = http_code
         self.url = url
 
-        if (http_code is not None) and (http_code in http_status_codes) and (
+        if (http_code is not None) and (http_code in HTTP_STATUS_CODES) and (
             url is not None):
             self.msg = '%i: %s, %s -- %s -- URL: %s' % (http_code,
-                        http_status_codes[http_code][0],
-                        http_status_codes[http_code][1], self.msg, url)
+                        HTTP_STATUS_CODES[http_code][0],
+                        HTTP_STATUS_CODES[http_code][1], self.msg, url)
 
     def __str__(self):
         """This function return self.msg"""
