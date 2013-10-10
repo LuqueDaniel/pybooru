@@ -133,9 +133,13 @@ class Pybooru(object):
 
         #JSON request
         try:
-            #urlopen() from module urllib2
-            #urlencode() from module urllib
-            openURL = urlopen(url, urlencode(params))
+            if params is not None:
+                #urlopen() from module urllib2
+                #urlencode() from module urllib
+                openURL = urlopen(url, urlencode(params))
+            else:
+                openURL = urlopen(url)
+
             reading = openURL.read()
             #loads() is a function of simplejson module
             response = loads(reading)
