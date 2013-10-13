@@ -105,7 +105,7 @@ class Pybooru(object):
         self.siteURL = url
 
     def _json_load(self, api_name, params=None):
-        """Function for reading and returning JSON response.
+        """Function for read and return JSON response.
 
         Parameters:
             api_name: The NAME of the API function.
