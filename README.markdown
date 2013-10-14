@@ -2,7 +2,7 @@ Pybooru - Library for Danbooru API.
 ========================================================================
 Pybooru is a library for Python for access to API Danbooru / Moebooru based sites.
 
-Version: **2.0**<br />
+Version: **2.1**<br />
 Licensed under: **MIT License**
 
 Dependencies.
@@ -12,7 +12,16 @@ Dependencies.
 
 Installation.
 ------------------------------------------------------------------------
-Manual installation
+Pypi - Python Package Index:
+```bash
+    sudo pip install Pybooru
+```
+or
+```bash
+    sudo easy_install Pybooru
+```
+
+Manual installation:
 ```bash
     git clone git://github.com/luquedaniel/pybooru.git
     cd pybooru
