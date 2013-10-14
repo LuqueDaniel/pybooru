@@ -15,19 +15,19 @@ Installation.
 Pypi - Python Package Index:
 [Pybooru on Pypi](https://pypi.python.org/pypi/Pybooru/).
 ```bash
-    sudo pip install Pybooru
+sudo pip install Pybooru
 ```
 or
 ```bash
-    sudo easy_install Pybooru
+sudo easy_install Pybooru
 ```
 
 Manual installation:
 ```bash
-    git clone git://github.com/luquedaniel/pybooru.git
-    cd pybooru
-    sudo python setup.py build
-    sudo python setup.py install
+git clone git://github.com/luquedaniel/pybooru.git
+cd pybooru
+sudo python setup.py build
+sudo python setup.py install
 ```
 
 Example use.
