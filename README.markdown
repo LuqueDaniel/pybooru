@@ -13,6 +13,7 @@ Dependencies.
 Installation.
 ------------------------------------------------------------------------
 Pypi - Python Package Index:
+[Pybooru on Pypi](https://pypi.python.org/pypi/Pybooru/).
 ```bash
     sudo pip install Pybooru
 ```
