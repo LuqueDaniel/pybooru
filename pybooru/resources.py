@@ -7,7 +7,7 @@
 """
 
 #site_list
-site_list = {
+SITE_LIST = {
              'konachan': {
                  'url': 'http://konachan.com',
                  'hashed_string': 'So-I-Heard-You-Like-Mupkids-?--%s--'},
@@ -19,7 +19,7 @@ site_list = {
 
 
 #api_base_url for the API functions
-api_base_url = {
+API_BASE_URL = {
     'posts_list': {
         'url': '/post.json',
         'required_login': False},
@@ -144,7 +144,7 @@ api_base_url = {
 
 
 #http_status_codes
-http_status_codes = {
+HTTP_STATUS_CODES = {
     200: ('OK', 'Request was successful'),
     403: ('Forbidden', 'Access denied'),
     404: ('Not Found', 'Not found'),
