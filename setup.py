@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-#msetuptools imports
+# msetuptools imports
 from setuptools import setup
 from setuptools import find_packages
 
