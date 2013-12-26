@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-#setuptools imports
+#msetuptools imports
 from setuptools import setup
 from setuptools import find_packages
 
-#pybooru imports
+# pybooru imports
 import pybooru
 
 

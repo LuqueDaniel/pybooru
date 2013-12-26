@@ -1,12 +1,11 @@
-"""
-    This module contain all resources for pybooru.
+"""This module contain all resources for pybooru.
 
-    site_list: Is a dict contains various based Danbooru default sites.
-    api_base_url: Is a dict contain the urls for API functions.
-    http_status_codes: Is a dict contains the http status code for Danbooru API.
+site_list: Is a dict contains various based Danbooru default sites.
+api_base_url: Is a dict contain the urls for API functions.
+http_status_codes: Is a dict contains the http status code for Danbooru API.
 """
 
-#site_list
+# site_list
 SITE_LIST = {
              'konachan': {
                  'url': 'http://konachan.com',
@@ -18,7 +17,7 @@ SITE_LIST = {
             }
 
 
-#api_base_url for the API functions
+# api_base_url for the API functions
 API_BASE_URL = {
     'posts_list': {
         'url': '/post.json',
@@ -143,7 +142,7 @@ API_BASE_URL = {
     }
 
 
-#http_status_codes
+# http_status_codes
 HTTP_STATUS_CODES = {
     200: ('OK', 'Request was successful'),
     403: ('Forbidden', 'Access denied'),
