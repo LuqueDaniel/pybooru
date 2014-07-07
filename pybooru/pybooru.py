@@ -35,10 +35,10 @@ class Pybooru(object):
     """Pybooru class.
 
     init Parameters:
-        siteName:
+        site_name:
             The site name in SITE_LIST, default sites.
 
-        siteURL:
+        site_url:
             URL of based Danbooru site.
 
         username:
@@ -49,55 +49,55 @@ class Pybooru(object):
             Your user password in plain text.
             (Required only for functions that modify the content).
 
-        hashString:
+        hash_string:
             string that is hashed.
             (See the API documentation of the site for more information).
 
     Attributes:
-        siteName: Return site name.
-        siteURL: Return URL of based danbooru site.
+        site_name: Return site name.
+        site_url: Return URL of based danbooru site.
         username: Return user name.
         password: Return password in plain text.
-        hashString: Return hashString.
+        hash_string: Return hash_string.
     """
 
-    def __init__(self, siteName=None, siteURL=None, username=None,
-                 password=None, hashString=None):
+    def __init__(self, site_name=None, site_url=None, username=None,
+                 password=None, hash_string=None):
 
-        self.siteName = siteName
-        self.siteURL = siteURL
+        self.site_name = site_name
+        self.site_url = site_url
         self.username = username
         self.password = password
-        self.hashString = hashString
+        self.hash_string = hash_string
 
-        if (siteURL is not None) or (siteName is not None):
-            if type(siteName) is str:
-                self._site_name(siteName.lower())
-            elif type(siteURL) is str:
-                self._url_validator(siteURL.lower())
+        if (site_url is not None) or (site_name is not None):
+            if type(site_name) is str:
+                self._site_name(site_name.lower())
+            elif type(site_url) is str:
+                self._url_validator(site_url.lower())
             else:
-                raise PybooruError("Expected type str for siteName and siteURL")
+                raise PybooruError("Expected type str for site_name and site_url")
         else:
-            raise PybooruError("siteName and siteURL are None")
+            raise PybooruError("site_name and site_url are None")
 
-    def _site_name(self, siteName):
+    def _site_name(self, site_name):
         """Function for checking name site and get URL.
 
         Parameters:
-            siteName:
+            site_name:
                 The name of a based Danbooru/Moebooru site. You can get list of sites
                 in the resources module.
         """
 
-        if siteName in SITE_LIST.keys():
-            self.siteURL = SITE_LIST[siteName]['url']
+        if site_name in SITE_LIST.keys():
+            self.site_url = SITE_LIST[site_name]['url']
         else:
             raise PybooruError(
-                "The site name is not valid, use siteURL parameter"
+                "The site name is not valid, use site_url parameter"
                 )
 
     def _url_validator(self, url):
-        """URL validator for siteURL parameter of Pybooru.
+        """URL validator for site_url parameter of Pybooru.
 
         Parameters:
             url:
@@ -113,7 +113,7 @@ class Pybooru(object):
             else:
                 url = 'http://' + parse.netloc
 
-        self.siteURL = url
+        self.site_url = url
 
     def _json_load(self, api_name, params=None):
         """Function for read and return JSON response.
@@ -126,23 +126,23 @@ class Pybooru(object):
                 The parameters of the API function.
         """
 
-        url = self.siteURL + API_BASE_URL[api_name]['url']
+        url = self.site_url + API_BASE_URL[api_name]['url']
 
         # Autentication
         if API_BASE_URL[api_name]['required_login'] is True:
-            if (self.siteName in SITE_LIST.keys()) or (self.hashString is not None):
+            if (self.site_name in SITE_LIST.keys()) or (self.hash_string is not None):
                 if (self.username is not None) and (self.password is not None):
                     # Set login parameter
                     params['login'] = self.username
 
                     # Create hashed string
-                    if self.hashString is not None:
+                    if self.hash_string is not None:
                         try:
-                            has_string = self.hashString % (self.password)
+                            has_string = self.hash_string % (self.password)
                         except TypeError:
-                            raise PybooruError("Use \"%s\" for hashString")
+                            raise PybooruError("Use \"%s\" for hash_string")
                     else:
-                        has_string = SITE_LIST[self.siteName]['hashed_string'] % (
+                        has_string = SITE_LIST[self.site_name]['hashed_string'] % (
                                         self.password)
 
                     # Set password_hash parameter
@@ -154,7 +154,7 @@ class Pybooru(object):
                     raise PybooruError("username and password is required")
 
             else:
-                raise PybooruError("Login in %s unsupported, please use hashString" % self.siteName)
+                raise PybooruError("Login in %s unsupported, please use hash_string" % self.site_name)
 
         # JSON request
         try:
