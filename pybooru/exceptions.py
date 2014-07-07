@@ -30,7 +30,7 @@ class PybooruError(Exception):
 
         if (http_code is not None) and (http_code in HTTP_STATUS_CODES) and (
             url is not None):
-            self.msg = '%i: %s, %s -- %s -- URL: %s' % (http_code,
+            self.msg = "%i: %s, %s -- %s -- URL: %s" % (http_code,
                         HTTP_STATUS_CODES[http_code][0],
                         HTTP_STATUS_CODES[http_code][1], self.msg, url)
 

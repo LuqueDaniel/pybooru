@@ -22,7 +22,7 @@ except ImportError:
         # Python 2.6 and up
         from json import loads
     except ImportError:
-        raise Exception('Pybooru requires the simplejson library to work')
+        raise Exception("Pybooru requires the simplejson library to work")
 
 # pyborru exceptions imports
 from .exceptions import PybooruError
@@ -76,9 +76,9 @@ class Pybooru(object):
             elif type(siteURL) is str:
                 self._url_validator(siteURL.lower())
             else:
-                raise PybooruError('Expected type str for siteName and siteURL')
+                raise PybooruError("Expected type str for siteName and siteURL")
         else:
-            raise PybooruError('siteName and siteURL are None')
+            raise PybooruError("siteName and siteURL are None")
 
     def _site_name(self, siteName):
         """Function for checking name site and get URL.
@@ -93,7 +93,7 @@ class Pybooru(object):
             self.siteURL = SITE_LIST[siteName]['url']
         else:
             raise PybooruError(
-                'The site name is not valid, use siteURL parameter'
+                "The site name is not valid, use siteURL parameter"
                 )
 
     def _url_validator(self, url):
@@ -140,7 +140,7 @@ class Pybooru(object):
                         try:
                             has_string = self.hashString % (self.password)
                         except TypeError:
-                            raise PybooruError('Use "%s" for hashString')
+                            raise PybooruError("Use \"%s\" for hashString")
                     else:
                         has_string = SITE_LIST[self.siteName]['hashed_string'] % (
                                         self.password)
@@ -151,10 +151,10 @@ class Pybooru(object):
                                                 has_string).hexdigest()
 
                 else:
-                    raise PybooruError('username and password is required')
+                    raise PybooruError("username and password is required")
 
             else:
-                raise PybooruError('Login in %s unsupported, please use hashString' % self.siteName)
+                raise PybooruError("Login in %s unsupported, please use hashString" % self.siteName)
 
         # JSON request
         try:
@@ -171,11 +171,11 @@ class Pybooru(object):
             return response
         except (URLError, HTTPError) as err:
             if hasattr(err, 'code'):
-                raise PybooruError('in _json_load', err.code, url)
+                raise PybooruError("in _json_load", err.code, url)
             else:
-                raise PybooruError('in _json_load %s' % (err.reason), url)
+                raise PybooruError("in _json_load %s" % (err.reason), url)
         except ValueError as err:
-            raise PybooruError('JSON Error: %s in line %s column %s' % (
+            raise PybooruError("JSON Error: %s in line %s column %s" % (
                                err.msg, err.lineno, err.colno))
 
     def posts_list(self, tags=None, limit=100, page=1):
@@ -255,7 +255,7 @@ class Pybooru(object):
 
             return self._json_load('posts_create', params)
         else:
-            raise PybooruError('source of file_ is required')
+            raise PybooruError("source of file_ is required")
 
     def posts_update(self, id_, tags, file_, rating, source, is_rating_locked,
                      is_note_locked, parent_id):
@@ -818,7 +818,7 @@ class Pybooru(object):
         if is_active <= 1:
             params['note[is_active]'] = is_active
         else:
-            raise PybooruError('is_active parameters required 1 or 0')
+            raise PybooruError("is_active parameters required 1 or 0")
 
         return self._json_load('notes_create_update', params)
 
@@ -920,7 +920,7 @@ class Pybooru(object):
         if is_public <= 1:
             params['pool[is_public]'] = is_public
         else:
-            raise PybooruError('is_public require 1 or 0')
+            raise PybooruError("is_public require 1 or 0")
 
         return self._json_load('pools_update', params)
 
@@ -943,7 +943,7 @@ class Pybooru(object):
         if is_public <= 1:
             params['pool[name]'] = is_public
         else:
-            raise PybooruError('is_public required 1 or 0')
+            raise PybooruError("is_public required 1 or 0")
 
         return self._json_load('pools_create', params)
 
