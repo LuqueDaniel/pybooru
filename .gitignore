@@ -4,6 +4,10 @@
 # ignore test file
 pro.py
 
+# build/dist files
 build/
 dist/
 Pybooru.egg-info/
+
+# IDEs config files
+*.nja
