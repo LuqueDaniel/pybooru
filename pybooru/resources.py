@@ -1,20 +1,23 @@
-"""This module contain all resources for pybooru.
+"""This module contains all resources for pybooru.
 
-site_list: Is a dict contains various based Danbooru default sites.
-api_base_url: Is a dict contain the urls for API functions.
-http_status_codes: Is a dict contains the http status code for Danbooru API.
+site_list:
+    Is a dict that contains various based Danbooru/Moebooru, default sites.
+api_base_url:
+    Is a dict that contains the urls for API functions.
+http_status_codes:
+    Is a dict that contains the http status code for Danbooru/Moebooru API.
 """
 
-# site_list
+# Default site_list
 SITE_LIST = {
-             'konachan': {
-                 'url': 'http://konachan.com',
-                 'hashed_string': 'So-I-Heard-You-Like-Mupkids-?--%s--'},
+    'konachan': {
+        'url': 'http://konachan.com',
+        'hashed_string': 'So-I-Heard-You-Like-Mupkids-?--%s--'},
 
-             'yandere': {
-                 'url': 'https://yande.re',
-                 'hashed_string': 'choujin-steiner--%s--'}
-            }
+    'yandere': {
+        'url': 'https://yande.re',
+        'hashed_string': 'choujin-steiner--%s--'}
+    }
 
 
 # api_base_url for the API functions

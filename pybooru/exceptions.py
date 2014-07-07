@@ -1,6 +1,6 @@
-"""This module contain the exceptions."""
+"""This module contains the exceptions."""
 
-# pybooru impost
+# pybooru imports
 from .resources import HTTP_STATUS_CODES
 
 
@@ -18,9 +18,9 @@ class PybooruError(Exception):
             The URL.
 
     Attributes:
-        msg -- Return the error message.
-        http_code -- Return the HTTP status code.
-        url -- return the URL.
+        msg: Return the error message.
+        http_code: Return the HTTP status code.
+        url: return the URL.
     """
 
     def __init__(self, msg, http_code=None, url=None):

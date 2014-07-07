@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""This module contain pybooru object class."""
+"""This module contains pybooru object class."""
 
 # urllib2 imports
 from urllib import urlencode
@@ -36,13 +36,13 @@ class Pybooru(object):
 
     init Parameters:
         siteName:
-            The site name in SITE_LIST.
+            The site name in SITE_LIST, default sites.
 
         siteURL:
             URL of based Danbooru site.
 
         username:
-            Your username in site
+            Your username of the site
             (Required only for functions that modify the content).
 
         password:
@@ -51,14 +51,14 @@ class Pybooru(object):
 
         hashString:
             string that is hashed.
-            (See the API of the site for more information).
+            (See the API documentation of the site for more information).
 
     Attributes:
-        siteName -- Return site name.
-        siteURL -- Return URL of based danbooru site.
-        username -- Return user name.
-        password -- Return password in plain text.
-        hashString -- Return hashString.
+        siteName: Return site name.
+        siteURL: Return URL of based danbooru site.
+        username: Return user name.
+        password: Return password in plain text.
+        hashString: Return hashString.
     """
 
     def __init__(self, siteName=None, siteURL=None, username=None,
@@ -84,23 +84,23 @@ class Pybooru(object):
         """Function for checking name site and get URL.
 
         Parameters:
-          :siteName:
-              The name of a based Danbooru site. You can get list of sites
-              in the resources module.
+            siteName:
+                The name of a based Danbooru/Moebooru site. You can get list of sites
+                in the resources module.
         """
 
         if siteName in SITE_LIST.keys():
             self.siteURL = SITE_LIST[siteName]['url']
         else:
             raise PybooruError(
-                        'The site name is not valid, use siteURL parameter'
-                        )
+                'The site name is not valid, use siteURL parameter'
+                )
 
     def _url_validator(self, url):
         """URL validator for siteURL parameter of Pybooru.
 
         Parameters:
-            :url:
+            url:
                 The URL to validate.
         """
 
@@ -119,10 +119,10 @@ class Pybooru(object):
         """Function for read and return JSON response.
 
         Parameters:
-            :api_name:
+            api_name:
                 The NAME of the API function.
 
-            :params:
+            params:
                 The parameters of the API function.
         """
 
@@ -182,13 +182,13 @@ class Pybooru(object):
         """Get a list of posts.
 
         Parameters:
-            :tags:
+            tags:
                 The tags of the posts (Default: None).
 
-            :limit:
-                Limit of posts. Limit of 100 posts per request (Default: 100).
+            limit:
+                Limit of posts. Limit is 100 posts per request (Default: 100).
 
-            :page:
+            page:
                 The page number (Default: 1).
         """
 
@@ -208,29 +208,29 @@ class Pybooru(object):
         (Requires login)(UNTESTED).
 
         Parameters:
-            :tags:
+            tags:
                 A space delimited list of tags.
 
-            :file_:
+            file_:
                 The file data encoded as a multipart form.
 
-            :rating:
+            rating:
                 The rating for the post. Can be: safe, questionable, or
                 explicit.
 
-            :source:
+            source:
                 If this is a URL, Danbooru will download the file.
 
-            :is_rating_locked:
+            is_rating_locked:
                 Set to true to prevent others from changing the rating.
 
-            :is_note_locked:
+            is_note_locked:
                 Set to true to prevent others from adding notes.
 
-            :parent_id:
+            parent_id:
                 The ID of the parent post.
 
-            :md5:
+            md5:
                 Supply an MD5 if you want Danbooru to verify the file after
                 uploading. If the MD5 doesn't match, the post is destroyed.
         """
@@ -264,29 +264,29 @@ class Pybooru(object):
         change them (Requires login)(UNESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The id number of the post to update (Type: INT).
 
-            :tags:
+            tags:
                 A space delimited list of tags (Type: STR).
 
-            :file_:
+            file_:
                 The file data ENCODED as a multipart form.
 
-            :rating:
+            rating:
                 The rating for the post. Can be: safe, questionable, or
                 explicit.
 
-            :source:
-                If this is a URL, Danbooru will download the file.
+            source:
+                If this is a URL, Danbooru/Moebooru will download the file.
 
-            :is_rating_locked:
+            is_rating_locked:
                 Set to true to prevent others from changing the rating.
 
-            :is_note_locked:
+            is_note_locked:
                 Set to true to prevent others from adding notes.
 
-            :parent_id:
+            parent_id:
                 The ID of the parent post.
         """
 
@@ -315,7 +315,7 @@ class Pybooru(object):
         (Requires Login)(UNTESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The id number of the post to delete.
         """
 
@@ -328,10 +328,10 @@ class Pybooru(object):
         (Requires login)(UNTESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The post id number to update (Type: INT).
 
-            :history_id:
+            history_id:
                 The id number of the tag history.
         """
 
@@ -342,10 +342,10 @@ class Pybooru(object):
         """This action lets you vote for a post (Requires login).
 
         Parameters:
-            :id_:
+            id_:
                 The post id (Type: INT).
 
-            :score:
+            score:
                 Be can:
                     0: No voted or Remove vote.
                     1: Good.
@@ -364,23 +364,23 @@ class Pybooru(object):
         """Get a list of tags.
 
         Parameters:
-            :name:
+            name:
                 The exact name of the tag.
 
-            :id_:
+            id_:
                 The id number of the tag.
 
-            :limit:
+            limit:
                 How many tags to retrieve. Setting this to 0 will return
                 every tag (Default value: 0).
 
-            :page:
+            page:
                 The page number.
 
-            :order:
+            order:
                 Can be 'date', 'name' or 'count' (Default: name).
 
-            :after_id:
+            after_id:
                 Return all tags that have an id number greater than this.
         """
 
@@ -399,17 +399,17 @@ class Pybooru(object):
         """This action lets you update tag (Requires login)(UNTESTED).
 
         Parameters:
-            :name:
+            name:
                 The name of the tag to update.
 
-            :tag_type:
+            tag_type:
                 The tag type.
                     General: 0.
                     artist: 1.
                     copyright: 3.
                     character: 4.
 
-            :is_ambiguous:
+            is_ambiguous:
                 Whether or not this tag is ambiguous. Use 1 for true and 0
                 for false.
         """
@@ -423,10 +423,10 @@ class Pybooru(object):
         """Get a list of related tags.
 
         Parameters:
-            :tags:
+            tags:
                 The tag names to query.
 
-            :type_:
+            type_:
                 Restrict results to this tag type. Can be general, artist,
                 copyright, or character (Default value: None).
         """
@@ -442,13 +442,13 @@ class Pybooru(object):
         """Get a list of artists.
 
         Parameters:
-            :name:
+            name:
                 The name (or a fragment of the name) of the artist.
 
-            :order:
+            order:
                 Can be date or name (Default value: None).
 
-            :page:
+            page:
                 The page number.
         """
 
@@ -465,17 +465,17 @@ class Pybooru(object):
         """This function create a artist (Requires login)(UNTESTED).
 
         Parameters:
-            :name:
+            name:
                 The artist's name.
 
-            :urls:
+            urls:
                 A list of URLs associated with the artist, whitespace delimited.
 
-            :alias:
+            alias:
                 The artist that this artist is an alias for. Simply enter the
                 alias artist's name.
 
-            :group:
+            group:
                 The group or cicle that this artist is a member of. Simply
                 enter the group's name.
         """
@@ -489,20 +489,20 @@ class Pybooru(object):
         The other parameters are optional. (Requires login)(UNTESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The id of thr artist to update (Type: INT).
 
-            :name:
+            name:
                 The artist's name.
 
-            :urls:
+            urls:
                 A list of URLs associated with the artist, whitespace delimited.
 
-            :alias:
+            alias:
                 The artist that this artist is an alias for. Simply enter the
                 alias artist's name.
 
-            :group:
+            group:
                 The group or cicle that this artist is a member of. Simply
                 enter the group's name.
         """
@@ -524,7 +524,7 @@ class Pybooru(object):
         """This action lets you remove artist (Requires login)(UNTESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The id of the artist to destroy (Type: INT).
         """
 
@@ -536,7 +536,7 @@ class Pybooru(object):
         """Get a specific comment.
 
         Parameters:
-            :id_:
+            id_:
                 The id number of the comment to retrieve (Type: INT).
         """
 
@@ -547,10 +547,10 @@ class Pybooru(object):
         """This action lets you create a comment (Requires login).
 
         Parameters:
-            :post_id:
+            post_id:
                 The post id number to which you are responding (Type: INT).
 
-            :comment_body:
+            comment_body:
                 The body of the comment.
         """
 
@@ -563,7 +563,7 @@ class Pybooru(object):
         """Remove a specific comment (Requires login).
 
         Parameters:
-            :id_:
+            id_:
                 The id number of the comment to remove (Type: INT).
         """
 
@@ -575,16 +575,16 @@ class Pybooru(object):
         """This function retrieves a list of every wiki page.
 
         Parameters:
-            :query:
+            query:
                 A word or phrase to search for (Default: None).
 
-            :order:
+            order:
                 Can be: title, date (Default: title).
 
-            :limit:
+            limit:
                 The number of pages to retrieve (Default: 100).
 
-            :page:
+            page:
                 The page number.
         """
 
@@ -599,10 +599,10 @@ class Pybooru(object):
         """This action lets you create a wiki page (Requires login)(UNTESTED).
 
         Parameters:
-            :title:
+            title:
                 The title of the wiki page.
 
-            :body:
+            body:
                 The body of the wiki page.
         """
 
@@ -631,10 +631,10 @@ class Pybooru(object):
         """Get a specific wiki page.
 
         Parameters:
-            :title:
+            title:
                 The title of the wiki page to retrieve.
 
-            :version:
+            version:
                 The version of the page to retrieve.
         """
 
@@ -646,11 +646,11 @@ class Pybooru(object):
         return self._json_load('wiki_show', params)
 
     def wiki_destroy(self, title):
-        """This function delete a specific wiki page (Requires login)(UNTESTED)
-        (Only moderators).
+        """This function delete a specific wiki page (Requires login)
+        (Only moderators)(UNTESTED).
 
         Params:
-            :title:
+            title:
                 The title of the page to delete.
         """
 
@@ -659,11 +659,11 @@ class Pybooru(object):
         return response['success']
 
     def wiki_lock(self, title):
-        """This function lock a specific wiki page (Requires login)(UNTESTED)
-        (Only moderators).
+        """This function lock a specific wiki page (Requires login)
+        (Only moderators)(UNTESTED).
 
         Params:
-            :title:
+            title:
                 The title of the page to lock.
         """
 
@@ -672,11 +672,11 @@ class Pybooru(object):
         return response['success']
 
     def wiki_unlock(self, title):
-        """This function unlock a specific wiki page (Requires login)(UNTESTED)
-        (Only moderators).
+        """This function unlock a specific wiki page (Requires login)
+        (Only moderators)(UNTESTED).
 
         Params:
-            :title:
+            title:
                 The title of the page to unlock.
         """
 
@@ -688,10 +688,10 @@ class Pybooru(object):
         """This function revert a specific wiki page (Requires login)(UNTESTED).
 
         Parameters:
-            :title:
+            title:
                 The title of the wiki page to update.
 
-            :version:
+            version:
                 The version to revert to.
         """
 
@@ -703,7 +703,7 @@ class Pybooru(object):
         """Get history of specific wiki page.
 
         Parameters:
-            :title:
+            title:
                 The title of the wiki page to retrieve versions for.
         """
 
@@ -714,7 +714,7 @@ class Pybooru(object):
         """Get note list
 
         Parameters:
-            :post_id:
+            post_id:
                 The post id number to retrieve notes for (Default: None)
                 (Type: INT).
         """
@@ -729,7 +729,7 @@ class Pybooru(object):
         """Search specific note.
 
         Parameters:
-            :query:
+            query:
                 A word or phrase to search for.
         """
 
@@ -740,16 +740,16 @@ class Pybooru(object):
         """Get history of notes.
 
         Parameters:
-            :post_id:
+            post_id:
                 The post id number to retrieve note versions for.
 
-            :id_:
+            id_:
                 The note id number to retrieve versions for (Type: INT).
 
-            :limit:
+            limit:
                 How many versions to retrieve (Default: 10).
 
-            :page:
+            page:
                 The note id number to retrieve versions for.
         """
 
@@ -766,10 +766,10 @@ class Pybooru(object):
         """This function revert a specific note (Requires login)(UNTESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The note id to update (Type: INT).
 
-            :version:
+            version:
                 The version to revert to.
         """
 
@@ -782,29 +782,29 @@ class Pybooru(object):
         """This function create or update note (Requires login)(UNTESTED).
 
         Parameters:
-            :post_id:
+            post_id:
                 The post id number this note belongs to.
 
-            :x:
+            x:
                 The x coordinate of the note.
 
-            :y:
+            y:
                 The y coordinate of the note.
 
-            :width:
+            width:
                 The width of the note.
 
-            :height:
+            height:
                 The height of the note.
 
-            :is_active:
+            is_active:
                 Whether or not the note is visible. Set to 1 for active, 0 for
                 inactive.
 
-            :body:
+            body:
                 The note message.
 
-            :id_:
+            id_:
                 If you are updating a note, this is the note id number to
                 update.
         """
@@ -827,10 +827,10 @@ class Pybooru(object):
         get a listing of all users.
 
         Parameters:
-            :name:
+            name:
                 The name of the user.
 
-            :id_:
+            id_:
                 The id number of the user.
         """
 
@@ -848,7 +848,7 @@ class Pybooru(object):
         a listing of all users.
 
         Parameters:
-            :parent_id:
+            parent_id:
                 The parent ID number. You'll return all the responses to that
                 forum post.
         """
@@ -864,10 +864,10 @@ class Pybooru(object):
         list of all pools.
 
         Parameters:
-            :query:
+            query:
                 The title.
 
-            :page:
+            page:
                 The page.
         """
 
@@ -883,10 +883,10 @@ class Pybooru(object):
         list of all pools.
 
         Parameters:
-            :id_:
+            id_:
                 The pool id number.
 
-            :page:
+            page:
                 The page.
         """
 
@@ -901,16 +901,16 @@ class Pybooru(object):
         """This function update a pool (Requires login)(UNTESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The pool id number.
 
-            :name:
+            name:
                 The name.
 
-            :is_public:
+            is_public:
                 1 or 0, whether or not the pool is public.
 
-            :description:
+            description:
                 A description of the pool.
         """
 
@@ -928,13 +928,13 @@ class Pybooru(object):
         """This function create a pool (Require login)(UNTESTED).
 
         Parameters:
-            :name:
+            name:
                 The name.
 
-            :is_public:
+            is_public:
                 1 or 0, whether or not the pool is public.
 
-            :description:
+            description:
                 A description of the pool.
         """
 
@@ -951,7 +951,7 @@ class Pybooru(object):
         """This function destroy a specific pool (Require login)(UNTESTED).
 
         Parameters:
-            :id_:
+            id_:
                 The pool id number (Type: INT).
         """
 
@@ -963,10 +963,10 @@ class Pybooru(object):
         """This function add a post (Require login)(UNTESTED).
 
         Parameters:
-            :pool_id:
+            pool_id:
                 The pool to add the post to.
 
-            :post_id:
+            post_id:
                 The post to add.
         """
 
@@ -977,10 +977,10 @@ class Pybooru(object):
         """This function remove a post (Require login)(UNTESTED).
 
         Parameters:
-            :pool_id:
+            pool_id:
                 The pool to remove the post to.
 
-            :post_id:
+            post_id:
                 The post to remove.
         """
 
@@ -992,7 +992,7 @@ class Pybooru(object):
         post.
 
         Parameters:
-            :id_:
+            id_:
                 The post id (Type: INT).
         """
 
