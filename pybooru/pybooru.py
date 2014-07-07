@@ -357,7 +357,7 @@ class Pybooru(object):
             params = {'id': id_, 'score': score}
             return self._json_load('posts_vote', params)
         else:
-            raise PybooruError('Value of score only can be 0, 1, 2 and 3.')
+            raise PybooruError("Value of score only can be 0, 1, 2 and 3.")
 
     def tags_list(self, name=None, id_=None, limit=0, page=1, order='name',
                   after_id=None):
