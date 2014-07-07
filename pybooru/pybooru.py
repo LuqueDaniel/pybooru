@@ -255,7 +255,7 @@ class Pybooru(object):
 
             return self._json_load('posts_create', params)
         else:
-            raise PybooruError("source of file_ is required")
+            raise PybooruError("source or file_ is required")
 
     def posts_update(self, id_, tags, file_, rating, source, is_rating_locked,
                      is_note_locked, parent_id):
