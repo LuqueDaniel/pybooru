@@ -32,53 +32,66 @@ from .resources import SITE_LIST
 
 
 class Pybooru(object):
-    """Pybooru class.
+    """Pybooru main class.
 
-    init Parameters:
-        site_name:
+    To initialize Pybooru, you need to specify one of these two
+    parameters: site_name or site_url. If you specify site_name, Pybooru checks
+    whether there is in the list of default sites (You can get list of sites in
+    the resources module).
+
+    To specify a site that isn't in list of default sites, you need use site_url
+    parameter.
+
+    Some actions may require you to log in. always specify three parameters to
+    log in: hash_string, username and password. Default sites has an associate
+    hash string.
+
+    Init Parameters:
+        site_name (Type STR):
             The site name in SITE_LIST, default sites.
 
-        site_url:
-            URL of based Danbooru site.
+        site_url (Type STR):
+            URL of based on Danbooru/Moebooru sites.
 
-        username:
+        hash_string (Type STR):
+            String that is hashed (required to login).
+            (See the API documentation of the site for more information).
+
+        username (Type STR):
             Your username of the site
             (Required only for functions that modify the content).
 
-        password:
-            Your user password in plain text.
+        password (Type STR):
+            Your user password in plain text
             (Required only for functions that modify the content).
-
-        hash_string:
-            string that is hashed.
-            (See the API documentation of the site for more information).
 
     Attributes:
         site_name: Return site name.
-        site_url: Return URL of based danbooru site.
+        site_url: Return URL of based danbooru/Moebooru site.
         username: Return user name.
         password: Return password in plain text.
         hash_string: Return hash_string.
     """
 
-    def __init__(self, site_name=None, site_url=None, username=None,
-                 password=None, hash_string=None):
+    def __init__(self, site_name="", site_url="", hash_string="", username="",
+                 password=""):
 
-        self.site_name = site_name
-        self.site_url = site_url
+        # Attributes
+        self.site_name = site_name.lower()
+        self.site_url = site_url.lower()
+        self.hash_string = hash_string
         self.username = username
         self.password = password
-        self.hash_string = hash_string
 
-        if (site_url is not None) or (site_name is not None):
-            if type(site_name) is str:
-                self._site_name(site_name.lower())
-            elif type(site_url) is str:
-                self._url_validator(site_url.lower())
-            else:
-                raise PybooruError("Expected type str for site_name and site_url")
+        # Validate site_name or site_url
+        if (site_url is not "") or (site_name is not ""):
+            if site_name is not "":
+                self._site_name(self.site_name)
+            elif site_url is not "":
+                self._url_validator(self.site_url)
         else:
-            raise PybooruError("site_name and site_url are None")
+            raise PybooruError("Unexpected empty strings,"
+                               " specify parameter site_name or site_url.")
 
     def _site_name(self, site_name):
         """Function for checking name site and get URL.
