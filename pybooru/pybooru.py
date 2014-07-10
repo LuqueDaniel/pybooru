@@ -14,6 +14,9 @@ from urlparse import urlparse
 # hashlib imports
 import hashlib
 
+# re imports
+import re
+
 try:
     # simplejson imports
     from simplejson import loads
@@ -78,7 +81,7 @@ class Pybooru(object):
 
         # Attributes
         self.site_name = site_name.lower()
-        self.site_url = site_url.lower()
+        self.site_url = site_url
         self.hash_string = hash_string
         self.username = username
         self.password = password
@@ -97,7 +100,7 @@ class Pybooru(object):
         """Function that checks the site name and get the url.
 
         Parameters:
-            site_name:
+            site_name (Type STR):
                 The name of a based Danbooru/Moebooru site. You can get list
                 of sites in the resources module.
         """
@@ -113,20 +116,31 @@ class Pybooru(object):
         """URL validator for site_url parameter of Pybooru.
 
         Parameters:
-            url:
+            url (Type STR):
                 The URL to validate.
         """
 
-        # urlparse() from urlparse module
-        parse = urlparse(url)
+        # Regular expression to URL validate
+        regex = re.compile(
+            r'^(?:http|https)://'  # Scheme
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}(?<!-)\.?)|'  # Domain
+            r'localhost|'  # localhost...
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|'  # or ipv4
+            r'\[?[A-F0-9]*:[A-F0-9:]+\]?)'  # or ipv6
+            r'(?::\d+)?'  # Port
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
-        if parse.scheme not in ('http', 'https'):
-            if parse.scheme == '':
-                url = 'http://' + parse.path
+        # Parse URL
+        parse = urlparse(url)  # urlparse() from urlparse module
+
+        # Validate URL
+        if parse.scheme in ("http", "https"):
+            if re.search(regex, url):
+                self.site_url = url
             else:
-                url = 'http://' + parse.netloc
-
-        self.site_url = url
+                raise PybooruError("Invalid URL", url=url)
+        else:
+            raise PybooruError("Invalid URL scheme, use http or https", url=url)
 
     def _json_load(self, api_name, params=None):
         """Function for read and return JSON response.
