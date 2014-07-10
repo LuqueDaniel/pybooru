@@ -94,19 +94,19 @@ class Pybooru(object):
                                " specify parameter site_name or site_url.")
 
     def _site_name(self, site_name):
-        """Function for checking name site and get URL.
+        """Function that checks the site name and get the url.
 
         Parameters:
             site_name:
-                The name of a based Danbooru/Moebooru site. You can get list of sites
-                in the resources module.
+                The name of a based Danbooru/Moebooru site. You can get list
+                of sites in the resources module.
         """
 
         if site_name in SITE_LIST.keys():
             self.site_url = SITE_LIST[site_name]['url']
         else:
             raise PybooruError(
-                "The site name is not valid, use site_url parameter"
+                "The site name is not valid, use the site_url parameter"
                 )
 
     def _url_validator(self, url):
