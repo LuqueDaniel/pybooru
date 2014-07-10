@@ -89,14 +89,14 @@ class Pybooru(object):
         # Validate site_name or site_url
         if (site_url is not "") or (site_name is not ""):
             if site_name is not "":
-                self._site_name(self.site_name)
+                self._site_name_validator(self.site_name)
             elif site_url is not "":
                 self._url_validator(self.site_url)
         else:
             raise PybooruError("Unexpected empty strings,"
                                " specify parameter site_name or site_url.")
 
-    def _site_name(self, site_name):
+    def _site_name_validator(self, site_name):
         """Function that checks the site name and get the url.
 
         Parameters:
@@ -134,7 +134,7 @@ class Pybooru(object):
         parse = urlparse(url)  # urlparse() from urlparse module
 
         # Validate URL
-        if parse.scheme in ("http", "https"):
+        if parse.scheme in ('http', 'https'):
             if re.search(regex, url):
                 self.site_url = url
             else:
