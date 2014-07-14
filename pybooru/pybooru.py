@@ -122,7 +122,7 @@ class Pybooru(object):
 
         # Regular expression to URL validate
         regex = re.compile(
-            r'^(?:http|https)://'  # Scheme
+            r'^(?:http|https)://'  # Scheme only HTTP/HTTPS
             r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}(?<!-)\.?)|'  # Domain
             r'localhost|'  # localhost...
             r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|'  # or ipv4
@@ -140,7 +140,7 @@ class Pybooru(object):
             else:
                 raise PybooruError("Invalid URL", url=url)
         else:
-            raise PybooruError("Invalid URL scheme, use http or https", url=url)
+            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS", url=url)
 
     def _json_load(self, api_name, params=None):
         """Function for read and return JSON response.
