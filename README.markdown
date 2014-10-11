@@ -63,6 +63,9 @@ client = Pybooru('konachan.com', username='your-username', password='your-passwo
 
 client.comments_create(post_id=id, comment_body='Comment content')
 ```
+
+[More examples.](https://github.com/LuqueDaniel/pybooru/tree/master/examples)
+
 CI Report
 ---------
 - https://travis-ci.org/LuqueDaniel/pybooru
