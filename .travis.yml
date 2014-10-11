@@ -1,0 +1,20 @@
+# 2014-10-11 13:10 by LuqueDaniel .travis.yml for Travis CI
+
+language: python
+
+python:
+    - "2.6"
+    - "2.7"
+    - "pypy"
+
+branches:
+  only:
+    - develop
+
+install:
+    - pip install simplejson
+
+before_script:
+    - rm --recursive --force --verbose *.py[codx]
+
+script: python provisional_test.py
