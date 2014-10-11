@@ -12,8 +12,8 @@ Dependencies.
 
 Installation.
 -------------
-**from Python Package Index (Pypi):**
-Pypi - Python Package Index:<br />
+**from Python Package Index (Pypi):**<br />
+Pypi - Python Package Index:
 [Pybooru on Pypi](https://pypi.python.org/pypi/Pybooru/).
 
 ```bash
@@ -45,7 +45,7 @@ for artist in artists:
     print 'Name: %s' % (artist['name'])
 ```
 
-**Login example:**
+**Login example:**<br />
 Default sites:
 ```python
 from pybooru import Pybooru
