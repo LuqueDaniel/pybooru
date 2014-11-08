@@ -85,7 +85,7 @@ class Pybooru(object):
         self.password = password
 
         # Validate site_name or site_url
-        if (site_url is not "") or (site_name is not ""):
+        if site_url is not "" or site_name is not "":
             if site_name is not "":
                 self._site_name_validator(self.site_name)
             elif site_url is not "":
@@ -137,8 +137,8 @@ class Pybooru(object):
         else:
             raise PybooruError("Invalid URL scheme, use HTTP or HTTPS", url=url)
 
-    def _json_load(self, api_name, params=None):
-        """Function for read and return JSON response.
+    def _build_request_url(self, api_name, params=None):
+        """Function for build url.
 
         Parameters:
             api_name:
@@ -148,35 +148,41 @@ class Pybooru(object):
                 The parameters of the API function.
         """
 
+        # Create url
         url = self.site_url + API_BASE_URL[api_name]['url']
 
-        # Autentication
+        # AUTENTICATION
+        # Check if hash_string exists
         if API_BASE_URL[api_name]['required_login'] is True:
-            if (self.site_name in SITE_LIST.keys()) or (self.hash_string is not None):
-                if (self.username is not None) and (self.password is not None):
-                    # Set login parameter
+            if (self.site_name in SITE_LIST.keys()) or \
+                    (self.hash_string is not ""):
+
+                # Check if the username and password are empty
+                if self.username is not "" and self.password is not "":
+                    # Set username login parameter
                     params['login'] = self.username
 
                     # Create hashed string
-                    if self.hash_string is not None:
+                    if self.hash_string is not "":
                         try:
-                            has_string = self.hash_string % (self.password)
+                            hash_string = self.hash_string % (self.password)
                         except TypeError:
                             raise PybooruError("Use \"%s\" for hash_string")
                     else:
-                        has_string = SITE_LIST[self.site_name]['hashed_string'] % (
-                                        self.password)
+                        hash_string = SITE_LIST[self.site_name]['hashed_string'] % (self.password)
 
                     # Set password_hash parameter
                     # Convert hashed_string to SHA1 and return hex string
                     params['password_hash'] = hashlib.sha1(
-                                                has_string).hexdigest()
+                        hash_string).hexdigest()
 
                 else:
-                    raise PybooruError("username and password is required")
+                    raise PybooruError("username and password is required.")
 
             else:
-                raise PybooruError("Login in %s unsupported, please use hash_string" % self.site_name)
+                raise PybooruError(
+                    "Specify the hash_string parameter of the Pybooru"
+                    " object, for the functions which require login.")
 
         # JSON request
         try:
@@ -219,7 +225,7 @@ class Pybooru(object):
         if tags is not None:
             params['tags'] = tags
 
-        return self._json_load('posts_list', params)
+        return self._build_request_url('posts_list', params)
 
     def posts_create(self, tags, file_=None, rating=None, source=None,
                      is_rating_locked=None, is_note_locked=None,
@@ -275,7 +281,7 @@ class Pybooru(object):
             if md5 is not None:
                 params['md5'] = md5
 
-            return self._json_load('posts_create', params)
+            return self._build_request_url('posts_create', params)
         else:
             raise PybooruError("source or file_ is required")
 
@@ -329,7 +335,7 @@ class Pybooru(object):
         if parent_id is not None:
             params['post[parent_id]'] = parent_id
 
-        return self._json_load('posts_update', params)
+        return self._build_request_url('posts_update', params)
 
     def posts_destroy(self, id_):
         """This function destroy a specific post. You must also be the user
@@ -342,7 +348,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_}
-        response = self._json_load('posts_destroy', params)
+        response = self._build_request_url('posts_destroy', params)
         return response['success']
 
     def posts_revert_tags(self, id_, history_id):
@@ -358,7 +364,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_, 'history_id': history_id}
-        return self._json_load('posts_revert_tags', params)
+        return self._build_request_url('posts_revert_tags', params)
 
     def posts_vote(self, id_, score):
         """This action lets you vote for a post (Requires login).
@@ -377,7 +383,7 @@ class Pybooru(object):
 
         if score <= 3:
             params = {'id': id_, 'score': score}
-            return self._json_load('posts_vote', params)
+            return self._build_request_url('posts_vote', params)
         else:
             raise PybooruError("Value of score only can be 0, 1, 2 and 3.")
 
@@ -415,7 +421,7 @@ class Pybooru(object):
         elif after_id is not None:
             params['after_id'] = after_id
 
-        return self._json_load('tags_list', params)
+        return self._build_request_url('tags_list', params)
 
     def tags_update(self, name, tag_type, is_ambiguous):
         """This action lets you update tag (Requires login)(UNTESTED).
@@ -439,7 +445,7 @@ class Pybooru(object):
         params = {'name': name, 'tag[tag_type]': tag_type,
                   'tag[is_ambiguous]': is_ambiguous}
 
-        return self._json_load('tags_update', params)
+        return self._build_request_url('tags_update', params)
 
     def tags_related(self, tags, type_=None):
         """Get a list of related tags.
@@ -458,7 +464,7 @@ class Pybooru(object):
         if type_ is not None:
             params['type'] = type_
 
-        return self._json_load('tags_related', params)
+        return self._build_request_url('tags_related', params)
 
     def artists_list(self, name=None, order=None, page=1):
         """Get a list of artists.
@@ -481,7 +487,7 @@ class Pybooru(object):
         if order is not None:
             params['order'] = order
 
-        return self._json_load('artists_list', params)
+        return self._build_request_url('artists_list', params)
 
     def artists_create(self, name, urls, alias, group):
         """This function create a artist (Requires login)(UNTESTED).
@@ -504,7 +510,7 @@ class Pybooru(object):
 
         params = {'artist[name]': name, 'artist[urls]': urls,
                   'artist[alias]': alias, 'artist[group]': group}
-        return self._json_load('artists_create', params)
+        return self._build_request_url('artists_create', params)
 
     def artists_update(self, id_, name=None, urls=None, alias=None, group=None):
         """This function update an artists. Only the id_ parameter is required.
@@ -540,7 +546,7 @@ class Pybooru(object):
         if group is not None:
             params['artist[group]'] = group
 
-        return self._json_load('artists_update', params)
+        return self._build_request_url('artists_update', params)
 
     def artists_destroy(self, id_):
         """This action lets you remove artist (Requires login)(UNTESTED).
@@ -551,7 +557,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_}
-        response = self._json_load('artists_destroy', params)
+        response = self._build_request_url('artists_destroy', params)
         return response['success']
 
     def comments_show(self, id_):
@@ -563,7 +569,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_}
-        return self._json_load('comments_show', params)
+        return self._build_request_url('comments_show', params)
 
     def comments_create(self, post_id, comment_body):
         """This action lets you create a comment (Requires login).
@@ -578,7 +584,7 @@ class Pybooru(object):
 
         params = {'comment[post_id]': post_id,
                   'comment[body]': comment_body}
-        response = self._json_load('comments_create', params)
+        response = self._build_request_url('comments_create', params)
         return response['success']
 
     def comments_destroy(self, id_=None):
@@ -590,7 +596,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_}
-        response = self._json_load('comments_destroy', params)
+        response = self._build_request_url('comments_destroy', params)
         return response['success']
 
     def wiki_list(self, query=None, order='title', limit=100, page=1):
@@ -615,7 +621,7 @@ class Pybooru(object):
         if query is not None:
             params['query'] = query
 
-        return self._json_load('wiki_list', params)
+        return self._build_request_url('wiki_list', params)
 
     def wiki_create(self, title, body):
         """This action lets you create a wiki page (Requires login)(UNTESTED).
@@ -629,7 +635,7 @@ class Pybooru(object):
         """
 
         params = {'wiki_page[title]': str(title), 'wiki_page[body]': str(body)}
-        return self._json_load('wiki_create', params)
+        return self._build_request_url('wiki_create', params)
 
     def wiki_update(self, page_title, new_title, page_body):
         """This action lets you update a wiki page (Requires login)(UNTESTED).
@@ -647,7 +653,7 @@ class Pybooru(object):
 
         params = {'title': page_title, 'wiki_page[title]': new_title,
                   'wiki_page[body]': page_body}
-        return self._json_load('wiki_update', params)
+        return self._build_request_url('wiki_update', params)
 
     def wiki_show(self, title, version=None):
         """Get a specific wiki page.
@@ -665,7 +671,7 @@ class Pybooru(object):
         if version is not None:
             params['version'] = version
 
-        return self._json_load('wiki_show', params)
+        return self._build_request_url('wiki_show', params)
 
     def wiki_destroy(self, title):
         """This function delete a specific wiki page (Requires login)
@@ -677,7 +683,7 @@ class Pybooru(object):
         """
 
         params = {'title': title}
-        response = self._json_load('wiki_destroy', params)
+        response = self._build_request_url('wiki_destroy', params)
         return response['success']
 
     def wiki_lock(self, title):
@@ -690,7 +696,7 @@ class Pybooru(object):
         """
 
         params = {'title': title}
-        response = self._json_load('wiki_lock', params)
+        response = self._build_request_url('wiki_lock', params)
         return response['success']
 
     def wiki_unlock(self, title):
@@ -703,7 +709,7 @@ class Pybooru(object):
         """
 
         params = {'title': title}
-        response = self._json_load('wiki_unlock', params)
+        response = self._build_request_url('wiki_unlock', params)
         return response['success']
 
     def wiki_revert(self, title, version):
@@ -718,7 +724,7 @@ class Pybooru(object):
         """
 
         params = {'title': title, 'version': version}
-        response = self._json_load('wiki_revert', params)
+        response = self._build_request_url('wiki_revert', params)
         return response['success']
 
     def wiki_history(self, title):
@@ -730,7 +736,7 @@ class Pybooru(object):
         """
 
         params = {'title': title}
-        return self._json_load('wiki_history', params)
+        return self._build_request_url('wiki_history', params)
 
     def notes_list(self, post_id=None):
         """Get note list
@@ -743,9 +749,9 @@ class Pybooru(object):
 
         if post_id is not None:
             params = {'post_id': post_id}
-            return self._json_load('notes_list', params)
+            return self._build_request_url('notes_list', params)
         else:
-            return self._json_load('notes_list')
+            return self._build_request_url('notes_list')
 
     def notes_search(self, query):
         """Search specific note.
@@ -756,7 +762,7 @@ class Pybooru(object):
         """
 
         params = {'query': query}
-        return self._json_load('notes_search', params)
+        return self._build_request_url('notes_search', params)
 
     def notes_history(self, post_id=None, id_=None, limit=10, page=1):
         """Get history of notes.
@@ -782,7 +788,7 @@ class Pybooru(object):
         elif id_ is not None:
             params['id'] = id_
 
-        return self._json_load('notes_history', params)
+        return self._build_request_url('notes_history', params)
 
     def notes_revert(self, id_, version):
         """This function revert a specific note (Requires login)(UNTESTED).
@@ -796,7 +802,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_, 'version': version}
-        response = self._json_load('wiki_revert', params)
+        response = self._build_request_url('wiki_revert', params)
         return response['success']
 
     def notes_create_update(self, post_id, x, y, width, height,
@@ -842,7 +848,7 @@ class Pybooru(object):
         else:
             raise PybooruError("is_active parameters required 1 or 0")
 
-        return self._json_load('notes_create_update', params)
+        return self._build_request_url('notes_create_update', params)
 
     def users_search(self, name=None, id_=None):
         """Search users. If you don't specify any parameters you'll
@@ -858,12 +864,12 @@ class Pybooru(object):
 
         if name is not None:
             params = {'name': name}
-            return self._json_load()('users_search', params)
+            return self._build_request_url()('users_search', params)
         elif id_ is not None:
             params = {'id': id_}
-            return self._json_load('users_search', params)
+            return self._build_request_url('users_search', params)
         else:
-            return self._json_load('users_search')
+            return self._build_request_url('users_search')
 
     def forum_list(self, parent_id=None):
         """Get forum posts. If you don't specify any parameters you'll get
@@ -877,9 +883,9 @@ class Pybooru(object):
 
         if parent_id is not None:
             params = {'parent_id': parent_id}
-            return self._json_load('forum_list', params)
+            return self._build_request_url('forum_list', params)
         else:
-            return self._json_load('forum_list')
+            return self._build_request_url('forum_list')
 
     def pools_list(self, query=None, page=1):
         """Get pools. If you don't specify any parameters you'll get a
@@ -898,7 +904,7 @@ class Pybooru(object):
         if query is not None:
             params['query': query]
 
-        return self._json_load('pools_list', params)
+        return self._build_request_url('pools_list', params)
 
     def pools_posts(self, id_=None, page=1):
         """Get pools posts. If you don't specify any parameters you'll get a
@@ -917,7 +923,7 @@ class Pybooru(object):
         if id_ is not None:
             params['id'] = id_
 
-        return self._json_load('pools_posts', params)
+        return self._build_request_url('pools_posts', params)
 
     def pools_update(self, id_, name, is_public, description):
         """This function update a pool (Requires login)(UNTESTED).
@@ -944,7 +950,7 @@ class Pybooru(object):
         else:
             raise PybooruError("is_public require 1 or 0")
 
-        return self._json_load('pools_update', params)
+        return self._build_request_url('pools_update', params)
 
     def pools_create(self, name, is_public, description):
         """This function create a pool (Require login)(UNTESTED).
@@ -967,7 +973,7 @@ class Pybooru(object):
         else:
             raise PybooruError("is_public required 1 or 0")
 
-        return self._json_load('pools_create', params)
+        return self._build_request_url('pools_create', params)
 
     def pools_destroy(self, id_):
         """This function destroy a specific pool (Require login)(UNTESTED).
@@ -978,7 +984,7 @@ class Pybooru(object):
         """
 
         params = {'id': id_}
-        response = self._json_load('pools_destroy', params)
+        response = self._build_request_url('pools_destroy', params)
         return response['success']
 
     def pools_add_post(self, pool_id, post_id):
@@ -993,7 +999,7 @@ class Pybooru(object):
         """
 
         params = {'pool_id': pool_id, 'post_id': post_id}
-        return self._json_load('pools_add_post', params)
+        return self._build_request_url('pools_add_post', params)
 
     def pools_remove_post(self, pool_id, post_id):
         """This function remove a post (Require login)(UNTESTED).
@@ -1007,7 +1013,7 @@ class Pybooru(object):
         """
 
         params = {'pool_id': pool_id, 'post_id': post_id}
-        return self._json_load('pools_remove_post', params)
+        return self._build_request_url('pools_remove_post', params)
 
     def favorites_list_users(self, id_):
         """Return a list with all users who have added to favorites a specific
@@ -1019,6 +1025,6 @@ class Pybooru(object):
         """
 
         params = {'id': id_}
-        response = self._json_load('favorites_list_users', params)
+        response = self._build_request_url('favorites_list_users', params)
         # Return list with users
         return response['favorited_users'].split(',')
