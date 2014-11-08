@@ -12,11 +12,11 @@ http_status_codes:
 SITE_LIST = {
     'konachan': {
         'url': "http://konachan.com",
-        'hashed_string': "So-I-Heard-You-Like-Mupkids-?--%s--"},
+        'hashed_string': "So-I-Heard-You-Like-Mupkids-?--{0}--"},
 
     'yandere': {
         'url': "https://yande.re",
-        'hashed_string': "choujin-steiner--%s--"}
+        'hashed_string': "choujin-steiner--{0}--"}
     }
 
 
