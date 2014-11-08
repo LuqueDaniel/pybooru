@@ -8,8 +8,6 @@ from urllib2 import urlopen
 from urllib2 import URLError
 from urllib2 import HTTPError
 
-# urlparse imports
-from urlparse import urlparse
 
 # hashlib imports
 import hashlib
@@ -123,18 +121,16 @@ class Pybooru(object):
         # Regular expression to URL validate
         regex = re.compile(
             r'^(?:http|https)://'  # Scheme only HTTP/HTTPS
-            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}(?<!-)\.?)|'  # Domain
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?| \
+            [A-Z0-9-]{2,}(?<!-)\.?)|'  # Domain
             r'localhost|'  # localhost...
             r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|'  # or ipv4
             r'\[?[A-F0-9]*:[A-F0-9:]+\]?)'  # or ipv6
             r'(?::\d+)?'  # Port
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
-        # Parse URL
-        parse = urlparse(url)  # urlparse() from urlparse module
-
         # Validate URL
-        if parse.scheme in ('http', 'https'):
+        if re.search('^(?:http|https)://', url):
             if re.search(regex, url):
                 self.site_url = url
             else:
