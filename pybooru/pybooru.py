@@ -79,7 +79,7 @@ class Pybooru(object):
 
         # Attributes
         self.site_name = site_name.lower()
-        self.site_url = site_url
+        self.site_url = site_url.lower()
         self.hash_string = hash_string
         self.username = username
         self.password = password
@@ -129,7 +129,7 @@ class Pybooru(object):
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
         # Validate URL
-        if re.search('^(?:http|https)://', url):
+        if re.match('^(?:http|https)://', url):
             if re.search(regex, url):
                 self.site_url = url
             else:
