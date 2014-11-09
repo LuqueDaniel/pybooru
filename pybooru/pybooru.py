@@ -872,7 +872,7 @@ class Pybooru(object):
 
         if name is not None:
             params = {'name': name}
-            return self._build_request_url()('users_search', params)
+            return self._build_request_url('users_search', params)
         elif id_ is not None:
             params = {'id': id_}
             return self._build_request_url('users_search', params)

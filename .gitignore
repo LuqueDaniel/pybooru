@@ -1,5 +1,7 @@
 # Ignore files .pyc
 *.pyc
+*.egg-info
+__pycache__
 
 # ignore test file
 pro.py
