@@ -2,6 +2,12 @@
 
 """This module contains pybooru object class."""
 
+# pyborru exceptions imports
+from .exceptions import PybooruError
+# pybooru resources imports
+from .resources import API_BASE_URL
+from .resources import SITE_LIST
+
 # requests imports
 import requests
 
@@ -10,22 +16,6 @@ import hashlib
 
 # re imports
 import re
-
-#try:
-    ## simplejson imports
-    #from simplejson import loads
-#except ImportError:
-    #try:
-        ## Python 2.6 and up
-        #from json import loads
-    #except ImportError:
-        #raise Exception("Pybooru requires the simplejson library to work")
-
-# pyborru exceptions imports
-from .exceptions import PybooruError
-# pybooru resources imports
-from .resources import API_BASE_URL
-from .resources import SITE_LIST
 
 
 class Pybooru(object):
