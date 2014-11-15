@@ -72,8 +72,6 @@ class Pybooru(object):
         username: Return user name.
         password: Return password in plain text.
         hash_string: Return hash_string.
-        password_hash (Default: None):
-            Return SHA1 combination of hash_string and password.
     """
 
     def __init__(self, site_name="", site_url="", username="", password="",
@@ -85,16 +83,13 @@ class Pybooru(object):
         self.username = username
         self.password = password
         self.hash_string = hash_string
-        self.password_hash = None
 
         # Validate site_name or site_url
         if site_url is not "" or site_name is not "":
             if site_name is not "":
                 self._site_name_validator(self.site_name)
-                self._set_password_hash()
             elif site_url is not "":
                 self._url_validator(self.site_url)
-                self._set_password_hash()
         else:
             raise PybooruError("Unexpected empty strings,"
                                " specify parameter site_name or site_url.")
@@ -142,30 +137,6 @@ class Pybooru(object):
         else:
             raise PybooruError("Invalid URL scheme, use HTTP or HTTPS", url=url)
 
-    def _set_password_hash(self):
-        """Function to create SHA1 password_hash."""
-
-        # Check if hash_string exists
-        if self.site_name in SITE_LIST.keys() or self.hash_string is not "":
-            # Check if the username and password are empty
-            if self.username and self.password is not "":
-                # Create hashed string
-                if self.hash_string is not "":
-                    try:
-                        hash_string = self.hash_string.format(self.password)
-                    except TypeError:
-                        raise PybooruError("Use \{0\} in hash_string")
-                else:
-                    hash_string = SITE_LIST[self.site_name]['hashed_string'].format(self.password)
-
-                # Set password_hash attribute
-                # Convert hashed_string to SHA1 and return hex string
-                self.password_hash = hashlib.sha1(hash_string).hexdigest()
-            else:
-                raise PybooruError("Specify the username and password "
-                                   "parameter of the Pybooru object, for "
-                                   "setting password_hash attribute.")
-
     def _build_request_url(self, api_name, params=None):
         """Function for build url.
 
@@ -180,13 +151,35 @@ class Pybooru(object):
         # Create url
         url = self.site_url + API_BASE_URL[api_name]['url']
 
-        # AUTENTICATION
-        # Check if require login
+        # Build AUTENTICATION hash_string
+        # Check if hash_string exists
         if API_BASE_URL[api_name]['required_login'] is True:
-            if self.password_hash is not None:
-                # Set login and password_hash parameter
-                params['login'] = self.username
-                params['password_hash'] = self.password_hash
+            if self.site_name in SITE_LIST.keys() or \
+                    self.hash_string is not "":
+
+                # Check if the username and password are empty
+                if self.username is not "" and self.password is not "":
+                    # Set username login parameter
+                    params['login'] = self.username
+
+                    # Create hashed string
+                    if self.hash_string is not "":
+                        try:
+                            hash_string = self.hash_string.format(self.password)
+                        except TypeError:
+                            raise PybooruError("Use \{0\} in hash_string")
+                    else:
+                        hash_string = SITE_LIST[self.site_name]['hashed_string'].format(self.password)
+
+                    # Set password_hash parameter
+                    # Convert hashed_string to SHA1 and return hex string
+                    params['password_hash'] = hashlib.sha1(
+                        hash_string).hexdigest()
+                else:
+                    raise PybooruError("Specify the username and password "
+                                       "parameter of the Pybooru object, for "
+                                       "setting password_hash attribute.")
+
             else:
                 raise PybooruError(
                     "Specify the hash_string parameter of the Pybooru"
