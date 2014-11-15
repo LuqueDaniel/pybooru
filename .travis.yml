@@ -14,6 +14,8 @@ branches:
 install:
     # Install simplejson
     - pip install simplejson
+    # Install requests
+    - pip install requests
 
 before_script:
     # Remove python binari files
