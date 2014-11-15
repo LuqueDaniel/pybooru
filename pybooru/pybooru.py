@@ -183,16 +183,21 @@ class Pybooru(object):
                 API function parameters.
         """
 
+        # Header
+        headers = {'content-type': 'application/json'}
+
         try:
             # Request
-            response = requests.post(url, params=params)
+            response = requests.post(url, params=params, headers=headers,
+                                     timeout=60)
             # Enable raise status error
             response.raise_for_status()
             # Read and return JSON data
             return response.json()
         except requests.exceptions.HTTPError as err:
             raise PybooruError("In _json_request", response.status_code, url)
-        #TODO: add more exceptions
+        except requests.exceptions.Timeout as err:
+            raise PybooruError("Timeout in {0}".format(url))
         except ValueError as err:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
                 err.msg, err.lineno, err.colno))
