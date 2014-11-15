@@ -7,7 +7,7 @@ from .resources import HTTP_STATUS_CODES
 class PybooruError(Exception):
     """Class for returning error message.
 
-    init Parameters:
+    Init Parameters:
         msg:
             The error message.
 
@@ -28,13 +28,17 @@ class PybooruError(Exception):
         self.http_code = http_code
         self.url = url
 
-        if (http_code is not None) and (http_code in HTTP_STATUS_CODES) and (
-            url is not None):
-            self.msg = "%i: %s, %s -- %s -- URL: %s" % (http_code,
-                        HTTP_STATUS_CODES[http_code][0],
-                        HTTP_STATUS_CODES[http_code][1], self.msg, url)
+        if http_code in HTTP_STATUS_CODES and self.url is not None:
+            self.msg = "{0}: {1}, {2} - {3} -- URL: {4}".format(self.msg,
+                            http_code, HTTP_STATUS_CODES[http_code][0],
+                            HTTP_STATUS_CODES[http_code][1], self.url)
 
     def __str__(self):
-        """This function return self.msg"""
+        """This function return error message."""
 
         return repr(self.msg)
+
+    def __repr__(self):
+        """This function return self.msg repr."""
+
+        return self.msg
