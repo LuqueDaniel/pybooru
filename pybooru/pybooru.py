@@ -2,12 +2,8 @@
 
 """This module contains pybooru object class."""
 
-# urllib2 imports
-from urllib import urlencode
-from urllib2 import urlopen
-from urllib2 import URLError
-from urllib2 import HTTPError
-
+# requests imports
+import requests
 
 # hashlib imports
 import hashlib
@@ -15,15 +11,15 @@ import hashlib
 # re imports
 import re
 
-try:
-    # simplejson imports
-    from simplejson import loads
-except ImportError:
-    try:
-        # Python 2.6 and up
-        from json import loads
-    except ImportError:
-        raise Exception("Pybooru requires the simplejson library to work")
+#try:
+    ## simplejson imports
+    #from simplejson import loads
+#except ImportError:
+    #try:
+        ## Python 2.6 and up
+        #from json import loads
+    #except ImportError:
+        #raise Exception("Pybooru requires the simplejson library to work")
 
 # pyborru exceptions imports
 from .exceptions import PybooruError
@@ -197,27 +193,19 @@ class Pybooru(object):
                 API function parameters.
         """
 
-        # JSON request
         try:
-            if params is not None:
-                # urlopen() from module urllib2
-                # urlencode() from module urllib
-                openURL = urlopen(url, urlencode(params))
-            else:
-                openURL = urlopen(url)
-
-            reading = openURL.read()
-            # loads() is a function of simplejson module
-            response = loads(reading)
-            return response
-        except (URLError, HTTPError) as err:
-            if hasattr(err, 'code'):
-                raise PybooruError("in _json_load", err.code, url)
-            else:
-                raise PybooruError("in _json_load %s" % (err.reason), url)
+            # Request
+            response = requests.post(url, params=params)
+            # Enable raise status error
+            response.raise_for_status()
+            # Read and return JSON data
+            return response.json()
+        except requests.exceptions.HTTPError as err:
+            raise PybooruError("In _json_request", response.status_code, url)
+        #TODO: add more exceptions
         except ValueError as err:
-            raise PybooruError("JSON Error: %s in line %s column %s" % (
-                               err.msg, err.lineno, err.colno))
+            raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
+                err.msg, err.lineno, err.colno))
 
     def posts_list(self, tags=None, limit=100, page=1):
         """Get a list of posts.
