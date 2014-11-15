@@ -24,6 +24,8 @@ class PybooruError(Exception):
     """
 
     def __init__(self, msg, http_code=None, url=None):
+        super(PybooruError, self).__init__()
+
         self.msg = msg
         self.http_code = http_code
         self.url = url

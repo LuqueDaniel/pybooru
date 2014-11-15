@@ -123,16 +123,19 @@ class Pybooru(object):
         else:
             raise PybooruError("Invalid URL scheme, use HTTP or HTTPS", url=url)
 
-    def _build_request_url(self, api_name, params={}):
+    def _build_request_url(self, api_name, params=None):
         """Function for build url.
 
         Parameters:
             api_name:
                 The NAME of the API function.
 
-            params (Default: dict):
+            params (Default: None):
                 The parameters of the API function.
         """
+
+        if params is None:
+            params = {}
 
         # Create url
         url = self.site_url + API_BASE_URL[api_name]['url']
@@ -153,7 +156,7 @@ class Pybooru(object):
                         try:
                             hash_string = self.hash_string.format(self.password)
                         except TypeError:
-                            raise PybooruError("Use \{0\} in hash_string")
+                            raise PybooruError(r"Use \{0\} in hash_string")
                     else:
                         hash_string = SITE_LIST[self.site_name]['hashed_string'].format(self.password)
 
@@ -165,7 +168,6 @@ class Pybooru(object):
                     raise PybooruError("Specify the username and password "
                                        "parameter of the Pybooru object, for "
                                        "setting password_hash attribute.")
-
             else:
                 raise PybooruError(
                     "Specify the hash_string parameter of the Pybooru"
@@ -173,12 +175,14 @@ class Pybooru(object):
 
         return self._json_request(url, params)
 
-    def _json_request(self, url, params):
+    @staticmethod
+    def _json_request(url, params):
         """Function to read and returning JSON response.
 
         Parameters:
             url:
                 API function url.
+
             params:
                 API function parameters.
         """
@@ -801,7 +805,7 @@ class Pybooru(object):
         response = self._build_request_url('wiki_revert', params)
         return response['success']
 
-    def notes_create_update(self, post_id, x, y, width, height,
+    def notes_create_update(self, post_id, coor_x, coor_y, width, height,
                             is_active, body, id_=None):
         """This function create or update note (Requires login)(UNTESTED).
 
@@ -809,11 +813,11 @@ class Pybooru(object):
             post_id:
                 The post id number this note belongs to.
 
-            x:
-                The x coordinate of the note.
+            coor_x:
+                The X coordinate of the note.
 
-            y:
-                The y coordinate of the note.
+            coor_y:
+                The Y coordinate of the note.
 
             width:
                 The width of the note.
@@ -833,9 +837,9 @@ class Pybooru(object):
                 update.
         """
 
-        params = {'note[post_id]': post_id, 'note[x]': x, 'note[y]': y,
-                  'note[width]': width, 'note[height]': height,
-                  'note[body]': body}
+        params = {'note[post_id]': post_id, 'note[x]': coor_x,
+                  'note[y]': coor_y, 'note[width]': width,
+                  'note[height]': height, 'note[body]': body}
 
         if id_ is not None:
             params['id'] = id_
@@ -898,7 +902,7 @@ class Pybooru(object):
         params = {'page': page}
 
         if query is not None:
-            params['query': query]
+            params['query'] = query
 
         return self._build_request_url('pools_list', params)
 
