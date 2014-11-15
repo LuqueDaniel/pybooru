@@ -137,14 +137,14 @@ class Pybooru(object):
         else:
             raise PybooruError("Invalid URL scheme, use HTTP or HTTPS", url=url)
 
-    def _build_request_url(self, api_name, params=None):
+    def _build_request_url(self, api_name, params={}):
         """Function for build url.
 
         Parameters:
             api_name:
                 The NAME of the API function.
 
-            params:
+            params (Default: dict):
                 The parameters of the API function.
         """
 
@@ -184,6 +184,18 @@ class Pybooru(object):
                 raise PybooruError(
                     "Specify the hash_string parameter of the Pybooru"
                     " object, for the functions which require login.")
+
+        return self._json_request(url, params)
+
+    def _json_request(self, url, params):
+        """Function to read and returning JSON response.
+
+        Parameters:
+            url:
+                API function url.
+            params:
+                API function parameters.
+        """
 
         # JSON request
         try:
