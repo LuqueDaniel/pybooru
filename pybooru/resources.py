@@ -8,6 +8,7 @@ http_status_codes:
     Is a dict that contains the http status code for Danbooru/Moebooru API.
 """
 
+
 # Default site_list
 SITE_LIST = {
     'konachan': {

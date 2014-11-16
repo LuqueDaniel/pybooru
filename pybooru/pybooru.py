@@ -2,6 +2,11 @@
 
 """This module contains pybooru object class."""
 
+# __furute__ imports
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import unicode_literals
+
 # pyborru exceptions imports
 from .exceptions import PybooruError
 # pybooru resources imports
@@ -89,7 +94,7 @@ class Pybooru(object):
                 of sites in the resources module.
         """
 
-        if site_name in SITE_LIST.keys():
+        if site_name in list(SITE_LIST.keys()):
             self.site_url = SITE_LIST[site_name]['url']
         else:
             raise PybooruError(
@@ -143,7 +148,7 @@ class Pybooru(object):
         # Build AUTENTICATION hash_string
         # Check if hash_string exists
         if API_BASE_URL[api_name]['required_login'] is True:
-            if self.site_name in SITE_LIST.keys() or \
+            if self.site_name in list(SITE_LIST.keys()) or \
                     self.hash_string is not "":
 
                 # Check if the username and password are empty

@@ -1,5 +1,10 @@
 """This module contains the exceptions."""
 
+# __furute__ imports
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import unicode_literals
+
 # pybooru imports
 from .resources import HTTP_STATUS_CODES
 
