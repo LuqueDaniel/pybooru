@@ -1,5 +1,9 @@
 # 2014-10-11 13:10 by LuqueDaniel .travis.yml for Travis CI
 
+OS:
+    - linux
+    - osx
+
 language: python
 
 # Python version

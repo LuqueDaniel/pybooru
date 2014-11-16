@@ -10,8 +10,7 @@ from __future__ import unicode_literals
 # pyborru exceptions imports
 from .exceptions import PybooruError
 # pybooru resources imports
-from .resources import API_BASE_URL
-from .resources import SITE_LIST
+from .resources import (API_BASE_URL, SITE_LIST)
 
 # requests imports
 import requests
