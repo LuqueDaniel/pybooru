@@ -12,8 +12,6 @@ branches:
     - master
 
 install:
-    # Install simplejson
-    - pip install simplejson
     # Install requests
     - pip install requests
 
