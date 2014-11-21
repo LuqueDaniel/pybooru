@@ -2,7 +2,6 @@
 
 os:
     - linux
-    - osx
 
 language: python
 
