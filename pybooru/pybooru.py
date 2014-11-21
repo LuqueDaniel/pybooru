@@ -246,7 +246,7 @@ class Pybooru(object):
                 explicit.
 
             source:
-                If this is a URL, Danbooru will download the file.
+                If this is a URL, Danbooru/Moebooru will download the file.
 
             is_rating_locked:
                 Set to true to prevent others from changing the rating.
@@ -258,7 +258,7 @@ class Pybooru(object):
                 The ID of the parent post.
 
             md5:
-                Supply an MD5 if you want Danbooru to verify the file after
+                Supply an MD5 if you want Danbooru/Moebooru to verify the file after
                 uploading. If the MD5 doesn't match, the post is destroyed.
         """
         params = {'post[tags]': tags}
