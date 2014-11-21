@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """This module contains all resources for pybooru.
 
 site_list:
@@ -9,7 +11,7 @@ http_status_codes:
 """
 
 
-# Default site_list
+# Default SITE_LIST
 SITE_LIST = {
     'konachan': {
         'url': "http://konachan.com",
@@ -21,7 +23,7 @@ SITE_LIST = {
     }
 
 
-# api_base_url for the API functions
+# API_BASE_URL for the API functions
 API_BASE_URL = {
     'posts_list': {
         'url': "/post.json",
@@ -146,7 +148,7 @@ API_BASE_URL = {
     }
 
 
-# http_status_codes
+# HTTP_STATUS_CODES
 HTTP_STATUS_CODES = {
     200: ("OK", "Request was successful"),
     403: ("Forbidden", "Access denied"),

@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
+
 """This module contains the exceptions."""
 
 # __furute__ imports
 from __future__ import absolute_import
-from __future__ import division
 from __future__ import unicode_literals
 
 # pybooru imports
@@ -10,7 +11,7 @@ from .resources import HTTP_STATUS_CODES
 
 
 class PybooruError(Exception):
-    """Class for returning error message.
+    """Class to return error message.
 
     Init Parameters:
         msg:
@@ -41,11 +42,9 @@ class PybooruError(Exception):
                             HTTP_STATUS_CODES[http_code][1], self.url)
 
     def __str__(self):
-        """This function return error message."""
-
+        """Function to return error message."""
         return repr(self.msg)
 
     def __repr__(self):
-        """This function return self.msg repr."""
-
+        """Function to return self.msg repr."""
         return self.msg

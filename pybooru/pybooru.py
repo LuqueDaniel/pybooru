@@ -4,7 +4,6 @@
 
 # __furute__ imports
 from __future__ import absolute_import
-from __future__ import division
 from __future__ import unicode_literals
 
 # pyborru exceptions imports
@@ -92,7 +91,6 @@ class Pybooru(object):
                 The name of a based Danbooru/Moebooru site. You can get list
                 of sites in the resources module.
         """
-
         if site_name in list(SITE_LIST.keys()):
             self.site_url = SITE_LIST[site_name]['url']
         else:
@@ -106,7 +104,6 @@ class Pybooru(object):
             url (Type STR):
                 The URL to validate.
         """
-
         # Regular expression to URL validate
         regex = re.compile(
             r'^(?:http|https)://'  # Scheme only HTTP/HTTPS
@@ -137,7 +134,6 @@ class Pybooru(object):
             params (Default: None):
                 The parameters of the API function.
         """
-
         if params is None:
             params = {}
 
@@ -190,7 +186,6 @@ class Pybooru(object):
             params:
                 API function parameters.
         """
-
         # Header
         headers = {'content-type': 'application/json'}
 
@@ -205,7 +200,7 @@ class Pybooru(object):
         except requests.exceptions.HTTPError as err:
             raise PybooruError("In _json_request", response.status_code, url)
         except requests.exceptions.Timeout as err:
-            raise PybooruError("Timeout in {0}".format(url))
+            raise PybooruError("Timeout! in url: {0}".format(url))
         except ValueError as err:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
                 err.msg, err.lineno, err.colno))
@@ -223,7 +218,6 @@ class Pybooru(object):
             page:
                 The page number (Default: 1).
         """
-
         params = {'limit': limit, 'page': page}
 
         if tags is not None:
@@ -234,10 +228,11 @@ class Pybooru(object):
     def posts_create(self, tags, file_=None, rating=None, source=None,
                      is_rating_locked=None, is_note_locked=None,
                      parent_id=None, md5=None):
-        """This function create a new post. There are only two mandatory
-        fields: you need to supply the tags, and you need to supply the
-        file, either through a multipart form or through a source URL.
-        (Requires login)(UNTESTED).
+        """Function to create a new post.
+
+        There are only two mandatory fields: you need to supply the tags, and
+        you need to supply the file, either through a multipart form or
+        through a source URL (Requires login)(UNTESTED).
 
         Parameters:
             tags:
@@ -266,7 +261,6 @@ class Pybooru(object):
                 Supply an MD5 if you want Danbooru to verify the file after
                 uploading. If the MD5 doesn't match, the post is destroyed.
         """
-
         params = {'post[tags]': tags}
 
         if source is not None or file_ is not None:
@@ -291,9 +285,10 @@ class Pybooru(object):
 
     def posts_update(self, id_, tags, file_, rating, source, is_rating_locked,
                      is_note_locked, parent_id):
-        """This function update a specific post. Only the id_ parameter is
-        required. Leave the other parameters blank if you don't want to
-        change them (Requires login)(UNESTED).
+        """Function update a specific post.
+
+        Only the id_ parameter is required. Leave the other parameters blank
+        if you don't want to change them (Requires login)(UNESTED).
 
         Parameters:
             id_:
@@ -321,7 +316,6 @@ class Pybooru(object):
             parent_id:
                 The ID of the parent post.
         """
-
         params = {'id': id_}
 
         if tags is not None:
@@ -342,21 +336,21 @@ class Pybooru(object):
         return self._build_request_url('posts_update', params)
 
     def posts_destroy(self, id_):
-        """This function destroy a specific post. You must also be the user
-        who uploaded the post (or you must be a moderator).
-        (Requires Login)(UNTESTED).
+        """Function to destroy a specific post.
+
+        You must also be the user who uploaded the post (or you must be a
+        moderator) (Requires Login)(UNTESTED).
 
         Parameters:
             id_:
                 The id number of the post to delete.
         """
-
         params = {'id': id_}
         response = self._build_request_url('posts_destroy', params)
         return response['success']
 
     def posts_revert_tags(self, id_, history_id):
-        """This action reverts a post to a previous set of tags
+        """Function to reverts a post to a previous set of tags
         (Requires login)(UNTESTED).
 
         Parameters:
@@ -366,12 +360,11 @@ class Pybooru(object):
             history_id:
                 The id number of the tag history.
         """
-
         params = {'id': id_, 'history_id': history_id}
         return self._build_request_url('posts_revert_tags', params)
 
     def posts_vote(self, id_, score):
-        """This action lets you vote for a post (Requires login).
+        """Action lets you vote for a post (Requires login).
 
         Parameters:
             id_:
@@ -384,7 +377,6 @@ class Pybooru(object):
                     2: Great.
                     3: Favorite, add post to favorites.
         """
-
         if score <= 3:
             params = {'id': id_, 'score': score}
             return self._build_request_url('posts_vote', params)
@@ -415,7 +407,6 @@ class Pybooru(object):
             after_id:
                 Return all tags that have an id number greater than this.
         """
-
         params = {'limit': limit, 'page': page, 'order': order}
 
         if id_ is not None:
@@ -428,7 +419,7 @@ class Pybooru(object):
         return self._build_request_url('tags_list', params)
 
     def tags_update(self, name, tag_type, is_ambiguous):
-        """This action lets you update tag (Requires login)(UNTESTED).
+        """Action to lets you update tag (Requires login)(UNTESTED).
 
         Parameters:
             name:
@@ -445,7 +436,6 @@ class Pybooru(object):
                 Whether or not this tag is ambiguous. Use 1 for true and 0
                 for false.
         """
-
         params = {'name': name, 'tag[tag_type]': tag_type,
                   'tag[is_ambiguous]': is_ambiguous}
 
@@ -462,7 +452,6 @@ class Pybooru(object):
                 Restrict results to this tag type. Can be general, artist,
                 copyright, or character (Default value: None).
         """
-
         params = {'tags': tags}
 
         if type_ is not None:
@@ -483,7 +472,6 @@ class Pybooru(object):
             page:
                 The page number.
         """
-
         params = {'page': page}
 
         if name is not None:
@@ -494,7 +482,7 @@ class Pybooru(object):
         return self._build_request_url('artists_list', params)
 
     def artists_create(self, name, urls, alias, group):
-        """This function create a artist (Requires login)(UNTESTED).
+        """Function to create a artist (Requires login)(UNTESTED).
 
         Parameters:
             name:
@@ -511,14 +499,15 @@ class Pybooru(object):
                 The group or cicle that this artist is a member of. Simply
                 enter the group's name.
         """
-
         params = {'artist[name]': name, 'artist[urls]': urls,
                   'artist[alias]': alias, 'artist[group]': group}
         return self._build_request_url('artists_create', params)
 
     def artists_update(self, id_, name=None, urls=None, alias=None, group=None):
-        """This function update an artists. Only the id_ parameter is required.
-        The other parameters are optional. (Requires login)(UNTESTED).
+        """Function to update an artists.
+
+        Only the id_ parameter is required. The other parameters are optional.
+        (Requires login)(UNTESTED).
 
         Parameters:
             id_:
@@ -538,7 +527,6 @@ class Pybooru(object):
                 The group or cicle that this artist is a member of. Simply
                 enter the group's name.
         """
-
         params = {'id': id_}
 
         if name is not None:
@@ -553,13 +541,12 @@ class Pybooru(object):
         return self._build_request_url('artists_update', params)
 
     def artists_destroy(self, id_):
-        """This action lets you remove artist (Requires login)(UNTESTED).
+        """Action to lets you remove artist (Requires login)(UNTESTED).
 
         Parameters:
             id_:
                 The id of the artist to destroy (Type: INT).
         """
-
         params = {'id': id_}
         response = self._build_request_url('artists_destroy', params)
         return response['success']
@@ -571,12 +558,11 @@ class Pybooru(object):
             id_:
                 The id number of the comment to retrieve (Type: INT).
         """
-
         params = {'id': id_}
         return self._build_request_url('comments_show', params)
 
     def comments_create(self, post_id, comment_body):
-        """This action lets you create a comment (Requires login).
+        """Action to lets you create a comment (Requires login).
 
         Parameters:
             post_id:
@@ -585,7 +571,6 @@ class Pybooru(object):
             comment_body:
                 The body of the comment.
         """
-
         params = {'comment[post_id]': post_id,
                   'comment[body]': comment_body}
         response = self._build_request_url('comments_create', params)
@@ -598,13 +583,12 @@ class Pybooru(object):
             id_:
                 The id number of the comment to remove (Type: INT).
         """
-
         params = {'id': id_}
         response = self._build_request_url('comments_destroy', params)
         return response['success']
 
     def wiki_list(self, query=None, order='title', limit=100, page=1):
-        """This function retrieves a list of every wiki page.
+        """Function to retrieves a list of every wiki page.
 
         Parameters:
             query:
@@ -619,7 +603,6 @@ class Pybooru(object):
             page:
                 The page number.
         """
-
         params = {'order': order, 'limit': limit, 'page': page}
 
         if query is not None:
@@ -628,7 +611,7 @@ class Pybooru(object):
         return self._build_request_url('wiki_list', params)
 
     def wiki_create(self, title, body):
-        """This action lets you create a wiki page (Requires login)(UNTESTED).
+        """Action to lets you create a wiki page (Requires login)(UNTESTED).
 
         Parameters:
             title:
@@ -642,7 +625,7 @@ class Pybooru(object):
         return self._build_request_url('wiki_create', params)
 
     def wiki_update(self, page_title, new_title, page_body):
-        """This action lets you update a wiki page (Requires login)(UNTESTED).
+        """Action to lets you update a wiki page (Requires login)(UNTESTED).
 
         Parameters:
             :page_title:
@@ -654,7 +637,6 @@ class Pybooru(object):
             :page_body:
                 The new body of the wiki page.
         """
-
         params = {'title': page_title, 'wiki_page[title]': new_title,
                   'wiki_page[body]': page_body}
         return self._build_request_url('wiki_update', params)
@@ -669,7 +651,6 @@ class Pybooru(object):
             version:
                 The version of the page to retrieve.
         """
-
         params = {'title': title}
 
         if version is not None:
@@ -678,46 +659,43 @@ class Pybooru(object):
         return self._build_request_url('wiki_show', params)
 
     def wiki_destroy(self, title):
-        """This function delete a specific wiki page (Requires login)
+        """Function to delete a specific wiki page (Requires login)
         (Only moderators)(UNTESTED).
 
         Params:
             title:
                 The title of the page to delete.
         """
-
         params = {'title': title}
         response = self._build_request_url('wiki_destroy', params)
         return response['success']
 
     def wiki_lock(self, title):
-        """This function lock a specific wiki page (Requires login)
+        """Function to lock a specific wiki page (Requires login)
         (Only moderators)(UNTESTED).
 
         Params:
             title:
                 The title of the page to lock.
         """
-
         params = {'title': title}
         response = self._build_request_url('wiki_lock', params)
         return response['success']
 
     def wiki_unlock(self, title):
-        """This function unlock a specific wiki page (Requires login)
+        """Function to unlock a specific wiki page (Requires login)
         (Only moderators)(UNTESTED).
 
         Params:
             title:
                 The title of the page to unlock.
         """
-
         params = {'title': title}
         response = self._build_request_url('wiki_unlock', params)
         return response['success']
 
     def wiki_revert(self, title, version):
-        """This function revert a specific wiki page (Requires login)(UNTESTED).
+        """Function to revert a specific wiki page (Requires login)(UNTESTED).
 
         Parameters:
             title:
@@ -726,7 +704,6 @@ class Pybooru(object):
             version:
                 The version to revert to.
         """
-
         params = {'title': title, 'version': version}
         response = self._build_request_url('wiki_revert', params)
         return response['success']
@@ -738,19 +715,17 @@ class Pybooru(object):
             title:
                 The title of the wiki page to retrieve versions for.
         """
-
         params = {'title': title}
         return self._build_request_url('wiki_history', params)
 
     def notes_list(self, post_id=None):
-        """Get note list
+        """Get note list.
 
         Parameters:
             post_id:
                 The post id number to retrieve notes for (Default: None)
                 (Type: INT).
         """
-
         if post_id is not None:
             params = {'post_id': post_id}
             return self._build_request_url('notes_list', params)
@@ -764,7 +739,6 @@ class Pybooru(object):
             query:
                 A word or phrase to search for.
         """
-
         params = {'query': query}
         return self._build_request_url('notes_search', params)
 
@@ -784,7 +758,6 @@ class Pybooru(object):
             page:
                 The note id number to retrieve versions for.
         """
-
         params = {'limit': limit, 'page': page}
 
         if post_id is not None:
@@ -795,7 +768,7 @@ class Pybooru(object):
         return self._build_request_url('notes_history', params)
 
     def notes_revert(self, id_, version):
-        """This function revert a specific note (Requires login)(UNTESTED).
+        """Function to revert a specific note (Requires login)(UNTESTED).
 
         Parameters:
             id_:
@@ -804,14 +777,13 @@ class Pybooru(object):
             version:
                 The version to revert to.
         """
-
         params = {'id': id_, 'version': version}
         response = self._build_request_url('wiki_revert', params)
         return response['success']
 
     def notes_create_update(self, post_id, coor_x, coor_y, width, height,
                             is_active, body, id_=None):
-        """This function create or update note (Requires login)(UNTESTED).
+        """Function to create or update note (Requires login)(UNTESTED).
 
         Parameters:
             post_id:
@@ -840,7 +812,6 @@ class Pybooru(object):
                 If you are updating a note, this is the note id number to
                 update.
         """
-
         params = {'note[post_id]': post_id, 'note[x]': coor_x,
                   'note[y]': coor_y, 'note[width]': width,
                   'note[height]': height, 'note[body]': body}
@@ -855,8 +826,9 @@ class Pybooru(object):
         return self._build_request_url('notes_create_update', params)
 
     def users_search(self, name=None, id_=None):
-        """Search users. If you don't specify any parameters you'll
-        get a listing of all users.
+        """Search users.
+
+        If you don't specify any parameters you'll get a listing of all users.
 
         Parameters:
             name:
@@ -865,7 +837,6 @@ class Pybooru(object):
             id_:
                 The id number of the user.
         """
-
         if name is not None:
             params = {'name': name}
             return self._build_request_url('users_search', params)
@@ -876,15 +847,15 @@ class Pybooru(object):
             return self._build_request_url('users_search')
 
     def forum_list(self, parent_id=None):
-        """Get forum posts. If you don't specify any parameters you'll get
-        a listing of all users.
+        """Function to get forum posts.
+
+        If you don't specify any parameters you'll get a listing of all users.
 
         Parameters:
             parent_id:
                 The parent ID number. You'll return all the responses to that
                 forum post.
         """
-
         if parent_id is not None:
             params = {'parent_id': parent_id}
             return self._build_request_url('forum_list', params)
@@ -892,8 +863,9 @@ class Pybooru(object):
             return self._build_request_url('forum_list')
 
     def pools_list(self, query=None, page=1):
-        """Get pools. If you don't specify any parameters you'll get a
-        list of all pools.
+        """Function to get pools.
+
+        If you don't specify any parameters you'll get a list of all pools.
 
         Parameters:
             query:
@@ -902,7 +874,6 @@ class Pybooru(object):
             page:
                 The page.
         """
-
         params = {'page': page}
 
         if query is not None:
@@ -911,8 +882,9 @@ class Pybooru(object):
         return self._build_request_url('pools_list', params)
 
     def pools_posts(self, id_=None, page=1):
-        """Get pools posts. If you don't specify any parameters you'll get a
-        list of all pools.
+        """Function to get pools posts.
+
+        If you don't specify any parameters you'll get a list of all pools.
 
         Parameters:
             id_:
@@ -921,7 +893,6 @@ class Pybooru(object):
             page:
                 The page.
         """
-
         params = {'page': page}
 
         if id_ is not None:
@@ -930,7 +901,7 @@ class Pybooru(object):
         return self._build_request_url('pools_posts', params)
 
     def pools_update(self, id_, name, is_public, description):
-        """This function update a pool (Requires login)(UNTESTED).
+        """Function to update a pool (Requires login)(UNTESTED).
 
         Parameters:
             id_:
@@ -945,7 +916,6 @@ class Pybooru(object):
             description:
                 A description of the pool.
         """
-
         params = {'id': id_, 'pool[name]': name,
                   'pool[description]': description}
 
@@ -957,7 +927,7 @@ class Pybooru(object):
         return self._build_request_url('pools_update', params)
 
     def pools_create(self, name, is_public, description):
-        """This function create a pool (Require login)(UNTESTED).
+        """Function to create a pool (Require login)(UNTESTED).
 
         Parameters:
             name:
@@ -969,7 +939,6 @@ class Pybooru(object):
             description:
                 A description of the pool.
         """
-
         params = {'pool[name]': name, 'pool[description]': description}
 
         if is_public <= 1:
@@ -980,19 +949,18 @@ class Pybooru(object):
         return self._build_request_url('pools_create', params)
 
     def pools_destroy(self, id_):
-        """This function destroy a specific pool (Require login)(UNTESTED).
+        """Function to destroy a specific pool (Require login)(UNTESTED).
 
         Parameters:
             id_:
                 The pool id number (Type: INT).
         """
-
         params = {'id': id_}
         response = self._build_request_url('pools_destroy', params)
         return response['success']
 
     def pools_add_post(self, pool_id, post_id):
-        """This function add a post (Require login)(UNTESTED).
+        """Function to add a post (Require login)(UNTESTED).
 
         Parameters:
             pool_id:
@@ -1001,12 +969,11 @@ class Pybooru(object):
             post_id:
                 The post to add.
         """
-
         params = {'pool_id': pool_id, 'post_id': post_id}
         return self._build_request_url('pools_add_post', params)
 
     def pools_remove_post(self, pool_id, post_id):
-        """This function remove a post (Require login)(UNTESTED).
+        """Function to remove a post (Require login)(UNTESTED).
 
         Parameters:
             pool_id:
@@ -1015,19 +982,17 @@ class Pybooru(object):
             post_id:
                 The post to remove.
         """
-
         params = {'pool_id': pool_id, 'post_id': post_id}
         return self._build_request_url('pools_remove_post', params)
 
     def favorites_list_users(self, id_):
-        """Return a list with all users who have added to favorites a specific
-        post.
+        """Function to return a list with all users who have added to favorites
+        a specific post.
 
         Parameters:
             id_:
                 The post id (Type: INT).
         """
-
         params = {'id': id_}
         response = self._build_request_url('favorites_list_users', params)
         # Return list with users
