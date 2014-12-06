@@ -1,18 +1,15 @@
-Pybooru - Library for Danbooru API.
-========================================================================
-Pybooru is a library for Python for access to API Danbooru / Moebooru based sites.
+# Pybooru - Library for Danbooru API.
+**Pybooru** Pybooru is a Python library to access API of Danbooru/Moebooru based sites.
 
-Version: **2.5.0-develop**<br />
+Version: **3.0**<br />
 Licensed under: **MIT License**
 
-Dependencies.
--------------
+## Dependencies.
 - Python: >= 2.6
-- [Simplejson](https://pypi.python.org/pypi/simplejson/) (Optional).
+- [requests](http://docs.python-requests.org/en/latest/).
 
-Installation.
--------------
-**from Python Package Index (Pypi):**<br />
+## Installation.
+### from Python Package Index (Pypi):**
 Pypi - Python Package Index:
 [Pybooru on Pypi](https://pypi.python.org/pypi/Pybooru/).
 
@@ -24,7 +21,7 @@ or
 sudo easy_install Pybooru
 ```
 
-**Manual installation:**
+### Manual installation:
 ```bash
 git clone git://github.com/luquedaniel/pybooru.git
 cd pybooru
@@ -32,8 +29,7 @@ sudo python setup.py build
 sudo python setup.py install
 ```
 
-Example of use.
----------------
+## Example of use.
 ```python
 from pybooru import Pybooru
 
@@ -45,7 +41,7 @@ for artist in artists:
     print 'Name: %s' % (artist['name'])
 ```
 
-**Login example:**<br />
+### **Login example:**
 Default sites:
 ```python
 from pybooru import Pybooru
@@ -55,7 +51,7 @@ client = Pybooru('Konachan', username='your-username', password='your-password')
 client.comments_create(post_id=id, comment_body='Comment content')
 ```
 
-Other sites:
+#### Other sites:
 ```python
 from pybooru import Pybooru
 
@@ -66,10 +62,8 @@ client.comments_create(post_id=id, comment_body='Comment content')
 
 [More examples.](https://github.com/LuqueDaniel/pybooru/tree/master/examples)
 
-CI Report
----------
+## CI Report
 - https://travis-ci.org/LuqueDaniel/pybooru
 
-License.
---------
+## License.
 - **[MIT License](https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE)**
