@@ -187,7 +187,7 @@ class Pybooru(object):
                 API function parameters.
         """
         # Header
-        headers = {'content-type': 'application/json'}
+        headers = {'content-type': 'application/json; charset=utf8'}
 
         try:
             # Request
@@ -628,13 +628,13 @@ class Pybooru(object):
         """Action to lets you update a wiki page (Requires login)(UNTESTED).
 
         Parameters:
-            :page_title:
+            page_title:
                 The title of the wiki page to update.
 
-            :new_title:
+            new_title:
                 The new title of the wiki page.
 
-            :page_body:
+            page_body:
                 The new body of the wiki page.
         """
         params = {'title': page_title, 'wiki_page[title]': new_title,
