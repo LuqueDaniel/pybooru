@@ -1,18 +1,17 @@
 # Pybooru - Library for Danbooru API.
 **Pybooru** is a Python library to access API of Danbooru/Moebooru based sites.
 
-Version: **3.0**
-
-Licensed under: **MIT License**
+- Version: **3.0**
+- Licensed under: **MIT License**
 
 ## Dependencies.
 - Python: >= 2.6
-- [requests](http://docs.python-requests.org/en/latest/).
+- [requests.](http://docs.python-requests.org/en/latest/)
 
-## Installation.
-### from Python Package Index (Pypi):
+## Installation
+### from Python Package Index (Pypi)
 Pypi - Python Package Index:
-[Pybooru on Pypi](https://pypi.python.org/pypi/Pybooru/).
+[Pybooru on Pypi.](https://pypi.python.org/pypi/Pybooru/)
 
 ```bash
 sudo pip install Pybooru
@@ -22,7 +21,7 @@ or
 sudo easy_install Pybooru
 ```
 
-### Manual installation:
+### Manual installation
 ```bash
 git clone git://github.com/luquedaniel/pybooru.git
 cd pybooru
@@ -42,8 +41,8 @@ for artist in artists:
     print 'Name: %s' % (artist['name'])
 ```
 
-### Login example:
-#### Default sites:
+### Login example
+#### Default sites
 ```python
 from pybooru import Pybooru
 
@@ -52,7 +51,7 @@ client = Pybooru('Konachan', username='your-username', password='your-password')
 client.comments_create(post_id=id, comment_body='Comment content')
 ```
 
-#### Other sites:
+#### Other sites
 ```python
 from pybooru import Pybooru
 
@@ -67,5 +66,5 @@ client.comments_create(post_id=id, comment_body='Comment content')
 ## CI Report
 - https://travis-ci.org/LuqueDaniel/pybooru
 
-## License.
+## License
 - **[MIT License](https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE)**
