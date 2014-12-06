@@ -18,9 +18,9 @@ branches:
     - master
 
 install:
+    - sudo apt-get install pylint
     # Install requests
     - pip install requests
-    - pip install pylint
 
 before_script:
     # Remove python binari files
