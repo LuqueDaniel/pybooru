@@ -162,8 +162,8 @@ class Pybooru(object):
 
                     # Set password_hash parameter
                     # Convert hashed_string to SHA1 and return hex string
-                    params['password_hash'] = hashlib.sha1(
-                        hash_string).hexdigest()  # pylint: disable=E165
+                    params['password_hash'] = hashlib.sha1(  # pylint: disable=E165
+                        hash_string).hexdigest()
                 else:
                     raise PybooruError("Specify the username and password "
                                        "parameter of the Pybooru object, for "
