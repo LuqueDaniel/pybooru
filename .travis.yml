@@ -28,5 +28,5 @@ before_script:
 
 # Run test script, but at the moment is a provisional test
 script:
-    - pylint --errors-only --msg-template="{path}:{line}:{column} - [{obj}]: [{msg_id}({symbol})], {msg}" pybooru/
+    - pylint --errors-only --rcfile=".pylintrc" pybooru/
     - python provisional_test.py
