@@ -2,6 +2,7 @@ Pybooru - Library for Danbooru/Moebooru API.
 ============================================
 .. image:: https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master
     :target: https://travis-ci.org/LuqueDaniel/pybooru
+
 Pybooru is a library for Python for access to API Danbooru/Moebooru based sites.
 
 Licensed under: **MIT License**.
