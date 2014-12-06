@@ -1,13 +1,33 @@
-=======
-Pybooru
-=======
+Pybooru - Library for Danbooru/Moebooru API.
+============================================
+Pybooru is a library for Python for access to API Danbooru/Moebooru based sites.
 
-Pybooru is a library for Python for access to API Danbooru / Moebooru based sites.
+Licensed under: **MIT License**.
 
-Last version: 2.1.1 (stable).
+Examples of use
+---------------
+.. code-block:: python
 
-Changelog: https://github.com/LuqueDaniel/pybooru/blob/master/changelog.md
+   from pybooru import Pybooru
 
-More information: https://github.com/LuqueDaniel/pybooru/blob/master/README.markdown
+   client = Pybooru('Konachan')
 
-Github repository: https://github.com/LuqueDaniel/pybooru
+   artists = client.artists('ma')
+
+   for artist in artists:
+        print("Name: {0}".format(artist['name']))
+   ..
+
+See more examples: https://github.com/LuqueDaniel/pybooru/tree/develop/examples
+
+Changelog
+---------
+- https://github.com/LuqueDaniel/pybooru/blob/master/changelog.md
+
+Github repository
+-----------------
+- https://github.com/LuqueDaniel/pybooru
+
+More information
+----------------
+- https://github.com/LuqueDaniel/pybooru/blob/master/README.markdown

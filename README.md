@@ -29,7 +29,7 @@ sudo python setup.py build
 sudo python setup.py install
 ```
 
-## Example of use
+## Examples of use
 ```python
 from pybooru import Pybooru
 
@@ -38,7 +38,7 @@ client = Pybooru('Konachan')
 artists = client.artists('ma')
 
 for artist in artists:
-    print 'Name: %s' % (artist['name'])
+    print("Name: {0}".format(artist['name']))
 ```
 
 ### Login example
@@ -56,7 +56,7 @@ client.comments_create(post_id=id, comment_body='Comment content')
 from pybooru import Pybooru
 
 client = Pybooru('konachan.com', username='your-username', password='your-password',
-                 hashString='So-I-Heard-You-Like-Mupkids-?--%s--')
+                 hashString='So-I-Heard-You-Like-Mupkids-?--{0}--')
 
 client.comments_create(post_id=id, comment_body='Comment content')
 ```
@@ -67,4 +67,4 @@ client.comments_create(post_id=id, comment_body='Comment content')
 - https://travis-ci.org/LuqueDaniel/pybooru
 
 ## License
-- **[MIT License](https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE)**
+- **[See MIT License](https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE)**
