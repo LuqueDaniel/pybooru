@@ -1,9 +1,15 @@
 # Ignore files .pyc
 *.pyc
+*.egg-info
+__pycache__
 
 # ignore test file
 pro.py
 
+# build/dist files
 build/
 dist/
 Pybooru.egg-info/
+
+# IDEs config files
+*.nja

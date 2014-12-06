@@ -1,5 +1,3 @@
 #!/bin/bash
 
-find -iname '*.pyc' -delete
-
-fi
+find . -iname '*.pyc' -delete

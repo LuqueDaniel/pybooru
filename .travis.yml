@@ -1,0 +1,34 @@
+# .travis.yml file for pybooru
+
+os:
+    - linux
+
+language: python
+
+# Python version
+python:
+    - "2.6"
+    - "2.7"
+    - "3.2"
+    - "3.3"
+    - "3.4"
+
+branches:
+    - develop
+    - master
+
+install:
+    # Install pylint
+    - sudo apt-get install pylint
+    # Install requests
+    - pip install requests
+
+before_script:
+    # Remove python binari files
+    - rm --recursive --force --verbose *.py[cod]
+
+script:
+    # Run pylint
+    - pylint --errors-only --rcfile=".pylintrc" pybooru/
+    # Run test script, but at the moment is a provisional test
+    - python provisional_test.py

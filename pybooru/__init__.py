@@ -1,16 +1,18 @@
+# -*- coding: utf-8 -*-
+
 """
-Pybooru
--------
-Pybooru is a library for Python for access to API Danbooru based sites.
+Pybooru.
+--------
+
+Pybooru is a Python library to access API of Danbooru/Moebooru based sites.
 
 Under MIT license.
 """
 
-__author__ = 'Daniel Luque'
-__email__ = 'danielluque14@gmail.com'
-__version__ = '2.1.1'
-__url__ = 'http://github.com/LuqueDaniel/pybooru'
+__author__ = "Daniel Luque <danielluque14@gmail.com>"
+__version__ = "3.0"
+__url__ = "http://github.com/LuqueDaniel/pybooru"
 
-#pybooru imports
+# pybooru imports
 from .pybooru import Pybooru
 from .exceptions import PybooruError
