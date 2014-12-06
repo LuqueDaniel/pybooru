@@ -2,6 +2,7 @@
 **Pybooru** is a Python library to access API of Danbooru/Moebooru based sites.
 
 Version: **3.0**
+
 Licensed under: **MIT License**
 
 ## Dependencies.
@@ -9,7 +10,7 @@ Licensed under: **MIT License**
 - [requests](http://docs.python-requests.org/en/latest/).
 
 ## Installation.
-### from Python Package Index (Pypi):**
+### from Python Package Index (Pypi):
 Pypi - Python Package Index:
 [Pybooru on Pypi](https://pypi.python.org/pypi/Pybooru/).
 
@@ -29,7 +30,7 @@ sudo python setup.py build
 sudo python setup.py install
 ```
 
-## Example of use.
+## Example of use
 ```python
 from pybooru import Pybooru
 
@@ -41,8 +42,8 @@ for artist in artists:
     print 'Name: %s' % (artist['name'])
 ```
 
-### **Login example:**
-Default sites:
+### Login example:
+#### Default sites:
 ```python
 from pybooru import Pybooru
 
