@@ -1,7 +1,7 @@
 # Pybooru - Library for Danbooru API.
-**Pybooru** Pybooru is a Python library to access API of Danbooru/Moebooru based sites.
+**Pybooru** is a Python library to access API of Danbooru/Moebooru based sites.
 
-Version: **3.0**<br />
+Version: **3.0**
 Licensed under: **MIT License**
 
 ## Dependencies.
@@ -55,7 +55,8 @@ client.comments_create(post_id=id, comment_body='Comment content')
 ```python
 from pybooru import Pybooru
 
-client = Pybooru('konachan.com', username='your-username', password='your-password', hashString='So-I-Heard-You-Like-Mupkids-?--%s--')
+client = Pybooru('konachan.com', username='your-username', password='your-password',
+                 hashString='So-I-Heard-You-Like-Mupkids-?--%s--')
 
 client.comments_create(post_id=id, comment_body='Comment content')
 ```
