@@ -1,4 +1,5 @@
 # Pybooru - Library for Danbooru/Moebooru API.
+[![Build Status](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru)
 **Pybooru** is a Python library to access API of Danbooru/Moebooru based sites.
 
 - Version: **3.0**
