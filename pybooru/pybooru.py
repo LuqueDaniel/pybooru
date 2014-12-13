@@ -662,7 +662,7 @@ class Pybooru(object):
         """Function to delete a specific wiki page (Requires login)
         (Only moderators)(UNTESTED).
 
-        Params:
+        Parameters:
             title:
                 The title of the page to delete.
         """
@@ -674,7 +674,7 @@ class Pybooru(object):
         """Function to lock a specific wiki page (Requires login)
         (Only moderators)(UNTESTED).
 
-        Params:
+        Parameters:
             title:
                 The title of the page to lock.
         """
@@ -686,7 +686,7 @@ class Pybooru(object):
         """Function to unlock a specific wiki page (Requires login)
         (Only moderators)(UNTESTED).
 
-        Params:
+        Parameters:
             title:
                 The title of the page to unlock.
         """
