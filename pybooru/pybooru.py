@@ -187,7 +187,7 @@ class Pybooru(object):
                 API function parameters.
         """
         # Header
-        headers = {'content-type': 'application/json; charset=utf8'}
+        headers = {'content-type': 'application/json; charset=utf-8'}
 
         try:
             # Request
