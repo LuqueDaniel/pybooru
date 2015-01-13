@@ -1,5 +1,8 @@
 # Pybooru - Changelog
 
+## Pybooru 3.0.1 - (01/13/2015)
+- Minors changes
+
 ## Pybooru 3.0 - (12/06/2014)
 - In this version there's a nice amount of code improvements.
 - Added compatibility with Python 3.

@@ -10,7 +10,7 @@ Under MIT license.
 """
 
 __author__ = "Daniel Luque <danielluque14@gmail.com>"
-__version__ = "3.0"
+__version__ = "3.0.1"
 __url__ = "http://github.com/LuqueDaniel/pybooru"
 
 # pybooru imports
