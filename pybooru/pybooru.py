@@ -198,9 +198,10 @@ class Pybooru(object):
             # Read and return JSON data
             return response.json()
         except requests.exceptions.HTTPError as err:
-            raise PybooruError("In _json_request", response.status_code, url)
+            raise PybooruError("In _json_request", response.status_code,
+                               response.url)
         except requests.exceptions.Timeout as err:
-            raise PybooruError("Timeout! in url: {0}".format(url))
+            raise PybooruError("Timeout! in url: {0}".format(response.url))
         except ValueError as err:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
                 err.msg, err.lineno, err.colno))
