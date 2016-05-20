@@ -3,7 +3,7 @@
 """Module contains ApiFunctions class for pybooru."""
 
 
-class ApiFunctions(object):
+class ApiFunctionsMixin(object):
     """Contains all Moebooru API calls."""
 
     def posts_list(self, tags=None, limit=100, page=1):
