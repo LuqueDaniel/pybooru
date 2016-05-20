@@ -2,6 +2,11 @@
 
 """Module contains ApiFunctions class for pybooru."""
 
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
+from .exceptions import PybooruError
+
 
 class ApiFunctionsMixin(object):
     """Contains all Moebooru API calls."""
