@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 
-"""This module contains pybooru object class."""
+"""pybooru.pybooru
+
+This module contains pybooru main class for access to API calls,
+authentication, build urls and return JSON response.
+
+Classes:
+   Pybooru -- Main pybooru classs, define Pybooru objectself.
+"""
 
 # __furute__ imports
 from __future__ import absolute_import
@@ -11,13 +18,9 @@ from .api import ApiFunctionsMixin
 from .exceptions import PybooruError
 from .resources import (API_BASE_URL, SITE_LIST)
 
-# requests imports
+# External imports
 import requests
-
-# hashlib imports
 import hashlib
-
-# re imports
 import re
 
 
@@ -25,47 +28,40 @@ class Pybooru(ApiFunctionsMixin, object):
     """Pybooru main class.
 
     To initialize Pybooru, you need to specify one of these two
-    parameters: site_name or site_url. If you specify site_name, Pybooru checks
-    whether there is in the list of default sites (You can get list of sites in
-    the resources module).
+    parameters: 'site_name' or 'site_url'. If you specify 'site_name', Pybooru
+    checks whether there is in the list of default sites (You can get list
+    of sites in the 'resources' module).
 
-    To specify a site that isn't in list of default sites, you need use site_url
-    parameter.
+    To specify a site that isn't in list of default sites, you need use
+    'site_url' parameter and specify url.
 
     Some actions may require you to log in. always specify three parameters to
-    log in: hash_string, username and password. Default sites has an associate
-    hash string.
-
-    Init Parameters:
-        site_name (Type STR):
-            The site name in SITE_LIST, default sites.
-
-        site_url (Type STR):
-            URL of based on Danbooru/Moebooru sites.
-
-        hash_string (Type STR):
-            String that is hashed (required to login).
-            (See the API documentation of the site for more information).
-
-        username (Type STR):
-            Your username of the site
-            (Required only for functions that modify the content).
-
-        password (Type STR):
-            Your user password in plain text
-            (Required only for functions that modify the content).
+    log in: 'hash_string', 'username' and 'password'. Default sites has an
+    associate hash string.
 
     Attributes:
         site_name: Return site name.
-        site_url: Return URL of based danbooru/Moebooru site.
+        site_url: Return the URL of Danbooru/Moebooru based site.
         username: Return user name.
         password: Return password in plain text.
-        hash_string: Return hash_string.
+        hash_string: Return hash_string of the site.
     """
 
     def __init__(self, site_name="", site_url="", username="", password="",
                  hash_string=""):
+        """Initialize Pybooru.
 
+        Keyword arguments:
+        site_name: The site name in 'SITE_LIST', default sites.
+        site_url: URL of on Danbooru/Moebooru based sites.
+        hash_string: String that is hashed (required to login).
+                    (See the API documentation of the site for more
+                    information).
+        username: Your username of the site (Required only for functions that
+                  modify the content).
+        password: Your user password in plain text (Required only for functions
+                  that modify the content).
+        """
         # Attributes
         self.site_name = site_name.lower()
         self.site_url = site_url.lower()
@@ -74,36 +70,26 @@ class Pybooru(ApiFunctionsMixin, object):
         self.hash_string = hash_string
 
         # Validate site_name or site_url
-        if site_url is not "" or site_name is not "":
+        if site_url or site_name is not "":
             if site_name is not "":
-                self._site_name_validator(self.site_name)
+                self._site_name_validator()
             elif site_url is not "":
-                self._url_validator(self.site_url)
+                self._url_validator()
         else:
             raise PybooruError("Unexpected empty strings,"
-                               " specify parameter site_name or site_url.")
+                               " specify parameter 'site_name' or 'site_url'.")
 
-    def _site_name_validator(self, site_name):
-        """Function that checks the site name and get the url.
-
-        Parameters:
-            site_name (Type STR):
-                The name of a based Danbooru/Moebooru site. You can get list
-                of sites in the resources module.
-        """
+    def _site_name_validator(self):
+        """Function that checks the site name and get url."""
         if site_name in list(SITE_LIST.keys()):
-            self.site_url = SITE_LIST[site_name]['url']
+            self.site_url = SITE_LIST[self.site_name]['url']
+            self.hash_string = SITE_LIST[self.site_name]['hashed_string']
         else:
             raise PybooruError(
-                "The site name is not valid, use the site_url parameter")
+                "The site_name is not valid, specify a valid site_name")
 
-    def _url_validator(self, url):
-        """URL validator for site_url parameter of Pybooru.
-
-        Parameters:
-            url (Type STR):
-                The URL to validate.
-        """
+    def _url_validator(self):
+        """URL validator for site_url attribute."""
         # Regular expression to URL validate
         regex = re.compile(
             r'^(?:http|https)://'  # Scheme only HTTP/HTTPS
@@ -116,83 +102,59 @@ class Pybooru(ApiFunctionsMixin, object):
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
         # Validate URL
-        if re.match('^(?:http|https)://', url):
-            if re.search(regex, url):
-                self.site_url = url
-            else:
-                raise PybooruError("Invalid URL", url=url)
+        if re.match('^(?:http|https)://', self.site_url):
+            if not re.search(regex, self.site_url):
+                raise PybooruError("Invalid URL", url=self.site_url)
         else:
-            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS", url=url)
+            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS",
+                               url=self.site_url)
 
-    def _build_request_url(self, api_name, params=None):
-        """Function for build url.
-
-        Parameters:
-            api_name:
-                The NAME of the API function.
-
-            params (Default: None):
-                The parameters of the API function.
-        """
-        if params is None:
-            params = {}
-
-        # Create url
-        url = self.site_url + API_BASE_URL[api_name]['url']
-
+    def _build_hash_string(self):
+        """Function for build password hash string."""
         # Build AUTENTICATION hash_string
         # Check if hash_string exists
-        if API_BASE_URL[api_name]['required_login'] is True:
-            if self.site_name in list(SITE_LIST.keys()) or \
-                    self.hash_string is not "":
-
-                # Check if the username and password are empty
-                if self.username is not "" and self.password is not "":
-                    # Set username login parameter
-                    params['login'] = self.username
-
-                    # Create hashed string
-                    if self.hash_string is not "":
-                        try:
-                            hash_string = self.hash_string.format(self.password)
-                        except TypeError:
-                            raise PybooruError(r"Use \{0\} in hash_string")
-                    else:
-                        hash_string = SITE_LIST[self.site_name]['hashed_string'].format(self.password)
-
-                    # Set password_hash parameter
-                    # Convert hashed_string to SHA1 and return hex string
-                    params['password_hash'] = hashlib.sha1(  # pylint: disable=E1101
-                        hash_string).hexdigest()
-                else:
-                    raise PybooruError("Specify the username and password "
-                                       "parameter of the Pybooru object, for "
-                                       "setting password_hash attribute.")
+        if self.site_name in list(SITE_LIST.keys()) or \
+           self.hash_string is not "":
+            if self.username and self.password is not "":
+                try:
+                    hash_string = self.hash_string.format(self.password)
+                except TypeError:
+                    raise PybooruError("Pybooru can't add 'password' "
+                                       "to 'hash_string'")
+                # encrypt hashed_string to SHA1 and return hexdigest string
+                self.hash_string = hashlib.sha1(  # pylint: disable=E1101
+                    hash_string.encode('utf-8')).hexdigest()
             else:
-                raise PybooruError(
-                    "Specify the hash_string parameter of the Pybooru"
-                    " object, for the functions which require login.")
+                raise PybooruError("Specify the 'username' and 'password' "
+                                   "parameters of the Pybooru object, for "
+                                   "setting 'password_hash' attribute.")
+        else:
+            raise PybooruError(
+                "Specify the 'hash_string' parameter of the Pybooru"
+                " object, for the functions that requires login.")
 
-        return self._json_request(url, params)
-
-    @staticmethod
-    def _json_request(url, params):
-        """Function to read and returning JSON response.
+    def _request(self, api_call, params, method='GET'):
+        """Function to request and returning JSON data.
 
         Parameters:
-            url:
-                API function url.
-
-            params:
-                API function parameters.
+            api_call: API function to be called.
+            params: API function parameters.
+            method: (Defauld: GET) HTTP method 'GET' or 'POST'
         """
-        # Header
+        # Build url
+        url = "{0}/{1}.json".format(self.site_url, api_call)
+
         headers = {'content-type': 'application/json; charset=utf-8'}
 
         try:
-            # Request
-            response = requests.post(url, params=params, headers=headers,
-                                     timeout=60)
+            if method is 'GET':
+                response = requests.get(url, params=params, headers=headers,
+                                        timeout=60)
+            else:
+                if self.hash_string is "":
+                    self._build_hash_string()
+                response = requests.post(url, params=params, headers=headers,
+                                         timeout=60)
             # Enable raise status error
             response.raise_for_status()
             # Read and return JSON data
