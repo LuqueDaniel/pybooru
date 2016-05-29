@@ -147,7 +147,7 @@ class Pybooru(ApiFunctionsMixin, object):
         headers = {'content-type': 'application/json; charset=utf-8'}
 
         try:
-            if method is 'GET':
+            if method == 'GET':
                 response = requests.get(url, params=params, headers=headers,
                                         timeout=60)
             else:
