@@ -107,9 +107,9 @@ class ApiFunctionsMixin(object):
             params['post[rating]'] = rating
         if source is not None:
             params['post[source]'] = source
-        if rating_locked is not None:
+        if is_rating_locked is not None:
             params['post[is_rating_locked]'] = is_rating_locked
-        if note_locked is not None:
+        if is_note_locked is not None:
             params['post[is_note_locked]'] = is_note_locked
         if parent_id is not None:
             params['post[parent_id]'] = parent_id
