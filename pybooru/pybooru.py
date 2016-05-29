@@ -16,7 +16,7 @@ from __future__ import unicode_literals
 # pyborru imports
 from .api import ApiFunctionsMixin
 from .exceptions import PybooruError
-from .resources import (API_BASE_URL, SITE_LIST)
+from .resources import SITE_LIST
 
 # External imports
 import requests

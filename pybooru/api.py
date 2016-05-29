@@ -528,7 +528,7 @@ class ApiFunctionsMixin(object):
         return self._request('pool/update', params, 'POST')
 
     def pool_create(self, name, description, is_public):
-        """Function to create a pool (Require login)(UNTESTED).
+        """Function to create a pool (Require login) (UNTESTED).
 
         Parameters:
             name: The name.
@@ -548,7 +548,7 @@ class ApiFunctionsMixin(object):
         return self._request('pool/destroy', {'id': id_}, 'POST')
 
     def pool_add_post(self, **params):
-        """Function to add a post (Require login)(UNTESTED).
+        """Function to add a post (Require login) (UNTESTED).
 
         Parameters:
             pool_id: The pool to add the post to.
