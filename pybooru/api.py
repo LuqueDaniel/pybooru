@@ -79,7 +79,7 @@ class ApiFunctionsMixin(object):
             raise PybooruError("'file_' or 'source' is required.")
 
     def post_update(self, id_, tags=None, file_=None, rating=None,
-                    source=None, rating_locked=None, note_locked=None,
+                    source=None, is_rating_locked=None, is_note_locked=None,
                     parent_id=None):
         """Function update a specific post.
 
@@ -416,7 +416,7 @@ class ApiFunctionsMixin(object):
         """
         return self._request('note/history', params)
 
-    def note_revert(self, id, version):
+    def note_revert(self, id_, version):
         """Function to revert a specific note (Requires login) (UNTESTED).
 
         Parameters:
