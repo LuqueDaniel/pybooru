@@ -25,7 +25,7 @@ import re
 
 
 class Pybooru(ApiFunctionsMixin, object):
-    """Pybooru main class.
+    """Pybooru main class (inherits: pybooru.api.ApiFunctionsMixin).
 
     To initialize Pybooru, you need to specify one of these two
     parameters: 'site_name' or 'site_url'. If you specify 'site_name', Pybooru
@@ -68,6 +68,7 @@ class Pybooru(ApiFunctionsMixin, object):
         self.username = username
         self.password = password
         self.hash_string = hash_string
+        self._password_hash = None
 
         # Validate site_name or site_url
         if site_url or site_name is not "":
@@ -81,7 +82,7 @@ class Pybooru(ApiFunctionsMixin, object):
 
     def _site_name_validator(self):
         """Function that checks the site name and get url."""
-        if site_name in list(SITE_LIST.keys()):
+        if self.site_name in list(SITE_LIST):
             self.site_url = SITE_LIST[self.site_name]['url']
             self.hash_string = SITE_LIST[self.site_name]['hashed_string']
         else:
@@ -113,8 +114,7 @@ class Pybooru(ApiFunctionsMixin, object):
         """Function for build password hash string."""
         # Build AUTENTICATION hash_string
         # Check if hash_string exists
-        if self.site_name in list(SITE_LIST.keys()) or \
-           self.hash_string is not "":
+        if self.site_name in list(SITE_LIST) or self.hash_string is not "":
             if self.username and self.password is not "":
                 try:
                     hash_string = self.hash_string.format(self.password)
@@ -122,7 +122,7 @@ class Pybooru(ApiFunctionsMixin, object):
                     raise PybooruError("Pybooru can't add 'password' "
                                        "to 'hash_string'")
                 # encrypt hashed_string to SHA1 and return hexdigest string
-                self.hash_string = hashlib.sha1(  # pylint: disable=E1101
+                self.password_hash = hashlib.sha1(  # pylint: disable=E1101
                     hash_string.encode('utf-8')).hexdigest()
             else:
                 raise PybooruError("Specify the 'username' and 'password' "
@@ -151,12 +151,12 @@ class Pybooru(ApiFunctionsMixin, object):
                 response = requests.get(url, params=params, headers=headers,
                                         timeout=60)
             else:
-                if self.hash_string is "":
+                if self._password_hash is None:
                     self._build_hash_string()
+                params['login'] = self.username
+                params['password_hash'] = self.password_hash
                 response = requests.post(url, params=params, headers=headers,
                                          timeout=60)
-            # Enable raise status error
-            response.raise_for_status()
             # Read and return JSON data
             return response.json()
         except requests.exceptions.HTTPError as err:
