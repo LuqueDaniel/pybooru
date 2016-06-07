@@ -44,7 +44,7 @@ class ApiFunctionsMixin(object):
 
         Parameters:
             tags: A space delimited list of tags.
-            file_: The file data encoded as a multipart form.
+            file_: The file data encoded as a multipart form. Path of content.
             rating: The rating for the post. Can be: safe, questionable,
                     or explicit.
             source: If this is a URL, Danbooru/Moebooru will download the

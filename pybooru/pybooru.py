@@ -14,6 +14,7 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 # pyborru imports
+from . import __version__
 from .api import ApiFunctionsMixin
 from .exceptions import PybooruError
 from .resources import SITE_LIST
@@ -52,15 +53,15 @@ class Pybooru(ApiFunctionsMixin, object):
         """Initialize Pybooru.
 
         Keyword arguments:
-        site_name: The site name in 'SITE_LIST', default sites.
-        site_url: URL of on Danbooru/Moebooru based sites.
-        hash_string: String that is hashed (required to login).
-                    (See the API documentation of the site for more
-                    information).
-        username: Your username of the site (Required only for functions that
-                  modify the content).
-        password: Your user password in plain text (Required only for functions
-                  that modify the content).
+            site_name: The site name in 'SITE_LIST', default sites.
+            site_url: URL of on Danbooru/Moebooru based sites.
+            hash_string: String that is hashed (required to login).
+                         (See the API documentation of the site for more
+                         information).
+           username: Your username of the site (Required only for functions that
+                     modify the content).
+           password: Your user password in plain text (Required only for
+                     functions that modify the content).
         """
         # Attributes
         self.site_name = site_name.lower()
@@ -69,6 +70,12 @@ class Pybooru(ApiFunctionsMixin, object):
         self.password = password
         self.hash_string = hash_string
         self._password_hash = None
+
+        # Set HTTP Client
+        self.client = requests.Session()
+        headers = {'user-agent': 'Pybooru/{}'.format(__version__),
+                   'content-type': 'application/json; charset=utf-8'}
+        self.client.headers = headers
 
         # Validate site_name or site_url
         if site_url or site_name is not "":
@@ -144,23 +151,20 @@ class Pybooru(ApiFunctionsMixin, object):
         # Build url
         url = "{0}/{1}.json".format(self.site_url, api_call)
 
-        headers = {'content-type': 'application/json; charset=utf-8'}
-
         try:
             if method == 'GET':
-                response = requests.get(url, params=params, headers=headers,
-                                        timeout=60)
+                response = self.client.get(url, params=params)
             else:
                 if self._password_hash is None:
                     self._build_hash_string()
                 params['login'] = self.username
                 params['password_hash'] = self.password_hash
-                response = requests.post(url, params=params, headers=headers,
-                                         timeout=60)
+                response = self.client.post(url, params=params)
+            response.raise_for_status()
             # Read and return JSON data
             return response.json()
         except requests.exceptions.HTTPError as err:
-            raise PybooruError("In _json_request", response.status_code,
+            raise PybooruError("In _request: ", response.status_code,
                                response.url)
         except requests.exceptions.Timeout as err:
             raise PybooruError("Timeout! in url: {0}".format(response.url))
