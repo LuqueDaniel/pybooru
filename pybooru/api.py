@@ -61,7 +61,7 @@ class ApiFunctionsMixin(object):
         params = {'post[tags]': tags}
         if file_ or source is not None:
             if file_ is not None:
-                params['post[file]'] = file_
+                file_ = {'post[file]': open(file_, 'rb')}
             if source is not None:
                 params['post[source]'] = source
             if rating is not None:
@@ -74,7 +74,7 @@ class ApiFunctionsMixin(object):
                 params['post[parent_id]'] = parent_id
             if md5 is not None:
                 params['md5'] = md5
-            return self._request('post/create', params, 'POST')
+            return self._request('post/create', params, 'POST', file_)
         else:
             raise PybooruError("'file_' or 'source' is required.")
 
@@ -102,7 +102,7 @@ class ApiFunctionsMixin(object):
         if tags is not None:
             params['post[tags]'] = tags
         if file_ is not None:
-            params['post[file]'] = file_
+            file_ = {'post[file]': open(file_, 'rb')}
         if rating is not None:
             params['post[rating]'] = rating
         if source is not None:
@@ -272,13 +272,13 @@ class ApiFunctionsMixin(object):
         """
         return self._request('comment/show', {'id': id_})
 
-    def comment_create(self, anonymous=None, post_id=None, comment_body=None):
+    def comment_create(self, post_id, comment_body, anonymous=None):
         """Action to lets you create a comment (Requires login).
 
         Parameters:
-            anonymous: Set to 1 if you want to post this comment anonymously.
             post_id: The post id number to which you are responding.
             comment_body: The body of the comment.
+            anonymous: Set to 1 if you want to post this comment anonymously.
         """
         params = {}
         if post_id and comment_body is not None:

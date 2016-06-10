@@ -13,7 +13,7 @@ Classes:
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-# pyborru imports
+# pybooru imports
 from . import __version__
 from .api import ApiFunctionsMixin
 from .exceptions import PybooruError
@@ -73,7 +73,7 @@ class Pybooru(ApiFunctionsMixin, object):
 
         # Set HTTP Client
         self.client = requests.Session()
-        headers = {'user-agent': 'Pybooru/{}'.format(__version__),
+        headers = {'user-agent': 'Pybooru/{0}'.format(__version__),
                    'content-type': 'application/json; charset=utf-8'}
         self.client.headers = headers
 
@@ -140,13 +140,14 @@ class Pybooru(ApiFunctionsMixin, object):
                 "Specify the 'hash_string' parameter of the Pybooru"
                 " object, for the functions that requires login.")
 
-    def _request(self, api_call, params, method='GET'):
+    def _request(self, api_call, params, method='GET', file_=None):
         """Function to request and returning JSON data.
 
         Parameters:
             api_call: API function to be called.
             params: API function parameters.
             method: (Defauld: GET) HTTP method 'GET' or 'POST'
+            file_: File to upload.
         """
         # Build url
         url = "{0}/{1}.json".format(self.site_url, api_call)
@@ -157,16 +158,20 @@ class Pybooru(ApiFunctionsMixin, object):
             else:
                 if self._password_hash is None:
                     self._build_hash_string()
+
                 params['login'] = self.username
                 params['password_hash'] = self.password_hash
-                response = self.client.post(url, params=params)
+                request_args = {'data': params, 'files': file_}
+
+                self.client.headers.update({'content-type': None})
+                response = self.client.post(url, **request_args)
+
             response.raise_for_status()
-            # Read and return JSON data
             return response.json()
         except requests.exceptions.HTTPError as err:
             raise PybooruError("In _request: ", response.status_code,
                                response.url)
-        except requests.exceptions.Timeout as err:
+        except requests.exceptions.Timeout:
             raise PybooruError("Timeout! in url: {0}".format(response.url))
         except ValueError as err:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
