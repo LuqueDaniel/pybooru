@@ -58,22 +58,16 @@ class ApiFunctionsMixin(object):
                  after uploading. If the MD5 doesn't match, the post is
                  destroyed.
         """
-        params = {'post[tags]': tags}
         if file_ or source is not None:
-            if file_ is not None:
-                file_ = {'post[file]': open(file_, 'rb')}
-            if source is not None:
-                params['post[source]'] = source
-            if rating is not None:
-                params['post[rating]'] = rating
-            if rating_locked is not None:
-                params['post[is_rating_locked]'] = rating_locked
-            if note_locked is not None:
-                params['post[is_note_locked]'] = note_locked
-            if parent_id is not None:
-                params['post[parent_id]'] = parent_id
-            if md5 is not None:
-                params['md5'] = md5
+            params = {
+                'post[tags]': tags,
+                'post[source]': source,
+                'post[rating]': rating,
+                'post[is_rating_locked]': is_rating_locked,
+                'post[is_note_locked]': is_note_locked,
+                'post[parent_id]': parent_id,
+                'md5': md5}
+            file_ = {'post[file]': open(file_, 'rb')}
             return self._request('post/create', params, 'POST', file_)
         else:
             raise PybooruError("'file_' or 'source' is required.")
@@ -98,21 +92,16 @@ class ApiFunctionsMixin(object):
             note_locked: Set to true to prevent others from adding notes.
             parent_id: The ID of the parent post.
         """
-        params = {'id': id_}
-        if tags is not None:
-            params['post[tags]'] = tags
-        if file_ is not None:
-            file_ = {'post[file]': open(file_, 'rb')}
-        if rating is not None:
-            params['post[rating]'] = rating
-        if source is not None:
-            params['post[source]'] = source
-        if is_rating_locked is not None:
-            params['post[is_rating_locked]'] = is_rating_locked
-        if is_note_locked is not None:
-            params['post[is_note_locked]'] = is_note_locked
-        if parent_id is not None:
-            params['post[parent_id]'] = parent_id
+        params = {
+            'id': id_,
+            'post[tags]': tags,
+            'post[rating]': rating,
+            'post[source]': source,
+            'post[is_rating_locked]': is_rating_locked,
+            'post[is_note_locked]': is_note_locked,
+            'post[parent_id]': parent_id
+            }
+        file_ = {'post[file]': open(file_, 'rb')}
         return self._request('post/update', params, 'POST')
 
     def post_destroy(self, id_):
@@ -181,11 +170,11 @@ class ApiFunctionsMixin(object):
             is_ambiguous: Whether or not this tag is ambiguous. Use 1 for true
                           and 0 for false.
         """
-        params = {'name': name}
-        if tag_type is not None:
-            params['tag[tag_type]'] = tag_type
-        if is_ambiguous is not None:
-            params['tag[is_ambiguous]'] = is_ambiguous
+        params = {
+            'name': name,
+            'tag[tag_type]': tag_type,
+            'tag[is_ambiguous]': is_ambiguous
+            }
         return self._request('tag/update', params, 'POST')
 
     def tag_related(self, **params):
@@ -220,13 +209,12 @@ class ApiFunctionsMixin(object):
             group: The group or cicle that this artist is a member of. Simply
                    enter the group's name.
         """
-        params = {'artist[name]': name}
-        if urls is not None:
-            params['artist[urls]'] = urls
-        if alias is not None:
-            params['artist[alias]'] = alias
-        if group is not None:
-            params['artist[group]'] = group
+        params = {
+            'artist[name]': name,
+            'artist[urls]': urls,
+            'artist[alias]': alias,
+            'artist[group]': group
+            }
         return self._request('artist/create', params, 'POST')
 
     def artist_update(self, id_, name=None, urls=None, alias=None, group=None):
@@ -245,15 +233,13 @@ class ApiFunctionsMixin(object):
             group: The group or cicle that this artist is a member of. Simply
                    enter the group's name.
         """
-        params = {'id': id_}
-        if name is not None:
-            params['artist[name]'] = name
-        if urls is not None:
-            params['artist[urls]'] = urls
-        if alias is not None:
-            params['artist[alias]'] = alias
-        if group is not None:
-            params['artist[group]'] = group
+        params = {
+            'id': id_,
+            'artist[name]': name,
+            'artist[urls]': urls,
+            'artist[alias]': alias,
+            'artist[group]': group
+            }
         return self._request('artist/update', params, 'POST')
 
     def artist_destroy(self, id_):
@@ -280,12 +266,12 @@ class ApiFunctionsMixin(object):
             comment_body: The body of the comment.
             anonymous: Set to 1 if you want to post this comment anonymously.
         """
-        params = {}
         if post_id and comment_body is not None:
-            params['comment[post_id]'] = post_id
-            params['comment[body]'] = comment_body
-            if anonymous is not None:
-                params['comment[anonymous]'] = anonymous
+            params = {
+                'comment[post_id]': post_id,
+                'comment[body]': comment_body,
+                'comment[anonymous]': anonymous
+                }
             return self._request('comment/create', params, 'POST')
         else:
             raise PybooruError("Required 'post_id' and 'comment_body' "
@@ -328,11 +314,11 @@ class ApiFunctionsMixin(object):
             new_title: The new title of the wiki page.
             page_body: The new body of the wiki page.
         """
-        params = {'title': page_title}
-        if new_title is not None:
-            params['wiki_page[title]'] = new_title
-        if page_body is not None:
-            params['wiki_page[body]'] = page_body
+        params = {
+            'title': page_title,
+            'wiki_page[title]': new_title,
+            'wiki_page[body]': page_body
+            }
         return self._request('wiki/update', params, 'POST')
 
     def wiki_show(self, **params):
@@ -443,23 +429,16 @@ class ApiFunctionsMixin(object):
             id_: If you are updating a note, this is the note id number to
                  update.
         """
-        params = {}
-        if id_ is not None:
-            params['id'] = id_
-        if post_id is not None:
-            params['note[post]'] = post_id
-        if coor_x is not None:
-            params['note[x]'] = coor_x
-        if coor_y is not None:
-            params['note[y]'] = coor_y
-        if width is not None:
-            params['note[width]'] = width
-        if height is not None:
-            params['note[height]'] = height
-        if body is not None:
-            params['note[body]'] = body
-        if is_active is not None:
-            params['note[is_active]'] = is_active
+        params = {
+            'id': id_,
+            'note[post]': post_id,
+            'note[x]': coor_x,
+            'note[y]': coor_y,
+            'note[width]': width,
+            'note[height]': height,
+            'note[body]': body,
+            'note[is_active]': is_active
+            }
         return self._request('note/update', params, 'POST')
 
     def user_search(self, **params):
@@ -516,15 +495,12 @@ class ApiFunctionsMixin(object):
             is_public: 1 or 0, whether or not the pool is public.
             description: A description of the pool.
         """
-        params = {'id': id_}
-        if name is not None:
-            params['pool[name]'] = name
-        if is_public is not None:
-            params['pool[is_public]'] = is_public
-        if name is not None:
-            params['pool[name]'] = name
-        if description is not None:
-            params['pool[description]'] = description
+        params = {
+            'id': id_,
+            'pool[name]': name,
+            'pool[is_public]': is_public,
+            'pool[description]': description
+            }
         return self._request('pool/update', params, 'POST')
 
     def pool_create(self, name, description, is_public):

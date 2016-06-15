@@ -89,7 +89,7 @@ class Pybooru(ApiFunctionsMixin, object):
 
     def _site_name_validator(self):
         """Function that checks the site name and get url."""
-        if self.site_name in list(SITE_LIST):
+        if self.site_name in SITE_LIST:
             self.site_url = SITE_LIST[self.site_name]['url']
             self.hash_string = SITE_LIST[self.site_name]['hashed_string']
         else:
@@ -121,7 +121,7 @@ class Pybooru(ApiFunctionsMixin, object):
         """Function for build password hash string."""
         # Build AUTENTICATION hash_string
         # Check if hash_string exists
-        if self.site_name in list(SITE_LIST) or self.hash_string is not "":
+        if self.site_name in SITE_LIST or self.hash_string is not "":
             if self.username and self.password is not "":
                 try:
                     hash_string = self.hash_string.format(self.password)
