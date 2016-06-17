@@ -16,7 +16,7 @@ from __future__ import unicode_literals
 # pybooru imports
 from . import __version__
 from .api import ApiFunctionsMixin
-from .exceptions import PybooruError
+from .exceptions import (PybooruError, PybooruHTTPError)
 from .resources import SITE_LIST
 
 # External imports
@@ -94,7 +94,7 @@ class Pybooru(ApiFunctionsMixin, object):
             self.hash_string = SITE_LIST[self.site_name]['hashed_string']
         else:
             raise PybooruError(
-                "The site_name is not valid, specify a valid site_name")
+                "The 'site_name' is not valid, specify a valid 'site_name'.")
 
     def _url_validator(self):
         """URL validator for site_url attribute."""
@@ -114,8 +114,7 @@ class Pybooru(ApiFunctionsMixin, object):
             if not re.search(regex, self.site_url):
                 raise PybooruError("Invalid URL", url=self.site_url)
         else:
-            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS",
-                               url=self.site_url)
+            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS: {0}".format(self.site_url))
 
     def _build_hash_string(self):
         """Function for build password hash string."""
@@ -166,13 +165,13 @@ class Pybooru(ApiFunctionsMixin, object):
                 self.client.headers.update({'content-type': None})
                 response = self.client.post(url, **request_args)
 
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.HTTPError as err:
-            raise PybooruError("In _request: ", response.status_code,
-                               response.url)
+            if response.status_code is 200:
+                return response.json()
+            else:
+                raise PybooruHTTPError("In _request", response.status_code,
+                                       response.url)
         except requests.exceptions.Timeout:
             raise PybooruError("Timeout! in url: {0}".format(response.url))
-        except ValueError as err:
+        except ValueError as e:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
-                err.msg, err.lineno, err.colno))
+                                e.msg, err.lineno, e.colno))

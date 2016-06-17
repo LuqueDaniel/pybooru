@@ -8,9 +8,11 @@ Classes:
     ApiFunctionsMixin -- Contains all API calls.
 """
 
+# __future__ imports
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+# pybooru imports
 from .exceptions import PybooruError
 
 
@@ -63,8 +65,8 @@ class ApiFunctionsMixin(object):
                 'post[tags]': tags,
                 'post[source]': source,
                 'post[rating]': rating,
-                'post[is_rating_locked]': is_rating_locked,
-                'post[is_note_locked]': is_note_locked,
+                'post[is_rating_locked]': rating_locked,
+                'post[is_note_locked]': note_locked,
                 'post[parent_id]': parent_id,
                 'md5': md5}
             file_ = {'post[file]': open(file_, 'rb')}
