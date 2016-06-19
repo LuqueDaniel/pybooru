@@ -25,7 +25,7 @@ import hashlib
 import re
 
 
-class Pybooru(ApiFunctionsMixin, object):
+class Pybooru(ApiFunctionsMixin):
     """Pybooru main class (inherits: pybooru.api.ApiFunctionsMixin).
 
     To initialize Pybooru, you need to specify one of these two
@@ -58,8 +58,8 @@ class Pybooru(ApiFunctionsMixin, object):
             hash_string: String that is hashed (required to login).
                          (See the API documentation of the site for more
                          information).
-           username: Your username of the site (Required only for functions that
-                     modify the content).
+           username: Your username of the site (Required only for functions
+                     that modify the content).
            password: Your user password in plain text (Required only for
                      functions that modify the content).
         """
@@ -69,7 +69,7 @@ class Pybooru(ApiFunctionsMixin, object):
         self.username = username
         self.password = password
         self.hash_string = hash_string
-        self._password_hash = None
+        self.password_hash = None
 
         # Set HTTP Client
         self.client = requests.Session()
@@ -114,7 +114,8 @@ class Pybooru(ApiFunctionsMixin, object):
             if not re.search(regex, self.site_url):
                 raise PybooruError("Invalid URL", url=self.site_url)
         else:
-            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS: {0}".format(self.site_url))
+            raise PybooruError("Invalid URL scheme, use HTTP "
+                               "or HTTPS: {0}".format(self.site_url))
 
     def _build_hash_string(self):
         """Function for build password hash string."""
@@ -155,7 +156,7 @@ class Pybooru(ApiFunctionsMixin, object):
             if method == 'GET':
                 response = self.client.get(url, params=params)
             else:
-                if self._password_hash is None:
+                if self.password_hash is None:
                     self._build_hash_string()
 
                 params['login'] = self.username
@@ -174,4 +175,4 @@ class Pybooru(ApiFunctionsMixin, object):
             raise PybooruError("Timeout! in url: {0}".format(response.url))
         except ValueError as e:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
-                                e.msg, err.lineno, e.colno))
+                                e.msg, e.lineno, e.colno))

@@ -230,8 +230,8 @@ class ApiFunctionsMixin(object):
             name: The artist's name.
             urls: A list of URLs associated with the artist, whitespace
                   delimited.
-            alias: The artist that this artist is an alias for. Simply enter the
-                   alias artist's name.
+            alias: The artist that this artist is an alias for. Simply enter
+                   the alias artist's name.
             group: The group or cicle that this artist is a member of. Simply
                    enter the group's name.
         """
@@ -514,7 +514,7 @@ class ApiFunctionsMixin(object):
             is_public: 1 or 0, whether or not the pool is public.
         """
         params = {'pool[name]': name, 'pool[description]': description,
-                  'pool[name]': is_public}
+                  'pool[is_public]': is_public}
         return self._request('pool/create', params, 'POST')
 
     def pool_destroy(self, id_):

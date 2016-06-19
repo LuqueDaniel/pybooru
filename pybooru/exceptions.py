@@ -35,8 +35,8 @@ class PybooruHTTPError(PybooruError):
         """
 
         if http_code in HTTP_STATUS_CODES and url is not None:
-            msg = "{0}: {1} - {2}, {3} - URL: {4}".format(msg, http_code,
-                        HTTP_STATUS_CODES[http_code][0],
-                        HTTP_STATUS_CODES[http_code][1], url)
+            msg = "{0}: {1} - {2}, {3} - URL: {4}".format(
+                msg, http_code, HTTP_STATUS_CODES[http_code][0],
+                HTTP_STATUS_CODES[http_code][1], url)
 
         super(PybooruHTTPError, self).__init__(msg)
