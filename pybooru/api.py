@@ -542,7 +542,7 @@ class ApiFunctionsMixin(object):
         """
         return self._request('pool/remove_post', params, 'POST')
 
-    def favorites_list_users(self, id_):
+    def favorite_list_users(self, id_):
         """Function to return a list with all users who have added to favorites
         a specific post.
 
