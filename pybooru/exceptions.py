@@ -7,23 +7,23 @@ This module contains Pybooru exceptions.
 Classes:
     PybooruError -- Main Pybooru exception class.
     PybooruHTTPError -- Manages HTTP status errors.
+    PybooruAPIError -- Manages all API errors.
 """
 
 # __furute__ imports
 from __future__ import absolute_import
-from __future__ import unicode_literals
 
 # pybooru imports
 from .resources import HTTP_STATUS_CODE
 
 
 class PybooruError(Exception):
-    """Class to return Pybooru error message."""
+    """Class to catch Pybooru error message."""
     pass
 
 
 class PybooruHTTPError(PybooruError):
-    """Class to return HTTP error message."""
+    """Class to catch HTTP error message."""
 
     def __init__(self, msg, http_code, url):
         """Initialize PybooruHTTPError.
@@ -39,3 +39,8 @@ class PybooruHTTPError(PybooruError):
                 HTTP_STATUS_CODE[http_code][1], url)
 
         super(PybooruHTTPError, self).__init__(msg)
+
+
+class PybooruAPIError(PybooruError):
+    """Class to catch all API errors."""
+    pass

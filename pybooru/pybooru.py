@@ -11,7 +11,6 @@ Classes:
 
 # __furute__ imports
 from __future__ import absolute_import
-from __future__ import unicode_literals
 
 # pybooru imports
 from . import __version__

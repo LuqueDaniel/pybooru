@@ -10,10 +10,9 @@ Classes:
 
 # __future__ imports
 from __future__ import absolute_import
-from __future__ import unicode_literals
 
 # pybooru imports
-from .exceptions import PybooruError
+from .exceptions import PybooruAPIError
 
 
 class ApiFunctionsMixin(object):
@@ -72,7 +71,7 @@ class ApiFunctionsMixin(object):
             file_ = {'post[file]': open(file_, 'rb')}
             return self._request('post/create', params, 'POST', file_)
         else:
-            raise PybooruError("'file_' or 'source' is required.")
+            raise PybooruAPIError("'file_' or 'source' is required.")
 
     def post_update(self, id_, tags=None, file_=None, rating=None,
                     source=None, is_rating_locked=None, is_note_locked=None,
@@ -143,7 +142,7 @@ class ApiFunctionsMixin(object):
             params = {'id': id_, 'score': score}
             return self._request('post/vote', params, 'POST')
         else:
-            raise PybooruError("Value of 'score' only can be 0, 1, 2 or 3.")
+            raise PybooruAPIError("Value of 'score' only can be 0, 1, 2 or 3.")
 
     def tag_list(self, **params):
         """Get a list of tags.
@@ -276,8 +275,8 @@ class ApiFunctionsMixin(object):
                 }
             return self._request('comment/create', params, 'POST')
         else:
-            raise PybooruError("Required 'post_id' and 'comment_body' "
-                               "parameters")
+            raise PybooruAPIError("Required 'post_id' and 'comment_body' "
+                                  "parameters")
 
     def comment_destroy(self, id_=None):
         """Remove a specific comment (Requires login).
