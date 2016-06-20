@@ -41,8 +41,8 @@ class Pybooru(ApiFunctionsMixin):
 
     Attributes:
         site_name: Return site name.
-        site_url: Return the URL of Danbooru/Moebooru based site.
-        api_version: Version of Danbooru/Moebooru API.
+        site_url: Return the URL of Moebooru based site.
+        api_version: Version of Moebooru API.
         username: Return user name.
         password: Return password in plain text.
         hash_string: Return hash_string of the site.
@@ -55,14 +55,14 @@ class Pybooru(ApiFunctionsMixin):
 
         Keyword arguments:
             site_name: The site name in 'SITE_LIST', default sites.
-            site_url: URL of on Danbooru/Moebooru based sites.
-            api_version: Version of Danbooru/Moebooru API.
+            site_url: URL of on Moebooru based sites.
+            api_version: Version of Moebooru API.
             hash_string: String that is hashed (required to login).
                          (See the API documentation of the site for more
                          information).
-           username: Your username of the site (Required only for functions
+            username: Your username of the site (Required only for functions
                      that modify the content).
-           password: Your user password in plain text (Required only for
+            password: Your user password in plain text (Required only for
                      functions that modify the content).
         """
         # Attributes
@@ -136,8 +136,7 @@ class Pybooru(ApiFunctionsMixin):
         Parameters:
             api_call: Base API Call.
         """
-        if self.api_version in ('1.13.0', '1.13.0+update.1',
-                                '1.13.0+update.2'):
+        if self.api_version in ('1.13.0', '1.13.0+update.1', '1.13.0+update.2'):
             if '/' not in api_call:
                 return "{0}/{1}/index.json".format(self.site_url, api_call)
 
@@ -155,7 +154,7 @@ class Pybooru(ApiFunctionsMixin):
                     raise PybooruError("Pybooru can't add 'password' "
                                        "to 'hash_string'")
                 # encrypt hashed_string to SHA1 and return hexdigest string
-                self.password_hash = hashlib.sha1(  # pylint: disable=E1101
+                self.password_hash = hashlib.sha1(
                     hash_string.encode('utf-8')).hexdigest()
             else:
                 raise PybooruError("Specify the 'username' and 'password' "
@@ -180,7 +179,7 @@ class Pybooru(ApiFunctionsMixin):
 
         try:
             if method == 'GET':
-                response = self.client.get(url, params=params)
+                response = self.client.request(method, url, params=params)
             else:
                 if self.password_hash is None:
                     self._build_hash_string()
@@ -190,7 +189,7 @@ class Pybooru(ApiFunctionsMixin):
                 request_args = {'data': params, 'files': file_}
 
                 self.client.headers.update({'content-type': None})
-                response = self.client.post(url, **request_args)
+                response = self.client.request(method, url, **request_args)
 
             self.last_call.update({
                 'API': api_call,

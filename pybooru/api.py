@@ -2,7 +2,7 @@
 
 """pybooru.api
 
-This module contains all API calls of Danbooru/Moebooru for Pybooru.
+This module contains all API calls of Moebooru for Pybooru.
 
 Classes:
     ApiFunctionsMixin -- Contains all API calls.
@@ -16,10 +16,10 @@ from .exceptions import PybooruAPIError
 
 
 class ApiFunctionsMixin(object):
-    """Contains all Danbooru/Moebooru API calls.
+    """Contains all Moebooru API calls.
 
-    API Version: 1.13.0+update.3
-    doc: http://konachan.com/help/api or https://yande.re/help/api
+    API Version: 1.13.0+update.3 and 1.13.0
+    doc: https://yande.re/help/api or http://konachan.com/help/api
     """
 
     def post_list(self, **params):
@@ -48,14 +48,13 @@ class ApiFunctionsMixin(object):
             file_: The file data encoded as a multipart form. Path of content.
             rating: The rating for the post. Can be: safe, questionable,
                     or explicit.
-            source: If this is a URL, Danbooru/Moebooru will download the
-                    file.
+            source: If this is a URL, Moebooru will download the file.
             rating_locked: Set to true to prevent others from changing
                            the rating.
             note_locked: Set to true to prevent others from adding
                          notes.
             parent_id: The ID of the parent post.
-            md5: Supply an MD5 if you want Danbooru/Moebooru to verify the file
+            md5: Supply an MD5 if you want Moebooru to verify the file
                  after uploading. If the MD5 doesn't match, the post is
                  destroyed.
         """
@@ -87,7 +86,7 @@ class ApiFunctionsMixin(object):
             file_: The file data ENCODED as a multipart form.
             rating: The rating for the post. Can be: safe, questionable, or
                     explicit.
-            source: If this is a URL, Danbooru/Moebooru will download the file.
+            source: If this is a URL, Moebooru will download the file.
             rating_locked: Set to true to prevent others from changing the
                            rating.
             note_locked: Set to true to prevent others from adding notes.
@@ -103,7 +102,7 @@ class ApiFunctionsMixin(object):
             'post[parent_id]': parent_id
             }
         file_ = {'post[file]': open(file_, 'rb')}
-        return self._request('post/update', params, 'POST')
+        return self._request('post/update', params, 'PUT')
 
     def post_destroy(self, id_):
         """Function to destroy a specific post.
@@ -114,7 +113,7 @@ class ApiFunctionsMixin(object):
         Parameters:
             id_: The id number of the post to delete.
         """
-        return self._request('post/destroy', {'id': id_}, 'POST')
+        return self._request('post/destroy', {'id': id_}, 'DELETE')
 
     def post_revert_tags(self, id_, history_id):
         """Function to reverts a post to a previous set of tags
@@ -125,7 +124,7 @@ class ApiFunctionsMixin(object):
             history_id: The id number of the tag history.
         """
         params = {'id': id_, 'history_id': history_id}
-        return self._request('post/revert_tags', params, 'POST')
+        return self._request('post/revert_tags', params, 'PUT')
 
     def post_vote(self, id_, score):
         """Action lets you vote for a post (Requires login).
@@ -176,7 +175,7 @@ class ApiFunctionsMixin(object):
             'tag[tag_type]': tag_type,
             'tag[is_ambiguous]': is_ambiguous
             }
-        return self._request('tag/update', params, 'POST')
+        return self._request('tag/update', params, 'PUT')
 
     def tag_related(self, **params):
         """Get a list of related tags.
@@ -241,7 +240,7 @@ class ApiFunctionsMixin(object):
             'artist[alias]': alias,
             'artist[group]': group
             }
-        return self._request('artist/update', params, 'POST')
+        return self._request('artist/update', params, 'PUT')
 
     def artist_destroy(self, id_):
         """Action to lets you remove artist (Requires login) (UNTESTED).
@@ -284,7 +283,7 @@ class ApiFunctionsMixin(object):
         Parameters:
             id_: The id number of the comment to remove.
         """
-        return self._request('comment/destroy', {'id': id_}, 'POST')
+        return self._request('comment/destroy', {'id': id_}, 'DELETE')
 
     def wiki_list(self, **params):
         """Function to retrieves a list of every wiki page.
@@ -320,7 +319,7 @@ class ApiFunctionsMixin(object):
             'wiki_page[title]': new_title,
             'wiki_page[body]': page_body
             }
-        return self._request('wiki/update', params, 'POST')
+        return self._request('wiki/update', params, 'PUT')
 
     def wiki_show(self, **params):
         """Get a specific wiki page.
@@ -338,7 +337,7 @@ class ApiFunctionsMixin(object):
         Parameters:
             title: The title of the page to delete.
         """
-        return self._request('wiki/destroy', {'title': title}, 'POST')
+        return self._request('wiki/destroy', {'title': title}, 'DELETE')
 
     def wiki_lock(self, title):
         """Function to lock a specific wiki page (Requires login)
@@ -366,7 +365,7 @@ class ApiFunctionsMixin(object):
             version: The version to revert to.
         """
         params = {'title': title, 'version': version}
-        return self._request('wiki/revert', params, 'POST')
+        return self._request('wiki/revert', params, 'PUT')
 
     def wiki_history(self, title):
         """Get history of specific wiki page.
@@ -411,7 +410,7 @@ class ApiFunctionsMixin(object):
             version: The version to revert to.
         """
         params = {'id': id_, 'version': version}
-        return self._request('note/revert', params, 'POST')
+        return self._request('note/revert', params, 'PUT')
 
     def note_create_update(self, post_id=None, coor_x=None, coor_y=None,
                            width=None, height=None, is_active=None, body=None,
@@ -502,7 +501,7 @@ class ApiFunctionsMixin(object):
             'pool[is_public]': is_public,
             'pool[description]': description
             }
-        return self._request('pool/update', params, 'POST')
+        return self._request('pool/update', params, 'PUT')
 
     def pool_create(self, name, description, is_public):
         """Function to create a pool (Require login) (UNTESTED).
@@ -522,7 +521,7 @@ class ApiFunctionsMixin(object):
         Parameters:
             id_: The pool id number.
         """
-        return self._request('pool/destroy', {'id': id_}, 'POST')
+        return self._request('pool/destroy', {'id': id_}, 'DELETE')
 
     def pool_add_post(self, **params):
         """Function to add a post (Require login) (UNTESTED).
@@ -531,7 +530,7 @@ class ApiFunctionsMixin(object):
             pool_id: The pool to add the post to.
             post_id: The post to add.
         """
-        return self._request('pool/add_post', params, 'POST')
+        return self._request('pool/add_post', params, 'PUT')
 
     def pool_remove_post(self, **params):
         """Function to remove a post (Require login) (UNTESTED).
@@ -540,7 +539,7 @@ class ApiFunctionsMixin(object):
             pool_id: The pool to remove the post to.
             post_id: The post to remove.
         """
-        return self._request('pool/remove_post', params, 'POST')
+        return self._request('pool/remove_post', params, 'PUT')
 
     def favorite_list_users(self, id_):
         """Function to return a list with all users who have added to favorites
