@@ -42,6 +42,7 @@ class Pybooru(ApiFunctionsMixin):
     Attributes:
         site_name: Return site name.
         site_url: Return the URL of Danbooru/Moebooru based site.
+        api_version: Version of Danbooru/Moebooru API.
         username: Return user name.
         password: Return password in plain text.
         hash_string: Return hash_string of the site.
@@ -49,12 +50,13 @@ class Pybooru(ApiFunctionsMixin):
     """
 
     def __init__(self, site_name="", site_url="", username="", password="",
-                 hash_string=""):
+                 hash_string="", api_version="1.13.0+update.3"):
         """Initialize Pybooru.
 
         Keyword arguments:
             site_name: The site name in 'SITE_LIST', default sites.
             site_url: URL of on Danbooru/Moebooru based sites.
+            api_version: Version of Danbooru/Moebooru API.
             hash_string: String that is hashed (required to login).
                          (See the API documentation of the site for more
                          information).
@@ -66,6 +68,7 @@ class Pybooru(ApiFunctionsMixin):
         # Attributes
         self.site_name = site_name.lower()
         self.site_url = site_url.lower()
+        self.api_version = api_version.lower()
         self.username = username
         self.password = password
         self.hash_string = hash_string
@@ -92,6 +95,7 @@ class Pybooru(ApiFunctionsMixin):
         """Function that checks the site name and get url."""
         if self.site_name in SITE_LIST:
             self.site_url = SITE_LIST[self.site_name]['url']
+            self.api_version = SITE_LIST[self.site_name]['api_version']
             self.hash_string = SITE_LIST[self.site_name]['hashed_string']
         else:
             raise PybooruError(
@@ -126,6 +130,9 @@ class Pybooru(ApiFunctionsMixin):
         else:
             return None
 
+    def _build_url(self, api_call):
+        return "{0}/{1}.json".format(self.site_url, api_call)
+
     def _build_hash_string(self):
         """Function for build password hash string."""
         # Build AUTENTICATION hash_string
@@ -159,7 +166,7 @@ class Pybooru(ApiFunctionsMixin):
             file_: File to upload.
         """
         # Build url
-        url = "{0}/{1}.json".format(self.site_url, api_call)
+        url = self._build_url(api_call)
 
         try:
             if method == 'GET':

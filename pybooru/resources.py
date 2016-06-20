@@ -15,9 +15,11 @@ HTTP_STATUS_CODE:
 SITE_LIST = {
     'konachan': {
         'url': "http://konachan.com",
+        'api_version': "1.13.0+update.3",
         'hashed_string': "So-I-Heard-You-Like-Mupkids-?--{0}--"},
     'yandere': {
         'url': "https://yande.re",
+        'api_version': "1.13.0+update.3",
         'hashed_string': "choujin-steiner--{0}--"}
     }
 
