@@ -17,7 +17,7 @@ from __future__ import unicode_literals
 from . import __version__
 from .api import ApiFunctionsMixin
 from .exceptions import (PybooruError, PybooruHTTPError)
-from .resources import SITE_LIST
+from .resources import (SITE_LIST, HTTP_STATUS_CODE)
 
 # External imports
 import requests
@@ -46,6 +46,7 @@ class Pybooru(ApiFunctionsMixin):
         username: Return user name.
         password: Return password in plain text.
         hash_string: Return hash_string of the site.
+        last_call: Return last call.
     """
 
     def __init__(self, site_name="", site_url="", username="", password="",
@@ -70,6 +71,7 @@ class Pybooru(ApiFunctionsMixin):
         self.password = password
         self.hash_string = hash_string
         self.password_hash = None
+        self.last_call = {}
 
         # Set HTTP Client
         self.client = requests.Session()
@@ -112,10 +114,18 @@ class Pybooru(ApiFunctionsMixin):
         # Validate URL
         if re.match('^(?:http|https)://', self.site_url):
             if not re.search(regex, self.site_url):
-                raise PybooruError("Invalid URL", url=self.site_url)
+                raise PybooruError("Invalid URL: {0}".format(self.site_url))
         else:
             raise PybooruError("Invalid URL scheme, use HTTP "
                                "or HTTPS: {0}".format(self.site_url))
+
+    @staticmethod
+    def _get_status(status_code):
+        """Get status message."""
+        if status_code in HTTP_STATUS_CODE:
+            return "{0}, {1}".format(*HTTP_STATUS_CODE[status_code])
+        else:
+            return None
 
     def _build_hash_string(self):
         """Function for build password hash string."""
@@ -165,6 +175,14 @@ class Pybooru(ApiFunctionsMixin):
 
                 self.client.headers.update({'content-type': None})
                 response = self.client.post(url, **request_args)
+
+            self.last_call.update({
+                'API': api_call,
+                'url': response.url,
+                'status_code': response.status_code,
+                'status': self._get_status(response.status_code),
+                'headers': response.headers
+                })
 
             if response.status_code is 200:
                 return response.json()

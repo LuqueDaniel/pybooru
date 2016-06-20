@@ -6,7 +6,7 @@ This module contains all resources for pybooru.
 
 SITE_LIST:
     Is a dict that contains various based Danbooru/Moebooru, default sites.
-HTTP_STATUS_CODES:
+HTTP_STATUS_CODE:
     Is a dict that contains the http status code for Danbooru/Moebooru API.
 """
 
@@ -22,8 +22,8 @@ SITE_LIST = {
     }
 
 
-# HTTP_STATUS_CODES
-HTTP_STATUS_CODES = {
+# HTTP_STATUS_CODE
+HTTP_STATUS_CODE = {
     200: ("OK", "Request was successful"),
     403: ("Forbidden", "Access denied"),
     404: ("Not Found", "Not found"),
