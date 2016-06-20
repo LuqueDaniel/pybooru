@@ -154,7 +154,7 @@ class Pybooru(ApiFunctionsMixin):
                     raise PybooruError("Pybooru can't add 'password' "
                                        "to 'hash_string'")
                 # encrypt hashed_string to SHA1 and return hexdigest string
-                self.password_hash = hashlib.sha1(
+                self.password_hash = hashlib.sha1(  # pylint: disable=E1101
                     hash_string.encode('utf-8')).hexdigest()
             else:
                 raise PybooruError("Specify the 'username' and 'password' "
