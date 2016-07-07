@@ -101,8 +101,11 @@ class ApiFunctionsMixin(object):
             'post[is_note_locked]': is_note_locked,
             'post[parent_id]': parent_id
             }
-        file_ = {'post[file]': open(file_, 'rb')}
-        return self._request('post/update', params, 'PUT')
+        if file_ is not None:
+            file_ = {'post[file]': open(file_, 'rb')}
+            return self._request('post/update', params, 'PUT', file_)
+        else:
+            return self._request('post/update', params, 'PUT')
 
     def post_destroy(self, id_):
         """Function to destroy a specific post.

@@ -139,7 +139,6 @@ class Pybooru(ApiFunctionsMixin):
         if self.api_version in ('1.13.0', '1.13.0+update.1', '1.13.0+update.2'):
             if '/' not in api_call:
                 return "{0}/{1}/index.json".format(self.site_url, api_call)
-
         return "{0}/{1}.json".format(self.site_url, api_call)
 
     def _build_hash_string(self):
