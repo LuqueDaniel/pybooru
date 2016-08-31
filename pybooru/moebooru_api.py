@@ -15,7 +15,7 @@ from __future__ import absolute_import
 from .exceptions import PybooruAPIError
 
 
-class ApiFunctionsMixin(object):
+class MoebooruApi(object):
     """Contains all Moebooru API calls.
 
     API Version: 1.13.0+update.3 and 1.13.0

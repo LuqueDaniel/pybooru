@@ -14,7 +14,7 @@ from __future__ import absolute_import
 
 # pybooru imports
 from . import __version__
-from .api import ApiFunctionsMixin
+from .moebooru_api import MoebooruApi
 from .exceptions import (PybooruError, PybooruHTTPError)
 from .resources import (SITE_LIST, HTTP_STATUS_CODE)
 
@@ -24,7 +24,7 @@ import hashlib
 import re
 
 
-class Pybooru(ApiFunctionsMixin):
+class Pybooru(object):
     """Pybooru main class (inherits: pybooru.api.ApiFunctionsMixin).
 
     To initialize Pybooru, you need to specify one of these two
@@ -49,8 +49,7 @@ class Pybooru(ApiFunctionsMixin):
         last_call: Return last call.
     """
 
-    def __init__(self, site_name="", site_url="", username="", password="",
-                 hash_string="", api_version="1.13.0+update.3"):
+    def __init__(self, site_name="", site_url="", username=""):
         """Initialize Pybooru.
 
         Keyword arguments:
@@ -68,11 +67,7 @@ class Pybooru(ApiFunctionsMixin):
         # Attributes
         self.site_name = site_name.lower()
         self.site_url = site_url.lower()
-        self.api_version = api_version.lower()
         self.username = username
-        self.password = password
-        self.hash_string = hash_string
-        self.password_hash = None
         self.last_call = {}
 
         # Set HTTP Client
@@ -129,6 +124,17 @@ class Pybooru(ApiFunctionsMixin):
             return "{0}, {1}".format(*HTTP_STATUS_CODE[status_code])
         else:
             return None
+
+
+class Moebooru(Pybooru, MoebooruApi):
+    def __init__(self, site_name="", site_url="", username="", password="",
+                 hash_string="", api_version="1.13.0+update.3"):
+        super(Moebooru, self).__init__(site_name, site_url, username)
+
+        self.api_version = api_version.lower()
+        self.password = password
+        self.hash_string = hash_string
+        self.password_hash = None
 
     def _build_url(self, api_call):
         """Build request url.
@@ -208,3 +214,8 @@ class Pybooru(ApiFunctionsMixin):
         except ValueError as e:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
                                 e.msg, e.lineno, e.colno))
+
+
+class Danbooru(Pybooru):
+    def __init__(self, site_name="", site_url="", username="", api_key=""):
+        super(Danbooru, self).__init__(site_name, site_url, username)
