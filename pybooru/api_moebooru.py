@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-"""pybooru.api
+"""pybooru.moebooru_api
 
 This module contains all API calls of Moebooru for Pybooru.
 
 Classes:
-    ApiFunctionsMixin -- Contains all API calls.
+    MoebooruApi -- Contains all API calls.
 """
 
 # __future__ imports
@@ -18,7 +18,7 @@ from .exceptions import PybooruAPIError
 class MoebooruApi(object):
     """Contains all Moebooru API calls.
 
-    API Version: 1.13.0+update.3 and 1.13.0
+    API Versions: 1.13.0+update.3 and 1.13.0
     doc: https://yande.re/help/api or http://konachan.com/help/api
     """
 

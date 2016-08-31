@@ -1,0 +1,4 @@
+class DanbooruApi(object):
+    """
+    """
+    pass

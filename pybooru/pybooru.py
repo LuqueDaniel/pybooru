@@ -14,7 +14,8 @@ from __future__ import absolute_import
 
 # pybooru imports
 from . import __version__
-from .moebooru_api import MoebooruApi
+from .api_moebooru import MoebooruApi
+from .api_danbooru import DanbooruApi
 from .exceptions import (PybooruError, PybooruHTTPError)
 from .resources import (SITE_LIST, HTTP_STATUS_CODE)
 
@@ -216,6 +217,9 @@ class Moebooru(Pybooru, MoebooruApi):
                                 e.msg, e.lineno, e.colno))
 
 
-class Danbooru(Pybooru):
+class Danbooru(Pybooru, DanbooruApi):
     def __init__(self, site_name="", site_url="", username="", api_key=""):
         super(Danbooru, self).__init__(site_name, site_url, username)
+
+    def _request(self):
+        pass
