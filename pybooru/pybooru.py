@@ -126,6 +126,39 @@ class Pybooru(object):
         else:
             return None
 
+    def _request(self, url, api_call, request_args, method='GET'):
+        """Function to request and returning JSON data.
+
+        Parameters:
+            url: Base url call.
+            api_call: API function to be called.
+            request_args: All requests parameters.
+            method: (Defauld: GET) HTTP method 'GET' or 'POST'
+        """
+        try:
+            if method != 'GET':
+                self.client.headers.update({'content-type': None})
+            response = self.client.request(method, url, **request_args)
+
+            self.last_call.update({
+                'API': api_call,
+                'url': response.url,
+                'status_code': response.status_code,
+                'status': self._get_status(response.status_code),
+                'headers': response.headers
+                })
+
+            if response.status_code is 200:
+                return response.json()
+            else:
+                raise PybooruHTTPError("In _request", response.status_code,
+                                       response.url)
+        except requests.exceptions.Timeout:
+            raise PybooruError("Timeout! in url: {0}".format(response.url))
+        except ValueError as e:
+            raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
+                               e.msg, e.lineno, e.colno))
+
 
 class Moebooru(Pybooru, MoebooruApi):
     def __init__(self, site_name="", site_url="", username="", password="",
@@ -171,8 +204,8 @@ class Moebooru(Pybooru, MoebooruApi):
                 "Specify the 'hash_string' parameter of the Pybooru"
                 " object, for the functions that requires login.")
 
-    def _request(self, api_call, params, method='GET', file_=None):
-        """Function to request and returning JSON data.
+    def _get(self, api_call, params, method='GET', file_=None):
+        """Function to preapre an API call.
 
         Parameters:
             api_call: API function to be called.
@@ -180,46 +213,21 @@ class Moebooru(Pybooru, MoebooruApi):
             method: (Defauld: GET) HTTP method 'GET' or 'POST'
             file_: File to upload.
         """
-        # Build url
         url = self._build_url(api_call)
 
-        try:
-            if method == 'GET':
-                response = self.client.request(method, url, params=params)
-            else:
-                if self.password_hash is None:
-                    self._build_hash_string()
+        if method == 'GET':
+            request_args = {'params': params}
+        else:
+            if self.password_hash is None:
+                self._build_hash_string()
 
-                params['login'] = self.username
-                params['password_hash'] = self.password_hash
-                request_args = {'data': params, 'files': file_}
+            params['login'] = self.username
+            params['password_hash'] = self.password_hash
+            request_args = {'data': params, 'files': file_}
 
-                self.client.headers.update({'content-type': None})
-                response = self.client.request(method, url, **request_args)
-
-            self.last_call.update({
-                'API': api_call,
-                'url': response.url,
-                'status_code': response.status_code,
-                'status': self._get_status(response.status_code),
-                'headers': response.headers
-                })
-
-            if response.status_code is 200:
-                return response.json()
-            else:
-                raise PybooruHTTPError("In _request", response.status_code,
-                                       response.url)
-        except requests.exceptions.Timeout:
-            raise PybooruError("Timeout! in url: {0}".format(response.url))
-        except ValueError as e:
-            raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
-                                e.msg, e.lineno, e.colno))
+        return self._request(url, api_call, request_args, method)
 
 
 class Danbooru(Pybooru, DanbooruApi):
     def __init__(self, site_name="", site_url="", username="", api_key=""):
         super(Danbooru, self).__init__(site_name, site_url, username)
-
-    def _request(self):
-        pass
