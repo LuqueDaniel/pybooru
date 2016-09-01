@@ -3,50 +3,32 @@
 """pybooru.pybooru
 
 This module contains pybooru main class for access to API calls,
-authentication, build urls and return JSON response.
+authentication and return JSON response.
 
 Classes:
-   Pybooru -- Main pybooru classs, define Pybooru objectself.
+   Pybooru -- Main pybooru classs, define Pybooru object.
 """
 
 # __furute__ imports
 from __future__ import absolute_import
 
+# External imports
+import requests
+import re
+
 # pybooru imports
 from . import __version__
-from .api_moebooru import MoebooruApi
-from .api_danbooru import DanbooruApi
 from .exceptions import (PybooruError, PybooruHTTPError)
 from .resources import (SITE_LIST, HTTP_STATUS_CODE)
 
-# External imports
-import requests
-import hashlib
-import re
-
 
 class Pybooru(object):
-    """Pybooru main class (inherits: pybooru.api.ApiFunctionsMixin).
-
-    To initialize Pybooru, you need to specify one of these two
-    parameters: 'site_name' or 'site_url'. If you specify 'site_name', Pybooru
-    checks whether there is in the list of default sites (You can get list
-    of sites in the 'resources' module).
-
-    To specify a site that isn't in list of default sites, you need use
-    'site_url' parameter and specify url.
-
-    Some actions may require you to log in. always specify three parameters to
-    log in: 'hash_string', 'username' and 'password'. Default sites has an
-    associate hash string.
+    """Pybooru main class.
 
     Attributes:
         site_name: Return site name.
-        site_url: Return the URL of Moebooru based site.
-        api_version: Version of Moebooru API.
+        site_url: Return the URL of Moebooru/Danbooru based site.
         username: Return user name.
-        password: Return password in plain text.
-        hash_string: Return hash_string of the site.
         last_call: Return last call.
     """
 
@@ -55,15 +37,9 @@ class Pybooru(object):
 
         Keyword arguments:
             site_name: The site name in 'SITE_LIST', default sites.
-            site_url: URL of on Moebooru based sites.
-            api_version: Version of Moebooru API.
-            hash_string: String that is hashed (required to login).
-                         (See the API documentation of the site for more
-                         information).
+            site_url: URL of on Moebooru/Danbooru based sites.
             username: Your username of the site (Required only for functions
                      that modify the content).
-            password: Your user password in plain text (Required only for
-                     functions that modify the content).
         """
         # Attributes
         self.site_name = site_name.lower()
@@ -158,76 +134,3 @@ class Pybooru(object):
         except ValueError as e:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
                                e.msg, e.lineno, e.colno))
-
-
-class Moebooru(Pybooru, MoebooruApi):
-    def __init__(self, site_name="", site_url="", username="", password="",
-                 hash_string="", api_version="1.13.0+update.3"):
-        super(Moebooru, self).__init__(site_name, site_url, username)
-
-        self.api_version = api_version.lower()
-        self.password = password
-        self.hash_string = hash_string
-        self.password_hash = None
-
-    def _build_url(self, api_call):
-        """Build request url.
-
-        Parameters:
-            api_call: Base API Call.
-        """
-        if self.api_version in ('1.13.0', '1.13.0+update.1', '1.13.0+update.2'):
-            if '/' not in api_call:
-                return "{0}/{1}/index.json".format(self.site_url, api_call)
-        return "{0}/{1}.json".format(self.site_url, api_call)
-
-    def _build_hash_string(self):
-        """Function for build password hash string."""
-        # Build AUTENTICATION hash_string
-        # Check if hash_string exists
-        if self.site_name in SITE_LIST or self.hash_string is not "":
-            if self.username and self.password is not "":
-                try:
-                    hash_string = self.hash_string.format(self.password)
-                except TypeError:
-                    raise PybooruError("Pybooru can't add 'password' "
-                                       "to 'hash_string'")
-                # encrypt hashed_string to SHA1 and return hexdigest string
-                self.password_hash = hashlib.sha1(  # pylint: disable=E1101
-                    hash_string.encode('utf-8')).hexdigest()
-            else:
-                raise PybooruError("Specify the 'username' and 'password' "
-                                   "parameters of the Pybooru object, for "
-                                   "setting 'password_hash' attribute.")
-        else:
-            raise PybooruError(
-                "Specify the 'hash_string' parameter of the Pybooru"
-                " object, for the functions that requires login.")
-
-    def _get(self, api_call, params, method='GET', file_=None):
-        """Function to preapre an API call.
-
-        Parameters:
-            api_call: API function to be called.
-            params: API function parameters.
-            method: (Defauld: GET) HTTP method 'GET' or 'POST'
-            file_: File to upload.
-        """
-        url = self._build_url(api_call)
-
-        if method == 'GET':
-            request_args = {'params': params}
-        else:
-            if self.password_hash is None:
-                self._build_hash_string()
-
-            params['login'] = self.username
-            params['password_hash'] = self.password_hash
-            request_args = {'data': params, 'files': file_}
-
-        return self._request(url, api_call, request_args, method)
-
-
-class Danbooru(Pybooru, DanbooruApi):
-    def __init__(self, site_name="", site_url="", username="", api_key=""):
-        super(Danbooru, self).__init__(site_name, site_url, username)

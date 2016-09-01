@@ -2,7 +2,7 @@
 
 """pybooru.resources
 
-This module contains all resources for pybooru.
+This module contains all resources for Pybooru.
 
 SITE_LIST:
     Is a dict that contains various based Moebooru, default sites.

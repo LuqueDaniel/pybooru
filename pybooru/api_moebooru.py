@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""pybooru.moebooru_api
+"""pybooru.api_moebooru
 
 This module contains all API calls of Moebooru for Pybooru.
 
@@ -23,7 +23,7 @@ class MoebooruApi(object):
     """
 
     def post_list(self, **params):
-        """_get a list of posts.
+        """Get a list of posts.
 
         Parameters:
             tags: The tags to search for. Any tag combination that works on the
@@ -147,7 +147,7 @@ class MoebooruApi(object):
             raise PybooruAPIError("Value of 'score' only can be 0, 1, 2 or 3.")
 
     def tag_list(self, **params):
-        """_get a list of tags.
+        """Get a list of tags.
 
         Parameters:
             name: The exact name of the tag.
@@ -181,7 +181,7 @@ class MoebooruApi(object):
         return self._get('tag/update', params, 'PUT')
 
     def tag_related(self, **params):
-        """_get a list of related tags.
+        """Get a list of related tags.
 
         Parameters:
             tags: The tag names to query.
@@ -191,7 +191,7 @@ class MoebooruApi(object):
         return self._get('tag/related', params)
 
     def artist_list(self, **params):
-        """_get a list of artists.
+        """Get a list of artists.
 
         Parameters:
             name: The name (or a fragment of the name) of the artist.
@@ -254,7 +254,7 @@ class MoebooruApi(object):
         return self._get('artist/destroy', {'id': id_}, 'POST')
 
     def comment_show(self, id_):
-        """_get a specific comment.
+        """Get a specific comment.
 
         Parameters:
             id_: The id number of the comment to retrieve.
@@ -325,7 +325,7 @@ class MoebooruApi(object):
         return self._get('wiki/update', params, 'PUT')
 
     def wiki_show(self, **params):
-        """_get a specific wiki page.
+        """Get a specific wiki page.
 
         Parameters:
             title: The title of the wiki page to retrieve.
@@ -371,7 +371,7 @@ class MoebooruApi(object):
         return self._get('wiki/revert', params, 'PUT')
 
     def wiki_history(self, title):
-        """_get history of specific wiki page.
+        """Get history of specific wiki page.
 
         Parameters:
             title: The title of the wiki page to retrieve versions for.
@@ -379,7 +379,7 @@ class MoebooruApi(object):
         return self._get('wiki/history', {'title': title})
 
     def note_list(self, **params):
-        """_get note list.
+        """Get note list.
 
         Parameters:
             post_id: The post id number to retrieve notes for.
@@ -395,7 +395,7 @@ class MoebooruApi(object):
         return self._get('note/search', {'query': query})
 
     def notes_history(self, **params):
-        """_get history of notes.
+        """Get history of notes.
 
         Parameters:
             post_id: The post id number to retrieve note versions for.
