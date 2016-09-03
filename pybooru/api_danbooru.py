@@ -43,7 +43,7 @@ class DanbooruApi(object):
         Parameters:
             id_: where id_ is the post id.
         """
-        return self._get("/posts/{0}.json".format(id_))
+        return self._get('/posts/{0}.json'.format(id_))
 
     def post_update(self, id_, tag_string=None, rating=None, source=None,
                     parent_id=None):
@@ -64,3 +64,12 @@ class DanbooruApi(object):
             'post[parent_id]': parent_id
             }
         return self._get('/posts/{0}.json'.format(id_), params, 'PUT')
+
+    def post_revert(self, id_, version_id):
+        """Function to reverts a post to a previous version (Requires login).
+
+        Parameters:
+            version_id: REQUIRED The post version id to revert to.
+        """
+        return self._get('/posts/{0}/revert.json'.format(id_),
+                         {'version_id': version_id}, 'PUT')
