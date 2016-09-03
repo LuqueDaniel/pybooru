@@ -22,4 +22,17 @@ class DanbooruApi(object):
     doc: https://danbooru.donmai.us/wiki_pages/43568
     """
 
-    pass
+    def post_list(self, **params):
+        """Get a list of posts.
+
+        Parameters:
+            limit: How many posts you want to retrieve. There is a hard limit
+                   of 100 posts per request.
+            page: The page number.
+            tags: The tags to search for. Any tag combination that works on the
+                  web site will work here. This includes all the meta-tags.
+            raw: When this parameter is set the tags parameter will not be
+                 parsed for aliased tags, metatags or multiple tags, and will
+                 instead be parsed as a single literal tag.
+        """
+        return self._get('posts.json', params)

@@ -43,7 +43,7 @@ class Danbooru(Pybooru, DanbooruApi):
         self.api_key = api_key
 
     def _get(self, api_call, params, method='GET', file_=None):
-        url = "{0}".format(self.site_url)
+        url = "{0}/{1}".format(self.site_url, api_call)
 
         if method == 'GET':
             request_args = {'params': params}
@@ -52,4 +52,4 @@ class Danbooru(Pybooru, DanbooruApi):
                             'data': params, 'files': file_}
 
         # Do call
-        return self.requests(url, api_call, request_args, method)
+        return self._request(url, api_call, request_args, method)
