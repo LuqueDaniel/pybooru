@@ -42,7 +42,7 @@ class Danbooru(Pybooru, DanbooruApi):
 
         self.api_key = api_key
 
-    def _get(self, api_call, params, method='GET', file_=None):
+    def _get(self, api_call, params=None, method='GET', file_=None):
         url = "{0}/{1}".format(self.site_url, api_call)
 
         if method == 'GET':

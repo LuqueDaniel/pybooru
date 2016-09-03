@@ -36,3 +36,11 @@ class DanbooruApi(object):
                  instead be parsed as a single literal tag.
         """
         return self._get('posts.json', params)
+
+    def post_show(self, id_):
+        """Get a post
+
+        Parameters:
+            id_: where id_ is the post id.
+        """
+        return self._get("/posts/{0}.json".format(id_))
