@@ -75,7 +75,7 @@ class MoebooruApi(object):
     def post_update(self, id_, tags=None, file_=None, rating=None,
                     source=None, is_rating_locked=None, is_note_locked=None,
                     parent_id=None):
-        """Function update a specific post.
+        """Update a specific post.
 
         Only the 'id_' parameter is required. Leave the other parameters blank
         if you don't want to change them (Requires login).

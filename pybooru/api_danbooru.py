@@ -44,3 +44,23 @@ class DanbooruApi(object):
             id_: where id_ is the post id.
         """
         return self._get("/posts/{0}.json".format(id_))
+
+    def post_update(self, id_, tag_string=None, rating=None, source=None,
+                    parent_id=None):
+        """Update a specific post.
+
+        Parameters:
+            id_: The id number of the post to update.
+            tag_string: A space delimited list of tags.
+            rating: The rating for the post. Can be: safe, questionable, or
+                    explicit.
+            source: If this is a URL, Danbooru will download the file.
+            parent_id: The ID of the parent post.
+        """
+        params = {
+            'post[tag_string]': tag_string,
+            'post[rating]': rating,
+            'ost[source]': source,
+            'post[parent_id]': parent_id
+            }
+        return self._get('/posts/{0}.json'.format(id_), params, 'PUT')
