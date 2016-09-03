@@ -20,7 +20,9 @@ SITE_LIST = {
     'yandere': {
         'url': "https://yande.re",
         'api_version': "1.13.0+update.3",
-        'hashed_string': "choujin-steiner--{0}--"}
+        'hashed_string': "choujin-steiner--{0}--"},
+    'danbooru': {
+        'url': "http://danbooru.donmai.us"}
     }
 
 

@@ -27,7 +27,7 @@ class Danbooru(Pybooru, DanbooruApi):
 
     Some actions may require you to log in. always specify two parameters to
     log in: 'username' and 'api_key'. Default sites has an
-    associate hash string.
+    associate API key.
 
     Attributes:
         site_name: Return site name.
@@ -39,3 +39,17 @@ class Danbooru(Pybooru, DanbooruApi):
 
     def __init__(self, site_name="", site_url="", username="", api_key=""):
         super(Danbooru, self).__init__(site_name, site_url, username)
+
+        self.api_key = api_key
+
+    def _get(self, api_call, params, method='GET', file_=None):
+        url = "{0}".format(self.site_url)
+
+        if method == 'GET':
+            request_args = {'params': params}
+        else:
+            request_args = {'auth': (self.username, self.api_key),
+                            'data': params, 'files': file_}
+
+        # Do call
+        return self.requests(url, api_call, request_args, method)

@@ -67,8 +67,10 @@ class Pybooru(object):
         """Function that checks the site name and get url."""
         if self.site_name in SITE_LIST:
             self.site_url = SITE_LIST[self.site_name]['url']
-            self.api_version = SITE_LIST[self.site_name]['api_version']
-            self.hash_string = SITE_LIST[self.site_name]['hashed_string']
+            # Only for Moebooru
+            if 'api_version' and 'hashed_string' in SITE_LIST[self.site_name]:
+                self.api_version = SITE_LIST[self.site_name]['api_version']
+                self.hash_string = SITE_LIST[self.site_name]['hashed_string']
         else:
             raise PybooruError(
                 "The 'site_name' is not valid, specify a valid 'site_name'.")
@@ -113,6 +115,7 @@ class Pybooru(object):
         """
         try:
             if method != 'GET':
+                # Reset content-type for data encoded as a multipart form
                 self.client.headers.update({'content-type': None})
             response = self.client.request(method, url, **request_args)
 

@@ -21,4 +21,5 @@ class DanbooruApi(object):
     API Versions: v2.105.0
     doc: https://danbooru.donmai.us/wiki_pages/43568
     """
+
     pass
