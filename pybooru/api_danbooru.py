@@ -38,7 +38,7 @@ class DanbooruApi(object):
         return self._get('posts.json', params)
 
     def post_show(self, id_):
-        """Get a post
+        """Get a post.
 
         Parameters:
             id_: where id_ is the post id.
@@ -47,7 +47,7 @@ class DanbooruApi(object):
 
     def post_update(self, id_, tag_string=None, rating=None, source=None,
                     parent_id=None):
-        """Update a specific post.
+        """Update a specific post (Requires login).
 
         Parameters:
             id_: The id number of the post to update.
@@ -69,7 +69,18 @@ class DanbooruApi(object):
         """Function to reverts a post to a previous version (Requires login).
 
         Parameters:
+            id_: REQUIRED post id.
             version_id: REQUIRED The post version id to revert to.
         """
         return self._get('/posts/{0}/revert.json'.format(id_),
                          {'version_id': version_id}, 'PUT')
+
+    def post_copy_notes(self, id_, other_post_id):
+        """Function to copy notes (requires login).
+
+        Parameters:
+            id_: Post id.
+            other_post_id: REQUIRED The id of the post to copy notes to.
+        """
+        return self._get('/posts/{0}/copy_notes.json'.format(id_),
+                         {'other_post_id': other_post_id}, 'PUT')
