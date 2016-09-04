@@ -41,7 +41,7 @@ class DanbooruApi(object):
         """Get a post.
 
         Parameters:
-            id_: where id_ is the post id.
+            id_: REQUIRED Where id_ is the post id.
         """
         return self._get('/posts/{0}.json'.format(id_))
 
@@ -50,7 +50,7 @@ class DanbooruApi(object):
         """Update a specific post (Requires login).
 
         Parameters:
-            id_: The id number of the post to update.
+            id_: REQUIRED The id number of the post to update.
             tag_string: A space delimited list of tags.
             rating: The rating for the post. Can be: safe, questionable, or
                     explicit.
@@ -79,8 +79,19 @@ class DanbooruApi(object):
         """Function to copy notes (requires login).
 
         Parameters:
-            id_: Post id.
+            id_: REQUIRED Post id.
             other_post_id: REQUIRED The id of the post to copy notes to.
         """
         return self._get('/posts/{0}/copy_notes.json'.format(id_),
                          {'other_post_id': other_post_id}, 'PUT')
+
+    def post_vote(self, id_, score):
+        """Action lets you vote for a post (Requires login).
+        Danbooru: Post votes/create
+
+        Parameters:
+            id_: REQUIRED Ppost id.
+            score: REQUIRED Can be: up, down.
+        """
+        return self._get('/posts/{0}/votes.json'.format(id_), {'score': score},
+                         'POST')
