@@ -144,3 +144,16 @@ class DanbooruApi(object):
             'post_id': post_id
             }
         return self._get('post_appeals.json', params, auth=True)
+
+    def post_appeals_create(self, id_, reason):
+        """Function to create appeals (Requires login).
+
+        Parameters:
+            id_: REQUIRED The id of the appealed post.
+            reason: REQUIRED The reason of the appeal.
+        """
+        params = {
+            'post_appeal[post_id]': id_,
+            'post_appeal[reason]': reason
+            }
+        return self._get('post_appeals.json', params, 'POST', auth=True)
