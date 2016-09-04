@@ -128,3 +128,19 @@ class DanbooruApi(object):
         """
         params = {'post_flag[post_id]': id_, 'post_flag[reason]': reason}
         return self._get('post_flags.json', params, 'POST', auth=True)
+
+    def post_appeals_list(self, creator_id=None, creator_name=None,
+                          post_id=None):
+        """Function to return list of appeals (Requires login).
+
+        Parameters:
+            creator_id: The user id of the appeal's creator.
+            creator_name: The name of the appeal's creator.
+            post_id: The post id if the appeal.
+        """
+        params = {
+            'creator_id': creator_id,
+            'creator_name': creator_name,
+            'post_id': post_id
+            }
+        return self._get('post_appeals.json', params, auth=True)
