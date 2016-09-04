@@ -63,7 +63,8 @@ class DanbooruApi(object):
             'ost[source]': source,
             'post[parent_id]': parent_id
             }
-        return self._get('/posts/{0}.json'.format(id_), params, 'PUT')
+        return self._get('/posts/{0}.json'.format(id_), params, 'PUT',
+                         login=True)
 
     def post_revert(self, id_, version_id):
         """Function to reverts a post to a previous version (Requires login).
@@ -73,7 +74,7 @@ class DanbooruApi(object):
             version_id: REQUIRED The post version id to revert to.
         """
         return self._get('/posts/{0}/revert.json'.format(id_),
-                         {'version_id': version_id}, 'PUT')
+                         {'version_id': version_id}, 'PUT', login=True)
 
     def post_copy_notes(self, id_, other_post_id):
         """Function to copy notes (requires login).
@@ -83,7 +84,7 @@ class DanbooruApi(object):
             other_post_id: REQUIRED The id of the post to copy notes to.
         """
         return self._get('/posts/{0}/copy_notes.json'.format(id_),
-                         {'other_post_id': other_post_id}, 'PUT')
+                         {'other_post_id': other_post_id}, 'PUT', login=True)
 
     def post_vote(self, id_, score):
         """Action lets you vote for a post (Requires login).
@@ -94,4 +95,26 @@ class DanbooruApi(object):
             score: REQUIRED Can be: up, down.
         """
         return self._get('/posts/{0}/votes.json'.format(id_), {'score': score},
-                         'POST')
+                         'POST', login=True)
+
+    def post_flag_list(self, creator_id=None, creator_name=None, post_id=None,
+                       reason_matches=None, is_resolved=None, category=None):
+        """Function to flag a post (Requires login).
+
+        Parameters:
+            creator_id: The user id of the flag's creator.
+            creator_name: The name of the flag's creator.
+            post_id: The post id if the flag.
+            reason_matches: Flag's reason.
+            is_resolved:
+            category: unapproved/banned/normal.
+        """
+        params = {
+            'search[creator_id]': creator_id,
+            'search[creator_name]': creator_name,
+            'search[post_id]': post_id,
+            'search[reason_matches]': reason_matches,
+            'search[is_resolved]': is_resolved,
+            'search[category]': category
+            }
+        return self._get('post_flags.json', params, login=True)
