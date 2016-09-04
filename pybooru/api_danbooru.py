@@ -64,7 +64,7 @@ class DanbooruApi(object):
             'post[parent_id]': parent_id
             }
         return self._get('/posts/{0}.json'.format(id_), params, 'PUT',
-                         login=True)
+                         auth=True)
 
     def post_revert(self, id_, version_id):
         """Function to reverts a post to a previous version (Requires login).
@@ -74,7 +74,7 @@ class DanbooruApi(object):
             version_id: REQUIRED The post version id to revert to.
         """
         return self._get('/posts/{0}/revert.json'.format(id_),
-                         {'version_id': version_id}, 'PUT', login=True)
+                         {'version_id': version_id}, 'PUT', auth=True)
 
     def post_copy_notes(self, id_, other_post_id):
         """Function to copy notes (requires login).
@@ -84,7 +84,7 @@ class DanbooruApi(object):
             other_post_id: REQUIRED The id of the post to copy notes to.
         """
         return self._get('/posts/{0}/copy_notes.json'.format(id_),
-                         {'other_post_id': other_post_id}, 'PUT', login=True)
+                         {'other_post_id': other_post_id}, 'PUT', auth=True)
 
     def post_vote(self, id_, score):
         """Action lets you vote for a post (Requires login).
@@ -95,7 +95,7 @@ class DanbooruApi(object):
             score: REQUIRED Can be: up, down.
         """
         return self._get('/posts/{0}/votes.json'.format(id_), {'score': score},
-                         'POST', login=True)
+                         'POST', auth=True)
 
     def post_flag_list(self, creator_id=None, creator_name=None, post_id=None,
                        reason_matches=None, is_resolved=None, category=None):
@@ -117,4 +117,14 @@ class DanbooruApi(object):
             'search[is_resolved]': is_resolved,
             'search[category]': category
             }
-        return self._get('post_flags.json', params, login=True)
+        return self._get('post_flags.json', params, auth=True)
+
+    def post_flag_create(self, id_, reason):
+        """Function to flag a post.
+
+        Parameters:
+            id_: REQUIRED The id of the flagged post.
+            reason: REQUIRED The reason of the flagging.
+        """
+        params = {'post_flag[post_id]': id_, 'post_flag[reason]': reason}
+        return self._get('post_flags.json', params, 'POST', auth=True)

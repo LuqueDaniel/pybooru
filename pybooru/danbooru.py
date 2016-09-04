@@ -42,7 +42,7 @@ class Danbooru(Pybooru, DanbooruApi):
 
         self.api_key = api_key
 
-    def _get(self, api_call, params=None, method='GET', login=False,
+    def _get(self, api_call, params=None, method='GET', auth=False,
              file_=None):
         url = "{0}/{1}".format(self.site_url, api_call)
 
@@ -52,7 +52,7 @@ class Danbooru(Pybooru, DanbooruApi):
             request_args = {'data': params, 'files': file_}
 
         # Adds auth
-        if login is True:
+        if auth is True:
             request_args['auth'] = (self.username, self.api_key)
 
         # Do call
