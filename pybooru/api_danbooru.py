@@ -172,3 +172,11 @@ class DanbooruApi(object):
             'search[source]': source
             }
         return self._get('uploads.json', params, auth=True)
+
+    def upload_show(self, upload_id):
+        """Get a upload (Requires login).
+
+        Parameters:
+            upload_id: Where upload_id is the upload id.
+        """
+        return self._get('uploads/{0}.json'.format(upload_id), auth=True)
