@@ -204,3 +204,35 @@ class DanbooruApi(object):
                              file_=file_)
         else:
             raise PybooruAPIError("'file_' or 'source' is required.")
+
+    def comment_list(self, group_by, body_matches=None, post_id=None,
+                     post_tags_match=None, creator_name=None, creator_id=None,
+                     tags=None):
+        """Return a list of comments.
+
+        Parameters:
+            group_by: Can be 'comment', 'post'. Comment will return recent
+                      comments. Post will return posts that have been recently
+                      commented on.
+            The following work only with group_by=comment:
+                body_matches: Body contains the given terms.
+                post_id: Post id.
+                post_tags_match: The comment's post's tags match the
+                                 given terms.
+                creator_name: The name of the creator (exact match)
+                creator_id: The user id of the creator
+            The following work only with group_by=post:
+                tags The post's tags match the given terms.
+        """
+        params = {'group_by': group_by}
+        if group_by == 'comment':
+            params['search[body_matches]'] = body_matches
+            params['search[post_id]'] = post_id
+            params['search[post_tags_match]'] = post_tags_match
+            params['search[creator_name]'] = creator_name
+            params['search[creator_id]'] = creator_id
+        elif group_by == 'post':
+            params['tags'] = tags
+        else:
+            raise PybooruAPIError("'group_by' must be 'comment' or post")
+        return self._get('comments.json', params)
