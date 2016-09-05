@@ -157,3 +157,18 @@ class DanbooruApi(object):
             'post_appeal[reason]': reason
             }
         return self._get('post_appeals.json', params, 'POST', auth=True)
+
+    def upload_list(self, uploader_id=None, uploader_name=None, source=None):
+        """Search and eturn a uploads list (Requires login).
+
+        Parameters:
+            uploader_id: The id of the uploader.
+            uploader_name: The name of the uploader.
+            source The: source of the upload (exact string match).
+        """
+        params = {
+            'search[uploader_id]': uploader_id,
+            'search[uploader_name]': uploader_name,
+            'search[source]': source
+            }
+        return self._get('uploads.json', params, auth=True)
