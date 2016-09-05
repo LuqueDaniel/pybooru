@@ -180,3 +180,27 @@ class DanbooruApi(object):
             upload_id: Where upload_id is the upload id.
         """
         return self._get('uploads/{0}.json'.format(upload_id), auth=True)
+
+    def upload_create(self, tag_string, rating, file_=None, source=None,
+                      parent_id=None):
+        """Function to create a new upload (Requires login).
+
+        Parameters:
+            tag_string: REQUIRED The tags.
+            rating: REQUIRED Can be: safe, questionable, explicit.
+            file_: The file data encoded as a multipart form.
+            source: The source URL.
+            parent_id: The parent post id.
+        """
+        if file_ or source is not None:
+            params = {
+                'upload[source]': source,
+                'upload[rating]': rating,
+                'upload[parent_id]': parent_id,
+                'upload[tag_string]': tag_string
+                }
+            file_ = {'upload[file]': open(file_, 'rb')}
+            return self._get('uploads.json', params, 'POST', auth=True,
+                             file_=file_)
+        else:
+            raise PybooruAPIError("'file_' or 'source' is required.")

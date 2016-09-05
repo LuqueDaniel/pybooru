@@ -37,10 +37,10 @@ class MoebooruApi(object):
     def post_create(self, tags, file_=None, rating=None, source=None,
                     rating_locked=None, note_locked=None, parent_id=None,
                     md5=None):
-        """Function to create a new post.
+        """Function to create a new post (Requires login).
 
         There are only two mandatory fields: you need to supply the
-        'post[tags]', and you need to supply the 'post[file]', either through a
+        'tags', and you need to supply the 'file_', either through a
         multipart form or through a source URL (Requires login) (UNTESTED).
 
         Parameters:
