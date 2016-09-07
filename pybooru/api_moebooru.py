@@ -280,7 +280,7 @@ class MoebooruApi(object):
             raise PybooruAPIError("Required 'post_id' and 'comment_body' "
                                   "parameters")
 
-    def comment_destroy(self, id_=None):
+    def comment_destroy(self, id_):
         """Remove a specific comment (Requires login).
 
         Parameters:

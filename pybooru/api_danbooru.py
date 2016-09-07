@@ -273,6 +273,15 @@ class DanbooruApi(object):
         """Get a specific comment.
 
         Parameters:
-            id_: The id number of the comment to retrieve.
+            id_: REQUIRED the id number of the comment to retrieve.
         """
         return self._get('comments/{0}.json'.format(id_))
+
+    def comment_delete(self, id_):
+        """Remove a specific comment (Requires login).
+
+        Parameters:
+            id_: REQUIRED the id number of the comment to remove.
+        """
+        return self._get('comments/{0}.json'.format(id_), method='DELETE',
+                         auth=True)
