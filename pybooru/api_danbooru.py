@@ -268,3 +268,11 @@ class DanbooruApi(object):
             }
         return self._get('comments/{0}.json'.format(id_), params, 'PUT',
                          auth=True)
+
+    def comment_show(self, id_):
+        """Get a specific comment.
+
+        Parameters:
+            id_: The id number of the comment to retrieve.
+        """
+        return self._get('comments/{0}.json'.format(id_))
