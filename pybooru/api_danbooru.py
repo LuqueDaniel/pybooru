@@ -294,3 +294,12 @@ class DanbooruApi(object):
                      not specified.
         """
         return self._get('favorites.json', {'user_id': user_id}, auth=True)
+
+    def favorite_add(self, post_id):
+        """Add post to favorite (Requires login).
+
+        Parameters:
+            post_id: REQUIRED The post to favorite.
+        """
+        return self._get('favorites.json', {'post_id': post_id}, 'POST',
+                         auth=True)
