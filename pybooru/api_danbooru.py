@@ -303,3 +303,12 @@ class DanbooruApi(object):
         """
         return self._get('favorites.json', {'post_id': post_id}, 'POST',
                          auth=True)
+
+    def favorite_remove(self, post_id):
+        """Remove a post from favorites (Requires login).
+
+        Parameters:
+            post_id: REQUIRED where post_id is the post id.
+        """
+        return self._get('favorites/{0}.json'.format(post_id), method='DELETE',
+                         auth=True)
