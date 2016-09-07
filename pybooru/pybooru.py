@@ -128,7 +128,7 @@ class Pybooru(object):
                 })
 
             if response.status_code is 200:
-                return response.json()
+                return response.json() or True
             else:
                 raise PybooruHTTPError("In _request", response.status_code,
                                        response.url)
@@ -136,4 +136,4 @@ class Pybooru(object):
             raise PybooruError("Timeout! in url: {0}".format(response.url))
         except ValueError as e:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
-                               e.msg, e.lineno, e.colno))
+                e.msg, e.lineno, e.colno))

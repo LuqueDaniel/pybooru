@@ -217,8 +217,8 @@ class DanbooruApi(object):
             The following work only with group_by=comment:
                 body_matches: Body contains the given terms.
                 post_id: Post id.
-                post_tags_match: The comment's post's tags match the
-                                 given terms.
+                post_tags_match: The comment's post's tags match the given
+                                 terms.
                 creator_name: The name of the creator (exact match)
                 creator_id: The user id of the creator
             The following work only with group_by=post:
@@ -236,3 +236,19 @@ class DanbooruApi(object):
         else:
             raise PybooruAPIError("'group_by' must be 'comment' or post")
         return self._get('comments.json', params)
+
+    def comment_create(self, post_id, body, do_not_bump_post=None):
+        """Action to lets you create a comment (Requires login).
+
+        Parameters:
+            post_id: REQUIRED
+            body: REQUIRED
+            do_not_bump_post: Set to 1 if you do not want the post to be bumped
+                              to the top of the comment listing
+        """
+        params = {
+            'comment[post_id]': post_id,
+            'comment[body]': body,
+            'comment[do_not_bump_post]': do_not_bump_post
+            }
+        return self._get('comments.json', params, 'POST', auth=True)
