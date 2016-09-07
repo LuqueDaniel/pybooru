@@ -241,10 +241,10 @@ class DanbooruApi(object):
         """Action to lets you create a comment (Requires login).
 
         Parameters:
-            post_id: REQUIRED
-            body: REQUIRED
+            post_id: REQUIRED.
+            body: REQUIRED.
             do_not_bump_post: Set to 1 if you do not want the post to be bumped
-                              to the top of the comment listing
+                              to the top of the comment listing.
         """
         params = {
             'comment[post_id]': post_id,
@@ -252,3 +252,19 @@ class DanbooruApi(object):
             'comment[do_not_bump_post]': do_not_bump_post
             }
         return self._get('comments.json', params, 'POST', auth=True)
+
+    def comment_update(self, id_, body, do_not_bump_post=None):
+        """Function to update a comment (Requires login).
+
+        Parameters:
+            id_: REQUIRED comment id.
+            body: REQUIRED.
+            do_not_bump_post: Set to 1 if you do not want the post to be bumped
+                              to the top of the comment listing.
+        """
+        params = {
+            'comment[body]': body,
+            'comment[do_not_bump_post]': do_not_bump_post
+            }
+        return self._get('comments/{0}.json'.format(id_), params, 'PUT',
+                         auth=True)
