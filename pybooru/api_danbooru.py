@@ -285,3 +285,12 @@ class DanbooruApi(object):
         """
         return self._get('comments/{0}.json'.format(id_), method='DELETE',
                          auth=True)
+
+    def favorite_list(self, user_id=None):
+        """Return a list with favorite posts (Requires login).
+
+        Parameters:
+            user_id: Which user's favorites to show. Defaults to your own if
+                     not specified.
+        """
+        return self._get('favorites.json', {'user_id': user_id}, auth=True)
