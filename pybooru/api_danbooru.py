@@ -312,3 +312,26 @@ class DanbooruApi(object):
         """
         return self._get('favorites/{0}.json'.format(post_id), method='DELETE',
                          auth=True)
+
+    def dmail_list(self, message_matches=None, to_name=None, to_id=None,
+                   from_name=None, from_id=None, read=None):
+        """Return list of Dmails. You can only view dmails you own
+        (Requires login).
+
+        Parameters:
+            message_matches: The message body contains the given terms.
+            to_name: The recipient's name.
+            to_id: The recipient's user id.
+            from_name: The sender's name.
+            from_id: The sender's user id.
+            read: Can be: true, false.
+        """
+        params = {
+            'search[message_matches]': message_matches,
+            'search[to_name]': to_name,
+            'search[to_id]': to_id,
+            'search[from_name]': from_name,
+            'search[from_id]': from_id,
+            'search[read]': read
+            }
+        return self._get('dmails.json', params, auth=True)
