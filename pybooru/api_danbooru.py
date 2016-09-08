@@ -335,3 +335,12 @@ class DanbooruApi(object):
             'search[read]': read
             }
         return self._get('dmails.json', params, auth=True)
+
+    def dmail_show(self, dmail_id):
+        """Return a specific dmail. You can only view dmails you own
+        (Requires login).
+
+        Parameters:
+            dmail_id: where dmail_id is the dmail id.
+        """
+        return self._get('dmails/{0}.json'.format(dmail_id), auth=True)
