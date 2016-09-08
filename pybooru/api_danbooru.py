@@ -359,3 +359,12 @@ class DanbooruApi(object):
             'dmail[body]': body
             }
         return self._get('dmails.json', params, 'POST', auth=True)
+
+    def dmail_delete(self, dmail_id):
+        """Delete a dmail. You can only delete dmails you own (Requires login).
+
+        Parameters:
+            dmail_id: REQUIRED where dmail_id is the dmail id.
+        """
+        return self._get('dmails/{0}.json'.format(dmail_id), method='DELETE',
+                         auth=True)
