@@ -341,6 +341,21 @@ class DanbooruApi(object):
         (Requires login).
 
         Parameters:
-            dmail_id: where dmail_id is the dmail id.
+            dmail_id: REQUIRED where dmail_id is the dmail id.
         """
         return self._get('dmails/{0}.json'.format(dmail_id), auth=True)
+
+    def dmail_create(self, to_name, title, body):
+        """Create a dmail (Requires login)
+
+        Parameters:
+            to_name: REQUIRED the recipient's name.
+            title: REQUIRED the title of the message.
+            body: REQUIRED the body of the message.
+        """
+        params = {
+            'dmail[to_name]': to_name,
+            'dmail[title]': title,
+            'dmail[body]': body
+            }
+        return self._get('dmails.json', params, 'POST', auth=True)
