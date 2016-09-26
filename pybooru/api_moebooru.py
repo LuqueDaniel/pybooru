@@ -221,7 +221,7 @@ class MoebooruApi(object):
         return self._get('artist/create', params, 'POST')
 
     def artist_update(self, id_, name=None, urls=None, alias=None, group=None):
-        """Function to update an artists.
+        """Function to update artists (Requires Login).
 
         Only the id_ parameter is required. The other parameters are optional.
         (Requires login) (UNTESTED).

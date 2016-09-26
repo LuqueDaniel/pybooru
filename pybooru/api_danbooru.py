@@ -434,3 +434,25 @@ class DanbooruApi(object):
             'artist[url_string]': url_string
             }
         return self.get('artists.json', params, method='POST', auth=True)
+
+    def artist_update(self, artist_id, name=None, other_names_comma=None,
+                      group_name=None, url_string=None):
+        """Function to update artists (Requires login) (UNTESTED).
+
+        Parameters:
+            artist_id: REQUIRED where artist_id is the artist id.
+            name:
+            other_names_comma: List of alternative names for this artist, comma
+                               delimited.
+            group_name: The name of the group this artist belongs to.
+            url_string: List of URLs associated with this artist, whitespace or
+                        newline delimited.
+        """
+        params = {
+            'artist[name]': name,
+            'artist[other_names_comma]': other_names_comma,
+            'artist[group_name]': group_name,
+            'artist[url_string]': url_string
+            }
+        return self.get('artists/{0}.json'.format(artist_id), params,
+                        method='PUT', auth=True)
