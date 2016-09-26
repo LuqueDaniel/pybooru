@@ -368,3 +368,41 @@ class DanbooruApi(object):
         """
         return self._get('dmails/{0}.json'.format(dmail_id), method='DELETE',
                          auth=True)
+
+    def artist_list(self, query=None, artist_id=None, creator_name=None,
+                    creator_id=None, is_active=None, is_banned=None,
+                    empty_only=None, order=None):
+        """Get an artist of a list of artists.
+
+        Parameters:
+            query: This field has multiple uses depending on what the query
+                   starts with:
+                http: Search for artist with this URL.
+                name: Search for artists with the given name as their base
+                      name.
+                other: Search for artists with the given name in their other
+                       names.
+                group: Search for artists belonging to the group with the given
+                       name.
+                status:banned Search for artists that are banned.
+                else Search for the given name in the base name and the other
+                     names.
+            artist_id: The artist id.
+            creator_name:
+            creator_id:
+            is_active: Can be: true, false
+            is_banned: Can be: true, false
+            empty_only: Search for artists that have 0 posts. Can be: true
+            order: Can be: name, updated_at.
+        """
+        params = {
+            'search[name]': query,
+            'search[id]': artist_id,
+            'search[creator_name]': creator_name,
+            'search[creator_id]': creator_id,
+            'search[is_active]': is_active,
+            'search[is_banned]': is_banned,
+            'search[empty_only]': empty_only,
+            'search[order]': order
+        }
+        return self._get('artists.json', params)
