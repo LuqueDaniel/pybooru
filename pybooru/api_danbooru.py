@@ -471,3 +471,14 @@ class DanbooruApi(object):
         name=status:banned.
         """
         return self._get('artists/banned.json')
+
+    def artist_rever(self, artist_id, version_id):
+        """Revert an artist (Requires login) (UNTESTED).
+
+        Parameters:
+            artist_id: The artist id.
+            version_id: REQUIRED The artist version id to revert to.
+        """
+        params = {'version_id': version_id}
+        return self._get('artists/{0}/revert.json'.format(artist_id), params,
+                         method='PUT', auth=True)
