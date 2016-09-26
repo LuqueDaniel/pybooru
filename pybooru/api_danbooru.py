@@ -465,3 +465,9 @@ class DanbooruApi(object):
         """
         return self._get('artists/{0}.json'.format(artist_id), method='DELETE',
                          auth=True)
+
+    def artist_banned(self):
+        """This is a shortcut for an artist listing search with
+        name=status:banned.
+        """
+        return self._get('artists/banned.json')
