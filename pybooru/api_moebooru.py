@@ -201,7 +201,7 @@ class MoebooruApi(object):
         return self._get('artist', params)
 
     def artist_create(self, name, urls=None, alias=None, group=None):
-        """Function to create a artist (Requires login) (UNTESTED).
+        """Function to create an artist (Requires login) (UNTESTED).
 
         Parameters:
             name: The artist's name.
