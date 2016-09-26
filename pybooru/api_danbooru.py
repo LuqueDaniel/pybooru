@@ -406,3 +406,11 @@ class DanbooruApi(object):
             'search[order]': order
         }
         return self._get('artists.json', params)
+
+    def artist_show(self, artist_id):
+        """Return a specific artist.
+
+        Parameters:
+            artist_id: REQUIRED where artist_id is the artist id.
+        """
+        return self._get('artists/{0}.json'.format(artist_id))
