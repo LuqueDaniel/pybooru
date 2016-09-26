@@ -454,5 +454,14 @@ class DanbooruApi(object):
             'artist[group_name]': group_name,
             'artist[url_string]': url_string
             }
-        return self.get('artists/{0}.json'.format(artist_id), params,
-                        method='PUT', auth=True)
+        return self .get('artists/{0}.json'.format(artist_id), params,
+                         method='PUT', auth=True)
+
+    def artist_delete(self, artist_id):
+        """Action to lets you delete an artist (Requires login) (UNTESTED).
+
+        Parameters:
+            artist_id: where artist_id is the artist id.
+        """
+        return self._get('artists/{0}.json'.format(artist_id), method='DELETE',
+                         auth=True)
