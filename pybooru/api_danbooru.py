@@ -472,7 +472,7 @@ class DanbooruApi(object):
         """
         return self._get('artists/banned.json')
 
-    def artist_rever(self, artist_id, version_id):
+    def artist_revert(self, artist_id, version_id):
         """Revert an artist (Requires login) (UNTESTED).
 
         Parameters:
@@ -482,3 +482,25 @@ class DanbooruApi(object):
         params = {'version_id': version_id}
         return self._get('artists/{0}/revert.json'.format(artist_id), params,
                          method='PUT', auth=True)
+
+    def note_list(self, group_by=None, body_matches=None, post_id=None,
+                  post_tags_match=None, creator_name=None, creator_id=None):
+        """Return list of notes.
+
+        Parameters:
+            group_by: Can be: note, post (by default post).
+            body_matches: The note's body matches the given terms.
+            post_id: A specific post.
+            post_tags_match: The note's post's tags match the given terms.
+            creator_name: The creator's name. Exact match.
+            creator_id: The creator's user id.
+        """
+        params = {
+            'group_by': group_by,
+            'search[body_matches]': body_matches,
+            'search[post_id]': post_id,
+            'search[post_tags_match]': post_tags_match,
+            'search[creator_name]': creator_name,
+            'search[creator_id]': creator_id
+            }
+        return self._get('notes.json', params)
