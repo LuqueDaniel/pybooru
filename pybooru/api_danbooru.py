@@ -568,3 +568,13 @@ class DanbooruApi(object):
         """
         return self._get('notes/{0}.json'.format(note_id), method='DELETE',
                          auth=True)
+
+    def note_revert(self, note_id, version_id):
+        """Function to revert a specific note (Requires login) (UNTESTED).
+
+        Parameters:
+            note_id: REQUIRED Where note_id is the note id.
+            version_id: REQUIRED The note version id to revert to.
+        """
+        return self._get('notes/{0}/revert.json'.format(note_id),
+                         {'version_id': version_id}, method='PUT', auth=True)
