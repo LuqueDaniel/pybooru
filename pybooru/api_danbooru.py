@@ -559,3 +559,12 @@ class DanbooruApi(object):
             }
         return self._get('notes/{0}.jso'.format(note_id), params, method='PUT',
                          auth=True)
+
+    def note_delete(self, note_id):
+        """delete a specific note (Requires login) (UNTESTED).
+
+        Parameters:
+            note_id: REQUIRED Where note_id is the note id.
+        """
+        return self._get('notes/{0}.json'.format(note_id), method='DELETE',
+                         auth=True)
