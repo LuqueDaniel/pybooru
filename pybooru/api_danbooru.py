@@ -504,3 +504,11 @@ class DanbooruApi(object):
             'search[creator_id]': creator_id
             }
         return self._get('notes.json', params)
+
+    def note_show(self, note_id):
+        """Get a specific note.
+
+        Parameters:
+            note_id: Where note_id is the note id.
+        """
+        return self._get('notes/{0}.json'.format(note_id))

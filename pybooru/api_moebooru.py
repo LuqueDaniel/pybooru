@@ -394,7 +394,7 @@ class MoebooruApi(object):
         """
         return self._get('note/search', {'query': query})
 
-    def notes_history(self, **params):
+    def note_history(self, **params):
         """Get history of notes.
 
         Parameters:
