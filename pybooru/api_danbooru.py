@@ -512,3 +512,26 @@ class DanbooruApi(object):
             note_id: Where note_id is the note id.
         """
         return self._get('notes/{0}.json'.format(note_id))
+
+    def note_create(self, post_id, coor_x, coor_y, width, height, body):
+        """Function to create a note (Requires login) (UNTESTED).
+
+        Parameters:
+            post_id: REQUIRED
+            coor_x: REQUIRED The x coordinates of the note in pixels, with
+                    respect to the top-left corner of the image.
+            coor_y: REQUIRED The y coordinates of the note in pixels, with
+                    respect to the top-left corner of the image.
+            width: REQUIRED The width of the note in pixels.
+            height: REQUIRED The height of the note in pixels.
+            body: REQUIRED The body of the note.
+        """
+        params = {
+            'note[post_id]': post_id,
+            'note[x]': coor_x,
+            'note[y]': coor_y,
+            'note[width]': width,
+            'note[height]': height,
+            'note[body]': body
+            }
+        return self._get('notes.json', params, method='POST', auth=True)
