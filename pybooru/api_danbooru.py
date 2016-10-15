@@ -476,7 +476,7 @@ class DanbooruApi(object):
         """Revert an artist (Requires login) (UNTESTED).
 
         Parameters:
-            artist_id: The artist id.
+            artist_id: REQUIRED The artist id.
             version_id: REQUIRED The artist version id to revert to.
         """
         params = {'version_id': version_id}
@@ -509,7 +509,7 @@ class DanbooruApi(object):
         """Get a specific note.
 
         Parameters:
-            note_id: Where note_id is the note id.
+            note_id: REQUIRED Where note_id is the note id.
         """
         return self._get('notes/{0}.json'.format(note_id))
 
@@ -535,3 +535,27 @@ class DanbooruApi(object):
             'note[body]': body
             }
         return self._get('notes.json', params, method='POST', auth=True)
+
+    def note_update(self, note_id, coor_x=None, coor_y=None, width=None,
+                    height=None, body=None):
+        """Function to update a note (Requires login) (UNTESTED).
+
+        Parameters:
+            note_id: REQUIRED Where note_id is the note id.
+            coor_x: REQUIRED The x coordinates of the note in pixels, with
+                    respect to the top-left corner of the image.
+            coor_y: REQUIRED The y coordinates of the note in pixels, with
+                    respect to the top-left corner of the image.
+            width: REQUIRED The width of the note in pixels.
+            height: REQUIRED The height of the note in pixels.
+            body: REQUIRED The body of the note.
+        """
+        params = {
+            'note[x]': coor_x,
+            'note[y]': coor_y,
+            'note[width]': width,
+            'note[height]': height,
+            'note[body]': body
+            }
+        return self._get('notes/{0}.jso'.format(note_id), params, method='PUT',
+                         auth=True)
