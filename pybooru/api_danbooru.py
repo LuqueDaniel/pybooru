@@ -578,3 +578,41 @@ class DanbooruApi(object):
         """
         return self._get('notes/{0}/revert.json'.format(note_id),
                          {'version_id': version_id}, method='PUT', auth=True)
+
+    def user_list(self, name=None, min_level=None, max_level=None, level=None,
+                  user_id=None, order=None):
+        """Function to get a list of users or a specific user.
+
+        Levels:
+            Users have a number attribute called level representing their role.
+            The current levels are:
+
+            Member 20, Gold 30, Platinum 31, Builder 32, Contributor 33,
+            Janitor 35, Moderator 40 and Admin 50
+
+        Parameters:
+            name: Supports patterns.
+            min_level: Minimum level (see section on levels).
+            max_level: Maximum level (see section on levels).
+            level: Current level (see section on levels).
+            user_id: The user id.
+            order: Can be: 'name', 'post_upload_count', 'note_count',
+                   'post_update_count', 'date'.
+        """
+        params = {
+            'search[name]': name,
+            'search[min_level]': min_level,
+            'search[max_level]': max_level,
+            'search[level]': level,
+            'search[id]': user_id,
+            'search[order]': order
+            }
+        return self._get('users.json', params)
+
+    def user_show(self, user_id):
+        """Get a specific user.
+
+        Parameters:
+            user_id: REQUIRED Where user_id is the user id.
+        """
+        return self._get('users/{0}.json'.format(user_id))
