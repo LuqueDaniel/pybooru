@@ -672,7 +672,7 @@ class DanbooruApi(object):
             }
         return self._get('artist_versions.json', params)
 
-    def pools_list(self, name_matches=None, description_matches=None,
+    def pool_list(self, name_matches=None, description_matches=None,
                    creator_name=None, creator_id=None, is_active=None,
                    order=None, category=None):
         """Get a list of pools.
@@ -697,7 +697,7 @@ class DanbooruApi(object):
             }
         return self._get('pools.json', params)
 
-    def pools_show(self, pool_id):
+    def pool_show(self, pool_id):
         """Get a specific pool.
 
         Parameters:
@@ -705,7 +705,7 @@ class DanbooruApi(object):
         """
         return self._get('pools/{0}.json'.format(pool_id))
 
-    def pools_create(self, name, description, category):
+    def pool_create(self, name, description, category):
         """Function to create a pool (Requires login) (UNTESTED).
 
         Parameters:
@@ -719,3 +719,25 @@ class DanbooruApi(object):
             'pool[category]': category
             }
         return self._get('pools.json', params, method='POST', auth=True)
+
+    def pool_update(self, pool_id, name=None, description=None, post_ids=None,
+                    is_active=None, category=None):
+        """Update a pool (Requires login) (UNTESTED).
+
+        Parameters:
+            pool_id: REQUIRED Where pool_id is the pool id.
+            name:
+            description:
+            post_ids: List of space delimited post ids.
+            is_active: Can be: 1, 0
+            category: Can be: series, collection
+        """
+        params = {
+            'pool[name]': name,
+            'pool[description]': description,
+            'pool[post_ids]': post_ids,
+            'pool[is_active]': is_active,
+            'pool[category]': category
+            }
+        return self._get('pools/{0}.json'.format(pool_id), params,
+                         method='PUT', auth=True)

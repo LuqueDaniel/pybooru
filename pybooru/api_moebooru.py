@@ -466,7 +466,7 @@ class MoebooruApi(object):
         """
         return self._get('forum', params)
 
-    def poosl_list(self, **params):
+    def pool_list(self, **params):
         """Function to get pools.
 
         If you don't specify any parameters you'll _get a list of all pools.
@@ -477,7 +477,7 @@ class MoebooruApi(object):
         """
         return self._get('pool', params)
 
-    def pools_posts(self, **params):
+    def pool_posts(self, **params):
         """Function to _get pools posts.
 
         If you don't specify any parameters you'll _get a list of all pools.
@@ -488,7 +488,7 @@ class MoebooruApi(object):
         """
         return self._get('pool/show', params)
 
-    def pools_update(self, id_, name=None, is_public=None,
+    def pool_update(self, id_, name=None, is_public=None,
                     description=None):
         """Function to update a pool (Requires login) (UNTESTED).
 
@@ -506,7 +506,7 @@ class MoebooruApi(object):
             }
         return self._get('pool/update', params, 'PUT')
 
-    def pools_create(self, name, description, is_public):
+    def pool_create(self, name, description, is_public):
         """Function to create a pool (Require login) (UNTESTED).
 
         Parameters:
@@ -518,7 +518,7 @@ class MoebooruApi(object):
                   'pool[is_public]': is_public}
         return self._get('pool/create', params, 'POST')
 
-    def pools_destroy(self, id_):
+    def pool_destroy(self, id_):
         """Function to destroy a specific pool (Require login) (UNTESTED).
 
         Parameters:
@@ -526,7 +526,7 @@ class MoebooruApi(object):
         """
         return self._get('pool/destroy', {'id': id_}, 'DELETE')
 
-    def pools_add_post(self, **params):
+    def pool_add_post(self, **params):
         """Function to add a post (Require login) (UNTESTED).
 
         Parameters:
@@ -535,7 +535,7 @@ class MoebooruApi(object):
         """
         return self._get('pool/add_post', params, 'PUT')
 
-    def pools_remove_post(self, **params):
+    def pool_remove_post(self, **params):
         """Function to remove a post (Require login) (UNTESTED).
 
         Parameters:
