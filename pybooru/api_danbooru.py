@@ -785,3 +785,30 @@ class DanbooruApi(object):
             'search[pool_id]': pool_id
             }
         return self._get('pool_versions.json', params)
+
+    def tag_list(self, name_matches=None, category=None, hide_empty=None,
+                 order=None, has_wiki=None, name=None):
+        """Get a list of tags.
+
+        Parameters:
+            name_matches:
+            category: Can be: 0, 1, 3, 4 (general, artist, copyright,
+                      character respectively)
+            hide_empty: Can be: yes, no. Excludes tags with 0 posts
+                        when "yes".
+            order: Can be: name, date, count
+            has_wiki: Can be: yes, no
+            name: Allows searching for multiple tags with exact given
+                  names, separated by commas. e.g.
+                  search[name]=touhou,original,k-on! would return the
+                  three listed tags.
+        """
+        params = {
+            'search[name_matches]': name_matches,
+            'search[category]': category,
+            'search[hide_empty]': hide_empty,
+            'search[order]': order,
+            'search[has_wiki]': has_wiki,
+            'search[name]': name
+            }
+        return self._get('tags.json', params)
