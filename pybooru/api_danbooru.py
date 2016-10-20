@@ -750,3 +750,12 @@ class DanbooruApi(object):
         """
         return self._get('pools/{0}.json'.format(pool_id), method='DELETE',
                          auth=True)
+
+    def pool_undelete(self, pool_id):
+        """Undelete a specific poool (Requires login) (UNTESTED).
+
+        Parameters:
+            pool_id: REQUIRED Where pool_id is the pool id.
+        """
+        return self._get('pools/{0}/undelete.json'.format(pool_id),
+                         method='POST', auth=True)
