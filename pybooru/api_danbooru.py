@@ -759,3 +759,14 @@ class DanbooruApi(object):
         """
         return self._get('pools/{0}/undelete.json'.format(pool_id),
                          method='POST', auth=True)
+
+    def pool_revert(self, pool_id, version_id):
+        """Function to revert a specific pool (Requires login) (UNTESTED).
+
+        Parameters:
+            pool_id: REQUIRED Where pool_id is the pool id.
+            version_id: REQUIRED.
+        """
+        params = {'version_id': version_id}
+        return self._get('pools/{0}/revert.json'.format(pool_id), params,
+                         method='PUT', auth=True)
