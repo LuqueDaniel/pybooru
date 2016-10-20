@@ -616,3 +616,21 @@ class DanbooruApi(object):
             user_id: REQUIRED Where user_id is the user id.
         """
         return self._get('users/{0}.json'.format(user_id))
+
+    def post_versions(self, updater_name=None, updater_id=None,
+                           post_id=None, start_id=None):
+        """Get list of post versions.
+
+        Parameters:
+            updater_name:
+            updater_id:
+            post_id:
+            start_id:
+        """
+        params = {
+            'search[updater_name]': updater_name,
+            'search[updater_id]': updater_id,
+            'search[post_id]': post_id,
+            'search[start_id]': start_id
+            }
+        return self._get('post_versions.json', params)
