@@ -844,3 +844,14 @@ class DanbooruApi(object):
             'search[id]': tag_id
             }
         return self._get('tag_implications.json', params)
+
+    def tag_related(self, query, category=None):
+        """Get related tags.
+
+        Parameters:
+            query: REQUIRED The tag to find the related tags for.
+            category: If specified, show only tags of a specific category.
+                      Can be: General 0, Artist 1, Copyright 3 and Character 4.
+        """
+        params = {'query': query, 'category': category}
+        return self._get('related_tag.json', params)
