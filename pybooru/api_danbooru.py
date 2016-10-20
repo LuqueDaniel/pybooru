@@ -634,3 +634,18 @@ class DanbooruApi(object):
             'search[start_id]': start_id
             }
         return self._get('post_versions.json', params)
+
+    def note_versions(self, updater_id=None, post_id=None, note_id=None):
+        """Get list of note versions.
+
+        Parameters:
+            updater_id:
+            post_id:
+            note_id:
+        """
+        params = {
+            'search[updater_id]': updater_id,
+            'search[post_id]': post_id,
+            'search[note_id]': note_id
+            }
+        return self._get('note_versions.json', params)
