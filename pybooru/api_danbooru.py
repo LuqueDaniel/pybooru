@@ -704,3 +704,18 @@ class DanbooruApi(object):
             pool_id: REQUIRED Where pool_id is the pool id.
         """
         return self._get('pools/{0}.json'.format(pool_id))
+
+    def pools_create(self, name, description, category):
+        """Function to create a pool (Requires login) (UNTESTED).
+
+        Parameters:
+            name: REQUIRED.
+            description: REQUIRED.
+            category: Can be: series, collection.
+        """
+        params = {
+            'pool[name]': name,
+            'pool[description]': description,
+            'pool[category]': category
+            }
+        return self._get('pools.json', params, method='POST', auth=True)
