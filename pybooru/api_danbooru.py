@@ -649,3 +649,25 @@ class DanbooruApi(object):
             'search[note_id]': note_id
             }
         return self._get('note_versions.json', params)
+
+    def artist_version(self, name=None, updater_id=None, artist_id=None,
+                       is_active=None, is_banned=None, order=None):
+        """Get list of artist versions.
+
+        Parameters:
+            name:
+            updater_id:
+            artist_id:
+            is_active: Can be: true, false.
+            is_banned: Can be: true, false.
+            order: Can be: name, date.
+        """
+        params = {
+            'search[name]': name,
+            'search[updater_id]': updater_id,
+            'search[artist_id]': artist_id,
+            'search[is_active]': is_active,
+            'search[is_banned]': is_banned,
+            'search[order]': order
+            }
+        return self._get('artist_versions.json', params)
