@@ -696,3 +696,11 @@ class DanbooruApi(object):
             'search[category]': category
             }
         return self._get('pools.json', params)
+
+    def pools_show(self, pool_id):
+        """Get a specific pool.
+
+        Parameters:
+            pool_id: REQUIRED Where pool_id is the pool id.
+        """
+        return self._get('pools/{0}.json'.format(pool_id))
