@@ -741,3 +741,12 @@ class DanbooruApi(object):
             }
         return self._get('pools/{0}.json'.format(pool_id), params,
                          method='PUT', auth=True)
+
+    def pool_delete(self, pool_id):
+        """Delete a pool (Requires login) (UNTESTED).
+
+        Parameters:
+            pool_id: REQUIRED Where pool_id is the pool id.
+        """
+        return self._get('pools/{0}.json'.format(pool_id), method='DELETE',
+                         auth=True)
