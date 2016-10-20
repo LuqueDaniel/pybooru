@@ -671,3 +671,28 @@ class DanbooruApi(object):
             'search[order]': order
             }
         return self._get('artist_versions.json', params)
+
+    def pools_list(self, name_matches=None, description_matches=None,
+                   creator_name=None, creator_id=None, is_active=None,
+                   order=None, category=None):
+        """Get a list of pools.
+
+        Parameters:
+            name_matches:
+            description_matches:
+            creator_name:
+            creator_id:
+            is_active: Can be: true, false.
+            order: Can be: name, created_at, post_count, date.
+            category: Can be: series, collection
+        """
+        params = {
+            'search[name_matches]': name_matches,
+            'search[description_matches]': description_matches,
+            'search[creator_name]': creator_name,
+            'search[creator_id]': creator_id,
+            'search[is_active]': is_active,
+            'search[order]': order,
+            'search[category]': category
+            }
+        return self._get('pools.json', params)
