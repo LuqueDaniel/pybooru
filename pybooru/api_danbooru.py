@@ -673,8 +673,8 @@ class DanbooruApi(object):
         return self._get('artist_versions.json', params)
 
     def pool_list(self, name_matches=None, description_matches=None,
-                   creator_name=None, creator_id=None, is_active=None,
-                   order=None, category=None):
+                  creator_name=None, creator_id=None, is_active=None,
+                  order=None, category=None):
         """Get a list of pools.
 
         Parameters:
@@ -770,3 +770,18 @@ class DanbooruApi(object):
         params = {'version_id': version_id}
         return self._get('pools/{0}/revert.json'.format(pool_id), params,
                          method='PUT', auth=True)
+
+    def pool_versions(self, updater_id=None, updater_name=None, pool_id=None):
+        """Get list of pool versions.
+
+        Parameters:
+            updater_id:
+            updater_name:
+            pool_id:
+        """
+        params = {
+            'search[updater_id]': updater_id,
+            'search[updater_name]': updater_name,
+            'search[pool_id]': pool_id
+            }
+        return self._get('pool_versions.json', params)
