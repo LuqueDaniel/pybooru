@@ -812,3 +812,19 @@ class DanbooruApi(object):
             'search[name]': name
             }
         return self._get('tags.json', params)
+
+    def tag_aliases(self, name_matches=None, antecedent_name=None,
+                    tag_id=None):
+        """Get tags aliasses.
+
+        Parameters:
+            name_matches: Match antecedent or consequent name.
+            antecedent_name: Match antecedent name (exact match).
+            tag_id: The tag alias id.
+        """
+        params = {
+            'search[name_matches]': name_matches,
+            'search[antecedent_name]': antecedent_name,
+            'search[id]': tag_id
+            }
+        return self._get('tag_aliases.json', params)
