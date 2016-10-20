@@ -815,7 +815,7 @@ class DanbooruApi(object):
 
     def tag_aliases(self, name_matches=None, antecedent_name=None,
                     tag_id=None):
-        """Get tags aliasses.
+        """Get tags aliases.
 
         Parameters:
             name_matches: Match antecedent or consequent name.
@@ -828,3 +828,19 @@ class DanbooruApi(object):
             'search[id]': tag_id
             }
         return self._get('tag_aliases.json', params)
+
+    def tag_implications(self, name_matches=None, antecedent_name=None,
+                         tag_id=None):
+        """Get tags implications.
+
+        Parameters:
+            name_matches: Match antecedent or consequent name.
+            antecedent_name: Match antecedent name (exact match).
+            tag_id: The tag implication id.
+        """
+        params = {
+            'search[name_matches]': name_matches,
+            'search[antecedent_name]': antecedent_name,
+            'search[id]': tag_id
+            }
+        return self._get('tag_implications.json', params)
