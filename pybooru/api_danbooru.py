@@ -928,8 +928,8 @@ class DanbooruApi(object):
         return self._get('wiki_pages/{0}/revert.json'.format(page_id),
                          {'version_id': version_id}, method='PUT', auth=True)
 
-    def forum_topics_list(self, title_matches=None, title=None,
-                          category_id=None):
+    def forum_topic_list(self, title_matches=None, title=None,
+                         category_id=None):
         """Function to get forum topics.
 
         Parameters:
@@ -944,3 +944,11 @@ class DanbooruApi(object):
             'search[category_id]': category_id
             }
         return self._get('forum_topics.json', params)
+
+    def forum_topic_show(self, topic_id):
+        """Retrieve a specific forum topic.
+
+        Parameters:
+            topic_id: REQUIRED Where topic_id is the forum topic id.
+        """
+        return self._get('forum_topics/{0}.json'.format(topic_id))
