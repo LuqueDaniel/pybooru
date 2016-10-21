@@ -890,8 +890,8 @@ class DanbooruApi(object):
         """Action to lets you create a wiki page (Requires login) (UNTESTED).
 
         Parameters:
-            title: REQUIRED
-            body: REQUIRED
+            title: REQUIRED.
+            body: REQUIRED.
             other_names:
         """
         params = {
@@ -917,3 +917,13 @@ class DanbooruApi(object):
             }
         return self._get('wiki_pages/{0}.json'.format(page_id), params,
                          method='PUT', auth=True)
+
+    def wiki_revert(self, page_id, version_id):
+        """Revert page to a previeous version.
+
+        Parameters:
+            page_id: REQUIRED Where page_id is the wiki page id.
+            version_id REQUIRED.
+        """
+        return self._get('wiki_pages/{0}/revert.json'.format(page_id),
+                         {'version_id': version_id}, method='PUT', auth=True)
