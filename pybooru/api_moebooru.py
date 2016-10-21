@@ -456,7 +456,7 @@ class MoebooruApi(object):
         return self._get('user', params)
 
     def forum_list(self, **params):
-        """Function to _get forum posts.
+        """Function to get forum posts.
 
         If you don't specify any parameters you'll _get a listing of all users.
 

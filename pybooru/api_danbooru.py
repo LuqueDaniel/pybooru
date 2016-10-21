@@ -919,7 +919,7 @@ class DanbooruApi(object):
                          method='PUT', auth=True)
 
     def wiki_revert(self, page_id, version_id):
-        """Revert page to a previeous version.
+        """Revert page to a previeous version (Requires login) (UNTESTED).
 
         Parameters:
             page_id: REQUIRED Where page_id is the wiki page id.
@@ -927,3 +927,20 @@ class DanbooruApi(object):
         """
         return self._get('wiki_pages/{0}/revert.json'.format(page_id),
                          {'version_id': version_id}, method='PUT', auth=True)
+
+    def forum_topics_list(self, title_matches=None, title=None,
+                          category_id=None):
+        """Function to get forum topics.
+
+        Parameters:
+            title_matches: Search body for the given terms.
+            title: Exact title match.
+            category_id: Can be: 0, 1, 2 (General, Tags, Bugs & Features
+                         respectively)
+        """
+        params = {
+            'search[title_matches]': title_matches,
+            'search[title]': title,
+            'search[category_id]': category_id
+            }
+        return self._get('forum_topics.json', params)
