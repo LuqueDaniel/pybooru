@@ -877,3 +877,11 @@ class DanbooruApi(object):
             'search[order]': order
         }
         return self._get('wiki_pages.json', params)
+
+    def wiki_show(self, page_id):
+        """Retrieve a specific page of the wiki.
+
+        Parameters:
+            page_id: REQUIRED Where page_id is the wiki page id.
+        """
+        return self._get('wiki_pages/{0}.json'.format(page_id))
