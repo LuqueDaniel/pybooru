@@ -875,7 +875,7 @@ class DanbooruApi(object):
             'search[other_names_match]': other_names_match,
             'search[creator_name]': creator_name,
             'search[order]': order
-        }
+            }
         return self._get('wiki_pages.json', params)
 
     def wiki_show(self, page_id):
@@ -885,3 +885,18 @@ class DanbooruApi(object):
             page_id: REQUIRED Where page_id is the wiki page id.
         """
         return self._get('wiki_pages/{0}.json'.format(page_id))
+
+    def wiki_create(self, title, body, other_names=None):
+        """Action to lets you create a wiki page (Requires login) (UNTESTED).
+
+        Parameters:
+            title: REQUIRED
+            body: REQUIRED
+            other_names:
+        """
+        params = {
+            'wiki_page[title]': title,
+            'wiki_page[body]': body,
+            'wiki_page[other_names]': other_names
+            }
+        return self._get('wiki_pages.json', params, method='POST', auth=True)
