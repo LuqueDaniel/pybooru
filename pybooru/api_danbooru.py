@@ -900,3 +900,20 @@ class DanbooruApi(object):
             'wiki_page[other_names]': other_names
             }
         return self._get('wiki_pages.json', params, method='POST', auth=True)
+
+    def wiki_update(self, page_id, title=None, body=None, other_names=None):
+        """Action to lets you update a wiki page (Requires login) (UNTESTED).
+
+        Parameters:
+            page_id: REQURIED Whre page_id is the wiki page id.
+            title:
+            body:
+            other_names:
+        """
+        params = {
+            'wiki_page[title]': title,
+            'wiki_page[body]': body,
+            'wiki_page[other_names]': other_names
+            }
+        return self._get('wiki_pages/{0}.json'.format(page_id), params,
+                         method='PUT', auth=True)
