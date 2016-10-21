@@ -128,7 +128,7 @@ class Pybooru(object):
                 })
 
             if response.status_code is 200:
-                return response.json() or True
+                return response.json()
             else:
                 raise PybooruHTTPError("In _request", response.status_code,
                                        response.url)

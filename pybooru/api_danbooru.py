@@ -855,3 +855,25 @@ class DanbooruApi(object):
         """
         params = {'query': query, 'category': category}
         return self._get('related_tag.json', params)
+
+    def wiki_list(self, title=None, creator_id=None, body_matches=None,
+                  other_names_match=None, creator_name=None, order=None):
+        """Function to retrieves a list of every wiki page.
+
+        Parameters:
+            title:
+            creator_id:
+            body_matches:
+            other_names_match:
+            creator_name:
+            order: Can be: date, title.
+        """
+        params = {
+            'search[title]': title,
+            'search[creator_id]': creator_id,
+            'search[body_matches]': body_matches,
+            'search[other_names_match]': other_names_match,
+            'search[creator_name]': creator_name,
+            'search[order]': order
+        }
+        return self._get('wiki_pages.json', params)
