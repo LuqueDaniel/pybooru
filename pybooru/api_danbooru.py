@@ -650,8 +650,8 @@ class DanbooruApi(object):
             }
         return self._get('note_versions.json', params)
 
-    def artist_version(self, name=None, updater_id=None, artist_id=None,
-                       is_active=None, is_banned=None, order=None):
+    def artist_versions(self, name=None, updater_id=None, artist_id=None,
+                        is_active=None, is_banned=None, order=None):
         """Get list of artist versions.
 
         Parameters:
@@ -1058,7 +1058,7 @@ class DanbooruApi(object):
         return self._get('artist_commentaries/{0}/revert.json'.format(id_),
                          params, method='PUT', auth=True)
 
-    def artist_commentary_version(self, post_id, updater_id):
+    def artist_commentary_versions(self, post_id, updater_id):
         """Return list of artist commentary versions.
 
         Parameters:
@@ -1070,3 +1070,25 @@ class DanbooruApi(object):
             'search[post_id]': post_id
             }
         return self._get('artist_commentary_versions.json', params)
+
+    def wiki_versions(self, wiki_page_id, updater_id):
+        """Return a list of wiki page version.
+
+        Parameters:
+            updater_id: REQUIRED.
+            wiki_page_id: REQUIRED.
+        """
+        params = {
+            'earch[updater_id]': updater_id,
+            'search[wiki_page_id]': wiki_page_id
+            }
+        return self._get('wiki_page_versions.json', params)
+
+    def wiki_versions_show(self, wiki_page_id):
+        """Return a specific wiki page version.
+
+        Parameters:
+            wiki_page_id: REQUIRED Where wiki_page_id is the wiki page version
+                          id.
+        """
+        return self._get('wiki_page_versions/{0}.json'.format(wiki_page_id))
