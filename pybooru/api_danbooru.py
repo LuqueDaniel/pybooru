@@ -1129,3 +1129,14 @@ class DanbooruApi(object):
             'forum_post[body]': body
             }
         return self._get('forum_posts.json', params, method='POST', auth=True)
+
+    def forum_post_update(self, topic_id, body):
+        """Update a specific forum post (Requries login) (UNTESTED).
+
+        Parameters:
+            post_id: REQUIRED Forum topic id.
+            body: REQUIRED.
+        """
+        params = {'forum_post[body]': body}
+        return self._get('forum_posts/{0}.json'.format(topic_id), params,
+                         method='PUT', auth=True)
