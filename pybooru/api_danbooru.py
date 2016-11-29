@@ -953,7 +953,7 @@ class DanbooruApi(object):
         """
         return self._get('forum_topics/{0}.json'.format(topic_id))
 
-    def forum_topic_create(self, title, body, category):
+    def forum_topic_create(self, title, body, category=None):
         """Function to create topic (Requires login) (UNTESTED).
 
         Parameters:
@@ -968,3 +968,18 @@ class DanbooruApi(object):
             'forum_topic[category_id]': category
             }
         return self._get('forum_topics.json', params, method='POST', auth=True)
+
+    def forum_topic_update(self, topic_id, title=None, category=None):
+        """Update a specific topic (Login Requires) (UNTESTED).
+
+        Parameters:
+            title: Topic title.
+            category: Can be: 0, 1, 2 (General, Tags, Bugs & Features
+                      respectively)
+        """
+        params = {
+            'forum_topic[title]': title,
+            'forum_topic[category_id]': category
+            }
+        return self._get('forum_topics/{0}.json'.format(topic_id), params,
+                         method='PUT', auth=True)
