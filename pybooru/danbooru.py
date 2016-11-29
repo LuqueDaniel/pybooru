@@ -12,6 +12,7 @@ Classes:
 # Pybooru imports
 from .pybooru import Pybooru
 from .api_danbooru import DanbooruApi
+from .exceptions import PybooruError
 
 
 class Danbooru(Pybooru, DanbooruApi):
@@ -40,7 +41,8 @@ class Danbooru(Pybooru, DanbooruApi):
     def __init__(self, site_name="", site_url="", username="", api_key=""):
         super(Danbooru, self).__init__(site_name, site_url, username)
 
-        self.api_key = api_key
+        if api_key is not "":
+            self.api_key = api_key
 
     def _get(self, api_call, params=None, method='GET', auth=False,
              file_=None):
@@ -53,7 +55,11 @@ class Danbooru(Pybooru, DanbooruApi):
 
         # Adds auth
         if auth is True:
-            request_args['auth'] = (self.username, self.api_key)
+            try:
+                request_args['auth'] = (self.username, self.api_key)
+            except AttributeError:
+                raise PybooruError("'username' and 'api_key' attribute of \
+                                   Danbooru are required.")
 
         # Do call
         return self._request(url, api_call, request_args, method)

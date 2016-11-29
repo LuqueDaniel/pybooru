@@ -39,12 +39,13 @@ class Pybooru(object):
             site_name: The site name in 'SITE_LIST', default sites.
             site_url: URL of on Moebooru/Danbooru based sites.
             username: Your username of the site (Required only for functions
-                     that modify the content).
+                      that modify the content).
         """
         # Attributes
         self.site_name = site_name.lower()
         self.site_url = site_url.lower()
-        self.username = username
+        if username is not "":
+            self.username = username
         self.last_call = {}
 
         # Set HTTP Client
