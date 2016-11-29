@@ -1002,3 +1002,25 @@ class DanbooruApi(object):
         """
         return self._get('forum_topics/{0}/undelete.json'.format(topic_id),
                          method='POST', auth=True)
+
+    def artist_commentary_list(self, text_matches=None, post_id=None,
+                               post_tags_match=None, original_present=None,
+                               translated_present=None):
+        """list artist commentary.
+
+        Parameters:
+            text_matches:
+            post_id:
+            post_tags_match: The commentary's post's tags match the given
+                             terms. Meta-tags not supported.
+            original_present: Can be: yes, no
+            translated_present: Can be: yes, no
+        """
+        params = {
+            'search[text_matches]': text_matches,
+            'search[post_id]': post_id,
+            'search[post_tags_match]': post_tags_match,
+            'search[original_present]': original_present,
+            'search[translated_present]': translated_present
+            }
+        return self._get('artist_commentaries.json', params)
