@@ -1057,3 +1057,16 @@ class DanbooruApi(object):
         params = {'version_id': version_id}
         return self._get('artist_commentaries/{0}/revert.json'.format(id_),
                          params, method='PUT', auth=True)
+
+    def artist_commentary_version(self, post_id, updater_id):
+        """Return list of artist commentary versions.
+
+        Parameters:
+            updater_id: REQUIRED.
+            post_id: REQUIRED.
+        """
+        params = {
+            'search[updater_id]': updater_id,
+            'search[post_id]': post_id
+            }
+        return self._get('artist_commentary_versions.json', params)
