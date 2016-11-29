@@ -952,3 +952,19 @@ class DanbooruApi(object):
             topic_id: REQUIRED Where topic_id is the forum topic id.
         """
         return self._get('forum_topics/{0}.json'.format(topic_id))
+
+    def forum_topic_create(self, title, body, category):
+        """Function to create topic (Requires login) (UNTESTED).
+
+        Parameters:
+            title: topic title.
+            body: Message of the initial post.
+            category: Can be: 0, 1, 2 (General, Tags, Bugs & Features
+                      respectively).
+        """
+        params = {
+            'forum_topic[title]': title,
+            'forum_topic[original_post_attributes][body]': body,
+            'forum_topic[category_id]': category
+            }
+        return self._get('forum_topics.json', params, method='POST', auth=True)
