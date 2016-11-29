@@ -1028,7 +1028,7 @@ class DanbooruApi(object):
     def artist_commentary_create_update(self, post_id, original_title,
                                         original_description, translated_title,
                                         translated_description):
-        """Create or update artist commentary (Login requires) (UNTESTED).
+        """Create or update artist commentary (Requires login) (UNTESTED).
 
         Parameters:
             post_id: REQUIRED.
@@ -1046,3 +1046,14 @@ class DanbooruApi(object):
             }
         return self._get('artist_commentaries/create_or_update.json', params,
                          method='POST', auth=True)
+
+    def artist_commentary_revert(self, id_, version_id):
+        """Revert artist commentary (Requires login) (UNTESTED).
+
+        Parameters:
+            id_: REQUIRED The artist commentary id.
+            version_id: REQUIRED The artist commentary version id to revert to.
+        """
+        params = {'version_id': version_id}
+        return self._get('artist_commentaries/{0}/revert.json'.format(id_),
+                         params, method='PUT', auth=True)
