@@ -1024,3 +1024,25 @@ class DanbooruApi(object):
             'search[translated_present]': translated_present
             }
         return self._get('artist_commentaries.json', params)
+
+    def artist_commentary_create_update(self, post_id, original_title,
+                                        original_description, translated_title,
+                                        translated_description):
+        """Create or update artist commentary (Login requires) (UNTESTED).
+
+        Parameters:
+            post_id: REQUIRED.
+            original_title:
+            original_description:
+            translated_title:
+            translated_description:
+        """
+        params = {
+            'artist_commentary[post_id]': post_id,
+            'artist_commentary[original_title]': original_title,
+            'artist_commentary[original_description]': original_description,
+            'artist_commentary[translated_title]': translated_title,
+            'artist_commentary[translated_description]': translated_description
+            }
+        return self._get('artist_commentaries/create_or_update.json', params,
+                         method='POST', auth=True)
