@@ -973,6 +973,7 @@ class DanbooruApi(object):
         """Update a specific topic (Login Requires) (UNTESTED).
 
         Parameters:
+            topic_id: REQUIRED Where topic_id is the topic id.
             title: Topic title.
             category: Can be: 0, 1, 2 (General, Tags, Bugs & Features
                       respectively)
@@ -983,3 +984,12 @@ class DanbooruApi(object):
             }
         return self._get('forum_topics/{0}.json'.format(topic_id), params,
                          method='PUT', auth=True)
+
+    def forum_topic_delete(self, topic_id):
+        """Delete a topic (Login Requires) (Moderator+) (UNTESTED).
+
+        Parameters:
+            topic_id: REQUIRED Where topic_id is the topic id.
+        """
+        return self._get('forum_topics/{0}.json'.format(topic_id),
+                         method='DELETE', auth=True)
