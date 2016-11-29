@@ -1092,3 +1092,27 @@ class DanbooruApi(object):
                           id.
         """
         return self._get('wiki_page_versions/{0}.json'.format(wiki_page_id))
+
+    def forum_post_list(self, creator_id=None, creator_name=None,
+                        topic_id=None, topic_title_matches=None,
+                        topic_category_id=None, body_matches=None):
+        """Return a list of forum posts.
+
+        Parameters:
+            creator_id:
+            creator_name:
+            topic_id:
+            topic_title_matches:
+            topic_category_id: Can be: 0, 1, 2 (General, Tags, Bugs & Features
+                               respectively)
+            body_matches:
+        """
+        params = {
+            'search[creator_id]': creator_id,
+            'search[creator_name]': creator_name,
+            'search[topic_id]': topic_id,
+            'search[topic_title_matches]': topic_title_matches,
+            'search[topic_category_id]': topic_category_id,
+            'search[body_matches]': body_matches
+            }
+        return self._get('forum_posts.json', params)
