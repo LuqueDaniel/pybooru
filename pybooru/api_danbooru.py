@@ -18,7 +18,7 @@ from .exceptions import PybooruAPIError
 class DanbooruApi(object):
     """Contains all Danbooru API calls.
 
-    API Versions: v2.105.0
+    API Version: v2.105.0 (77e06b6)
     doc: https://danbooru.donmai.us/wiki_pages/43568
     """
 
@@ -88,7 +88,7 @@ class DanbooruApi(object):
 
     def post_vote(self, id_, score):
         """Action lets you vote for a post (Requires login).
-        Danbooru: Post votes/create
+        Danbooru: Post votes/create.
 
         Parameters:
             id_: REQUIRED Ppost id.
@@ -152,11 +152,26 @@ class DanbooruApi(object):
             id_: REQUIRED The id of the appealed post.
             reason: REQUIRED The reason of the appeal.
         """
-        params = {
-            'post_appeal[post_id]': id_,
-            'post_appeal[reason]': reason
-            }
+        params = {'post_appeal[post_id]': id_, 'post_appeal[reason]': reason}
         return self._get('post_appeals.json', params, 'POST', auth=True)
+
+    def post_versions(self, updater_name=None, updater_id=None,
+                      post_id=None, start_id=None):
+        """Get list of post versions.
+
+        Parameters:
+            updater_name:
+            updater_id:
+            post_id:
+            start_id:
+        """
+        params = {
+            'search[updater_name]': updater_name,
+            'search[updater_id]': updater_id,
+            'search[post_id]': post_id,
+            'search[start_id]': start_id
+            }
+        return self._get('post_versions.json', params)
 
     def upload_list(self, uploader_id=None, uploader_name=None, source=None):
         """Search and eturn a uploads list (Requires login).
@@ -269,22 +284,22 @@ class DanbooruApi(object):
         return self._get('comments/{0}.json'.format(id_), params, 'PUT',
                          auth=True)
 
-    def comment_show(self, id_):
+    def comment_show(self, comment_id):
         """Get a specific comment.
 
         Parameters:
             id_: REQUIRED the id number of the comment to retrieve.
         """
-        return self._get('comments/{0}.json'.format(id_))
+        return self._get('comments/{0}.json'.format(comment_id))
 
-    def comment_delete(self, id_):
+    def comment_delete(self, comment_id):
         """Remove a specific comment (Requires login).
 
         Parameters:
             id_: REQUIRED the id number of the comment to remove.
         """
-        return self._get('comments/{0}.json'.format(id_), method='DELETE',
-                         auth=True)
+        return self._get('comments/{0}.json'.format(comment_id),
+                         method='DELETE', auth=True)
 
     def favorite_list(self, user_id=None):
         """Return a list with favorite posts (Requires login).
@@ -483,6 +498,96 @@ class DanbooruApi(object):
         return self._get('artists/{0}/revert.json'.format(artist_id), params,
                          method='PUT', auth=True)
 
+    def artist_versions(self, name=None, updater_id=None, artist_id=None,
+                        is_active=None, is_banned=None, order=None):
+        """Get list of artist versions.
+
+        Parameters:
+            name:
+            updater_id:
+            artist_id:
+            is_active: Can be: true, false.
+            is_banned: Can be: true, false.
+            order: Can be: name, date.
+        """
+        params = {
+            'search[name]': name,
+            'search[updater_id]': updater_id,
+            'search[artist_id]': artist_id,
+            'search[is_active]': is_active,
+            'search[is_banned]': is_banned,
+            'search[order]': order
+            }
+        return self._get('artist_versions.json', params)
+
+    def artist_commentary_list(self, text_matches=None, post_id=None,
+                               post_tags_match=None, original_present=None,
+                               translated_present=None):
+        """list artist commentary.
+
+        Parameters:
+            text_matches:
+            post_id:
+            post_tags_match: The commentary's post's tags match the given
+                             terms. Meta-tags not supported.
+            original_present: Can be: yes, no
+            translated_present: Can be: yes, no
+        """
+        params = {
+            'search[text_matches]': text_matches,
+            'search[post_id]': post_id,
+            'search[post_tags_match]': post_tags_match,
+            'search[original_present]': original_present,
+            'search[translated_present]': translated_present
+            }
+        return self._get('artist_commentaries.json', params)
+
+    def artist_commentary_create_update(self, post_id, original_title,
+                                        original_description, translated_title,
+                                        translated_description):
+        """Create or update artist commentary (Requires login) (UNTESTED).
+
+        Parameters:
+            post_id: REQUIRED.
+            original_title:
+            original_description:
+            translated_title:
+            translated_description:
+        """
+        params = {
+            'artist_commentary[post_id]': post_id,
+            'artist_commentary[original_title]': original_title,
+            'artist_commentary[original_description]': original_description,
+            'artist_commentary[translated_title]': translated_title,
+            'artist_commentary[translated_description]': translated_description
+            }
+        return self._get('artist_commentaries/create_or_update.json', params,
+                         method='POST', auth=True)
+
+    def artist_commentary_revert(self, id_, version_id):
+        """Revert artist commentary (Requires login) (UNTESTED).
+
+        Parameters:
+            id_: REQUIRED The artist commentary id.
+            version_id: REQUIRED The artist commentary version id to revert to.
+        """
+        params = {'version_id': version_id}
+        return self._get('artist_commentaries/{0}/revert.json'.format(id_),
+                         params, method='PUT', auth=True)
+
+    def artist_commentary_versions(self, post_id, updater_id):
+        """Return list of artist commentary versions.
+
+        Parameters:
+            updater_id: REQUIRED.
+            post_id: REQUIRED.
+        """
+        params = {
+            'search[updater_id]': updater_id,
+            'search[post_id]': post_id
+            }
+        return self._get('artist_commentary_versions.json', params)
+
     def note_list(self, group_by=None, body_matches=None, post_id=None,
                   post_tags_match=None, creator_name=None, creator_id=None):
         """Return list of notes.
@@ -579,6 +684,21 @@ class DanbooruApi(object):
         return self._get('notes/{0}/revert.json'.format(note_id),
                          {'version_id': version_id}, method='PUT', auth=True)
 
+    def note_versions(self, updater_id=None, post_id=None, note_id=None):
+        """Get list of note versions.
+
+        Parameters:
+            updater_id:
+            post_id:
+            note_id:
+        """
+        params = {
+            'search[updater_id]': updater_id,
+            'search[post_id]': post_id,
+            'search[note_id]': note_id
+            }
+        return self._get('note_versions.json', params)
+
     def user_list(self, name=None, min_level=None, max_level=None, level=None,
                   user_id=None, order=None):
         """Function to get a list of users or a specific user.
@@ -616,61 +736,6 @@ class DanbooruApi(object):
             user_id: REQUIRED Where user_id is the user id.
         """
         return self._get('users/{0}.json'.format(user_id))
-
-    def post_versions(self, updater_name=None, updater_id=None,
-                           post_id=None, start_id=None):
-        """Get list of post versions.
-
-        Parameters:
-            updater_name:
-            updater_id:
-            post_id:
-            start_id:
-        """
-        params = {
-            'search[updater_name]': updater_name,
-            'search[updater_id]': updater_id,
-            'search[post_id]': post_id,
-            'search[start_id]': start_id
-            }
-        return self._get('post_versions.json', params)
-
-    def note_versions(self, updater_id=None, post_id=None, note_id=None):
-        """Get list of note versions.
-
-        Parameters:
-            updater_id:
-            post_id:
-            note_id:
-        """
-        params = {
-            'search[updater_id]': updater_id,
-            'search[post_id]': post_id,
-            'search[note_id]': note_id
-            }
-        return self._get('note_versions.json', params)
-
-    def artist_versions(self, name=None, updater_id=None, artist_id=None,
-                        is_active=None, is_banned=None, order=None):
-        """Get list of artist versions.
-
-        Parameters:
-            name:
-            updater_id:
-            artist_id:
-            is_active: Can be: true, false.
-            is_banned: Can be: true, false.
-            order: Can be: name, date.
-        """
-        params = {
-            'search[name]': name,
-            'search[updater_id]': updater_id,
-            'search[artist_id]': artist_id,
-            'search[is_active]': is_active,
-            'search[is_banned]': is_banned,
-            'search[order]': order
-            }
-        return self._get('artist_versions.json', params)
 
     def pool_list(self, name_matches=None, description_matches=None,
                   creator_name=None, creator_id=None, is_active=None,
@@ -928,6 +993,28 @@ class DanbooruApi(object):
         return self._get('wiki_pages/{0}/revert.json'.format(page_id),
                          {'version_id': version_id}, method='PUT', auth=True)
 
+    def wiki_versions(self, wiki_page_id, updater_id):
+        """Return a list of wiki page version.
+
+        Parameters:
+            updater_id: REQUIRED.
+            wiki_page_id: REQUIRED.
+        """
+        params = {
+            'earch[updater_id]': updater_id,
+            'search[wiki_page_id]': wiki_page_id
+            }
+        return self._get('wiki_page_versions.json', params)
+
+    def wiki_versions_show(self, wiki_page_id):
+        """Return a specific wiki page version.
+
+        Parameters:
+            wiki_page_id: REQUIRED Where wiki_page_id is the wiki page version
+                          id.
+        """
+        return self._get('wiki_page_versions/{0}.json'.format(wiki_page_id))
+
     def forum_topic_list(self, title_matches=None, title=None,
                          category_id=None):
         """Function to get forum topics.
@@ -1002,96 +1089,6 @@ class DanbooruApi(object):
         """
         return self._get('forum_topics/{0}/undelete.json'.format(topic_id),
                          method='POST', auth=True)
-
-    def artist_commentary_list(self, text_matches=None, post_id=None,
-                               post_tags_match=None, original_present=None,
-                               translated_present=None):
-        """list artist commentary.
-
-        Parameters:
-            text_matches:
-            post_id:
-            post_tags_match: The commentary's post's tags match the given
-                             terms. Meta-tags not supported.
-            original_present: Can be: yes, no
-            translated_present: Can be: yes, no
-        """
-        params = {
-            'search[text_matches]': text_matches,
-            'search[post_id]': post_id,
-            'search[post_tags_match]': post_tags_match,
-            'search[original_present]': original_present,
-            'search[translated_present]': translated_present
-            }
-        return self._get('artist_commentaries.json', params)
-
-    def artist_commentary_create_update(self, post_id, original_title,
-                                        original_description, translated_title,
-                                        translated_description):
-        """Create or update artist commentary (Requires login) (UNTESTED).
-
-        Parameters:
-            post_id: REQUIRED.
-            original_title:
-            original_description:
-            translated_title:
-            translated_description:
-        """
-        params = {
-            'artist_commentary[post_id]': post_id,
-            'artist_commentary[original_title]': original_title,
-            'artist_commentary[original_description]': original_description,
-            'artist_commentary[translated_title]': translated_title,
-            'artist_commentary[translated_description]': translated_description
-            }
-        return self._get('artist_commentaries/create_or_update.json', params,
-                         method='POST', auth=True)
-
-    def artist_commentary_revert(self, id_, version_id):
-        """Revert artist commentary (Requires login) (UNTESTED).
-
-        Parameters:
-            id_: REQUIRED The artist commentary id.
-            version_id: REQUIRED The artist commentary version id to revert to.
-        """
-        params = {'version_id': version_id}
-        return self._get('artist_commentaries/{0}/revert.json'.format(id_),
-                         params, method='PUT', auth=True)
-
-    def artist_commentary_versions(self, post_id, updater_id):
-        """Return list of artist commentary versions.
-
-        Parameters:
-            updater_id: REQUIRED.
-            post_id: REQUIRED.
-        """
-        params = {
-            'search[updater_id]': updater_id,
-            'search[post_id]': post_id
-            }
-        return self._get('artist_commentary_versions.json', params)
-
-    def wiki_versions(self, wiki_page_id, updater_id):
-        """Return a list of wiki page version.
-
-        Parameters:
-            updater_id: REQUIRED.
-            wiki_page_id: REQUIRED.
-        """
-        params = {
-            'earch[updater_id]': updater_id,
-            'search[wiki_page_id]': wiki_page_id
-            }
-        return self._get('wiki_page_versions.json', params)
-
-    def wiki_versions_show(self, wiki_page_id):
-        """Return a specific wiki page version.
-
-        Parameters:
-            wiki_page_id: REQUIRED Where wiki_page_id is the wiki page version
-                          id.
-        """
-        return self._get('wiki_page_versions/{0}.json'.format(wiki_page_id))
 
     def forum_post_list(self, creator_id=None, creator_name=None,
                         topic_id=None, topic_title_matches=None,
