@@ -1149,3 +1149,13 @@ class DanbooruApi(object):
         """
         return self._get('forum_posts/{0}.json'.format(post_id),
                          method='DELETE', auth=True)
+
+    def forum_post_undelete(self, post_id):
+        """Undelete a specific forum post (Requires login) (Moderator+)
+           (UNTESTED).
+
+        Parameters:
+            post_id: REQUIRED forum post id.
+        """
+        return self._get('forum_posts/{0}/undelete.json'.format(post_id),
+                         method='POST', auth=True)
