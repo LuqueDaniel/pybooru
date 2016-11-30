@@ -17,12 +17,12 @@ import hashlib
 
 # Pybooru imports
 from .pybooru import Pybooru
-from .api_moebooru import MoebooruApi
+from .api_moebooru import MoebooruApi_Mixin
 from .exceptions import PybooruError
 from .resources import SITE_LIST
 
 
-class Moebooru(Pybooru, MoebooruApi):
+class Moebooru(Pybooru, MoebooruApi_Mixin):
     """Moebooru class (inherits: Pybooru and MoebooruApi).
 
     To initialize Pybooru, you need to specify one of these two

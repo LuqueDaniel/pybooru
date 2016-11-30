@@ -15,7 +15,7 @@ from __future__ import absolute_import
 from .exceptions import PybooruAPIError
 
 
-class DanbooruApi(object):
+class DanbooruApi_Mixin(object):
     """Contains all Danbooru API calls.
 
     API Version: v2.105.0 (77e06b6)

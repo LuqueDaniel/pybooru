@@ -11,11 +11,11 @@ Classes:
 
 # Pybooru imports
 from .pybooru import Pybooru
-from .api_danbooru import DanbooruApi
+from .api_danbooru import DanbooruApi_Mixin
 from .exceptions import PybooruError
 
 
-class Danbooru(Pybooru, DanbooruApi):
+class Danbooru(Pybooru, DanbooruApi_Mixin):
     """Danbooru class (inherits: Pybooru and DanbooruApi).
 
     To initialize Pybooru, you need to specify one of these two
