@@ -1121,8 +1121,8 @@ class DanbooruApi(object):
         """Create a forum post (Requires login).
 
         Parameters:
-            topic_id:
-            body:
+            topic_id: REQUIRED.
+            body: REQUIRED.
         """
         params = {
             'forum_post[topic_id]': topic_id,
@@ -1131,7 +1131,7 @@ class DanbooruApi(object):
         return self._get('forum_posts.json', params, method='POST', auth=True)
 
     def forum_post_update(self, topic_id, body):
-        """Update a specific forum post (Requries login) (UNTESTED).
+        """Update a specific forum post (Requries login)(Moderator+)(UNTESTED).
 
         Parameters:
             post_id: REQUIRED Forum topic id.
@@ -1140,3 +1140,12 @@ class DanbooruApi(object):
         params = {'forum_post[body]': body}
         return self._get('forum_posts/{0}.json'.format(topic_id), params,
                          method='PUT', auth=True)
+
+    def forum_post_delete(self, post_id):
+        """Delete a specific forum post (Requires login)(Moderator+)(UNTESTED).
+
+        Parameters:
+            post_id: REQUIRED forum post id.
+        """
+        return self._get('forum_posts/{0}.json'.format(post_id),
+                         method='DELETE', auth=True)
