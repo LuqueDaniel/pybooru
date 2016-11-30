@@ -13,8 +13,8 @@ Classes:
 from __future__ import absolute_import
 
 # External imports
-import requests
 import re
+import requests
 
 # pybooru imports
 from . import __version__
