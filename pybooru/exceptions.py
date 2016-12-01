@@ -33,12 +33,11 @@ class PybooruHTTPError(PybooruError):
             http_code: The HTTP status code.
             url: The URL.
         """
+        super(PybooruHTTPError, self).__init__(msg, http_code, url)
         if http_code in HTTP_STATUS_CODE and url is not None:
             msg = "{0}: {1} - {2}, {3} - URL: {4}".format(
                 msg, http_code, HTTP_STATUS_CODE[http_code][0],
                 HTTP_STATUS_CODE[http_code][1], url)
-
-        super(PybooruHTTPError, self).__init__(msg)
 
 
 class PybooruAPIError(PybooruError):

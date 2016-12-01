@@ -61,7 +61,7 @@ class Danbooru(Pybooru, DanbooruApi_Mixin):
             api_call: API function to be called.
             params: API function parameters.
             method: (Defauld: GET) HTTP method (GET, POST, PUT or DELETE)
-            file_: File to upload (only in uploads).
+            file_: File to upload (only uploads).
         """
         url = "{0}/{1}".format(self.site_url, api_call)
 

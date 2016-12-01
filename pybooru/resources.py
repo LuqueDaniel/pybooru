@@ -29,6 +29,9 @@ SITE_LIST = {
 # HTTP_STATUS_CODE
 HTTP_STATUS_CODE = {
     200: ("OK", "Request was successful"),
+    400: ("Bad request", "The server cannot or will not process the request"),
+    401: ("Unauthorized", "Authentication is required and has failed or has \
+          not yet been provided."),
     403: ("Forbidden", "Access denied"),
     404: ("Not Found", "Not found"),
     420: ("Invalid Record", "Record could not be saved"),
