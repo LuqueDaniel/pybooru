@@ -2,10 +2,10 @@
 
 """pybooru.api_moebooru
 
-This module contains all API calls of Moebooru for Pybooru.
+This module contains all API calls of Moebooru.
 
 Classes:
-    MoebooruApi -- Contains all API calls.
+    MoebooruApi_Mixin -- Contains all API calls.
 """
 
 # __future__ imports
@@ -72,16 +72,16 @@ class MoebooruApi_Mixin(object):
         else:
             raise PybooruAPIError("'file_' or 'source' is required.")
 
-    def post_update(self, id_, tags=None, file_=None, rating=None,
+    def post_update(self, post_id, tags=None, file_=None, rating=None,
                     source=None, is_rating_locked=None, is_note_locked=None,
                     parent_id=None):
         """Update a specific post.
 
-        Only the 'id_' parameter is required. Leave the other parameters blank
-        if you don't want to change them (Requires login).
+        Only the 'post_id' parameter is required. Leave the other parameters
+        blank if you don't want to change them (Requires login).
 
         Parameters:
-            id_: The id number of the post to update.
+            post_id: The id number of the post to update.
             tags: A space delimited list of tags. Specify previous tags.
             file_: The file data ENCODED as a multipart form.
             rating: The rating for the post. Can be: safe, questionable, or
@@ -93,7 +93,7 @@ class MoebooruApi_Mixin(object):
             parent_id: The ID of the parent post.
         """
         params = {
-            'id': id_,
+            'id': post_id,
             'post[tags]': tags,
             'post[rating]': rating,
             'post[source]': source,
@@ -107,33 +107,33 @@ class MoebooruApi_Mixin(object):
         else:
             return self._get('post/update', params, 'PUT')
 
-    def post_destroy(self, id_):
+    def post_destroy(self, post_id):
         """Function to destroy a specific post.
 
         You must also be the user who uploaded the post (or you must be a
         moderator) (Requires Login) (UNTESTED).
 
         Parameters:
-            id_: The id number of the post to delete.
+            Post_id: The id number of the post to delete.
         """
-        return self._get('post/destroy', {'id': id_}, 'DELETE')
+        return self._get('post/destroy', {'id': post_id}, 'DELETE')
 
-    def post_revert_tags(self, id_, history_id):
+    def post_revert_tags(self, post_id, history_id):
         """Function to reverts a post to a previous set of tags
         (Requires login) (UNTESTED).
 
         Parameters:
-            id_: The post id number to update.
+            post_id: The post id number to update.
             history_id: The id number of the tag history.
         """
-        params = {'id': id_, 'history_id': history_id}
+        params = {'id': post_id, 'history_id': history_id}
         return self._get('post/revert_tags', params, 'PUT')
 
-    def post_vote(self, id_, score):
+    def post_vote(self, post_id, score):
         """Action lets you vote for a post (Requires login).
 
         Parameters:
-            id_: The post id.
+            post_id: The post id.
             score:
                 0: No voted or Remove vote.
                 1: Good.
@@ -141,7 +141,7 @@ class MoebooruApi_Mixin(object):
                 3: Favorite, add post to favorites.
         """
         if score <= 3:
-            params = {'id': id_, 'score': score}
+            params = {'id': post_id, 'score': score}
             return self._get('post/vote', params, 'POST')
         else:
             raise PybooruAPIError("Value of 'score' only can be 0, 1, 2 or 3.")
@@ -220,14 +220,15 @@ class MoebooruApi_Mixin(object):
             }
         return self._get('artist/create', params, 'POST')
 
-    def artist_update(self, id_, name=None, urls=None, alias=None, group=None):
+    def artist_update(self, artist_id, name=None, urls=None, alias=None,
+                      group=None):
         """Function to update artists (Requires Login).
 
-        Only the id_ parameter is required. The other parameters are optional.
-        (Requires login) (UNTESTED).
+        Only the artist_id parameter is required. The other parameters are
+        optional. (Requires login) (UNTESTED).
 
         Parameters:
-            id_: The id of thr artist to update (Type: INT).
+            artist_id: The id of thr artist to update (Type: INT).
             name: The artist's name.
             urls: A list of URLs associated with the artist, whitespace
                   delimited.
@@ -237,7 +238,7 @@ class MoebooruApi_Mixin(object):
                    enter the group's name.
         """
         params = {
-            'id': id_,
+            'id': artist_id,
             'artist[name]': name,
             'artist[urls]': urls,
             'artist[alias]': alias,
@@ -245,21 +246,21 @@ class MoebooruApi_Mixin(object):
             }
         return self._get('artist/update', params, 'PUT')
 
-    def artist_destroy(self, id_):
+    def artist_destroy(self, artist_id):
         """Action to lets you remove artist (Requires login) (UNTESTED).
 
         Parameters:
-            id_: The id of the artist to destroy.
+            artist_id: The id of the artist to destroy.
         """
-        return self._get('artist/destroy', {'id': id_}, 'POST')
+        return self._get('artist/destroy', {'id': artist_id}, 'POST')
 
-    def comment_show(self, id_):
+    def comment_show(self, comment_id):
         """Get a specific comment.
 
         Parameters:
-            id_: The id number of the comment to retrieve.
+            comment_id: The id number of the comment to retrieve.
         """
-        return self._get('comment/show', {'id': id_})
+        return self._get('comment/show', {'id': comment_id})
 
     def comment_create(self, post_id, comment_body, anonymous=None):
         """Action to lets you create a comment (Requires login).
@@ -280,13 +281,13 @@ class MoebooruApi_Mixin(object):
             raise PybooruAPIError("Required 'post_id' and 'comment_body' "
                                   "parameters")
 
-    def comment_destroy(self, id_):
+    def comment_destroy(self, comment_id):
         """Remove a specific comment (Requires login).
 
         Parameters:
-            id_: The id number of the comment to remove.
+            comment_id: The id number of the comment to remove.
         """
-        return self._get('comment/destroy', {'id': id_}, 'DELETE')
+        return self._get('comment/destroy', {'id': comment_id}, 'DELETE')
 
     def wiki_list(self, **params):
         """Function to retrieves a list of every wiki page.
@@ -399,25 +400,25 @@ class MoebooruApi_Mixin(object):
 
         Parameters:
             post_id: The post id number to retrieve note versions for.
-            id_: The note id number to retrieve versions for.
+            id: The note id number to retrieve versions for.
             limit: How many versions to retrieve (Default: 10).
             page: The note id number to retrieve versions for.
         """
         return self._get('note/history', params)
 
-    def note_revert(self, id_, version):
+    def note_revert(self, note_id, version):
         """Function to revert a specific note (Requires login) (UNTESTED).
 
         Parameters:
-            id: The note id to update.
+            note_id: The note id to update.
             version: The version to revert to.
         """
-        params = {'id': id_, 'version': version}
+        params = {'id': note_id, 'version': version}
         return self._get('note/revert', params, 'PUT')
 
     def note_create_update(self, post_id=None, coor_x=None, coor_y=None,
                            width=None, height=None, is_active=None, body=None,
-                           id_=None):
+                           note_id=None):
         """Function to create or update note (Requires login) (UNTESTED).
 
         Parameters:
@@ -429,11 +430,11 @@ class MoebooruApi_Mixin(object):
             is_active: Whether or not the note is visible. Set to 1 for
                        active, 0 for inactive.
             body: The note message.
-            id_: If you are updating a note, this is the note id number to
-                 update.
+            note_id: If you are updating a note, this is the note id number to
+                     update.
         """
         params = {
-            'id': id_,
+            'id': note_id,
             'note[post]': post_id,
             'note[x]': coor_x,
             'note[y]': coor_y,
@@ -488,18 +489,18 @@ class MoebooruApi_Mixin(object):
         """
         return self._get('pool/show', params)
 
-    def pool_update(self, id_, name=None, is_public=None,
+    def pool_update(self, pool_id, name=None, is_public=None,
                     description=None):
         """Function to update a pool (Requires login) (UNTESTED).
 
         Parameters:
-            id_: The pool id number.
+            pool_id: The pool id number.
             name: The name.
             is_public: 1 or 0, whether or not the pool is public.
             description: A description of the pool.
         """
         params = {
-            'id': id_,
+            'id': pool_id,
             'pool[name]': name,
             'pool[is_public]': is_public,
             'pool[description]': description
@@ -518,13 +519,13 @@ class MoebooruApi_Mixin(object):
                   'pool[is_public]': is_public}
         return self._get('pool/create', params, 'POST')
 
-    def pool_destroy(self, id_):
+    def pool_destroy(self, pool_id):
         """Function to destroy a specific pool (Require login) (UNTESTED).
 
         Parameters:
-            id_: The pool id number.
+            pool_id: The pool id number.
         """
-        return self._get('pool/destroy', {'id': id_}, 'DELETE')
+        return self._get('pool/destroy', {'id': pool_id}, 'DELETE')
 
     def pool_add_post(self, **params):
         """Function to add a post (Require login) (UNTESTED).
@@ -544,13 +545,13 @@ class MoebooruApi_Mixin(object):
         """
         return self._get('pool/remove_post', params, 'PUT')
 
-    def favorite_list_users(self, id_):
+    def favorite_list_users(self, post_id):
         """Function to return a list with all users who have added to favorites
         a specific post.
 
         Parameters:
-            id_: The post id.
+            post_id: The post id.
         """
-        response = self._get('favorite/list_users', {'id': id_})
+        response = self._get('favorite/list_users', {'id': post_id})
         # Return list with users
         return response['favorited_users'].split(',')
