@@ -5,6 +5,7 @@ __pycache__
 
 # ignore test file
 pro.py
+test.json
 
 # build/dist files
 build/
