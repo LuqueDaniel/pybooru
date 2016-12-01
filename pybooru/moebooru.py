@@ -23,7 +23,7 @@ from .resources import SITE_LIST
 
 
 class Moebooru(Pybooru, MoebooruApi_Mixin):
-    """Moebooru class (inherits: Pybooru and MoebooruApi).
+    """Moebooru class (inherits: Pybooru and MoebooruApi_Mixin).
 
     To initialize Pybooru, you need to specify one of these two
     parameters: 'site_name' or 'site_url'. If you specify 'site_name', Pybooru
@@ -121,6 +121,7 @@ class Moebooru(Pybooru, MoebooruApi_Mixin):
             if self.password_hash is None:
                 self._build_hash_string()
 
+            # Set login
             params['login'] = self.username
             params['password_hash'] = self.password_hash
             request_args = {'data': params, 'files': file_}
