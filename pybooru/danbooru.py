@@ -2,11 +2,11 @@
 
 """pybooru.danbooru
 
-This module contains Danbooru class for access to API calls,
-authentication, build url and return JSON response.
+This module contains Danbooru class for access to API calls, authentication,
+build url and return JSON response.
 
 Classes:
-   Danbooru -- Danbooru classs.
+   Danbooru -- Danbooru main classs.
 """
 
 # Pybooru imports
@@ -16,7 +16,7 @@ from .exceptions import PybooruError
 
 
 class Danbooru(Pybooru, DanbooruApi_Mixin):
-    """Danbooru class (inherits: Pybooru and DanbooruApi).
+    """Danbooru class (inherits: Pybooru and DanbooruApi_Mixin).
 
     To initialize Pybooru, you need to specify one of these two
     parameters: 'site_name' or 'site_url'. If you specify 'site_name', Pybooru
@@ -27,8 +27,7 @@ class Danbooru(Pybooru, DanbooruApi_Mixin):
     'site_url' parameter and specify url.
 
     Some actions may require you to log in. always specify two parameters to
-    log in: 'username' and 'api_key'. Default sites has an
-    associate API key.
+    log in: 'username' and 'api_key'.
 
     Attributes:
         site_name: Return site name.
@@ -39,6 +38,16 @@ class Danbooru(Pybooru, DanbooruApi_Mixin):
     """
 
     def __init__(self, site_name="", site_url="", username="", api_key=""):
+        """Initialize Danbooru.
+
+        Keyword arguments:
+            site_name: The site name in 'SITE_LIST', default sites.
+            site_url: URL of on Moebooru based sites.
+            username: Your username of the site (Required only for functions
+                      that modify the content).
+            api_key: Your api key of the site (Required only for
+                     functions that modify the content).
+        """
         super(Danbooru, self).__init__(site_name, site_url, username)
 
         if api_key is not "":
@@ -46,6 +55,14 @@ class Danbooru(Pybooru, DanbooruApi_Mixin):
 
     def _get(self, api_call, params=None, method='GET', auth=False,
              file_=None):
+        """Function to preapre API call.
+
+        Parameters:
+            api_call: API function to be called.
+            params: API function parameters.
+            method: (Defauld: GET) HTTP method (GET, POST, PUT or DELETE)
+            file_: File to upload (only in uploads).
+        """
         url = "{0}/{1}".format(self.site_url, api_call)
 
         if method == 'GET':
