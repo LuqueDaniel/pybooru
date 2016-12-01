@@ -2,10 +2,10 @@
 
 """pybooru.api_danbooru
 
-This module contains all API calls of Danbooru for Pybooru.
+This module contains all API calls of Danbooru.
 
 Classes:
-    Danbooru -- Contains all API calls.
+    DanbooruApi_Mixin -- Contains all API calls.
 """
 
 # __future__ imports
@@ -37,20 +37,20 @@ class DanbooruApi_Mixin(object):
         """
         return self._get('posts.json', params)
 
-    def post_show(self, id_):
+    def post_show(self, post_id):
         """Get a post.
 
         Parameters:
-            id_: REQUIRED Where id_ is the post id.
+            post_id: REQUIRED Where post_id is the post id.
         """
-        return self._get('/posts/{0}.json'.format(id_))
+        return self._get('/posts/{0}.json'.format(post_id))
 
-    def post_update(self, id_, tag_string=None, rating=None, source=None,
+    def post_update(self, post_id, tag_string=None, rating=None, source=None,
                     parent_id=None):
         """Update a specific post (Requires login).
 
         Parameters:
-            id_: REQUIRED The id number of the post to update.
+            post_id: REQUIRED The id number of the post to update.
             tag_string: A space delimited list of tags.
             rating: The rating for the post. Can be: safe, questionable, or
                     explicit.
@@ -63,39 +63,39 @@ class DanbooruApi_Mixin(object):
             'ost[source]': source,
             'post[parent_id]': parent_id
             }
-        return self._get('/posts/{0}.json'.format(id_), params, 'PUT',
+        return self._get('/posts/{0}.json'.format(post_id), params, 'PUT',
                          auth=True)
 
-    def post_revert(self, id_, version_id):
+    def post_revert(self, post_id, version_id):
         """Function to reverts a post to a previous version (Requires login).
 
         Parameters:
-            id_: REQUIRED post id.
+            post_id: REQUIRED post id.
             version_id: REQUIRED The post version id to revert to.
         """
-        return self._get('/posts/{0}/revert.json'.format(id_),
+        return self._get('/posts/{0}/revert.json'.format(post_id),
                          {'version_id': version_id}, 'PUT', auth=True)
 
-    def post_copy_notes(self, id_, other_post_id):
+    def post_copy_notes(self, post_id, other_post_id):
         """Function to copy notes (requires login).
 
         Parameters:
-            id_: REQUIRED Post id.
+            post_id: REQUIRED Post id.
             other_post_id: REQUIRED The id of the post to copy notes to.
         """
-        return self._get('/posts/{0}/copy_notes.json'.format(id_),
+        return self._get('/posts/{0}/copy_notes.json'.format(post_id),
                          {'other_post_id': other_post_id}, 'PUT', auth=True)
 
-    def post_vote(self, id_, score):
+    def post_vote(self, post_id, score):
         """Action lets you vote for a post (Requires login).
         Danbooru: Post votes/create.
 
         Parameters:
-            id_: REQUIRED Ppost id.
+            post_id: REQUIRED Ppost id.
             score: REQUIRED Can be: up, down.
         """
-        return self._get('/posts/{0}/votes.json'.format(id_), {'score': score},
-                         'POST', auth=True)
+        return self._get('/posts/{0}/votes.json'.format(post_id),
+                         {'score': score}, 'POST', auth=True)
 
     def post_flag_list(self, creator_id=None, creator_name=None, post_id=None,
                        reason_matches=None, is_resolved=None, category=None):
@@ -119,14 +119,14 @@ class DanbooruApi_Mixin(object):
             }
         return self._get('post_flags.json', params, auth=True)
 
-    def post_flag_create(self, id_, reason):
+    def post_flag_create(self, post_id, reason):
         """Function to flag a post.
 
         Parameters:
-            id_: REQUIRED The id of the flagged post.
+            post_id: REQUIRED The id of the flagged post.
             reason: REQUIRED The reason of the flagging.
         """
-        params = {'post_flag[post_id]': id_, 'post_flag[reason]': reason}
+        params = {'post_flag[post_id]': post_id, 'post_flag[reason]': reason}
         return self._get('post_flags.json', params, 'POST', auth=True)
 
     def post_appeals_list(self, creator_id=None, creator_name=None,
@@ -145,14 +145,15 @@ class DanbooruApi_Mixin(object):
             }
         return self._get('post_appeals.json', params, auth=True)
 
-    def post_appeals_create(self, id_, reason):
+    def post_appeals_create(self, post_id, reason):
         """Function to create appeals (Requires login).
 
         Parameters:
-            id_: REQUIRED The id of the appealed post.
+            post_id: REQUIRED The id of the appealed post.
             reason: REQUIRED The reason of the appeal.
         """
-        params = {'post_appeal[post_id]': id_, 'post_appeal[reason]': reason}
+        params = {'post_appeal[post_id]': post_id,
+                  'post_appeal[reason]': reason}
         return self._get('post_appeals.json', params, 'POST', auth=True)
 
     def post_versions(self, updater_name=None, updater_id=None,
@@ -268,11 +269,11 @@ class DanbooruApi_Mixin(object):
             }
         return self._get('comments.json', params, 'POST', auth=True)
 
-    def comment_update(self, id_, body, do_not_bump_post=None):
+    def comment_update(self, comment_id, body, do_not_bump_post=None):
         """Function to update a comment (Requires login).
 
         Parameters:
-            id_: REQUIRED comment id.
+            comment_id: REQUIRED comment id.
             body: REQUIRED.
             do_not_bump_post: Set to 1 if you do not want the post to be bumped
                               to the top of the comment listing.
@@ -281,14 +282,14 @@ class DanbooruApi_Mixin(object):
             'comment[body]': body,
             'comment[do_not_bump_post]': do_not_bump_post
             }
-        return self._get('comments/{0}.json'.format(id_), params, 'PUT',
+        return self._get('comments/{0}.json'.format(comment_id), params, 'PUT',
                          auth=True)
 
     def comment_show(self, comment_id):
         """Get a specific comment.
 
         Parameters:
-            id_: REQUIRED the id number of the comment to retrieve.
+            comment_id: REQUIRED the id number of the comment to retrieve.
         """
         return self._get('comments/{0}.json'.format(comment_id))
 
@@ -296,7 +297,7 @@ class DanbooruApi_Mixin(object):
         """Remove a specific comment (Requires login).
 
         Parameters:
-            id_: REQUIRED the id number of the comment to remove.
+            comment_id: REQUIRED the id number of the comment to remove.
         """
         return self._get('comments/{0}.json'.format(comment_id),
                          method='DELETE', auth=True)
@@ -943,13 +944,13 @@ class DanbooruApi_Mixin(object):
             }
         return self._get('wiki_pages.json', params)
 
-    def wiki_show(self, page_id):
+    def wiki_show(self, wiki_page_id):
         """Retrieve a specific page of the wiki.
 
         Parameters:
-            page_id: REQUIRED Where page_id is the wiki page id.
+            wiki_page_id: REQUIRED Where page_id is the wiki page id.
         """
-        return self._get('wiki_pages/{0}.json'.format(page_id))
+        return self._get('wiki_pages/{0}.json'.format(wiki_page_id))
 
     def wiki_create(self, title, body, other_names=None):
         """Action to lets you create a wiki page (Requires login) (UNTESTED).
@@ -966,11 +967,12 @@ class DanbooruApi_Mixin(object):
             }
         return self._get('wiki_pages.json', params, method='POST', auth=True)
 
-    def wiki_update(self, page_id, title=None, body=None, other_names=None):
+    def wiki_update(self, wiki_page_id, title=None, body=None,
+                    other_names=None):
         """Action to lets you update a wiki page (Requires login) (UNTESTED).
 
         Parameters:
-            page_id: REQURIED Whre page_id is the wiki page id.
+            wiki_page_id: REQURIED Whre page_id is the wiki page id.
             title:
             body:
             other_names:
@@ -980,25 +982,25 @@ class DanbooruApi_Mixin(object):
             'wiki_page[body]': body,
             'wiki_page[other_names]': other_names
             }
-        return self._get('wiki_pages/{0}.json'.format(page_id), params,
+        return self._get('wiki_pages/{0}.json'.format(wiki_page_id), params,
                          method='PUT', auth=True)
 
-    def wiki_revert(self, page_id, version_id):
+    def wiki_revert(self, wiki_page_id, version_id):
         """Revert page to a previeous version (Requires login) (UNTESTED).
 
         Parameters:
-            page_id: REQUIRED Where page_id is the wiki page id.
+            wiki_page_id: REQUIRED Where page_id is the wiki page id.
             version_id REQUIRED.
         """
-        return self._get('wiki_pages/{0}/revert.json'.format(page_id),
+        return self._get('wiki_pages/{0}/revert.json'.format(wiki_page_id),
                          {'version_id': version_id}, method='PUT', auth=True)
 
     def wiki_versions(self, wiki_page_id, updater_id):
         """Return a list of wiki page version.
 
         Parameters:
-            updater_id: REQUIRED.
             wiki_page_id: REQUIRED.
+            updater_id: REQUIRED.
         """
         params = {
             'earch[updater_id]': updater_id,
