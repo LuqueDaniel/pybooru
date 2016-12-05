@@ -28,7 +28,7 @@ class PybooruHTTPError(PybooruError):
     def __init__(self, msg, http_code, url):
         """Initialize PybooruHTTPError.
 
-        Keyword arguments::
+        Keyword arguments:
             msg: The error message.
             http_code: The HTTP status code.
             url: The URL.

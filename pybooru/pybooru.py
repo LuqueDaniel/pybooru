@@ -6,7 +6,7 @@ This module contains pybooru main class for access to API calls,
 authentication and return JSON response.
 
 Classes:
-   Pybooru -- Main pybooru classs, define Pybooru object.
+   _Pybooru -- Main pybooru classs, define Pybooru object and do requests.
 """
 
 # __furute__ imports
@@ -22,7 +22,7 @@ from .exceptions import (PybooruError, PybooruHTTPError)
 from .resources import (SITE_LIST, HTTP_STATUS_CODE)
 
 
-class Pybooru(object):
+class _Pybooru(object):
     """Pybooru main class.
 
     Attributes:

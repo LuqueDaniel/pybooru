@@ -16,13 +16,13 @@ from __future__ import absolute_import
 import hashlib
 
 # Pybooru imports
-from .pybooru import Pybooru
+from .pybooru import _Pybooru
 from .api_moebooru import MoebooruApi_Mixin
 from .exceptions import PybooruError
 from .resources import SITE_LIST
 
 
-class Moebooru(Pybooru, MoebooruApi_Mixin):
+class Moebooru(_Pybooru, MoebooruApi_Mixin):
     """Moebooru class (inherits: Pybooru and MoebooruApi_Mixin).
 
     To initialize Pybooru, you need to specify one of these two
