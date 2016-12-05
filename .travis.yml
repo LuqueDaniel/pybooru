@@ -26,7 +26,8 @@ install:
 
 before_script:
     # Remove python binary files
-    - sudo ./tools/remove_binary.sh
+    - rm --recursive --force --verbose *.py[cod]
+    - rm --recursive --force --verbose pybooru/__pycache__
     # Run pylint
     - pylint --errors-only --rcfile=.pylintrc pybooru/
 
