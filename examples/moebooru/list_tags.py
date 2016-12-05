@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from pybooru import Pybooru
+from pybooru import Moebooru
 
-client = Pybooru('Konachan')
-
-tags = client.tags_list(None, None, 100, 0, 'date')
+client = Moebooru('Konachan')
+tags = client.tag_list(order='name')
 
 for tag in tags:
     print("Nombre: {0} ----- {1}".format(tag['name'], tag['type']))
