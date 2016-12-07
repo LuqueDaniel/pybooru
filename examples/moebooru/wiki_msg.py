@@ -6,4 +6,4 @@ client = Moebooru('yandere')
 wiki = client.wiki_list(query='nice', order='date', limit=2, page=1)
 
 for msg in wiki:
-    print("Mensaje: {0}".format(msg['body']))
+    print("Message: {0}".format(msg['body']))

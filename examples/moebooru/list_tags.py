@@ -6,4 +6,4 @@ client = Moebooru('Konachan')
 tags = client.tag_list(order='name')
 
 for tag in tags:
-    print("Nombre: {0} ----- {1}".format(tag['name'], tag['type']))
+    print("Tag: {0} ----- {1}".format(tag['name'], tag['type']))

@@ -9,12 +9,12 @@ client = Moebooru(site_name='Konachan')
 
 # wiki = client.wiki_list(query='nice', order='date')
 # for msg in wiki:
-#    print("Mensaje: {0}".format(msg['body']))
+#    print("Message: {0}".format(msg['body']))
 
 # posts = client.post_list(tags='blue_eyes', limit=2)
 # for post in posts:
-#    print("URL imagen: {0}".format(post['file_url']))
+#    print("Image URL: {0}".format(post['file_url']))
 
 # tags = client.tag_list()
 # for tag in tags:
-#    print("Nombre: {0} ----- {1}".format(tag['name'], tag['type']))
+#    print("Tag: {0} ----- {1}".format(tag['name'], tag['type']))

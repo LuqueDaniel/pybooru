@@ -6,4 +6,4 @@ client = Moebooru('Konachan')
 posts = client.post_list(tags='blue_eyes', limit=10)
 
 for post in posts:
-    print("URL imagen: {0}".format(post['file_url']))
+    print("URL image: {0}".format(post['file_url']))
