@@ -21,7 +21,7 @@ Examples of use
         print("Name: {0}".format(artist['name']))
 ..
 
-See more examples of Danbooru and Moebooru: https://github.com/LuqueDaniel/pybooru/tree/develop/examples
+See more examples of `Danbooru <https://github.com/LuqueDaniel/pybooru/tree/develop/examples/danbooru>`_ and `Moebooru <https://github.com/LuqueDaniel/pybooru/tree/develop/examples/moebooru>`_.
 
 Changelog
 ---------
