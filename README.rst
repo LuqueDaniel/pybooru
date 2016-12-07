@@ -1,27 +1,26 @@
-Pybooru - Library for Danbooru/Moebooru API.
+Pybooru - Package for Danbooru/Moebooru API.
 ============================================
-.. image:: https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master
-    :target: https://travis-ci.org/LuqueDaniel/pybooru
-
-Pybooru is a Python library to access API of Danbooru/Moebooru based sites.
+.. image:: https://img.shields.io/pypi/v/Pybooru.svg?style=flat-square   :target:
+.. image:: https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square   :target:
+.. image:: https://img.shields.io/pypi/l/Pybooru.svg?style=flat-square   :target: https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE
+.. image:: https://img.shields.io/pypi/wheel/Pybooru.svg?style=flat-square   :target:
+.. image:: https://img.shields.io/pypi/format/Pybooru.svg?style=flat-square   :target:
 
 Licensed under: **MIT License**.
 
 Examples of use
 ---------------
 .. code-block:: python
+  from pybooru import Danbooru
 
-   from pybooru import Pybooru
-
-   client = Pybooru('Konachan')
-
-   artists = client.artists('ma')
+   client = Danbooru('danbooru')
+   artists = client.artist_list('ma')
 
    for artist in artists:
         print("Name: {0}".format(artist['name']))
-   ..
+..
 
-See more examples: https://github.com/LuqueDaniel/pybooru/tree/develop/examples
+See more examples of Danbooru and Moebooru: https://github.com/LuqueDaniel/pybooru/tree/develop/examples
 
 Changelog
 ---------
