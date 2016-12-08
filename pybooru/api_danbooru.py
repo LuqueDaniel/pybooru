@@ -18,22 +18,23 @@ from .exceptions import PybooruAPIError
 class DanbooruApi_Mixin(object):
     """Contains all Danbooru API calls.
 
-    API Version: v2.105.0 (77e06b6)
-    doc: https://danbooru.donmai.us/wiki_pages/43568
+    * API Version: v2.105.0 (77e06b6)
+    * Doc: https://danbooru.donmai.us/wiki_pages/43568
     """
 
     def post_list(self, **params):
         """Get a list of posts.
 
         Parameters:
-            limit: How many posts you want to retrieve. There is a hard limit
-                   of 100 posts per request.
-            page: The page number.
-            tags: The tags to search for. Any tag combination that works on the
-                  web site will work here. This includes all the meta-tags.
-            raw: When this parameter is set the tags parameter will not be
-                 parsed for aliased tags, metatags or multiple tags, and will
-                 instead be parsed as a single literal tag.
+            :param limit: How many posts you want to retrieve. There is a hard
+                          limit of 100 posts per request.
+            :param page: The page number.
+            :param tags: The tags to search for. Any tag combination that works
+                         on the web site will work here. This includes all the
+                         meta-tags.
+            :param raw: When this parameter is set the tags parameter will not
+                        be parsed for aliased tags, metatags or multiple tags,
+                        and will instead be parsed as a single literal tag.
         """
         return self._get('posts.json', params)
 
@@ -41,7 +42,7 @@ class DanbooruApi_Mixin(object):
         """Get a post.
 
         Parameters:
-            post_id: REQUIRED Where post_id is the post id.
+            :param post_id: REQUIRED Where post_id is the post id.
         """
         return self._get('/posts/{0}.json'.format(post_id))
 
@@ -50,12 +51,12 @@ class DanbooruApi_Mixin(object):
         """Update a specific post (Requires login).
 
         Parameters:
-            post_id: REQUIRED The id number of the post to update.
-            tag_string: A space delimited list of tags.
-            rating: The rating for the post. Can be: safe, questionable, or
-                    explicit.
-            source: If this is a URL, Danbooru will download the file.
-            parent_id: The ID of the parent post.
+            :param post_id: REQUIRED The id number of the post to update.
+            :param tag_string: A space delimited list of tags.
+            :param rating: The rating for the post. Can be: safe, questionable,
+                           or explicit.
+            :param source: If this is a URL, Danbooru will download the file.
+            :param parent_id: The ID of the parent post.
         """
         params = {
             'post[tag_string]': tag_string,
@@ -70,8 +71,8 @@ class DanbooruApi_Mixin(object):
         """Function to reverts a post to a previous version (Requires login).
 
         Parameters:
-            post_id: REQUIRED post id.
-            version_id: REQUIRED The post version id to revert to.
+            :param post_id: REQUIRED post id.
+            :param version_id: REQUIRED The post version id to revert to.
         """
         return self._get('/posts/{0}/revert.json'.format(post_id),
                          {'version_id': version_id}, 'PUT', auth=True)
@@ -80,8 +81,8 @@ class DanbooruApi_Mixin(object):
         """Function to copy notes (requires login).
 
         Parameters:
-            post_id: REQUIRED Post id.
-            other_post_id: REQUIRED The id of the post to copy notes to.
+            :param post_id: REQUIRED Post id.
+            :param other_post_id: REQUIRED The id of the post to copy notes to.
         """
         return self._get('/posts/{0}/copy_notes.json'.format(post_id),
                          {'other_post_id': other_post_id}, 'PUT', auth=True)
@@ -91,8 +92,8 @@ class DanbooruApi_Mixin(object):
         Danbooru: Post votes/create.
 
         Parameters:
-            post_id: REQUIRED Ppost id.
-            score: REQUIRED Can be: up, down.
+            :param post_id: REQUIRED Ppost id.
+            :param score: REQUIRED Can be: up, down.
         """
         return self._get('/posts/{0}/votes.json'.format(post_id),
                          {'score': score}, 'POST', auth=True)
@@ -102,12 +103,12 @@ class DanbooruApi_Mixin(object):
         """Function to flag a post (Requires login).
 
         Parameters:
-            creator_id: The user id of the flag's creator.
-            creator_name: The name of the flag's creator.
-            post_id: The post id if the flag.
-            reason_matches: Flag's reason.
-            is_resolved:
-            category: unapproved/banned/normal.
+            :param creator_id: The user id of the flag's creator.
+            :param creator_name: The name of the flag's creator.
+            :param post_id: The post id if the flag.
+            :param reason_matches: Flag's reason.
+            :param is_resolved: Can be 1 or 0.
+            :param category: unapproved/banned/normal.
         """
         params = {
             'search[creator_id]': creator_id,
@@ -123,8 +124,8 @@ class DanbooruApi_Mixin(object):
         """Function to flag a post.
 
         Parameters:
-            post_id: REQUIRED The id of the flagged post.
-            reason: REQUIRED The reason of the flagging.
+            :param post_id: REQUIRED The id of the flagged post.
+            :param reason: REQUIRED The reason of the flagging.
         """
         params = {'post_flag[post_id]': post_id, 'post_flag[reason]': reason}
         return self._get('post_flags.json', params, 'POST', auth=True)
@@ -134,9 +135,9 @@ class DanbooruApi_Mixin(object):
         """Function to return list of appeals (Requires login).
 
         Parameters:
-            creator_id: The user id of the appeal's creator.
-            creator_name: The name of the appeal's creator.
-            post_id: The post id if the appeal.
+            :param creator_id: The user id of the appeal's creator.
+            :param creator_name: The name of the appeal's creator.
+            :param post_id: The post id if the appeal.
         """
         params = {
             'creator_id': creator_id,
@@ -149,8 +150,8 @@ class DanbooruApi_Mixin(object):
         """Function to create appeals (Requires login).
 
         Parameters:
-            post_id: REQUIRED The id of the appealed post.
-            reason: REQUIRED The reason of the appeal.
+            :param post_id: REQUIRED The id of the appealed post.
+            :param reason: REQUIRED The reason of the appeal.
         """
         params = {'post_appeal[post_id]': post_id,
                   'post_appeal[reason]': reason}
@@ -161,10 +162,10 @@ class DanbooruApi_Mixin(object):
         """Get list of post versions.
 
         Parameters:
-            updater_name:
-            updater_id:
-            post_id:
-            start_id:
+            :param updater_name:
+            :param updater_id:
+            :param post_id:
+            :param start_id:
         """
         params = {
             'search[updater_name]': updater_name,
@@ -178,9 +179,9 @@ class DanbooruApi_Mixin(object):
         """Search and eturn a uploads list (Requires login).
 
         Parameters:
-            uploader_id: The id of the uploader.
-            uploader_name: The name of the uploader.
-            source The: source of the upload (exact string match).
+            :param uploader_id: The id of the uploader.
+            :param uploader_name: The name of the uploader.
+            :param source: The source of the upload (exact string match).
         """
         params = {
             'search[uploader_id]': uploader_id,
@@ -193,7 +194,7 @@ class DanbooruApi_Mixin(object):
         """Get a upload (Requires login).
 
         Parameters:
-            upload_id: Where upload_id is the upload id.
+            :param upload_id: Where upload_id is the upload id.
         """
         return self._get('uploads/{0}.json'.format(upload_id), auth=True)
 
@@ -202,11 +203,11 @@ class DanbooruApi_Mixin(object):
         """Function to create a new upload (Requires login).
 
         Parameters:
-            tag_string: REQUIRED The tags.
-            rating: REQUIRED Can be: safe, questionable, explicit.
-            file_: The file data encoded as a multipart form.
-            source: The source URL.
-            parent_id: The parent post id.
+            :param tag_string: REQUIRED The tags.
+            :param rating: REQUIRED Can be: safe, questionable, explicit.
+            :param file_: The file data encoded as a multipart form.
+            :param source: The source URL.
+            :param parent_id: The parent post id.
         """
         if file_ or source is not None:
             params = {
@@ -227,18 +228,19 @@ class DanbooruApi_Mixin(object):
         """Return a list of comments.
 
         Parameters:
-            group_by: Can be 'comment', 'post'. Comment will return recent
-                      comments. Post will return posts that have been recently
-                      commented on.
-            The following work only with group_by=comment:
-                body_matches: Body contains the given terms.
-                post_id: Post id.
-                post_tags_match: The comment's post's tags match the given
-                                 terms.
-                creator_name: The name of the creator (exact match)
-                creator_id: The user id of the creator
-            The following work only with group_by=post:
-                tags The post's tags match the given terms.
+            :param group_by:
+                Can be 'comment', 'post'. Comment will return recent comments.
+                Post will return posts that have been recently commented on.
+
+                :param group_by=comment:
+                    :param body_matches: Body contains the given terms.
+                    :param post_id: Post id.
+                    :param post_tags_match: The comment's post's tags match
+                                            the given terms.
+                :param group_by=post:
+                    :param tags: The post's tags match the given terms.
+            :param creator_name: The name of the creator (exact match)
+            :param creator_id: The user id of the creator
         """
         params = {'group_by': group_by}
         if group_by == 'comment':
@@ -257,10 +259,10 @@ class DanbooruApi_Mixin(object):
         """Action to lets you create a comment (Requires login).
 
         Parameters:
-            post_id: REQUIRED.
-            body: REQUIRED.
-            do_not_bump_post: Set to 1 if you do not want the post to be bumped
-                              to the top of the comment listing.
+            :param post_id: REQUIRED.
+            :param body: REQUIRED.
+            :param do_not_bump_post: Set to 1 if you do not want the post to be
+                                     bumped to the top of the comment listing.
         """
         params = {
             'comment[post_id]': post_id,
@@ -273,10 +275,10 @@ class DanbooruApi_Mixin(object):
         """Function to update a comment (Requires login).
 
         Parameters:
-            comment_id: REQUIRED comment id.
-            body: REQUIRED.
-            do_not_bump_post: Set to 1 if you do not want the post to be bumped
-                              to the top of the comment listing.
+            :param comment_id: REQUIRED comment id.
+            :param body: REQUIRED.
+            :param do_not_bump_post: Set to 1 if you do not want the post to be
+                                     bumped to the top of the comment listing.
         """
         params = {
             'comment[body]': body,
@@ -289,7 +291,8 @@ class DanbooruApi_Mixin(object):
         """Get a specific comment.
 
         Parameters:
-            comment_id: REQUIRED the id number of the comment to retrieve.
+            :param comment_id: REQUIRED the id number of the comment to
+                               retrieve.
         """
         return self._get('comments/{0}.json'.format(comment_id))
 
@@ -297,7 +300,7 @@ class DanbooruApi_Mixin(object):
         """Remove a specific comment (Requires login).
 
         Parameters:
-            comment_id: REQUIRED the id number of the comment to remove.
+            :param comment_id: REQUIRED the id number of the comment to remove.
         """
         return self._get('comments/{0}.json'.format(comment_id),
                          method='DELETE', auth=True)
@@ -306,8 +309,8 @@ class DanbooruApi_Mixin(object):
         """Return a list with favorite posts (Requires login).
 
         Parameters:
-            user_id: Which user's favorites to show. Defaults to your own if
-                     not specified.
+            :param user_id: Which user's favorites to show. Defaults to your
+                            own if not specified.
         """
         return self._get('favorites.json', {'user_id': user_id}, auth=True)
 
@@ -315,7 +318,7 @@ class DanbooruApi_Mixin(object):
         """Add post to favorite (Requires login).
 
         Parameters:
-            post_id: REQUIRED The post to favorite.
+            :param post_id: REQUIRED The post to favorite.
         """
         return self._get('favorites.json', {'post_id': post_id}, 'POST',
                          auth=True)
@@ -324,7 +327,7 @@ class DanbooruApi_Mixin(object):
         """Remove a post from favorites (Requires login).
 
         Parameters:
-            post_id: REQUIRED where post_id is the post id.
+            :param post_id: REQUIRED where post_id is the post id.
         """
         return self._get('favorites/{0}.json'.format(post_id), method='DELETE',
                          auth=True)
@@ -335,12 +338,12 @@ class DanbooruApi_Mixin(object):
         (Requires login).
 
         Parameters:
-            message_matches: The message body contains the given terms.
-            to_name: The recipient's name.
-            to_id: The recipient's user id.
-            from_name: The sender's name.
-            from_id: The sender's user id.
-            read: Can be: true, false.
+            :param message_matches: The message body contains the given terms.
+            :param to_name: The recipient's name.
+            :param to_id: The recipient's user id.
+            :param from_name: The sender's name.
+            :param from_id: The sender's user id.
+            :param read: Can be: true, false.
         """
         params = {
             'search[message_matches]': message_matches,
@@ -357,7 +360,7 @@ class DanbooruApi_Mixin(object):
         (Requires login).
 
         Parameters:
-            dmail_id: REQUIRED where dmail_id is the dmail id.
+            :param dmail_id: REQUIRED where dmail_id is the dmail id.
         """
         return self._get('dmails/{0}.json'.format(dmail_id), auth=True)
 
@@ -365,9 +368,9 @@ class DanbooruApi_Mixin(object):
         """Create a dmail (Requires login)
 
         Parameters:
-            to_name: REQUIRED the recipient's name.
-            title: REQUIRED the title of the message.
-            body: REQUIRED the body of the message.
+            :param to_name: REQUIRED the recipient's name.
+            :param title: REQUIRED the title of the message.
+            :param body: REQUIRED the body of the message.
         """
         params = {
             'dmail[to_name]': to_name,
@@ -380,7 +383,7 @@ class DanbooruApi_Mixin(object):
         """Delete a dmail. You can only delete dmails you own (Requires login).
 
         Parameters:
-            dmail_id: REQUIRED where dmail_id is the dmail id.
+            :param dmail_id: REQUIRED where dmail_id is the dmail id.
         """
         return self._get('dmails/{0}.json'.format(dmail_id), method='DELETE',
                          auth=True)
@@ -391,25 +394,31 @@ class DanbooruApi_Mixin(object):
         """Get an artist of a list of artists.
 
         Parameters:
-            query: This field has multiple uses depending on what the query
-                   starts with:
-                http: Search for artist with this URL.
-                name: Search for artists with the given name as their base
-                      name.
-                other: Search for artists with the given name in their other
-                       names.
-                group: Search for artists belonging to the group with the given
-                       name.
-                status:banned Search for artists that are banned.
-                else Search for the given name in the base name and the other
-                     names.
-            artist_id: The artist id.
-            creator_name:
-            creator_id:
-            is_active: Can be: true, false
-            is_banned: Can be: true, false
-            empty_only: Search for artists that have 0 posts. Can be: true
-            order: Can be: name, updated_at.
+            :param query:
+                This field has multiple uses depending on what the query starts
+                with:
+
+                'http:desired_url':
+                    Search for artist with this URL.
+                'name:desired_url':
+                    Search for artists with the given name as their base name.
+                'other:other_name':
+                    Search for artists with the given name in their other
+                    names.
+                'group:group_name':
+                    Search for artists belonging to the group with the given
+                    name.
+                'status:banned':
+                    Search for artists that are banned. else Search for the
+                    given name in the base name and the other names.
+            :param artist_id: The artist id.
+            :param creator_name: Exact creator name.
+            :param creator_id: Artist creator id.
+            :param is_active: Can be: true, false
+            :param is_banned: Can be: true, false
+            :param empty_only: Search for artists that have 0 posts. Can be:
+                               true
+            :param order: Can be: name, updated_at.
         """
         params = {
             'search[name]': query,
@@ -427,7 +436,7 @@ class DanbooruApi_Mixin(object):
         """Return a specific artist.
 
         Parameters:
-            artist_id: REQUIRED where artist_id is the artist id.
+            :param artist_id:param : REQUIRED where artist_id is the artist id.
         """
         return self._get('artists/{0}.json'.format(artist_id))
 
@@ -436,12 +445,12 @@ class DanbooruApi_Mixin(object):
         """Function to create an artist (Requires login) (UNTESTED).
 
         Parameters:
-            name: REQUIRED.
-            other_names_comma: List of alternative names for this artist, comma
-                               delimited.
-            group_name: The name of the group this artist belongs to.
-            url_string: List of URLs associated with this artist, whitespace or
-                        newline delimited.
+            :param name: REQUIRED.
+            :param other_names_comma: List of alternative names for this
+                                      artist, comma delimited.
+            :param group_name: The name of the group this artist belongs to.
+            :param url_string: List of URLs associated with this artist,
+                               whitespace or newline delimited.
         """
         params = {
             'artist[name]': name,
@@ -456,13 +465,13 @@ class DanbooruApi_Mixin(object):
         """Function to update artists (Requires login) (UNTESTED).
 
         Parameters:
-            artist_id: REQUIRED where artist_id is the artist id.
-            name:
-            other_names_comma: List of alternative names for this artist, comma
-                               delimited.
-            group_name: The name of the group this artist belongs to.
-            url_string: List of URLs associated with this artist, whitespace or
-                        newline delimited.
+            :param artist_id: REQUIRED where artist_id is the artist id.
+            :param name:
+            :param other_names_comma: List of alternative names for this
+                                      artist, comma delimited.
+            :param group_name: The name of the group this artist belongs to.
+            :param url_string: List of URLs associated with this artist,
+                               whitespace or newline delimited.
         """
         params = {
             'artist[name]': name,
@@ -477,23 +486,22 @@ class DanbooruApi_Mixin(object):
         """Action to lets you delete an artist (Requires login) (UNTESTED).
 
         Parameters:
-            artist_id: where artist_id is the artist id.
+            :param artist_id: where artist_id is the artist id.
         """
         return self._get('artists/{0}.json'.format(artist_id), method='DELETE',
                          auth=True)
 
     def artist_banned(self):
         """This is a shortcut for an artist listing search with
-        name=status:banned.
-        """
+        name=status:banned.:param """
         return self._get('artists/banned.json')
 
     def artist_revert(self, artist_id, version_id):
         """Revert an artist (Requires login) (UNTESTED).
 
         Parameters:
-            artist_id: REQUIRED The artist id.
-            version_id: REQUIRED The artist version id to revert to.
+            :param artist_id: REQUIRED The artist id.
+            :param version_id: REQUIRED The artist version id to revert to.
         """
         params = {'version_id': version_id}
         return self._get('artists/{0}/revert.json'.format(artist_id), params,
@@ -504,12 +512,12 @@ class DanbooruApi_Mixin(object):
         """Get list of artist versions.
 
         Parameters:
-            name:
-            updater_id:
-            artist_id:
-            is_active: Can be: true, false.
-            is_banned: Can be: true, false.
-            order: Can be: name, date.
+            :param name:
+            :param updater_id:
+            :param artist_id:
+            :param is_active: Can be: true, false.
+            :param is_banned: Can be: true, false.
+            :param order: Can be: name, date.
         """
         params = {
             'search[name]': name,
@@ -527,12 +535,12 @@ class DanbooruApi_Mixin(object):
         """list artist commentary.
 
         Parameters:
-            text_matches:
-            post_id:
-            post_tags_match: The commentary's post's tags match the given
-                             terms. Meta-tags not supported.
-            original_present: Can be: yes, no
-            translated_present: Can be: yes, no
+            :param text_matches:
+            :param post_id:
+            :param post_tags_match: The commentary's post's tags match the
+                                    giventerms. Meta-tags not supported.
+            :param original_present: Can be: yes, no.
+            :param translated_present: Can be: yes, no.
         """
         params = {
             'search[text_matches]': text_matches,
@@ -549,11 +557,11 @@ class DanbooruApi_Mixin(object):
         """Create or update artist commentary (Requires login) (UNTESTED).
 
         Parameters:
-            post_id: REQUIRED.
-            original_title:
-            original_description:
-            translated_title:
-            translated_description:
+            :param post_id: REQUIRED.
+            :param original_title:
+            :param original_description:
+            :param translated_title:
+            :param translated_description:
         """
         params = {
             'artist_commentary[post_id]': post_id,
@@ -569,8 +577,9 @@ class DanbooruApi_Mixin(object):
         """Revert artist commentary (Requires login) (UNTESTED).
 
         Parameters:
-            id_: REQUIRED The artist commentary id.
-            version_id: REQUIRED The artist commentary version id to revert to.
+            :param id_: REQUIRED The artist commentary id.
+            :param version_id: REQUIRED The artist commentary version id to
+                               revert to.
         """
         params = {'version_id': version_id}
         return self._get('artist_commentaries/{0}/revert.json'.format(id_),
@@ -580,8 +589,8 @@ class DanbooruApi_Mixin(object):
         """Return list of artist commentary versions.
 
         Parameters:
-            updater_id: REQUIRED.
-            post_id: REQUIRED.
+            :param updater_id: REQUIRED.
+            :param post_id: REQUIRED.
         """
         params = {
             'search[updater_id]': updater_id,
@@ -594,12 +603,13 @@ class DanbooruApi_Mixin(object):
         """Return list of notes.
 
         Parameters:
-            group_by: Can be: note, post (by default post).
-            body_matches: The note's body matches the given terms.
-            post_id: A specific post.
-            post_tags_match: The note's post's tags match the given terms.
-            creator_name: The creator's name. Exact match.
-            creator_id: The creator's user id.
+            :param group_by: Can be: note, post (by default post).
+            :param body_matches: The note's body matches the given terms.
+            :param post_id: A specific post.
+            :param post_tags_match: The note's post's tags match the given
+                                    terms.
+            :param creator_name: The creator's name. Exact match.
+            :param creator_id: The creator's user id.
         """
         params = {
             'group_by': group_by,
@@ -615,7 +625,7 @@ class DanbooruApi_Mixin(object):
         """Get a specific note.
 
         Parameters:
-            note_id: REQUIRED Where note_id is the note id.
+            :param :param note_id: REQUIRED Where note_id is the note id.
         """
         return self._get('notes/{0}.json'.format(note_id))
 
@@ -623,14 +633,14 @@ class DanbooruApi_Mixin(object):
         """Function to create a note (Requires login) (UNTESTED).
 
         Parameters:
-            post_id: REQUIRED
-            coor_x: REQUIRED The x coordinates of the note in pixels, with
-                    respect to the top-left corner of the image.
-            coor_y: REQUIRED The y coordinates of the note in pixels, with
-                    respect to the top-left corner of the image.
-            width: REQUIRED The width of the note in pixels.
-            height: REQUIRED The height of the note in pixels.
-            body: REQUIRED The body of the note.
+            :param post_id: REQUIRED
+            :param coor_x: REQUIRED The x coordinates of the note in pixels,
+                           with respect to the top-left corner of the image.
+            :param coor_y: REQUIRED The y coordinates of the note in pixels,
+                           with respect to the top-left corner of the image.
+            :param width: REQUIRED The width of the note in pixels.
+            :param height: REQUIRED The height of the note in pixels.
+            :param body: REQUIRED The body of the note.
         """
         params = {
             'note[post_id]': post_id,
@@ -647,14 +657,14 @@ class DanbooruApi_Mixin(object):
         """Function to update a note (Requires login) (UNTESTED).
 
         Parameters:
-            note_id: REQUIRED Where note_id is the note id.
-            coor_x: REQUIRED The x coordinates of the note in pixels, with
-                    respect to the top-left corner of the image.
-            coor_y: REQUIRED The y coordinates of the note in pixels, with
-                    respect to the top-left corner of the image.
-            width: REQUIRED The width of the note in pixels.
-            height: REQUIRED The height of the note in pixels.
-            body: REQUIRED The body of the note.
+            :param note_id: REQUIRED Where note_id is the note id.
+            :param coor_x: REQUIRED The x coordinates of the note in pixels,
+                           with respect to the top-left corner of the image.
+            :param coor_y: REQUIRED The y coordinates of the note in pixels,
+                           with respect to the top-left corner of the image.
+            :param width: REQUIRED The width of the note in pixels.
+            :param height: REQUIRED The height of the note in pixels.
+            :param body: REQUIRED The body of the note.
         """
         params = {
             'note[x]': coor_x,
@@ -670,7 +680,7 @@ class DanbooruApi_Mixin(object):
         """delete a specific note (Requires login) (UNTESTED).
 
         Parameters:
-            note_id: REQUIRED Where note_id is the note id.
+            :param note_id: REQUIRED Where note_id is the note id.
         """
         return self._get('notes/{0}.json'.format(note_id), method='DELETE',
                          auth=True)
@@ -679,8 +689,8 @@ class DanbooruApi_Mixin(object):
         """Function to revert a specific note (Requires login) (UNTESTED).
 
         Parameters:
-            note_id: REQUIRED Where note_id is the note id.
-            version_id: REQUIRED The note version id to revert to.
+            :param note_id: REQUIRED Where note_id is the note id.
+            :param version_id: REQUIRED The note version id to revert to.
         """
         return self._get('notes/{0}/revert.json'.format(note_id),
                          {'version_id': version_id}, method='PUT', auth=True)
@@ -689,9 +699,9 @@ class DanbooruApi_Mixin(object):
         """Get list of note versions.
 
         Parameters:
-            updater_id:
-            post_id:
-            note_id:
+            :param updater_id:
+            :param post_id:
+            :param note_id:
         """
         params = {
             'search[updater_id]': updater_id,
@@ -709,16 +719,16 @@ class DanbooruApi_Mixin(object):
             The current levels are:
 
             Member 20, Gold 30, Platinum 31, Builder 32, Contributor 33,
-            Janitor 35, Moderator 40 and Admin 50
+            Janitor 35, Moderator 40 and Admin 50.
 
         Parameters:
-            name: Supports patterns.
-            min_level: Minimum level (see section on levels).
-            max_level: Maximum level (see section on levels).
-            level: Current level (see section on levels).
-            user_id: The user id.
-            order: Can be: 'name', 'post_upload_count', 'note_count',
-                   'post_update_count', 'date'.
+            :param name: Supports patterns.
+            :param min_level: Minimum level (see section on levels).
+            :param max_level: Maximum level (see section on levels).
+            :param level: Current level (see section on levels).
+            :param user_id: The user id.
+            :param order: Can be: 'name', 'post_upload_count', 'note_count',
+                          'post_update_count', 'date'.
         """
         params = {
             'search[name]': name,
@@ -734,7 +744,7 @@ class DanbooruApi_Mixin(object):
         """Get a specific user.
 
         Parameters:
-            user_id: REQUIRED Where user_id is the user id.
+            :param user_id: REQUIRED Where user_id is the user id.
         """
         return self._get('users/{0}.json'.format(user_id))
 
@@ -744,13 +754,13 @@ class DanbooruApi_Mixin(object):
         """Get a list of pools.
 
         Parameters:
-            name_matches:
-            description_matches:
-            creator_name:
-            creator_id:
-            is_active: Can be: true, false.
-            order: Can be: name, created_at, post_count, date.
-            category: Can be: series, collection
+            :param name_matches:
+            :param description_matches:
+            :param creator_name:
+            :param creator_id:
+            :param is_active: Can be: true, false.
+            :param order: Can be: name, created_at, post_count, date.
+            :param category: Can be: series, collection
         """
         params = {
             'search[name_matches]': name_matches,
@@ -767,7 +777,7 @@ class DanbooruApi_Mixin(object):
         """Get a specific pool.
 
         Parameters:
-            pool_id: REQUIRED Where pool_id is the pool id.
+            :param pool_id: REQUIRED Where pool_id is the pool id.
         """
         return self._get('pools/{0}.json'.format(pool_id))
 
@@ -775,9 +785,9 @@ class DanbooruApi_Mixin(object):
         """Function to create a pool (Requires login) (UNTESTED).
 
         Parameters:
-            name: REQUIRED.
-            description: REQUIRED.
-            category: Can be: series, collection.
+            :param name: REQUIRED.
+            :param description: REQUIRED.
+            :param category: Can be: series, collection.
         """
         params = {
             'pool[name]': name,
@@ -791,12 +801,12 @@ class DanbooruApi_Mixin(object):
         """Update a pool (Requires login) (UNTESTED).
 
         Parameters:
-            pool_id: REQUIRED Where pool_id is the pool id.
-            name:
-            description:
-            post_ids: List of space delimited post ids.
-            is_active: Can be: 1, 0
-            category: Can be: series, collection
+            :param pool_id: REQUIRED Where pool_id is the pool id.
+            :param name:
+            :param description:
+            :param post_ids: List of space delimited post ids.
+            :param is_active: Can be: 1, 0
+            :param category: Can be: series, collection
         """
         params = {
             'pool[name]': name,
@@ -812,7 +822,7 @@ class DanbooruApi_Mixin(object):
         """Delete a pool (Requires login) (UNTESTED).
 
         Parameters:
-            pool_id: REQUIRED Where pool_id is the pool id.
+            :param pool_id: REQUIRED Where pool_id is the pool id.
         """
         return self._get('pools/{0}.json'.format(pool_id), method='DELETE',
                          auth=True)
@@ -821,7 +831,7 @@ class DanbooruApi_Mixin(object):
         """Undelete a specific poool (Requires login) (UNTESTED).
 
         Parameters:
-            pool_id: REQUIRED Where pool_id is the pool id.
+            :param pool_id: REQUIRED Where pool_id is the pool id.
         """
         return self._get('pools/{0}/undelete.json'.format(pool_id),
                          method='POST', auth=True)
@@ -830,8 +840,8 @@ class DanbooruApi_Mixin(object):
         """Function to revert a specific pool (Requires login) (UNTESTED).
 
         Parameters:
-            pool_id: REQUIRED Where pool_id is the pool id.
-            version_id: REQUIRED.
+            :param pool_id: REQUIRED Where pool_id is the pool id.
+            :param version_id: REQUIRED.
         """
         params = {'version_id': version_id}
         return self._get('pools/{0}/revert.json'.format(pool_id), params,
@@ -841,9 +851,9 @@ class DanbooruApi_Mixin(object):
         """Get list of pool versions.
 
         Parameters:
-            updater_id:
-            updater_name:
-            pool_id:
+            :param updater_id:
+            :param updater_name:
+            :param pool_id:
         """
         params = {
             'search[updater_id]': updater_id,
@@ -857,17 +867,17 @@ class DanbooruApi_Mixin(object):
         """Get a list of tags.
 
         Parameters:
-            name_matches:
-            category: Can be: 0, 1, 3, 4 (general, artist, copyright,
-                      character respectively)
-            hide_empty: Can be: yes, no. Excludes tags with 0 posts
-                        when "yes".
-            order: Can be: name, date, count
-            has_wiki: Can be: yes, no
-            name: Allows searching for multiple tags with exact given
-                  names, separated by commas. e.g.
-                  search[name]=touhou,original,k-on! would return the
-                  three listed tags.
+            :param name_matches:
+            :param category: Can be: 0, 1, 3, 4 (general, artist, copyright,
+                             character respectively)
+            :param hide_empty: Can be: yes, no. Excludes tags with 0 posts
+                               when "yes".
+            :param order: Can be: name, date, count
+            :param has_wiki: Can be: yes, no
+            :param name: Allows searching for multiple tags with exact given
+                         names, separated by commas. e.g.
+                         search[name]=touhou,original,k-on! would return the
+                         three listed tags.
         """
         params = {
             'search[name_matches]': name_matches,
@@ -884,9 +894,9 @@ class DanbooruApi_Mixin(object):
         """Get tags aliases.
 
         Parameters:
-            name_matches: Match antecedent or consequent name.
-            antecedent_name: Match antecedent name (exact match).
-            tag_id: The tag alias id.
+            :param name_matches: Match antecedent or consequent name.
+            :param antecedent_name: Match antecedent name (exact match).
+            :param tag_id: The tag alias id.
         """
         params = {
             'search[name_matches]': name_matches,
@@ -900,9 +910,9 @@ class DanbooruApi_Mixin(object):
         """Get tags implications.
 
         Parameters:
-            name_matches: Match antecedent or consequent name.
-            antecedent_name: Match antecedent name (exact match).
-            tag_id: The tag implication id.
+            :param name_matches: Match antecedent or consequent name.
+            :param antecedent_name: Match antecedent name (exact match).
+            :param tag_id: The tag implication id.
         """
         params = {
             'search[name_matches]': name_matches,
@@ -915,9 +925,10 @@ class DanbooruApi_Mixin(object):
         """Get related tags.
 
         Parameters:
-            query: REQUIRED The tag to find the related tags for.
-            category: If specified, show only tags of a specific category.
-                      Can be: General 0, Artist 1, Copyright 3 and Character 4.
+            :param query: REQUIRED The tag to find the related tags for.
+            :param category: If specified, show only tags of a specific
+                             category. Can be: General 0, Artist 1, Copyright
+                             3 and Character 4.
         """
         params = {'query': query, 'category': category}
         return self._get('related_tag.json', params)
@@ -927,12 +938,12 @@ class DanbooruApi_Mixin(object):
         """Function to retrieves a list of every wiki page.
 
         Parameters:
-            title:
-            creator_id:
-            body_matches:
-            other_names_match:
-            creator_name:
-            order: Can be: date, title.
+            :param title:
+            :param creator_id:
+            :param body_matches:
+            :param other_names_match:
+            :param creator_name:
+            :param order: Can be: date, title.
         """
         params = {
             'search[title]': title,
@@ -948,7 +959,7 @@ class DanbooruApi_Mixin(object):
         """Retrieve a specific page of the wiki.
 
         Parameters:
-            wiki_page_id: REQUIRED Where page_id is the wiki page id.
+            :param wiki_page_id: REQUIRED Where page_id is the wiki page id.
         """
         return self._get('wiki_pages/{0}.json'.format(wiki_page_id))
 
@@ -956,9 +967,9 @@ class DanbooruApi_Mixin(object):
         """Action to lets you create a wiki page (Requires login) (UNTESTED).
 
         Parameters:
-            title: REQUIRED.
-            body: REQUIRED.
-            other_names:
+            :param title: REQUIRED.
+            :param body: REQUIRED.
+            :param other_names:
         """
         params = {
             'wiki_page[title]': title,
@@ -972,10 +983,10 @@ class DanbooruApi_Mixin(object):
         """Action to lets you update a wiki page (Requires login) (UNTESTED).
 
         Parameters:
-            wiki_page_id: REQURIED Whre page_id is the wiki page id.
-            title:
-            body:
-            other_names:
+            :param wiki_page_id: REQURIED Whre page_id is the wiki page id.
+            :param title:
+            :param body:
+            :param other_names:
         """
         params = {
             'wiki_page[title]': title,
@@ -989,8 +1000,8 @@ class DanbooruApi_Mixin(object):
         """Revert page to a previeous version (Requires login) (UNTESTED).
 
         Parameters:
-            wiki_page_id: REQUIRED Where page_id is the wiki page id.
-            version_id REQUIRED.
+            :param wiki_page_id: REQUIRED Where page_id is the wiki page id.
+            :param version_id: REQUIRED.
         """
         return self._get('wiki_pages/{0}/revert.json'.format(wiki_page_id),
                          {'version_id': version_id}, method='PUT', auth=True)
@@ -999,8 +1010,8 @@ class DanbooruApi_Mixin(object):
         """Return a list of wiki page version.
 
         Parameters:
-            wiki_page_id: REQUIRED.
-            updater_id: REQUIRED.
+            :param wiki_page_id: REQUIRED.
+            :param updater_id: REQUIRED.
         """
         params = {
             'earch[updater_id]': updater_id,
@@ -1012,8 +1023,8 @@ class DanbooruApi_Mixin(object):
         """Return a specific wiki page version.
 
         Parameters:
-            wiki_page_id: REQUIRED Where wiki_page_id is the wiki page version
-                          id.
+            :param wiki_page_id: REQUIRED Where wiki_page_id is the wiki page
+                                 version id.
         """
         return self._get('wiki_page_versions/{0}.json'.format(wiki_page_id))
 
@@ -1022,10 +1033,10 @@ class DanbooruApi_Mixin(object):
         """Function to get forum topics.
 
         Parameters:
-            title_matches: Search body for the given terms.
-            title: Exact title match.
-            category_id: Can be: 0, 1, 2 (General, Tags, Bugs & Features
-                         respectively)
+            :param title_matches: Search body for the given terms.
+            :param title: Exact title match.
+            :param category_id: Can be: 0, 1, 2 (General, Tags, Bugs & Features
+                                respectively)
         """
         params = {
             'search[title_matches]': title_matches,
@@ -1038,7 +1049,7 @@ class DanbooruApi_Mixin(object):
         """Retrieve a specific forum topic.
 
         Parameters:
-            topic_id: REQUIRED Where topic_id is the forum topic id.
+            :param topic_id: REQUIRED Where topic_id is the forum topic id.
         """
         return self._get('forum_topics/{0}.json'.format(topic_id))
 
@@ -1046,10 +1057,10 @@ class DanbooruApi_Mixin(object):
         """Function to create topic (Requires login) (UNTESTED).
 
         Parameters:
-            title: topic title.
-            body: Message of the initial post.
-            category: Can be: 0, 1, 2 (General, Tags, Bugs & Features
-                      respectively).
+            :param title: topic title.
+            :param body: Message of the initial post.
+            :param category: Can be: 0, 1, 2 (General, Tags, Bugs & Features
+                             respectively).
         """
         params = {
             'forum_topic[title]': title,
@@ -1062,10 +1073,10 @@ class DanbooruApi_Mixin(object):
         """Update a specific topic (Login Requires) (UNTESTED).
 
         Parameters:
-            topic_id: REQUIRED .ñWhere topic_id is the topic id.
-            title: Topic title.
-            category: Can be: 0, 1, 2 (General, Tags, Bugs & Features
-                      respectively)
+            :param topic_id: REQUIRED .ñWhere topic_id is the topic id.
+            :param title: Topic title.
+            :param category: Can be: 0, 1, 2 (General, Tags, Bugs & Features
+                             respectively)
         """
         params = {
             'forum_topic[title]': title,
@@ -1078,7 +1089,7 @@ class DanbooruApi_Mixin(object):
         """Delete a topic (Login Requires) (Moderator+) (UNTESTED).
 
         Parameters:
-            topic_id: REQUIRED Where topic_id is the topic id.
+            :param topic_id: REQUIRED Where topic_id is the topic id.
         """
         return self._get('forum_topics/{0}.json'.format(topic_id),
                          method='DELETE', auth=True)
@@ -1087,7 +1098,7 @@ class DanbooruApi_Mixin(object):
         """Un delete a topic (Login requries) (Moderator+) (UNTESTED).
 
         Parameters:
-            topic_id: REQUIRED Where topic_id is the topic id.
+            :param topic_id: REQUIRED Where topic_id is the topic id.
         """
         return self._get('forum_topics/{0}/undelete.json'.format(topic_id),
                          method='POST', auth=True)
@@ -1098,13 +1109,13 @@ class DanbooruApi_Mixin(object):
         """Return a list of forum posts.
 
         Parameters:
-            creator_id:
-            creator_name:
-            topic_id:
-            topic_title_matches:
-            topic_category_id: Can be: 0, 1, 2 (General, Tags, Bugs & Features
-                               respectively)
-            body_matches:
+            :param creator_id:
+            :param creator_name:
+            :param topic_id:
+            :param topic_title_matches:
+            :param topic_category_id: Can be: 0, 1, 2 (General, Tags, Bugs &
+                                      Features respectively)
+            :param body_matches:
         """
         params = {
             'search[creator_id]': creator_id,
@@ -1120,8 +1131,8 @@ class DanbooruApi_Mixin(object):
         """Create a forum post (Requires login).
 
         Parameters:
-            topic_id: REQUIRED.
-            body: REQUIRED.
+            :param topic_id: REQUIRED.
+            :param body: REQUIRED.
         """
         params = {
             'forum_post[topic_id]': topic_id,
@@ -1133,8 +1144,8 @@ class DanbooruApi_Mixin(object):
         """Update a specific forum post (Requries login)(Moderator+)(UNTESTED).
 
         Parameters:
-            post_id: REQUIRED Forum topic id.
-            body: REQUIRED.
+            :param post_id: REQUIRED Forum topic id.
+            :param body: REQUIRED.
         """
         params = {'forum_post[body]': body}
         return self._get('forum_posts/{0}.json'.format(topic_id), params,
@@ -1144,7 +1155,7 @@ class DanbooruApi_Mixin(object):
         """Delete a specific forum post (Requires login)(Moderator+)(UNTESTED).
 
         Parameters:
-            post_id: REQUIRED forum post id.
+            :param post_id: REQUIRED forum post id.
         """
         return self._get('forum_posts/{0}.json'.format(post_id),
                          method='DELETE', auth=True)
@@ -1154,7 +1165,7 @@ class DanbooruApi_Mixin(object):
            (UNTESTED).
 
         Parameters:
-            post_id: REQUIRED forum post id.
+            :param post_id: REQUIRED forum post id.
         """
         return self._get('forum_posts/{0}/undelete.json'.format(post_id),
                          method='POST', auth=True)

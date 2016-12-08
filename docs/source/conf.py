@@ -155,3 +155,6 @@ texinfo_documents = [
      author, 'Pybooru', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+# Order autodoc by source
+autodoc_member_order = 'bysource'

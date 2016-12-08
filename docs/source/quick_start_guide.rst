@@ -8,6 +8,7 @@ Features
 - Support Moebooru API.
 - Defult site list.
 - JSON responses.
+- Custom user-agent.
 
 Installation
 ------------
