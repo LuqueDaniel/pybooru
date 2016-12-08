@@ -38,13 +38,13 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
     associate hash string.
 
     Attributes:
-        site_name: Return site name.
-        site_url: Return the URL of Moebooru based site.
-        api_version: Version of Moebooru API.
-        username: Return user name.
-        password: Return password in plain text.
-        hash_string: Return hash_string of the site.
-        last_call: Return last call.
+        :var site_name: Return site name.
+        :var site_url: Return the URL of Moebooru based site.
+        :var api_version: Version of Moebooru API.
+        :var username: Return user name.
+        :var password: Return password in plain text.
+        :var hash_string: Return hash_string of the site.
+        :var last_call: Return last call.
     """
 
     def __init__(self, site_name="", site_url="", username="", password="",
@@ -52,16 +52,16 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         """Initialize Moebooru.
 
         Keyword arguments:
-            site_name: The site name in 'SITE_LIST', default sites.
-            site_url: URL of on Moebooru based sites.
-            api_version: Version of Moebooru API.
-            hash_string: String that is hashed (required to login).
-                         (See the API documentation of the site for more
-                         information).
-            username: Your username of the site (Required only for functions
-                     that modify the content).
-            password: Your user password in plain text (Required only for
-                     functions that modify the content).
+            :param site_name: The site name in 'SITE_LIST', default sites.
+            :param site_url: URL of on Moebooru based sites.
+            :param api_version: Version of Moebooru API.
+            :param hash_string: String that is hashed (required to login).
+                                (See the API documentation of the site for more
+                                information).
+            :param username: Your username of the site (Required only for
+                             functions that modify the content).
+            :param password: Your user password in plain text (Required only
+                             for functions that modify the content).
         """
         super(Moebooru, self).__init__(site_name, site_url, username)
 
@@ -74,7 +74,7 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         """Build request url.
 
         Parameters:
-            api_call: Base API Call.
+            :param api_call: Base API Call.
         """
         if self.api_version in ('1.13.0', '1.13.0+update.1', '1.13.0+update.2'):
             if '/' not in api_call:
@@ -108,10 +108,10 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         """Function to preapre API call.
 
         Parameters:
-            api_call: API function to be called.
-            params: API function parameters.
-            method: (Defauld: GET) HTTP method 'GET' or 'POST'
-            file_: File to upload.
+            :param api_call: API function to be called.
+            :param params: API function parameters.
+            :param method: (Defauld: GET) HTTP method 'GET' or 'POST'
+            :param file_: File to upload.
         """
         url = self._build_url(api_call)
 

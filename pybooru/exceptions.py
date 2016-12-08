@@ -5,9 +5,9 @@
 This module contains Pybooru exceptions.
 
 Classes:
-    PybooruError -- Main Pybooru exception class.
-    PybooruHTTPError -- Manages HTTP status errors.
-    PybooruAPIError -- Manages all API errors.
+    * PybooruError -- Main Pybooru exception class.
+    * PybooruHTTPError -- Manages HTTP status errors.
+    * PybooruAPIError -- Manages all API errors.
 """
 
 # __furute__ imports
@@ -29,9 +29,9 @@ class PybooruHTTPError(PybooruError):
         """Initialize PybooruHTTPError.
 
         Keyword arguments:
-            msg: The error message.
-            http_code: The HTTP status code.
-            url: The URL.
+            :param msg: The error message.
+            :param http_code: The HTTP status code.
+            :param url: The URL.
         """
         super(PybooruHTTPError, self).__init__(msg, http_code, url)
         if http_code in HTTP_STATUS_CODE and url is not None:
