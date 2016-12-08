@@ -26,20 +26,20 @@ class _Pybooru(object):
     """Pybooru main class.
 
     Attributes:
-        site_name: Return site name.
-        site_url: Return the URL of Moebooru/Danbooru based site.
-        username: Return user name.
-        last_call: Return last call.
+        :var site_name: Return site name.
+        :var site_url: Return the URL of Moebooru/Danbooru based site.
+        :var username: Return user name.
+        :var last_call: Return last call.
     """
 
     def __init__(self, site_name="", site_url="", username=""):
         """Initialize Pybooru.
 
         Keyword arguments:
-            site_name: The site name in 'SITE_LIST', default sites.
-            site_url: URL of on Moebooru/Danbooru based sites.
-            username: Your username of the site (Required only for functions
-                      that modify the content).
+            :param site_name: The site name in 'SITE_LIST', default sites.
+            :param site_url: URL of on Moebooru/Danbooru based sites.
+            :param username: Your username of the site (Required only for
+                             functions that modify the content).
         """
         # Attributes
         self.site_name = site_name.lower()
@@ -99,7 +99,7 @@ class _Pybooru(object):
 
     @staticmethod
     def _get_status(status_code):
-        """Get status message."""
+        """Get status message for status code"""
         if status_code in HTTP_STATUS_CODE:
             return "{0}, {1}".format(*HTTP_STATUS_CODE[status_code])
         else:
@@ -109,10 +109,13 @@ class _Pybooru(object):
         """Function to request and returning JSON data.
 
         Parameters:
-            url: Base url call.
-            api_call: API function to be called.
-            request_args: All requests parameters.
-            method: (Defauld: GET) HTTP method 'GET' or 'POST'
+            :param url: Base url call.
+            :param api_call: API function to be called.
+            :param request_args: All requests parameters.
+            :param method: (Defauld: GET) HTTP method 'GET' or 'POST'
+
+        :raises requests.exceptions.Timeout: When HTTP Timeout.
+        :raises ValueError: When can't decode JSON response.
         """
         try:
             if method != 'GET':
