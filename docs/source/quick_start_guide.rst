@@ -4,8 +4,8 @@ Quick Start Guide
 Features
 --------
 
-- Support Danbooru API.
-- Support Moebooru API.
+- Support Danbooru API (version: 2.105.0 - 77e06b6).
+- Support Moebooru API (version: 1.13.0+update.3).
 - Defult site list.
 - JSON responses.
 - Custom user-agent.

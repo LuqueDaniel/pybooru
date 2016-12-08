@@ -15,7 +15,7 @@ Welcome to Pybooru's documentation!
 Dependencies
 ------------
 
-- requests
+- `requests <https://pypi.python.org/pypi/requests/>`_
 
 
 .. toctree::
@@ -23,14 +23,8 @@ Dependencies
    :caption: Contents:
 
    quick_start_guide
+   danbooru
    api_danbooru
+   moebooru
    api_moebooru
    pybooru
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

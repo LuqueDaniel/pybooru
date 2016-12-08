@@ -5,9 +5,9 @@
 This module contains Pybooru exceptions.
 
 Classes:
-    PybooruError -- Main Pybooru exception class.
-    PybooruHTTPError -- Manages HTTP status errors.
-    PybooruAPIError -- Manages all API errors.
+    * PybooruError -- Main Pybooru exception class.
+    * PybooruHTTPError -- Manages HTTP status errors.
+    * PybooruAPIError -- Manages all API errors.
 """
 
 # __furute__ imports
