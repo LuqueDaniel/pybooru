@@ -24,6 +24,7 @@ Dependencies
 
    quick_start_guide
    api_danbooru
+   api_moebooru
 
 
 Indices and tables
