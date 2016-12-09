@@ -19,7 +19,7 @@ Pybooru modules:
     resources -- Contains all resources for Pybooru.
 """
 
-__version__ = "4.0.0"
+__version__ = "4.0.1"
 __license__ = "MIT"
 __source_url__ = "http://github.com/LuqueDaniel/pybooru"
 __author__ = "Daniel Luque <danielluque14[at]gmail[dot]com>"

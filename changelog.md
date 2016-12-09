@@ -1,5 +1,8 @@
 # Pybooru - Changelog
 
+## Pybooru 4.0.1 - (12/09/2016)
+- Fix problems with Pypi
+
 ## Pybooru 4.0.0 - (12/09/2016)
 - Added support to Danbooru.
 - Now Danbooru and Moebooru are two separed classes.

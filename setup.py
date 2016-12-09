@@ -28,6 +28,7 @@ setup(
     platforms=['any'],
     install_requires=['requests'],
     include_package_data=True,
+    data_file=[('', ['LICENSE', 'README.md', 'changelog.md', 'requirements.txt'])],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python",
