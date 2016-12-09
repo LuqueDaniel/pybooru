@@ -8,8 +8,6 @@ Pybooru - Package for Danbooru/Moebooru API.
 .. image:: https://img.shields.io/pypi/format/Pybooru.svg?style=flat-square
 
 
-Licensed under: **MIT License**.
-
 Examples of use
 ---------------
 .. code-block:: python

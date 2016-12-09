@@ -6,7 +6,7 @@
 
 **Pybooru** is a Python package to access to the API of Danbooru/Moebooru based sites.
 
-- Version: **4.0.0**
+- Version: **4.0.1**
 - Licensed under: **MIT License**
 
 ## Dependencies.
