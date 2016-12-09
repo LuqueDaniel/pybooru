@@ -23,6 +23,10 @@ Examples of use
 
 See more examples of `Danbooru <https://github.com/LuqueDaniel/pybooru/tree/develop/examples/danbooru>`_ and `Moebooru <https://github.com/LuqueDaniel/pybooru/tree/develop/examples/moebooru>`_.
 
+Documentation
+-------------
+You can consult the documentation on `Read the Docs <http://pybooru.readthedocs.io/en/stable/>`_
+
 Changelog
 ---------
 - https://github.com/LuqueDaniel/pybooru/blob/master/changelog.md

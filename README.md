@@ -1,5 +1,8 @@
 # Pybooru - Package for Danbooru/Moebooru API.
-[![Build Status](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru) [![PyPI](https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
+[![Build Status](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru) [![PyPI](https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/pybooru/badge/?version=stable)](http://pybooru.readthedocs.io/en/stable/?badge=stable)
 
 **Pybooru** is a Python package to access to the API of Danbooru/Moebooru based sites.
 
@@ -78,6 +81,9 @@ client = Moebooru('konachan.com', username='your-username', password='your-passw
                   hash_string='So-I-Heard-You-Like-Mupkids-?--{0}--')
 client.comment_create(post_id=id, comment_body='Comment content')
 ```
+
+## Documentation
+You can consult the documentation on **[Read the Docs](http://pybooru.readthedocs.io/en/stable/)**
 
 ## CI Report
 - https://travis-ci.org/LuqueDaniel/pybooru
