@@ -1,7 +1,18 @@
 # encoding: utf-8
-from pybooru import Pybooru
+from __future__ import print_function
+from pybooru import Danbooru
+from pybooru import Moebooru
 
-# client = Pybooru(site_url='konachan.com')
-client = Pybooru(site_url="http://www.konachan.com")
+konachan = Moebooru("konachan")
 
-tags = client.tags_list(None, None, 100, 0, 'date')
+kona_tags = konachan.tag_list(order='date')
+print(konachan.last_call)
+kona_post = konachan.post_list()
+print(konachan.last_call)
+
+danbooru = Danbooru('danbooru')
+
+dan_tags = danbooru.tag_list(order='name')
+print(danbooru.last_call)
+dan_post = danbooru.post_list(tags="computer")
+print(danbooru.last_call)

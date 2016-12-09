@@ -1,14 +1,17 @@
-# Pybooru - Library for Danbooru/Moebooru API.
-[![Build Status](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru)
+# Pybooru - Package for Danbooru/Moebooru API.
+[![PyPI](https://img.shields.io/pypi/v/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
+[![Build Status](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru) [![PyPI](https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/pybooru/badge/?version=stable)](http://pybooru.readthedocs.io/en/stable/?badge=stable)
 
-**Pybooru** is a Python library to access API of Danbooru/Moebooru based sites.
+**Pybooru** is a Python package to access to the API of Danbooru/Moebooru based sites.
 
-- Version: **3.0.1**
+- Version: **4.0.0**
 - Licensed under: **MIT License**
 
 ## Dependencies.
-- Python: >= 2.6 or Python: >= 3
-- [requests.](http://docs.python-requests.org/en/latest/)
+- Python: >= 2.6 or Python: >= 3.3
+- [requests](http://docs.python-requests.org/en/latest/)
 
 ## Installation
 ### from Python Package Index (Pypi)
@@ -16,54 +19,71 @@ Pypi - Python Package Index:
 [Pybooru on Pypi.](https://pypi.python.org/pypi/Pybooru/)
 
 ```bash
-sudo pip install Pybooru
-```
-or
-```bash
-sudo easy_install Pybooru
+pip install --user Pybooru
 ```
 
 ### Manual installation
 ```bash
 git clone git://github.com/luquedaniel/pybooru.git
 cd pybooru
+pip install --user -r requirements.txt
 sudo python setup.py build
-sudo python setup.py install
+python setup.py install
 ```
 
 ## Examples of use
+See [More examples.](https://github.com/LuqueDaniel/pybooru/tree/master/examples)
+
+### Danbooru
 ```python
-from pybooru import Pybooru
+from pybooru import Danbooru
 
-client = Pybooru('Konachan')
-
-artists = client.artists('ma')
+client = Danbooru('danbooru')
+artists = client.artist_list('ma')
 
 for artist in artists:
     print("Name: {0}".format(artist['name']))
 ```
 
-### Login example
-#### Default sites
+#### Login example
 ```python
-from pybooru import Pybooru
+from pybooru import Danbooru
 
-client = Pybooru('Konachan', username='your-username', password='your-password')
-
-client.comments_create(post_id=id, comment_body='Comment content')
+client = Danbooru('danbooru', username='your-username', api_key='your-apikey')
+client.comment_create(post_id=id, body='Comment content')
 ```
 
-#### Other sites
+### Moebooru
 ```python
-from pybooru import Pybooru
+from pybooru import Moebooru
 
-client = Pybooru('konachan.com', username='your-username', password='your-password',
-                 hashString='So-I-Heard-You-Like-Mupkids-?--{0}--')
+client = Moebooru('konachan')
+artists = client.artist_list(name='neko')
 
-client.comments_create(post_id=id, comment_body='Comment content')
+for artist in artists:
+    print("Name: {0}".format(artist['name']))
 ```
 
-[More examples.](https://github.com/LuqueDaniel/pybooru/tree/master/examples)
+#### Login example
+##### Default sites
+```python
+from pybooru import Moebooru
+
+client = Moebooru('konachan', username='your-username', password='your-password')
+client.comment_create(post_id=id, comment_body='Comment content')
+```
+
+##### Not default sites
+```python
+from pybooru import Moebooru
+
+client = Moebooru('konachan.com', username='your-username', password='your-password',
+                  hash_string='So-I-Heard-You-Like-Mupkids-?--{0}--')
+client.comment_create(post_id=id, comment_body='Comment content')
+```
+
+## Documentation
+You can consult the documentation on **[Read the Docs](http://pybooru.readthedocs.io/en/stable/)**
 
 ## CI Report
 - https://travis-ci.org/LuqueDaniel/pybooru

@@ -1,10 +1,13 @@
 # Ignore files .pyc
 *.pyc
+*.pyo
+*.pyd
 *.egg-info
 __pycache__
 
 # ignore test file
 pro.py
+test.json
 
 # build/dist files
 build/
