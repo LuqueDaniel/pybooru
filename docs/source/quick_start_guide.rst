@@ -102,7 +102,7 @@ Example using not default sites:
 ..
 
 
-See more examples of `Danbooru <https://github.com/LuqueDaniel/pybooru/tree/develop/examples/danbooru>`_ and `Moebooru <https://github.com/LuqueDaniel/pybooru/tree/develop/examples/moebooru>`_.
+See more examples of `Danbooru <https://github.com/LuqueDaniel/pybooru/tree/master/examples/danbooru>`_ and `Moebooru <https://github.com/LuqueDaniel/pybooru/tree/master/examples/moebooru>`_.
 
 Default sites list
 ------------------
