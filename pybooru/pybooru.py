@@ -93,16 +93,17 @@ class _Pybooru(object):
             if not re.search(regex, self.site_url):
                 raise PybooruError("Invalid URL: {0}".format(self.site_url))
         else:
-            raise PybooruError("Invalid URL scheme, use HTTP "
-                               "or HTTPS: {0}".format(self.site_url))
+            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS: \
+                               {0}".format(self.site_url))
 
     @staticmethod
     def _get_status(status_code):
-        """Get status message for status code"""
-        if status_code in HTTP_STATUS_CODE:
-            return "{0}, {1}".format(*HTTP_STATUS_CODE[status_code])
-        else:
-            return None
+        """Get status message for status code.
+
+        Parameters:
+            :param status_code: HTTP status code.
+        """
+        return "{0}, {1}".format(*HTTP_STATUS_CODE.get(status_code))
 
     def _request(self, url, api_call, request_args, method='GET'):
         """Function to request and returning JSON data.
