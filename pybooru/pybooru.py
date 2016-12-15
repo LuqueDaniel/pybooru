@@ -32,7 +32,7 @@ class _Pybooru(object):
         :var last_call: Return last call.
     """
 
-    def __init__(self, site_name="", site_url="", username=""):
+    def __init__(self, site_name='', site_url='', username=''):
         """Initialize Pybooru.
 
         Keyword arguments:
@@ -44,7 +44,7 @@ class _Pybooru(object):
         # Attributes
         self.site_name = site_name.lower()
         self.site_url = site_url.lower()
-        if username is not "":
+        if username is not '':
             self.username = username
         self.last_call = {}
 
@@ -55,14 +55,13 @@ class _Pybooru(object):
         self.client.headers = headers
 
         # Validate site_name or site_url
-        if site_url or site_name is not "":
-            if site_name is not "":
-                self._site_name_validator()
-            elif site_url is not "":
-                self._url_validator()
+        if site_name is not '':
+            self._site_name_validator()
+        elif site_url is not '':
+            self._url_validator()
         else:
-            raise PybooruError("Unexpected empty strings,"
-                               " specify parameter 'site_name' or 'site_url'.")
+            raise PybooruError("Unexpected empty arguments, specify parameter \
+                               'site_name' or 'site_url'.")
 
     def _site_name_validator(self):
         """Function that checks the site name and get url."""
