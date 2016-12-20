@@ -103,7 +103,8 @@ class _Pybooru(object):
         Parameters:
             :param status_code: HTTP status code.
         """
-        return "{0}, {1}".format(*HTTP_STATUS_CODE.get(status_code))
+        return "{0}, {1}".format(*HTTP_STATUS_CODE.get(
+            status_code, ('Undefined', 'undefined')))
 
     def _request(self, url, api_call, request_args, method='GET'):
         """Function to request and returning JSON data.
