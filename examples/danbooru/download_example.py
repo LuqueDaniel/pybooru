@@ -3,29 +3,39 @@ from pybooru import Danbooru
 from random import randint
 import urllib.request
 
-x = []
+
+x = []  # link storage
+
 
 def download(tags, pages):
-	try:
-		randomint = randint(1000, 10000000)
-		randompage = randint(1, int(pages))
-		client = Danbooru('danbooru', username='your_username', api_key='your_api_key')
-		if len(x) == 0: #Checks if the array is empty of links
-			posts = client.post_list(tags=str(tags), page=str(randompage), limit=200)
-			for post in posts:
-				fileurl = 'http://danbooru.donmai.us' + post['file_url']
-				x.append(fileurl)
-		else:
-			pass
-		try:
-			urllib.request.urlretrieve(x[1], "tmp/danbooru_" + str(randomint) + ".jpg")
-			x.pop(0)
-		except Exception as e:
-			print(e)
-	except:
-		download(tags, pages)
+    try:
+        client = Danbooru('danbooru', username='your_username', api_key='your_api_key')
+
+        # Collect links
+        while len(x) is not 200:  # Checks if the list is full
+            randompage = randint(1, pages)
+            posts = client.post_list(tags=tags, page=randompage, limit=200)
+            for post in posts:
+                try:
+                    fileurl = 'http://danbooru.donmai.us' + post['file_url']
+                except:
+                    fileurl = 'http://danbooru.donmai.us' + post['source']
+                x.append(fileurl)
+
+        # Download images
+        for url in x:
+            try:
+                randomint = randint(1000, 10000000)
+                urllib.request.urlretrieve(url, "tmp/danbooru_/{0}.jpg".format(randomint))
+            except:
+                continue
+    except Exception as e:
+        raise e
+
 
 def main():
-	download(tags='rating:s', pages='2000') #Gold account limit
-	
+    # pages: 2000 Gold account limit. Basic Users should have 1000
+    download(tags='rating:s', pages=1000)
+
+
 main()
