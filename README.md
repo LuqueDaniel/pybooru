@@ -15,7 +15,6 @@
 
 ## Installation
 ### from Python Package Index (Pypi)
-Pypi - Python Package Index:
 [Pybooru on Pypi.](https://pypi.python.org/pypi/Pybooru/)
 
 ```bash
