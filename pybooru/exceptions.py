@@ -35,9 +35,13 @@ class PybooruHTTPError(PybooruError):
         """
         super(PybooruHTTPError, self).__init__(msg, http_code, url)
         if http_code in HTTP_STATUS_CODE and url is not None:
-            msg = "{0}: {1} - {2}, {3} - URL: {4}".format(
+            self.msg = "{0}: {1} - {2}, {3} - URL: {4}".format(
                 msg, http_code, HTTP_STATUS_CODE[http_code][0],
                 HTTP_STATUS_CODE[http_code][1], url)
+
+    def __str__(self):
+        """Print exception."""
+        return self.msg
 
 
 class PybooruAPIError(PybooruError):
