@@ -26,8 +26,8 @@ class _Pybooru(object):
     """Pybooru main class.
 
     Attributes:
-        :var site_name: Return site name.
-        :var site_url: Return the URL of Moebooru/Danbooru based site.
+        :var site_name: Get or set site name set.
+        :var site_url: Get or set the URL of Moebooru/Danbooru based site.
         :var username: Return user name.
         :var last_call: Return last call.
     """
@@ -42,8 +42,8 @@ class _Pybooru(object):
                              functions that modify the content).
         """
         # Attributes
-        self.site_name = site_name.lower()
-        self.site_url = site_url.lower()
+        self.__site_name = ''
+        self.__site_url = ''
         if username is not '':
             self.username = username
         self.last_call = {}
@@ -56,27 +56,58 @@ class _Pybooru(object):
 
         # Validate site_name or site_url
         if site_name is not '':
-            self._site_name_validator()
+            self.site_name = site_name
         elif site_url is not '':
-            self._url_validator()
+            self.site_url = site_url
         else:
             raise PybooruError("Unexpected empty arguments, specify parameter \
                                'site_name' or 'site_url'.")
 
-    def _site_name_validator(self):
-        """Function that checks the site name and get url."""
-        if self.site_name in SITE_LIST:
-            self.site_url = SITE_LIST[self.site_name]['url']
+    @property
+    def site_name(self):
+        """Get or set site name.
+
+        :getter: Return site name.
+        :setter: Validate and set site name.
+        :type: string
+        """
+        return self.__site_name
+
+    @site_name.setter
+    def site_name(self, site_name):
+        """Function that sets and checks the site name and set url.
+
+        Parameters:
+            :param site_name: The site name in 'SITE_LIST', default sites.
+        """
+        if site_name in SITE_LIST:
+            self.__site_name = site_name
+            self.__site_url = SITE_LIST[site_name]['url']
             # Only for Moebooru
-            if 'api_version' and 'hashed_string' in SITE_LIST[self.site_name]:
-                self.api_version = SITE_LIST[self.site_name]['api_version']
-                self.hash_string = SITE_LIST[self.site_name]['hashed_string']
+            if 'api_version' and 'hashed_string' in SITE_LIST[site_name]:
+                self.api_version = SITE_LIST[site_name]['api_version']
+                self.hash_string = SITE_LIST[site_name]['hashed_string']
         else:
             raise PybooruError(
                 "The 'site_name' is not valid, specify a valid 'site_name'.")
 
-    def _url_validator(self):
-        """URL validator for site_url attribute."""
+    @property
+    def site_url(self):
+        """Get or set site url.
+
+        :getter: Return site url.
+        :setter: Validate and set site url.
+        :type: string
+        """
+        return self.__site_url
+
+    @site_url.setter
+    def site_url(self, url):
+        """URL setter and validator for site_url property.
+
+        Parameters:
+            :param url: URL of on Moebooru/Danbooru based sites.
+        """
         # Regular expression to URL validate
         regex = re.compile(
             r'^(?:http|https)://'  # Scheme only HTTP/HTTPS
@@ -89,12 +120,14 @@ class _Pybooru(object):
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
         # Validate URL
-        if re.match('^(?:http|https)://', self.site_url):
-            if not re.search(regex, self.site_url):
-                raise PybooruError("Invalid URL: {0}".format(self.site_url))
+        if re.match('^(?:http|https)://', url):
+            if re.search(regex, url):
+                self.__site_url = url
+            else:
+                raise PybooruError("Invalid URL: {0}".format(url))
         else:
             raise PybooruError("Invalid URL scheme, use HTTP or HTTPS: \
-                               {0}".format(self.site_url))
+                               {0}".format(url))
 
     @staticmethod
     def _get_status(status_code):
