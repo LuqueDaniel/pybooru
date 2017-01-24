@@ -22,15 +22,15 @@ install:
     # Install requests
     - pip install -r requirements.txt
 
-    # Install pylint
-    - sudo apt-get install pylint
+    # Install flake8
+    - pip instal flake8
 
 before_script:
     # Remove python binary files
     - rm --recursive --force --verbose *.py[cod]
     - rm --recursive --force --verbose pybooru/__pycache__
     # Run pylint
-    - pylint --errors-only --rcfile=.pylintrc pybooru/
+    - flake8 pybooru/
 
 script:
     # Run test script, but at the moment is a provisional test

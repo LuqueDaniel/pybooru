@@ -25,6 +25,6 @@ __source_url__ = "http://github.com/LuqueDaniel/pybooru"
 __author__ = "Daniel Luque <danielluque14[at]gmail[dot]com>"
 
 # pybooru imports
-from .moebooru import Moebooru
-from .danbooru import Danbooru
-from .exceptions import (PybooruError, PybooruAPIError, PybooruHTTPError)
+from .moebooru import Moebooru  # NOQA
+from .danbooru import Danbooru  # NOQA
+from .exceptions import (PybooruError, PybooruAPIError, PybooruHTTPError)  # NOQA
