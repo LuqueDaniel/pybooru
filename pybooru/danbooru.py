@@ -30,8 +30,8 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
     log in: 'username' and 'api_key'.
 
     Attributes:
-        :var site_name: Return site name.
-        :var site_url: Return the URL of Moebooru based site.
+        :var site_name: Get or set site name set.
+        :var site_url: Get or set the URL of Moebooru/Danbooru based site.
         :var username: Return user name.
         :var api_key: Return API key.
         :var last_call: Return last call.
@@ -41,8 +41,8 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
         """Initialize Danbooru.
 
         Keyword arguments:
-            :param site_name: The site name in 'SITE_LIST', default sites.
-            :param site_url: URL of on Moebooru based sites.
+            :param site_name: Get or set site name set.
+            :param site_url: Get or set the URL of Moebooru/Danbooru based site.
             :param username: Your username of the site (Required only for
                              functions that modify the content).
             :param api_key: Your api key of the site (Required only for

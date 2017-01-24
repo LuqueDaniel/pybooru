@@ -38,8 +38,8 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
     associate hash string.
 
     Attributes:
-        :var site_name: Return site name.
-        :var site_url: Return the URL of Moebooru based site.
+        :var site_name: Get or set site name set.
+        :var site_url: Get or set the URL of Moebooru/Danbooru based site.
         :var api_version: Version of Moebooru API.
         :var username: Return user name.
         :var password: Return password in plain text.
@@ -52,8 +52,8 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         """Initialize Moebooru.
 
         Keyword arguments:
-            :param site_name: The site name in 'SITE_LIST', default sites.
-            :param site_url: URL of on Moebooru based sites.
+            :param site_name: Get or set site name set.
+            :param site_url: Get or set the URL of Moebooru/Danbooru based site.
             :param api_version: Version of Moebooru API.
             :param hash_string: String that is hashed (required to login).
                                 (See the API documentation of the site for more
