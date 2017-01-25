@@ -51,9 +51,9 @@ class MoebooruApi_Mixin(object):
             rating (str): The rating for the post. Can be: safe, questionable,
                           or explicit.
             source (str): If this is a URL, Moebooru will download the file.
-            rating_locked (bool): Set to true to prevent others from changing
+            rating_locked (bool): Set to True to prevent others from changing
                                   the rating.
-            note_locked (bool): Set to true to prevent others from adding notes.
+            note_locked (bool): Set to True to prevent others from adding notes.
             parent_id (int): The ID of the parent post.
             md5 (str): Supply an MD5 if you want Moebooru to verify the file
                        after uploading. If the MD5 doesn't match, the post is
@@ -91,9 +91,9 @@ class MoebooruApi_Mixin(object):
             rating (str): The rating for the post. Can be: safe, questionable,
                           or explicit.
             source (str): If this is a URL, Moebooru will download the file.
-            rating_locked (bool): Set to true to prevent others from changing
+            rating_locked (bool): Set to True to prevent others from changing
                                   the rating.
-            note_locked (bool): Set to true to prevent others from adding
+            note_locked (bool): Set to True to prevent others from adding
                                 notes.
             parent_id (int): The ID of the parent post.
         """
@@ -119,9 +119,9 @@ class MoebooruApi_Mixin(object):
         moderator) (Requires Login) (UNTESTED).
 
         Parameters:
-            Post_id (int): The id number of the post to delete.
+            post_id (int): The id number of the post to delete.
         """
-        return self._get('post/destroy', {'id': post_id}, 'DELETE')
+        return self._get('post/destroy', {'id': post_id}, method='DELETE')
 
     def post_revert_tags(self, post_id, history_id):
         """Function to reverts a post to a previous set of tags
@@ -144,8 +144,11 @@ class MoebooruApi_Mixin(object):
                 * 1: Good.
                 * 2: Great.
                 * 3: Favorite, add post to favorites.
+
+        Raises:
+            PybooruAPIError: When score is > 3.
         """
-        if score <= 3:
+        if score <= 3 and score >= 0:
             params = {'id': post_id, 'score': score}
             return self._get('post/vote', params, 'POST')
         else:
@@ -177,7 +180,7 @@ class MoebooruApi_Mixin(object):
                 * copyright: 3.
                 * character: 4.
             is_ambiguous (int): Whether or not this tag is ambiguous. Use 1
-                                for true and 0 for false.
+                                for True and 0 for False.
         """
         params = {
             'name': name,
@@ -224,7 +227,7 @@ class MoebooruApi_Mixin(object):
             'artist[alias]': alias,
             'artist[group]': group
             }
-        return self._get('artist/create', params, 'POST')
+        return self._get('artist/create', params, method='POST')
 
     def artist_update(self, artist_id, name=None, urls=None, alias=None,
                       group=None):
@@ -250,7 +253,7 @@ class MoebooruApi_Mixin(object):
             'artist[alias]': alias,
             'artist[group]': group
             }
-        return self._get('artist/update', params, 'PUT')
+        return self._get('artist/update', params, method='PUT')
 
     def artist_destroy(self, artist_id):
         """Action to lets you remove artist (Requires login) (UNTESTED).
@@ -258,7 +261,7 @@ class MoebooruApi_Mixin(object):
         Parameters:
             artist_id (int): The id of the artist to destroy.
         """
-        return self._get('artist/destroy', {'id': artist_id}, 'POST')
+        return self._get('artist/destroy', {'id': artist_id}, method='POST')
 
     def comment_show(self, comment_id):
         """Get a specific comment.
@@ -282,7 +285,7 @@ class MoebooruApi_Mixin(object):
             'comment[body]': comment_body,
             'comment[anonymous]': anonymous
             }
-        return self._get('comment/create', params, 'POST')
+        return self._get('comment/create', params, method='POST')
 
     def comment_destroy(self, comment_id):
         """Remove a specific comment (Requires login).
@@ -311,29 +314,29 @@ class MoebooruApi_Mixin(object):
             body (str): The body of the wiki page.
         """
         params = {'wiki_page[title]': title, 'wiki_page[body]': body}
-        return self._get('wiki/create', params, 'POST')
+        return self._get('wiki/create', params, method='POST')
 
-    def wiki_update(self, page_title, new_title=None, page_body=None):
+    def wiki_update(self, title, new_title=None, page_body=None):
         """Action to lets you update a wiki page (Requires login) (UNTESTED).
 
         Parameters:
-            page_title (str): The title of the wiki page to update.
+            title (str): The title of the wiki page to update.
             new_title (str): The new title of the wiki page.
             page_body (str): The new body of the wiki page.
         """
         params = {
-            'title': page_title,
+            'title': title,
             'wiki_page[title]': new_title,
             'wiki_page[body]': page_body
             }
-        return self._get('wiki/update', params, 'PUT')
+        return self._get('wiki/update', params, method='PUT')
 
     def wiki_show(self, **params):
         """Get a specific wiki page.
 
         Parameters:
             title (str): The title of the wiki page to retrieve.
-            version: The version of the page to retrieve.
+            version (int): The version of the page to retrieve.
         """
         return self._get('wiki/show', params)
 
@@ -344,7 +347,7 @@ class MoebooruApi_Mixin(object):
         Parameters:
             title (str): The title of the page to delete.
         """
-        return self._get('wiki/destroy', {'title': title}, 'DELETE')
+        return self._get('wiki/destroy', {'title': title}, method='DELETE')
 
     def wiki_lock(self, title):
         """Function to lock a specific wiki page (Requires login)
@@ -362,17 +365,17 @@ class MoebooruApi_Mixin(object):
         Parameters:
             title (str): The title of the page to unlock.
         """
-        return self._get('wiki/unlock', {'title': title}, 'POST')
+        return self._get('wiki/unlock', {'title': title}, method='POST')
 
     def wiki_revert(self, title, version):
         """Function to revert a specific wiki page (Requires login) (UNTESTED).
 
         Parameters:
             title (str): The title of the wiki page to update.
-            version: The version to revert to.
+            version (int): The version to revert to.
         """
         params = {'title': title, 'version': version}
-        return self._get('wiki/revert', params, 'PUT')
+        return self._get('wiki/revert', params, method='PUT')
 
     def wiki_history(self, title):
         """Get history of specific wiki page.
@@ -414,10 +417,10 @@ class MoebooruApi_Mixin(object):
 
         Parameters:
             note_id (int): The note id to update.
-            version: The version to revert to.
+            version (int): The version to revert to.
         """
         params = {'id': note_id, 'version': version}
-        return self._get('note/revert', params, 'PUT')
+        return self._get('note/revert', params, method='PUT')
 
     def note_create_update(self, post_id=None, coor_x=None, coor_y=None,
                            width=None, height=None, is_active=None, body=None,
@@ -446,7 +449,7 @@ class MoebooruApi_Mixin(object):
             'note[body]': body,
             'note[is_active]': is_active
             }
-        return self._get('note/update', params, 'POST')
+        return self._get('note/update', params, method='POST')
 
     def user_search(self, **params):
         """Search users.
@@ -482,7 +485,7 @@ class MoebooruApi_Mixin(object):
         return self._get('pool', params)
 
     def pool_posts(self, **params):
-        """Function to _get pools posts.
+        """Function to get pools posts.
 
         If you don't specify any parameters you'll _get a list of all pools.
 
@@ -508,7 +511,7 @@ class MoebooruApi_Mixin(object):
             'pool[is_public]': is_public,
             'pool[description]': description
             }
-        return self._get('pool/update', params, 'PUT')
+        return self._get('pool/update', params, method='PUT')
 
     def pool_create(self, name, description, is_public):
         """Function to create a pool (Require login) (UNTESTED).
@@ -520,7 +523,7 @@ class MoebooruApi_Mixin(object):
         """
         params = {'pool[name]': name, 'pool[description]': description,
                   'pool[is_public]': is_public}
-        return self._get('pool/create', params, 'POST')
+        return self._get('pool/create', params, method='POST')
 
     def pool_destroy(self, pool_id):
         """Function to destroy a specific pool (Require login) (UNTESTED).
@@ -528,7 +531,7 @@ class MoebooruApi_Mixin(object):
         Parameters:
             pool_id (int): The pool id number.
         """
-        return self._get('pool/destroy', {'id': pool_id}, 'DELETE')
+        return self._get('pool/destroy', {'id': pool_id}, method='DELETE')
 
     def pool_add_post(self, **params):
         """Function to add a post (Require login) (UNTESTED).
@@ -537,7 +540,7 @@ class MoebooruApi_Mixin(object):
             pool_id (int): The pool to add the post to.
             post_id (int): The post to add.
         """
-        return self._get('pool/add_post', params, 'PUT')
+        return self._get('pool/add_post', params, method='PUT')
 
     def pool_remove_post(self, **params):
         """Function to remove a post (Require login) (UNTESTED).
@@ -546,7 +549,7 @@ class MoebooruApi_Mixin(object):
             pool_id (int): The pool to remove the post to.
             post_id (int): The post to remove.
         """
-        return self._get('pool/remove_post', params, 'PUT')
+        return self._get('pool/remove_post', params, method='PUT')
 
     def favorite_list_users(self, post_id):
         """Function to return a list with all users who have added to favorites
