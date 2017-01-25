@@ -2,10 +2,8 @@
 
 """
 Pybooru
--------
 
 Pybooru is a API client written in Python for Danbooru and Moebooru based sites.
-Under MIT license.
 
 Pybooru requires "requests" package to work.
 

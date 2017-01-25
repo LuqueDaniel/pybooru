@@ -26,20 +26,23 @@ class _Pybooru(object):
     """Pybooru main class.
 
     Attributes:
-        :var site_name: Get or set site name set.
-        :var site_url: Get or set the URL of Moebooru/Danbooru based site.
-        :var username: Return user name.
-        :var last_call: Return last call.
+        site_name (str): Get or set site name set.
+        site_url (str): Get or set the URL of Moebooru/Danbooru based site.
+        username (str): Return user name.
+        last_call (dict): Return last call.
     """
 
     def __init__(self, site_name='', site_url='', username=''):
         """Initialize Pybooru.
 
         Keyword arguments:
-            :param site_name: The site name in 'SITE_LIST', default sites.
-            :param site_url: URL of on Moebooru/Danbooru based sites.
-            :param username: Your username of the site (Required only for
-                             functions that modify the content).
+            site_name (str): The site name in 'SITE_LIST', default sites.
+            site_url (str): URL of on Moebooru/Danbooru based sites.
+            username (str): Your username of the site (Required only for
+                            functions that modify the content).
+
+        Raises:
+            PybooruError: When 'site_name' and 'site_url' are empty.
         """
         # Attributes
         self.__site_name = ''
@@ -78,7 +81,10 @@ class _Pybooru(object):
         """Function that sets and checks the site name and set url.
 
         Parameters:
-            :param site_name: The site name in 'SITE_LIST', default sites.
+            site_name (str): The site name in 'SITE_LIST', default sites.
+
+        Raises:
+            PybooruError: When 'site_name' isn't valid.
         """
         if site_name in SITE_LIST:
             self.__site_name = site_name
@@ -106,7 +112,10 @@ class _Pybooru(object):
         """URL setter and validator for site_url property.
 
         Parameters:
-            :param url: URL of on Moebooru/Danbooru based sites.
+            url (str): URL of on Moebooru/Danbooru based sites.
+
+        Raises:
+            PybooruError: When URL scheme or URL are invalid.
         """
         # Regular expression to URL validate
         regex = re.compile(
@@ -134,7 +143,10 @@ class _Pybooru(object):
         """Get status message for status code.
 
         Parameters:
-            :param status_code: HTTP status code.
+            status_code (int): HTTP status code.
+
+        Returns:
+            status message (str).
         """
         return "{0}, {1}".format(*HTTP_STATUS_CODE.get(
             status_code, ('Undefined', 'undefined')))
@@ -143,13 +155,15 @@ class _Pybooru(object):
         """Function to request and returning JSON data.
 
         Parameters:
-            :param url: Base url call.
-            :param api_call: API function to be called.
-            :param request_args: All requests parameters.
-            :param method: (Defauld: GET) HTTP method 'GET' or 'POST'
+            url (str): Base url call.
+            api_call (str): API function to be called.
+            request_args (dict): All requests parameters.
+            method (str): (Defauld: GET) HTTP method 'GET' or 'POST'
 
-        :raises requests.exceptions.Timeout: When HTTP Timeout.
-        :raises ValueError: When can't decode JSON response.
+        Raises:
+            PybooruHTTPError: HTTP Error.
+            requests.exceptions.Timeout: When HTTP Timeout.
+            ValueError: When can't decode JSON response.
         """
         try:
             if method != 'GET':

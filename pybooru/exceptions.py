@@ -29,19 +29,19 @@ class PybooruHTTPError(PybooruError):
         """Initialize PybooruHTTPError.
 
         Keyword arguments:
-            :param msg: The error message.
-            :param http_code: The HTTP status code.
-            :param url: The URL.
+            msg (str): The error message.
+            http_code (int): The HTTP status code.
+            url (str): The URL.
         """
         super(PybooruHTTPError, self).__init__(msg, http_code, url)
         if http_code in HTTP_STATUS_CODE and url is not None:
-            self.msg = "{0}: {1} - {2}, {3} - URL: {4}".format(
+            self._msg = "{0}: {1} - {2}, {3} - URL: {4}".format(
                 msg, http_code, HTTP_STATUS_CODE[http_code][0],
                 HTTP_STATUS_CODE[http_code][1], url)
 
     def __str__(self):
         """Print exception."""
-        return self.msg
+        return self._msg
 
 
 class PybooruAPIError(PybooruError):

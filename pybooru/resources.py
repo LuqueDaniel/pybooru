@@ -4,9 +4,9 @@
 
 This module contains all resources for Pybooru.
 
-SITE_LIST:
+SITE_LIST (dict):
     Is a dict that contains various based Moebooru, default sites.
-HTTP_STATUS_CODE:
+HTTP_STATUS_CODE (dict):
     Is a dict that contains the http status code for Moebooru API.
 """
 
