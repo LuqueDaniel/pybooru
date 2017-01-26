@@ -29,15 +29,15 @@ SITE_LIST = {
 # HTTP_STATUS_CODE
 HTTP_STATUS_CODE = {
     200: ("OK", "Request was successful"),
-    201: ("Created" "The request has been fulfilled, resulting in the creation \
-          of a new resource"),
-    202: ("Accepted", "The request has been accepted for processing, but the \
-          processing has not been completed."),
-    204: ("No Content", "The server successfully processed the request and is \
-          not returning any content."),
+    201: ("Created" "The request has been fulfilled, resulting in the creation"
+          " of a new resource"),
+    202: ("Accepted", "The request has been accepted for processing, but the "
+          "processing has not been completed."),
+    204: ("No Content", "The server successfully processed the request and is "
+          "not returning any content."),
     400: ("Bad request", "The server cannot or will not process the request"),
-    401: ("Unauthorized", "Authentication is required and has failed or has \
-          not yet been provided."),
+    401: ("Unauthorized", "Authentication is required and has failed or has "
+          "not yet been provided."),
     403: ("Forbidden", "Access denied"),
     404: ("Not Found", "Not found"),
     420: ("Invalid Record", "Record could not be saved"),

@@ -80,8 +80,8 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
             if self.username and self.api_key is not '':
                 request_args['auth'] = (self.username, self.api_key)
             else:
-                raise PybooruError("'username' and 'api_key' attribute of \
-                                   Danbooru are required.")
+                raise PybooruError("'username' and 'api_key' attribute of "
+                                   "Danbooru are required.")
 
         # Do call
         return self._request(url, api_call, request_args, method)

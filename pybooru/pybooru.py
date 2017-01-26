@@ -62,8 +62,8 @@ class _Pybooru(object):
         elif site_url is not '':
             self.site_url = site_url
         else:
-            raise PybooruError("Unexpected empty arguments, specify parameter \
-                               'site_name' or 'site_url'.")
+            raise PybooruError("Unexpected empty arguments, specify parameter "
+                               "'site_name' or 'site_url'.")
 
     @property
     def site_name(self):
@@ -134,8 +134,8 @@ class _Pybooru(object):
             else:
                 raise PybooruError("Invalid URL: {0}".format(url))
         else:
-            raise PybooruError("Invalid URL scheme, use HTTP or HTTPS: \
-                               {0}".format(url))
+            raise PybooruError(
+                "Invalid URL scheme, use HTTP or HTTPS: {0}".format(url))
 
     @staticmethod
     def _get_status(status_code):
