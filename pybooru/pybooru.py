@@ -45,10 +45,9 @@ class _Pybooru(object):
             PybooruError: When 'site_name' and 'site_url' are empty.
         """
         # Attributes
-        self.__site_name = ''
-        self.__site_url = ''
-        if username is not '':
-            self.username = username
+        self.__site_name = ''  # for site_name property
+        self.__site_url = ''  # for site_url property
+        self.username = username
         self.last_call = {}
 
         # Set HTTP Client

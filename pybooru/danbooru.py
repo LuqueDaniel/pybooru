@@ -50,8 +50,7 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
         """
         super(Danbooru, self).__init__(site_name, site_url, username)
 
-        if api_key is not "":
-            self.api_key = api_key
+        self.api_key = api_key
 
     def _get(self, api_call, params=None, method='GET', auth=False,
              file_=None):
@@ -74,11 +73,13 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
         else:
             request_args = {'data': params, 'files': file_}
 
-        # Adds auth
-        if auth is True:
-            try:
+        # Adds auth. Also adds auth if username and api_key are specified
+        # Members+ have less restrictions
+        if auth is True or self.username and self.api_key is not '':
+            print("Ejecutando")
+            if self.username and self.api_key is not '':
                 request_args['auth'] = (self.username, self.api_key)
-            except AttributeError:
+            else:
                 raise PybooruError("'username' and 'api_key' attribute of \
                                    Danbooru are required.")
 

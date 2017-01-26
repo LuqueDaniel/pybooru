@@ -66,8 +66,7 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         super(Moebooru, self).__init__(site_name, site_url, username)
 
         self.api_version = api_version.lower()
-        if password is not "":
-            self.password = password
+        self.password = password
         self.password_hash = None
 
     def _build_url(self, api_call):
