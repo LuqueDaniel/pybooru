@@ -265,12 +265,12 @@ class DanbooruApi_Mixin(object):
         """
         return self._get('uploads/{0}.json'.format(upload_id), auth=True)
 
-    def upload_create(self, tag_string, rating, file_=None, source=None,
+    def upload_create(self, tags, rating, file_=None, source=None,
                       parent_id=None):
         """Function to create a new upload (Requires login).
 
         Parameters:
-            tag_string (str):
+            tags (str):
             rating (str): Can be: safe, questionable, explicit.
             file_ (file_path): The file data encoded as a multipart form.
             source (str): The source URL.
@@ -284,7 +284,7 @@ class DanbooruApi_Mixin(object):
                 'upload[source]': source,
                 'upload[rating]': rating,
                 'upload[parent_id]': parent_id,
-                'upload[tag_string]': tag_string
+                'upload[tag_string]': tags
                 }
             file_ = {'upload[file]': open(file_, 'rb')}
             return self._get('uploads.json', params, 'POST', auth=True,
