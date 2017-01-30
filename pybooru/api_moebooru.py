@@ -231,10 +231,10 @@ class MoebooruApi_Mixin(object):
 
     def artist_update(self, artist_id, name=None, urls=None, alias=None,
                       group=None):
-        """Function to update artists (Requires Login).
+        """Function to update artists (Requires Login) (UNTESTED).
 
         Only the artist_id parameter is required. The other parameters are
-        optional. (Requires login) (UNTESTED).
+        optional.
 
         Parameters:
             artist_id (int): The id of thr artist to update (Type: INT).
@@ -476,7 +476,7 @@ class MoebooruApi_Mixin(object):
     def pool_list(self, **params):
         """Function to get pools.
 
-        If you don't specify any parameters you'll _get a list of all pools.
+        If you don't specify any parameters you'll get a list of all pools.
 
         Parameters:
             query (str): The title.
@@ -487,7 +487,7 @@ class MoebooruApi_Mixin(object):
     def pool_posts(self, **params):
         """Function to get pools posts.
 
-        If you don't specify any parameters you'll _get a list of all pools.
+        If you don't specify any parameters you'll get a list of all pools.
 
         Parameters:
             id (int): The pool id number.
