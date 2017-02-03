@@ -1,5 +1,5 @@
 environment:
-  matix:
+  matrix:
     # List: https://www.appveyor.com/docs/installed-software/#python
     - PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7"
