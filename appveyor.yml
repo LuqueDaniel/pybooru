@@ -2,15 +2,44 @@ environment:
   matix:
     # List: https://www.appveyor.com/docs/installed-software/#python
     - PYTHON: "C:\\Python27"
+      PYTHON_VERSION: "2.7"
+      PYTHON_ARCH:  "32"
+
     - PYTHON: "C:\\Python27-x64"
+      PYTHON_VERSION: "2.7"
+      PYTHON_ARCH: "64"
+
     - PYTHON: "C:\\Python33"
+      PYTHON_VERSION: "3.3"
+      PYTHON_ARCH: "32"
+
     - PYTHON: "C:\\Python33-x64"
+      PYTHON_VERSION: "3.3"
+      PYTHON_ARCH: "64"
+
     - PYTHON: "C:\\Python34"
+      PYTHON_VERSION: "3.4"
+      PYTHON_ARCH: "32"
+
     - PYTHON: "C:\\Python34-x64"
+      PYTHON_VERSION: "3.4"
+      PYTHON_ARCH: "64"
+
     - PYTHON: "C:\\Python35"
+      PYTHON_VERSION: "3.5"
+      PYTHON_ARCH: "32"
+
     - PYTHON: "C:\\Python35-x64"
+      PYTHON_VERSION: "3.5"
+      PYTHON_ARCH: "64"
+
     - PYTHON: "C:\\Python36"
+      PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "32"
+
     - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "64"
 
 init:
   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH% %HOMEDRIVE%%HOMEPATH%
@@ -21,10 +50,10 @@ install:
   - RD /S /Q .\pybooru\__pycache__
 
   # Install reqeusts
-  - pip install requests --user
+  - "%PYTHON%/Scripts/pip.exe install requests --user"
 
 # Not a VS project
 build: off
 
 test_script:
-  - python provisional_test.py
+  - "%PYTHON%/python.exe provisional_test.py"
