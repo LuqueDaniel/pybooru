@@ -12,19 +12,19 @@ environment:
     - PYTHON: "C:\\Python36"
     - PYTHON: "C:\\Python36-x64"
 
-  init:
-    - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH% %HOMEDRIVE%%HOMEPATH%
+init:
+  - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH% %HOMEDRIVE%%HOMEPATH%
 
-  install:
-    # Remove binary
-    - DEL /S .\*.pyc
-    - RD /S /Q .\pybooru\__pycache__
+install:
+  # Remove binary
+  - DEL /S .\*.pyc
+  - RD /S /Q .\pybooru\__pycache__
 
-    # Install reqeusts
-    - pip install requests --user
+  # Install reqeusts
+  - pip install requests --user
 
-    # Not a VS project
-  build: off
+# Not a VS project
+build: off
 
-  test_script:
+test_script:
   - python provisional_test.py
