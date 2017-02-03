@@ -1,17 +1,48 @@
 # .travis.yml file for pybooru
 
-os:
-    - linux
-
-language: python
-
 # Python version
-python:
-    - "2.7"
-    - "3.3"
-    - "3.4"
-    - "3.5"
-    - "3.6"
+matrix:
+  include:
+    - python: '2.7'
+      os: linux
+      language: python
+
+    - python: '3.3'
+      os: linux
+      language: python
+
+    - python: '3.4'
+      os: linux
+      language: python
+
+    - python: '3.5'
+      os: linux
+      language: python
+
+    - python: '3.6'
+      os: linux
+      language: python
+
+    # Mac env
+    - os: osx
+      env: PYTHON_VERSION=2.7
+      language: generic
+
+    - os: osx
+      env: PYTHON_VERSION=3.3
+      language: generic
+
+    - os: osx
+      env: PYTHON_VERSION=3.4
+      language: generic
+
+    - os: osx
+      env: PYTHON_VERSION=3.5
+      language: generic
+
+    - os: osx
+      env: PYTHON_VERSION=3.6
+      language: generic
 
 branches:
     - develop
