@@ -45,10 +45,6 @@ init:
   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH% %HOMEDRIVE%%HOMEPATH%
 
 install:
-  # Remove binary
-  - DEL /S .\*.pyc
-  - RD /S /Q .\pybooru\__pycache__
-
   # Install reqeusts
   - "%PYTHON%/Scripts/pip.exe install requests --user"
 
