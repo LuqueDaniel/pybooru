@@ -40,9 +40,6 @@ install:
     - pip install flake8
 
 before_script:
-    # Remove python binary files
-    - rm --recursive --force --verbose *.py[cod]
-    - rm --recursive --force --verbose pybooru/__pycache__
     # Run pylint
     - flake8 pybooru/
 
