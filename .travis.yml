@@ -23,23 +23,7 @@ matrix:
       os: linux
       language: python
 
-    # Mac env
-    - os: osx
-      env: PYTHON_VERSION=2.7
-      language: generic
-
-    - os: osx
-      env: PYTHON_VERSION=3.3
-      language: generic
-
-    - os: osx
-      env: PYTHON_VERSION=3.4
-      language: generic
-
-    - os: osx
-      env: PYTHON_VERSION=3.5
-      language: generic
-
+    # OSX ENV
     - os: osx
       env: PYTHON_VERSION=3.6
       language: generic
