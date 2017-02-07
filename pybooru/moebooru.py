@@ -47,8 +47,8 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         last_call (dict) last call.
     """
 
-    def __init__(self, site_name="", site_url="", username="", password="",
-                 hash_string="", api_version="1.13.0+update.3"):
+    def __init__(self, site_name='', site_url='', username='', password='',
+                 hash_string='', api_version='1.13.0+update.3'):
         """Initialize Moebooru.
 
         Keyword arguments:

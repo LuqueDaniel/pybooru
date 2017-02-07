@@ -37,7 +37,7 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
         last_call (dict): Return last call.
     """
 
-    def __init__(self, site_name="", site_url="", username="", api_key=""):
+    def __init__(self, site_name='', site_url='', username='', api_key=''):
         """Initialize Danbooru.
 
         Keyword arguments:

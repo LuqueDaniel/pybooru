@@ -25,6 +25,10 @@ matrix:
 
     # OSX ENV
     - os: osx
+      env: PYTHON_VERSION=2.7
+      language: generic
+
+    - os: osx
       env: PYTHON_VERSION=3.6
       language: generic
 

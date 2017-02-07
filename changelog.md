@@ -1,5 +1,31 @@
 # Pybooru - Changelog
 
+## Pybooru 4.1.0 - (2017-02-08)
+- Pybooru: refactored `_get_status()`
+- Python 3.6 support
+- Fixed `PybooruHTTPError`
+- Pybooru: now `site_name` and `site_url` are `@property`
+- Remove Pylint references
+- End of Python 2.6 support
+- Danbooru: added `post_mark_translated()`
+- Danbooru: added `post_unvote()`
+- Danbooru: added `post_flag_show()`
+- Danbooru: added `post_appeals_show()`
+- Danbooru: added `post_versions_show()`
+- Danbooru: added `post_versions_undo()`
+- Danbooru: added `comment_undelete()`
+- Danbooru: added `comment_vote()`
+- Danbooru: added `comment_unvote()`
+- Danbooru: added `artist_undelete()`
+- Danbooru: added `tag_show()`
+- Danbooru: added `tag_udpate()`
+- Danbooru: added `wiki_delete()`
+- New docstring format
+- Added support for Danbooru accounts levels.
+- Refactored api_moebooru.py
+- Code improvements
+- Documentation improvement
+
 ## Pybooru 4.0.1 - (2016/12/09)
 - Fix problems with Pypi
 

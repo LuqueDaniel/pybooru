@@ -18,7 +18,7 @@ from .exceptions import PybooruAPIError
 class DanbooruApi_Mixin(object):
     """Contains all Danbooru API calls.
 
-    * API Version commit: 8a93fdf
+    * API Version commit: 9996030
     * Doc: https://danbooru.donmai.us/wiki_pages/43568
     """
 
