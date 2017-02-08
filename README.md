@@ -82,7 +82,7 @@ client.comment_create(post_id=id, comment_body='Comment content')
 ```
 
 ## Documentation
-You can consult the documentation on **[Read the Docs](http://pybooru.readthedocs.io/en/stable/)**
+You can consult the documentation on **[Read the Docs](http://pybooru.readthedocs.io/)**
 
 ## Status
 | Platform       | Master         | Develop |
