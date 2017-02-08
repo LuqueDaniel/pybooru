@@ -1,11 +1,7 @@
 Pybooru - Package for Danbooru/Moebooru API.
 ============================================
-.. image:: https://img.shields.io/pypi/v/Pybooru.svg?style=flat-square
-.. image:: https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square
 .. image:: https://img.shields.io/pypi/l/Pybooru.svg?style=flat-square
     :target: https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE
-.. image:: https://img.shields.io/pypi/wheel/Pybooru.svg?style=flat-square
-.. image:: https://img.shields.io/pypi/format/Pybooru.svg?style=flat-square
 
 
 Examples of use
