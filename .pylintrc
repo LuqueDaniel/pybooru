@@ -1,7 +1,0 @@
-# Pylint config file
-
-[TYPECHECK]
-generated-members=objects
-
-[REPORTS]
-msg-template={path}:{line}:{column} - [{msg_id} in {obj}]: ({symbol}), {msg}

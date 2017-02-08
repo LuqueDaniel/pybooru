@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8 -*-
 
 """pybooru.danbooru
 
@@ -30,41 +30,41 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
     log in: 'username' and 'api_key'.
 
     Attributes:
-        :var site_name: Return site name.
-        :var site_url: Return the URL of Moebooru based site.
-        :var username: Return user name.
-        :var api_key: Return API key.
-        :var last_call: Return last call.
+        site_name (str): Get or set site name set.
+        site_url (str): Get or set the URL of Moebooru/Danbooru based site.
+        username (str): Return user name.
+        api_key (str): Return API key.
+        last_call (dict): Return last call.
     """
 
-    def __init__(self, site_name="", site_url="", username="", api_key=""):
+    def __init__(self, site_name='', site_url='', username='', api_key=''):
         """Initialize Danbooru.
 
         Keyword arguments:
-            :param site_name: The site name in 'SITE_LIST', default sites.
-            :param site_url: URL of on Moebooru based sites.
-            :param username: Your username of the site (Required only for
-                             functions that modify the content).
-            :param api_key: Your api key of the site (Required only for
+            site_name (str): Get or set site name set.
+            site_url (str): Get or set the URL of Moebooru/Danbooru based site.
+            username (str): Your username of the site (Required only for
                             functions that modify the content).
+            api_key (str): Your api key of the site (Required only for
+                           functions that modify the content).
         """
         super(Danbooru, self).__init__(site_name, site_url, username)
 
-        if api_key is not "":
-            self.api_key = api_key
+        self.api_key = api_key
 
     def _get(self, api_call, params=None, method='GET', auth=False,
              file_=None):
         """Function to preapre API call.
 
         Parameters:
-            :param api_call: API function to be called.
-            :param params: API function parameters.
-            :param method: (Defauld: GET) HTTP method (GET, POST, PUT or
+            api_call (str): API function to be called.
+            params (str): API function parameters.
+            method (str): (Defauld: GET) HTTP method (GET, POST, PUT or
                            DELETE)
-            :param file_: File to upload (only uploads).
+            file_ (file): File to upload (only uploads).
 
-        :raise AttributeError: When 'username' or 'api_key' are not set.
+        Raise:
+            PybooruError: When 'username' or 'api_key' are not set.
         """
         url = "{0}/{1}".format(self.site_url, api_call)
 
@@ -73,13 +73,14 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
         else:
             request_args = {'data': params, 'files': file_}
 
-        # Adds auth
-        if auth is True:
-            try:
+        # Adds auth. Also adds auth if username and api_key are specified
+        # Members+ have less restrictions
+        if auth is True or self.username and self.api_key is not '':
+            if self.username and self.api_key is not '':
                 request_args['auth'] = (self.username, self.api_key)
-            except AttributeError:
-                raise PybooruError("'username' and 'api_key' attribute of \
-                                   Danbooru are required.")
+            else:
+                raise PybooruError("'username' and 'api_key' attribute of "
+                                   "Danbooru are required.")
 
         # Do call
         return self._request(url, api_call, request_args, method)

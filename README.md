@@ -1,21 +1,20 @@
 # Pybooru - Package for Danbooru/Moebooru API.
 [![PyPI](https://img.shields.io/pypi/v/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
-[![Build Status](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru) [![PyPI](https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
+[![PyPI](https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/pybooru/badge/?version=stable)](http://pybooru.readthedocs.io/en/stable/?badge=stable)
 
 **Pybooru** is a Python package to access to the API of Danbooru/Moebooru based sites.
 
-- Version: **4.0.1**
+- Version: **4.1.0**
 - Licensed under: **MIT License**
 
 ## Dependencies.
-- Python: >= 2.6 or Python: >= 3.3
+- Python: >= 2.7 or Python: >= 3.3
 - [requests](http://docs.python-requests.org/en/latest/)
 
 ## Installation
 ### from Python Package Index (Pypi)
-Pypi - Python Package Index:
 [Pybooru on Pypi.](https://pypi.python.org/pypi/Pybooru/)
 
 ```bash
@@ -32,7 +31,7 @@ python setup.py install
 ```
 
 ## Examples of use
-See [More examples.](https://github.com/LuqueDaniel/pybooru/tree/master/examples)
+See [More examples](https://github.com/LuqueDaniel/pybooru/tree/master/examples).
 
 ### Danbooru
 ```python
@@ -85,8 +84,11 @@ client.comment_create(post_id=id, comment_body='Comment content')
 ## Documentation
 You can consult the documentation on **[Read the Docs](http://pybooru.readthedocs.io/en/stable/)**
 
-## CI Report
-- https://travis-ci.org/LuqueDaniel/pybooru
+## Status
+| Platform       | Master         | Develop |
+| :------------- | :------------- | :------- |
+| [Linux & OSX (Travis CI)](https://travis-ci.org/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=develop)](https://travis-ci.org/LuqueDaniel/pybooru) |
+| [Windows (AppVeyor)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) | [![AppVeyor](https://img.shields.io/appveyor/ci/luquedaniel/pybooru.svg)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) | [![AppVeyor](https://img.shields.io/appveyor/ci/luquedaniel/pybooru/develop.svg)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) |
 
 ## License
 - **[See MIT License](https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE)**

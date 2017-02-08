@@ -2,10 +2,8 @@
 
 """
 Pybooru
--------
 
 Pybooru is a API client written in Python for Danbooru and Moebooru based sites.
-Under MIT license.
 
 Pybooru requires "requests" package to work.
 
@@ -19,12 +17,12 @@ Pybooru modules:
     resources -- Contains all resources for Pybooru.
 """
 
-__version__ = "4.0.1"
+__version__ = "4.1.0"
 __license__ = "MIT"
 __source_url__ = "http://github.com/LuqueDaniel/pybooru"
 __author__ = "Daniel Luque <danielluque14[at]gmail[dot]com>"
 
 # pybooru imports
-from .moebooru import Moebooru
-from .danbooru import Danbooru
-from .exceptions import PybooruError
+from .moebooru import Moebooru  # NOQA
+from .danbooru import Danbooru  # NOQA
+from .exceptions import (PybooruError, PybooruAPIError, PybooruHTTPError)  # NOQA

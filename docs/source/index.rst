@@ -8,9 +8,9 @@ Welcome to Pybooru's documentation!
 
 **Pybooru** is a Python package to access to the API of Danbooru/Moebooru based sites.
 
-- Version: **4.0.1**
+- Version: **4.1.0**
 - Licensed under: `MIT License <https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE>`_
-- Python: >= 2.6 or Python: >= 3.3
+- Python: >= 2.7 or Python: >= 3.3
 
 Dependencies
 ------------

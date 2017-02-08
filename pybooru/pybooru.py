@@ -26,26 +26,28 @@ class _Pybooru(object):
     """Pybooru main class.
 
     Attributes:
-        :var site_name: Return site name.
-        :var site_url: Return the URL of Moebooru/Danbooru based site.
-        :var username: Return user name.
-        :var last_call: Return last call.
+        site_name (str): Get or set site name set.
+        site_url (str): Get or set the URL of Moebooru/Danbooru based site.
+        username (str): Return user name.
+        last_call (dict): Return last call.
     """
 
-    def __init__(self, site_name="", site_url="", username=""):
+    def __init__(self, site_name='', site_url='', username=''):
         """Initialize Pybooru.
 
         Keyword arguments:
-            :param site_name: The site name in 'SITE_LIST', default sites.
-            :param site_url: URL of on Moebooru/Danbooru based sites.
-            :param username: Your username of the site (Required only for
-                             functions that modify the content).
+            site_name (str): The site name in 'SITE_LIST', default sites.
+            site_url (str): URL of on Moebooru/Danbooru based sites.
+            username (str): Your username of the site (Required only for
+                            functions that modify the content).
+
+        Raises:
+            PybooruError: When 'site_name' and 'site_url' are empty.
         """
         # Attributes
-        self.site_name = site_name.lower()
-        self.site_url = site_url.lower()
-        if username is not "":
-            self.username = username
+        self.__site_name = ''  # for site_name property
+        self.__site_url = ''  # for site_url property
+        self.username = username
         self.last_call = {}
 
         # Set HTTP Client
@@ -55,29 +57,65 @@ class _Pybooru(object):
         self.client.headers = headers
 
         # Validate site_name or site_url
-        if site_url or site_name is not "":
-            if site_name is not "":
-                self._site_name_validator()
-            elif site_url is not "":
-                self._url_validator()
+        if site_name is not '':
+            self.site_name = site_name
+        elif site_url is not '':
+            self.site_url = site_url
         else:
-            raise PybooruError("Unexpected empty strings,"
-                               " specify parameter 'site_name' or 'site_url'.")
+            raise PybooruError("Unexpected empty arguments, specify parameter "
+                               "'site_name' or 'site_url'.")
 
-    def _site_name_validator(self):
-        """Function that checks the site name and get url."""
-        if self.site_name in SITE_LIST:
-            self.site_url = SITE_LIST[self.site_name]['url']
+    @property
+    def site_name(self):
+        """Get or set site name.
+
+        :getter: Return site name.
+        :setter: Validate and set site name.
+        :type: string
+        """
+        return self.__site_name
+
+    @site_name.setter
+    def site_name(self, site_name):
+        """Function that sets and checks the site name and set url.
+
+        Parameters:
+            site_name (str): The site name in 'SITE_LIST', default sites.
+
+        Raises:
+            PybooruError: When 'site_name' isn't valid.
+        """
+        if site_name in SITE_LIST:
+            self.__site_name = site_name
+            self.__site_url = SITE_LIST[site_name]['url']
             # Only for Moebooru
-            if 'api_version' and 'hashed_string' in SITE_LIST[self.site_name]:
-                self.api_version = SITE_LIST[self.site_name]['api_version']
-                self.hash_string = SITE_LIST[self.site_name]['hashed_string']
+            if 'api_version' and 'hashed_string' in SITE_LIST[site_name]:
+                self.api_version = SITE_LIST[site_name]['api_version']
+                self.hash_string = SITE_LIST[site_name]['hashed_string']
         else:
             raise PybooruError(
                 "The 'site_name' is not valid, specify a valid 'site_name'.")
 
-    def _url_validator(self):
-        """URL validator for site_url attribute."""
+    @property
+    def site_url(self):
+        """Get or set site url.
+
+        :getter: Return site url.
+        :setter: Validate and set site url.
+        :type: string
+        """
+        return self.__site_url
+
+    @site_url.setter
+    def site_url(self, url):
+        """URL setter and validator for site_url property.
+
+        Parameters:
+            url (str): URL of on Moebooru/Danbooru based sites.
+
+        Raises:
+            PybooruError: When URL scheme or URL are invalid.
+        """
         # Regular expression to URL validate
         regex = re.compile(
             r'^(?:http|https)://'  # Scheme only HTTP/HTTPS
@@ -90,32 +128,41 @@ class _Pybooru(object):
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
         # Validate URL
-        if re.match('^(?:http|https)://', self.site_url):
-            if not re.search(regex, self.site_url):
-                raise PybooruError("Invalid URL: {0}".format(self.site_url))
+        if re.match('^(?:http|https)://', url):
+            if re.search(regex, url):
+                self.__site_url = url
+            else:
+                raise PybooruError("Invalid URL: {0}".format(url))
         else:
-            raise PybooruError("Invalid URL scheme, use HTTP "
-                               "or HTTPS: {0}".format(self.site_url))
+            raise PybooruError(
+                "Invalid URL scheme, use HTTP or HTTPS: {0}".format(url))
 
     @staticmethod
     def _get_status(status_code):
-        """Get status message for status code"""
-        if status_code in HTTP_STATUS_CODE:
-            return "{0}, {1}".format(*HTTP_STATUS_CODE[status_code])
-        else:
-            return None
+        """Get status message for status code.
+
+        Parameters:
+            status_code (int): HTTP status code.
+
+        Returns:
+            status message (str).
+        """
+        return "{0}, {1}".format(*HTTP_STATUS_CODE.get(
+            status_code, ('Undefined', 'undefined')))
 
     def _request(self, url, api_call, request_args, method='GET'):
         """Function to request and returning JSON data.
 
         Parameters:
-            :param url: Base url call.
-            :param api_call: API function to be called.
-            :param request_args: All requests parameters.
-            :param method: (Defauld: GET) HTTP method 'GET' or 'POST'
+            url (str): Base url call.
+            api_call (str): API function to be called.
+            request_args (dict): All requests parameters.
+            method (str): (Defauld: GET) HTTP method 'GET' or 'POST'
 
-        :raises requests.exceptions.Timeout: When HTTP Timeout.
-        :raises ValueError: When can't decode JSON response.
+        Raises:
+            PybooruHTTPError: HTTP Error.
+            requests.exceptions.Timeout: When HTTP Timeout.
+            ValueError: When can't decode JSON response.
         """
         try:
             if method != 'GET':
@@ -137,7 +184,7 @@ class _Pybooru(object):
                 raise PybooruHTTPError("In _request", response.status_code,
                                        response.url)
         except requests.exceptions.Timeout:
-            raise PybooruError("Timeout! in url: {0}".format(response.url))
+            raise PybooruError("Timeout! url: {0}".format(response.url))
         except ValueError as e:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
                 e.msg, e.lineno, e.colno))

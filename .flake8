@@ -1,0 +1,18 @@
+[flake8]
+# Flake8 ignore
+# F401 module imported but unused
+# E501 line too long (80+ characters per line)
+ignore =
+  F401,
+  E501
+
+# Disable brackets indent warning
+hang_closing = True
+
+# Show total number of errors
+count = True
+
+# Exclude files
+exclude =
+  __pycache__,
+  *.pyc

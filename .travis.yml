@@ -1,17 +1,36 @@
 # .travis.yml file for pybooru
 
-os:
-    - linux
-
-language: python
-
 # Python version
-python:
-    - "2.6"
-    - "2.7"
-    - "3.3"
-    - "3.4"
-    - "3.5"
+matrix:
+  include:
+    - python: '2.7'
+      os: linux
+      language: python
+
+    - python: '3.3'
+      os: linux
+      language: python
+
+    - python: '3.4'
+      os: linux
+      language: python
+
+    - python: '3.5'
+      os: linux
+      language: python
+
+    - python: '3.6'
+      os: linux
+      language: python
+
+    # OSX ENV
+    - os: osx
+      env: PYTHON_VERSION=2.7
+      language: generic
+
+    - os: osx
+      env: PYTHON_VERSION=3.6
+      language: generic
 
 branches:
     - develop
@@ -21,15 +40,12 @@ install:
     # Install requests
     - pip install -r requirements.txt
 
-    # Install pylint
-    - sudo apt-get install pylint
+    # Install flake8
+    - pip install flake8
 
 before_script:
-    # Remove python binary files
-    - rm --recursive --force --verbose *.py[cod]
-    - rm --recursive --force --verbose pybooru/__pycache__
     # Run pylint
-    - pylint --errors-only --rcfile=.pylintrc pybooru/
+    - flake8 pybooru/
 
 script:
     # Run test script, but at the moment is a provisional test
