@@ -1,4 +1,4 @@
-# Pybooru - Package for Danbooru/Moebooru API.
+# Pybooru - Package for Danbooru/Moebooru API
 [![PyPI](https://img.shields.io/pypi/v/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
 [![PyPI](https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE)
@@ -9,7 +9,7 @@
 - Version: **4.1.0**
 - Licensed under: **MIT License**
 
-## Dependencies.
+## Dependencies
 - Python: >= 2.7 or Python: >= 3.3
 - [requests](http://docs.python-requests.org/en/latest/)
 

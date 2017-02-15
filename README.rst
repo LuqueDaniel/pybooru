@@ -1,5 +1,5 @@
-Pybooru - Package for Danbooru/Moebooru API.
-============================================
+Pybooru - Package for Danbooru/Moebooru API
+===========================================
 .. image:: https://img.shields.io/pypi/l/Pybooru.svg?style=flat-square
     :target: https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE
 
