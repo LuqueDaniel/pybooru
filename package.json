@@ -1,0 +1,28 @@
+{
+  "name": "pybooru-website",
+  "version": "0.0.1",
+  "description": "Pybooru project website",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuqueDaniel/pybooru.git"
+  },
+  "keywords": [
+    "pybooru"
+  ],
+  "author": "Daniel Luque",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LuqueDaniel/pybooru/issues"
+  },
+  "homepage": "https://github.com/LuqueDaniel/pybooru#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-sass": "^3.1.0",
+    "node-normalize-scss": "^3.0.0"
+  }
+}

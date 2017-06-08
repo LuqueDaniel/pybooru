@@ -1,2 +1,2 @@
 # Pybooru Website
-This branch contains Pybooru website.
+This branch contains only Pybooru website.
