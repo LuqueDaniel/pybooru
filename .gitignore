@@ -16,3 +16,6 @@ Pybooru.egg-info/
 
 # IDEs config files
 *.nja
+
+# node dirs and files
+node_modules/
