@@ -37,20 +37,20 @@ branches:
     - master
 
 install:
-    # Install requests
+    # Install requests and flake8
     - |
       if ["$TRAVIS_OS_NAME" == "osx"]; then
         if ["$PYTHON_VERSION" == "2.7"]; then
           pip2 install -r requirements.txt;
+          pip2 install flake8;
         else
           pip3 install -r requirements.txt;
+          pip3 install flake8;
         fi
       else
         pip install -r requirements.txt;
+        pip install flake8;
       fi
-
-    # Install flake8
-    - pip install flake8
 
 before_script:
     # Run pylint
