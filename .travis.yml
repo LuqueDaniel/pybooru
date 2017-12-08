@@ -38,14 +38,9 @@ branches:
 
 install:
     # Install requests and flake8
-    - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-        if [ "$PYTHON_VERSION" == "2.7" ]; then
-          pip2 install -r requirements.txt;
-          pip2 install flake8;
-        else
-          pip3 install -r requirements.txt;
-          pip3 install flake8;
-        fi
+    - if [ $TRAVIS_OS_NAME == osx ]; then
+        pip2 install -r requirements.txt;
+        pip2 install flake8;
       else
         pip install -r requirements.txt;
         pip install flake8;
