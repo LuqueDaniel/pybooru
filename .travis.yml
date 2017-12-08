@@ -39,16 +39,14 @@ branches:
 install:
     # Install requests and flake8
     - if [ $TRAVIS_OS_NAME == osx ]; then
-        pip2 install --user -r requirements.txt;
-        pip2 install --user flake8;
+        pip2 install --user -r requirements.txt flake8;
       else
-        pip install -r requirements.txt;
-        pip install flake8;
+        pip install -r requirements.txt flake8;
       fi
 
 before_script:
     # Run pylint
-    - flake8 pybooru/
+    - python -m flake8 pybooru/
 
 script:
     # Run test script, but at the moment is a provisional test
