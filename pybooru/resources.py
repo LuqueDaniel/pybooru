@@ -23,6 +23,8 @@ SITE_LIST = {
         'hashed_string': "choujin-steiner--{0}--"},
     'danbooru': {
         'url': "http://danbooru.donmai.us"}
+    'safebooru': {
+        'url': "https://safebooru.donmai.us"}
     }
 
 
