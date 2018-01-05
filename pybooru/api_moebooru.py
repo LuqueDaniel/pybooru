@@ -19,7 +19,7 @@ class MoebooruApi_Mixin(object):
     """Contains all Moebooru API calls.
 
     * API Versions: 1.13.0+update.3 and 1.13.0
-    * doc: https://yande.re/help/api or http://konachan.com/help/api
+    * doc: https://yande.re/help/api or https://konachan.com/help/api
     """
 
     def post_list(self, **params):
