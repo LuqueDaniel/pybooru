@@ -22,7 +22,7 @@ SITE_LIST = {
         'api_version': "1.13.0+update.3",
         'hashed_string': "choujin-steiner--{0}--"},
     'danbooru': {
-        'url': "http://danbooru.donmai.us"}
+        'url': "http://danbooru.donmai.us"},
     'safebooru': {
         'url': "https://safebooru.donmai.us"}
     }
