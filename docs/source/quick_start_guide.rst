@@ -109,7 +109,7 @@ Default sites list
 
 Pybooru has a list of default sites that allow you to use Pybooru without "site_url" argument:
 
-- konachan (`Konachan <http://konachan.com/>`_)
+- konachan (`Konachan <https://konachan.com/>`_)
 - yandere (`Yande.re <https://yande.re/post>`_)
-- danbooru (`Danbooru <http://danbooru.donmai.us/>`_)
-- safebooru (`Safebooru <http://safebooru.donmai.us/>`_)
+- danbooru (`Danbooru <https://danbooru.donmai.us/>`_)
+- safebooru (`Safebooru <https://safebooru.donmai.us/>`_)

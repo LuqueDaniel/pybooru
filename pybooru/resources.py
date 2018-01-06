@@ -14,7 +14,7 @@ HTTP_STATUS_CODE (dict):
 # Default SITE_LIST
 SITE_LIST = {
     'konachan': {
-        'url': "http://konachan.com",
+        'url': "https://konachan.com",
         'api_version': "1.13.0+update.3",
         'hashed_string': "So-I-Heard-You-Like-Mupkids-?--{0}--"},
     'yandere': {
@@ -22,7 +22,7 @@ SITE_LIST = {
         'api_version': "1.13.0+update.3",
         'hashed_string': "choujin-steiner--{0}--"},
     'danbooru': {
-        'url': "http://danbooru.donmai.us"},
+        'url': "https://danbooru.donmai.us"},
     'safebooru': {
         'url': "https://safebooru.donmai.us"}
     }

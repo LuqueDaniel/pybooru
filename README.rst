@@ -20,7 +20,7 @@ See more examples of `Danbooru <https://github.com/LuqueDaniel/pybooru/tree/deve
 
 Documentation
 -------------
-You can consult the `documentation <http://pybooru.readthedocs.io/en/stable/>`_
+You can consult the `documentation <https://pybooru.readthedocs.io/en/stable/>`_
 
 Changelog
 ---------

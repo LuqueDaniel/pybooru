@@ -2,7 +2,7 @@
 [![PyPI](https://img.shields.io/pypi/v/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
 [![PyPI](https://img.shields.io/pypi/status/Pybooru.svg?style=flat-square)](https://pypi.python.org/pypi/Pybooru/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/LuqueDaniel/pybooru/master/LICENSE)
-[![Documentation Status](https://readthedocs.org/projects/pybooru/badge/?version=stable)](http://pybooru.readthedocs.io/en/stable/?badge=stable)
+[![Documentation Status](https://readthedocs.org/projects/pybooru/badge/?version=stable)](https://pybooru.readthedocs.io/en/stable/?badge=stable)
 
 **Pybooru** is a Python package to access to the API of Danbooru/Moebooru based sites.
 
@@ -82,7 +82,7 @@ client.comment_create(post_id=id, comment_body='Comment content')
 ```
 
 ## Documentation
-You can consult the documentation on **[Read the Docs](http://pybooru.readthedocs.io/)**
+You can consult the documentation on **[Read the Docs](https://pybooru.readthedocs.io/)**
 
 ## Status
 | Platform       | Master         | Develop |

@@ -19,7 +19,7 @@ Pybooru modules:
 
 __version__ = "4.1.0"
 __license__ = "MIT"
-__source_url__ = "http://github.com/LuqueDaniel/pybooru"
+__source_url__ = "https://github.com/LuqueDaniel/pybooru"
 __author__ = "Daniel Luque <danielluque14[at]gmail[dot]com>"
 
 # pybooru imports
