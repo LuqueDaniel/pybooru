@@ -112,3 +112,4 @@ Pybooru has a list of default sites that allow you to use Pybooru without "site_
 - konachan (`Konachan <http://konachan.com/>`_)
 - yandere (`Yande.re <https://yande.re/post>`_)
 - danbooru (`Danbooru <http://danbooru.donmai.us/>`_)
+- safebooru (`Safebooru <http://safebooru.donmai.us/>`_)
