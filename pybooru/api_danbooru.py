@@ -242,8 +242,16 @@ class DanbooruApi_Mixin(object):
         return self._get('post_versions/{0}/undo.json'.format(version_id),
                          method='PUT', auth=True)
 
+    def count_posts(self, tags=None):
+        """Show the number of posts on Danbooru or a specific tag search.
+
+        Parameters:
+            tags (str):
+        """
+        return self._get("counts/posts.json", {"tags": tags})
+
     def upload_list(self, uploader_id=None, uploader_name=None, source=None):
-        """Search and eturn a uploads list (Requires login).
+        """Search and return an uploads list (Requires login).
 
         Parameters:
             uploader_id (int): The id of the uploader.
@@ -258,7 +266,7 @@ class DanbooruApi_Mixin(object):
         return self._get('uploads.json', params, auth=True)
 
     def upload_show(self, upload_id):
-        """Get a upload (Requires login).
+        """Get an upload (Requires login).
 
         Parameters:
             upload_id (int):
