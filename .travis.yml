@@ -25,10 +25,12 @@ matrix:
 
     # OSX ENV
     - os: osx
+      osx_image: xcode9.3
       env: PYTHON_VERSION=2.7
       language: generic
 
     - os: osx
+      osx_image: xcode9.3
       env: PYTHON_VERSION=3.6
       language: generic
 
