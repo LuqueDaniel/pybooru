@@ -42,6 +42,7 @@ install:
     # Install requests and flake8
     - if [ $TRAVIS_OS_NAME == osx ]; then
         pip2 install --user -r requirements.txt flake8;
+        python -m requests.help;
       else
         pip install -r requirements.txt flake8;
       fi

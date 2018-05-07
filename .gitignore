@@ -14,8 +14,9 @@ build/
 dist/
 Pybooru.egg-info/
 
-# IDEs config files
+# IDEs config files/folders
 *.nja
+.vscode
 
 # node dirs and files
 node_modules/
