@@ -17,7 +17,7 @@ def download(tags, pages):
             posts = client.post_list(tags=tags, page=randompage, limit=200)
             for post in posts:
                 try:
-                    fileurl = 'https://danbooru.donmai.us' + post['file_url']
+                    fileurl = post['file_url']
                 except:
                     fileurl = 'https://danbooru.donmai.us' + post['source']
                 x.append(fileurl)
