@@ -35,21 +35,25 @@ matrix:
       language: generic
 
 branches:
-    - develop
-    - master
+  - develop
+  - master
 
 install:
-    # Install requests and flake8
-    - if [ $TRAVIS_OS_NAME == osx ]; then
-        pip2 install --user -r requirements.txt flake8;
-      else
+  # Install requests and flake8
+  - if [ $TRAVIS_OS_NAME == osx ]; then
+      pip2 install --user -r requirements.txt flake8;
+    else
+      if [ $TRAVIS_PYTHON_VERSION != '3.6' ]; then
         pip install -r requirements.txt flake8;
       fi
+    fi
 
 before_script:
-    # Run pylint
-    - python -m flake8 pybooru/
+  # Run flake8 (not in 3.6)
+  - if [ $TRAVIS_PYTHON_VERSION != '3.6' ]; then
+      python -m flake8 pybooru/;
+    fi
 
 script:
-    # Run test script, but at the moment is a provisional test
-    - python provisional_test.py
+  # Run test script, but at the moment is a provisional test
+  - python provisional_test.py;
