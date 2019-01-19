@@ -26,3 +26,4 @@
 - [ ] My code follows the code style of this project (PEP-8).
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
+- [ ] I have readed CONTRIBUTING.md.

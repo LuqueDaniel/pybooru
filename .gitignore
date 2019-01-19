@@ -6,6 +6,7 @@
 __pycache__
 
 # ignore test file
+.pytest_cache
 pro.py
 test.json
 

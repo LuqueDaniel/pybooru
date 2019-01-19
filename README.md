@@ -90,5 +90,8 @@ You can consult the documentation on **[Read the Docs](https://pybooru.readthedo
 | [Linux & OSX (Travis CI)](https://travis-ci.org/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=develop)](https://travis-ci.org/LuqueDaniel/pybooru) |
 | [Windows (AppVeyor)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) | [![AppVeyor](https://img.shields.io/appveyor/ci/luquedaniel/pybooru.svg)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) | [![AppVeyor](https://img.shields.io/appveyor/ci/luquedaniel/pybooru/develop.svg)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) |
 
+## Contributing
+Feel free to contribute, take a look at **[CONTRIBUTING](https://github.com/LuqueDaniel/pybooru/blob/master/CONTRIBUTING.md)**.
+
 ## License
 - **[See MIT License](https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE)**
