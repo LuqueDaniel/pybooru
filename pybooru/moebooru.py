@@ -93,8 +93,8 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         """
         # Build AUTENTICATION hash_string
         # Check if hash_string exists
-        if self.site_name in SITE_LIST or self.hash_string is not "":
-            if self.username and self.password is not "":
+        if self.site_name in SITE_LIST or self.hash_string:
+            if self.username and self.password:
                 try:
                     hash_string = self.hash_string.format(self.password)
                 except TypeError:

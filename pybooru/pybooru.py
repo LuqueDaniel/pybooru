@@ -57,9 +57,9 @@ class _Pybooru(object):
         self.client.headers = headers
 
         # Validate site_name or site_url
-        if site_name is not '':
+        if site_name:
             self.site_name = site_name
-        elif site_url is not '':
+        elif site_url:
             self.site_url = site_url
         else:
             raise PybooruError("Unexpected empty arguments, specify parameter "
@@ -176,13 +176,12 @@ class _Pybooru(object):
                 'status_code': response.status_code,
                 'status': self._get_status(response.status_code),
                 'headers': response.headers
-                })
+            })
 
             if response.status_code in (200, 201, 202, 204):
                 return response.json()
-            else:
-                raise PybooruHTTPError("In _request", response.status_code,
-                                       response.url)
+            raise PybooruHTTPError("In _request", response.status_code,
+                                   response.url)
         except requests.exceptions.Timeout:
             raise PybooruError("Timeout! url: {0}".format(response.url))
         except ValueError as e:

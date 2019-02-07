@@ -75,8 +75,8 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
 
         # Adds auth. Also adds auth if username and api_key are specified
         # Members+ have less restrictions
-        if auth is True or self.username and self.api_key is not '':
-            if self.username and self.api_key is not '':
+        if auth or (self.username and self.api_key):
+            if self.username and self.api_key:
                 request_args['auth'] = (self.username, self.api_key)
             else:
                 raise PybooruError("'username' and 'api_key' attribute of "
