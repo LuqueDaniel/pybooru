@@ -280,7 +280,7 @@ class DanbooruApi_Mixin(object):
         Parameters:
             tags (str):
             rating (str): Can be: `s`, `q`, or `e`. Alternatively, you can
-                          specify `rating:safe`, `rating:questionable`, or 
+                          specify `rating:safe`, `rating:questionable`, or
                           `rating:explicit` in the tag string.
             file_ (file_path): The file data encoded as a multipart form.
             source (str): The source URL.

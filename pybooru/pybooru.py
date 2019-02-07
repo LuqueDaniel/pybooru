@@ -173,7 +173,7 @@ class _Pybooru(object):
                 'status_code': response.status_code,
                 'status': self._get_status(response.status_code),
                 'headers': response.headers
-            })
+                })
 
             if response.status_code in (200, 201, 202, 204):
                 return response.json()
