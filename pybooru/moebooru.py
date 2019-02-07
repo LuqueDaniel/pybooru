@@ -66,8 +66,26 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         super(Moebooru, self).__init__(site_name, site_url, username)
 
         self.api_version = api_version.lower()
+        self.hash_string = hash_string
         self.password = password
         self.password_hash = None
+
+    @_Pybooru.site_name.setter
+    def site_name(self, site_name):
+        """Sets api_version and hash_string.
+
+        Parameters:
+            site_name (str): The site name in 'SITE_LIST', default sites.
+
+        Raises:
+            PybooruError: When 'site_name' isn't valid.
+        """
+        # Set base class property site_name
+        _Pybooru.site_name.fset(self, site_name)
+
+        if ('api_version' and 'hashed_string') in SITE_LIST[site_name]:
+            self.api_version = SITE_LIST[site_name]['api_version']
+            self.hash_string = SITE_LIST[site_name]['hashed_string']
 
     def _build_url(self, api_call):
         """Build request url.
