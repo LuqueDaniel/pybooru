@@ -25,7 +25,7 @@ SITE_LIST = {
         'url': "https://danbooru.donmai.us"},
     'safebooru': {
         'url': "https://safebooru.donmai.us"}
-}
+    }
 
 
 # HTTP_STATUS_CODE
@@ -49,4 +49,4 @@ HTTP_STATUS_CODE = {
     424: ("Invalid Parameters", "The given parameters were invalid"),
     500: ("Internal Server Error", "Some unknown error occurred on the server"),
     503: ("Service Unavailable", "Server cannot currently handle the request")
-}
+    }
