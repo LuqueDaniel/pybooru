@@ -5,9 +5,9 @@
 This module contains all resources for Pybooru.
 
 SITE_LIST (dict):
-    Is a dict that contains various based Moebooru, default sites.
+    Contains various Moebooru and Danbooru-based default sites.
 HTTP_STATUS_CODE (dict):
-    Is a dict that contains the http status code for Moebooru API.
+    Contains http status codes for Moebooru and Danbooru API.
 """
 
 
@@ -25,13 +25,13 @@ SITE_LIST = {
         'url': "https://danbooru.donmai.us"},
     'safebooru': {
         'url': "https://safebooru.donmai.us"}
-    }
+}
 
 
 # HTTP_STATUS_CODE
 HTTP_STATUS_CODE = {
     200: ("OK", "Request was successful"),
-    201: ("Created" "The request has been fulfilled, resulting in the creation"
+    201: ("Created", "The request has been fulfilled, resulting in the creation"
           " of a new resource"),
     202: ("Accepted", "The request has been accepted for processing, but the "
           "processing has not been completed."),
@@ -49,4 +49,4 @@ HTTP_STATUS_CODE = {
     424: ("Invalid Parameters", "The given parameters were invalid"),
     500: ("Internal Server Error", "Some unknown error occurred on the server"),
     503: ("Service Unavailable", "Server cannot currently handle the request")
-    }
+}
