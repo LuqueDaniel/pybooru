@@ -17,12 +17,12 @@ Pybooru modules:
     resources -- Contains all resources for Pybooru.
 """
 
-__version__ = "4.1.0"
+__version__ = "4.1.1a1"
 __license__ = "MIT"
 __source_url__ = "https://github.com/LuqueDaniel/pybooru"
 __author__ = "Daniel Luque <danielluque14[at]gmail[dot]com>"
 
 # pybooru imports
-from .moebooru import Moebooru  # NOQA
-from .danbooru import Danbooru  # NOQA
-from .exceptions import (PybooruError, PybooruAPIError, PybooruHTTPError)  # NOQA
+from .moebooru import Moebooru
+from .danbooru import Danbooru
+from .exceptions import (PybooruError, PybooruAPIError, PybooruHTTPError)

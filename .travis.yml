@@ -7,19 +7,19 @@ matrix:
       os: linux
       language: python
 
-    - python: '3.3'
-      os: linux
-      language: python
-
-    - python: '3.4'
-      os: linux
-      language: python
-
     - python: '3.5'
       os: linux
       language: python
 
     - python: '3.6'
+      os: linux
+      language: python
+
+    - python: '3.7'
+      os: linux
+      language: python
+
+    - python: '3.8'
       os: linux
       language: python
 
@@ -31,30 +31,17 @@ matrix:
 
     - os: osx
       osx_image: xcode9.3
-      env: PYTHON_VERSION=3.6
+      env: PYTHON_VERSION=3.7
       language: generic
 
 branches:
-  - develop
   - master
 
 install:
-  # Install requirements
-  - if [ $TRAVIS_OS_NAME == osx ]; then
-      pip2 install --user -r requirements.txt flake8;
-    else
-      pip install -r requirements.txt;
-      if [ $TRAVIS_PYTHON_VERSION != '3.3' ]; then
-        pip install flake8;
-      fi
-    fi
-
-before_script:
-  # Run flake8 (not in 3.6)
-  - if [ $TRAVIS_PYTHON_VERSION != '3.3' ]; then
-      python -m flake8 pybooru/;
-    fi
+  - pip install pipenv
+  - pipenv install --dev
 
 script:
+  - pylint pybooru/
   # Run test script, but at the moment is a provisional test
-  - python provisional_test.py;
+  - python provisional_test.py
