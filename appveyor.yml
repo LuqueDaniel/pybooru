@@ -21,8 +21,10 @@ init:
   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH% %HOMEDRIVE%%HOMEPATH%
 
 install:
-  - "%PYTHON%/Scripts/pip.exe install pipenv"
-  - "%PYTHON%/python.exe -m pipenv install --dev"
+  - ps: "%PYTHON%/Scripts/python.exe -Wignore -m pip install pipenv"
+  - ps: rm Pipfile.lock
+  - ps: $PIPENV_QUIET="true"
+  - ps: "%PYTHON%/python.exe -m pipenv install --dev"
 
 test_script:
   - "%PYTHON%/python.exe -m pipenv run pylint pybooru/"
