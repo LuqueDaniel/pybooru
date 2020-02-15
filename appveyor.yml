@@ -22,9 +22,9 @@ init:
 
 install:
   - "%PYTHON%/Scripts/pip.exe install pipenv"
-  - pipenv install --dev
+  - "%PYTHON%/python.exe -m pipenv install --dev"
 
 test_script:
-  - pipenv run pylint pybooru/
+  - "%PYTHON%/python.exe -m pipenv run pylint pybooru/"
   # Run test script, but at the moment is a provisional test
-  - pipenv run python provisional_test.py"
+  - "%PYTHON%/python.exe -m pipenv run provisional_test.py"
