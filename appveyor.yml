@@ -26,8 +26,8 @@ init:
   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH% %HOMEDRIVE%%HOMEPATH%
 
 install:
-  - ps: python -m pip install --upgrade pip
-  - ps: python -Wignore -m pip install pipenv
+  - ps: python -W ignore -m pip install --upgrade pip
+  - ps: python -W ignore -m pip install pipenv
   - ps: rm Pipfile.lock
   - ps: $PIPENV_QUIET="true"
   - pipenv --python %PYTHON_VERSION%
