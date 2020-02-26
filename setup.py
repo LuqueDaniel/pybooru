@@ -13,6 +13,9 @@ import pybooru
 with open('README.md', 'r') as f:
     long_description = f.read()
 
+extras = {
+    'tests': ['unittest2']
+}
 
 setup(
     name="Pybooru",
@@ -27,6 +30,7 @@ setup(
     packages=find_packages(),
     platforms=['any'],
     install_requires=['requests'],
+    extras_require=extras,
     include_package_data=True,
     data_file=[
         ('', ['LICENSE', 'README.md', 'changelog.md', 'requirements.txt'])
@@ -46,4 +50,9 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Internet"
         ],
+    entry_points={
+        "console_scripts": [
+            "tests = pybooru.tests.testing:main [tests]",
+        ],
+    }
 )
