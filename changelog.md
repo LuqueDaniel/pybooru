@@ -1,5 +1,9 @@
 # Pybooru - Changelog
 
+## Pybooru 4.2.0 - (unreleased)
+
+- Add support for Lolibooru
+
 ## Pybooru 4.1.0 - (2017-02-08)
 - Pybooru: refactored `_get_status()`
 - Python 3.6 support
