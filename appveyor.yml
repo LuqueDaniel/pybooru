@@ -35,5 +35,5 @@ install:
 
 test_script:
   - pipenv run pylint pybooru\
-  # Run test script, but at the moment is a provisional test
-  - pipenv run provisional_test.py
+  - pip install .
+  - tests
