@@ -40,11 +40,12 @@ branches:
 install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       pip install --user pipenv;
+      python -m pipenv install --dev;
     else
       pip install pipenv;
+      pipenv install --dev;
     fi
   - PIPENV_VERBOSITY=-1
-  - pipenv install --dev
 
 script:
   - pylint pybooru/
