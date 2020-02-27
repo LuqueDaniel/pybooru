@@ -38,7 +38,7 @@ branches:
   - master
 
 install:
-  - pip install pipenv
+  - pip install --user pipenv
   - pipenv install --dev
 
 script:
