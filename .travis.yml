@@ -25,12 +25,12 @@ matrix:
 
     # OSX ENV
     - os: osx
-      osx_image: xcode9.3
+      osx_image: xcode9.4
       env: PYTHON_VERSION=2.7
       language: generic
 
     - os: osx
-      osx_image: xcode9.3
+      osx_image: xcode9.4
       env: PYTHON_VERSION=3.7
       language: generic
 
@@ -38,7 +38,11 @@ branches:
   - master
 
 install:
-  - pip install --user pipenv
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      pip install --user pipenv;
+    else
+      pip install pipenv;
+    fi
   - pipenv install --dev
 
 script:
