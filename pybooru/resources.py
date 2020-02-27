@@ -24,7 +24,9 @@ SITE_LIST = {
     'danbooru': {
         'url': "https://danbooru.donmai.us"},
     'safebooru': {
-        'url': "https://safebooru.donmai.us"}
+        'url': "https://safebooru.donmai.us"},
+    'lolibooru': {
+        'url': "https://lolibooru.moe"},
     }
 
 

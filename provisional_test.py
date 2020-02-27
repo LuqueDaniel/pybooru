@@ -10,6 +10,13 @@ print(konachan.last_call)
 kona_post = konachan.post_list()
 print(konachan.last_call)
 
+lolibooru = Moebooru("lolibooru")
+
+kona_tags = lolibooru.tag_list(order='date')
+print(lolibooru.last_call)
+kona_post = lolibooru.post_list()
+print(lolibooru.last_call)
+
 danbooru = Danbooru('danbooru')
 
 dan_tags = danbooru.tag_list(order='name')
