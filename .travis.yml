@@ -45,7 +45,7 @@ install:
       pip install pipenv;
       pipenv install --dev;
     fi
-  - PIPENV_VERBOSITY=-1
+  - $PIPENV_VERBOSITY=-1
 
 script:
   # Run test script, but at the moment is a provisional test
