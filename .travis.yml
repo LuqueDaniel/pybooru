@@ -48,6 +48,11 @@ install:
   - PIPENV_VERBOSITY=-1
 
 script:
-  - pylint pybooru/
   # Run test script, but at the moment is a provisional test
-  - python provisional_test.py
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      python -m pipenv run pylint --errors-only pybooru/;
+      python -m pipenv run provisional_test.py;
+    else
+      pylint --errors-only pybooru/ ;
+      python provisional_test.py;
+    fi
