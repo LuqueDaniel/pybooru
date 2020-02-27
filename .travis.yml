@@ -40,12 +40,11 @@ branches:
 install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       pip install --user pipenv;
-      python -m pipenv install --dev;
+      python -m pipenv install --dev --skip-lock;
     else
       pip install pipenv;
-      pipenv install --dev;
+      pipenv install --dev --skip-lock;
     fi
-  - $PIPENV_VERBOSITY=-1
 
 script:
   # Run test script, but at the moment is a provisional test

@@ -30,10 +30,10 @@ install:
   - ps: python -W ignore -m pip install pipenv
   - ps: $PIPENV_QUIET="true"
   - pipenv --python %PYTHON_VERSION%
-  - pipenv install --dev"
+  - pipenv install --dev --skip-lock
 
 test_script:
   # TODO: configure pylint properly
-  - pipenv run pylint --errors-only pybooru\
+  #- pipenv run pylint --errors-only pybooru\
   # Run test script, but at the moment is a provisional test
   - pipenv run provisional_test.py
