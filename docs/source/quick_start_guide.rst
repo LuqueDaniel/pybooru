@@ -13,27 +13,68 @@ Features
 Installation
 ------------
 
+.. Note::
+  We recommend using a virtualenv, but nothing prevents you installing it into
+  the root system.
+
+From Python Package Index (Pypi)
+""""""""""""""""""""""""""""""""
+
 You can download and install Pybooru from `Pypi <https://pypi.python.org/pypi/Pybooru/>`_
 
 .. code-block:: bash
 
-  pip install --user Pybooru
+  pip install Pybooru
 ..
 
-Install from source
--------------------
+Installing for development
+""""""""""""""""""""""""""
 
 .. code-block:: bash
 
   git clone git://github.com/luquedaniel/pybooru.git
   cd pybooru
-  pip install --user -r requirements.txt
-  sudo python setup.py build
-  python setup.py install
+  pip install -e .[tests]
+
+  # If you use pyenv you might have to run this as well to get the `tests` command
+  pyenv rehash
+
+  # Now you can simply use `tests` to run all tests
+  tests
 ..
 
+Working with the documentation
+""""""""""""""""""""""""""""""
+
+The documentations source is located in ``docs/source/``.
+
+To preview the documentation in it's final form as in `here <https://pybooru.rtfd.io>`_
+you have to additionally install the docs requirements:
+
+.. code-block:: bash
+
+  pip install -e .[docs]
+..
+
+Then to build the docs:
+
+.. code-block:: bash
+
+  cd docs/
+  make html  # index.html is generated to docs/build/html/index.html
+..
+
+
+.. Note::
+  You can use something like `entr <http://eradman.com/entrproject/>`_
+  to create a watcher on the doc files to automate the building:
+  ``find source | entr make html``
+
+Examples
+--------
+
 Example of use with Danbooru
-----------------------------
+""""""""""""""""""""""""""""
 
 .. code-block:: python
 
@@ -61,7 +102,7 @@ Example:
 ..
 
 Example of use with Moebooru
-----------------------------
+""""""""""""""""""""""""""""
 
 .. code-block:: python
 

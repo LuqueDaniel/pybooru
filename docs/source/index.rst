@@ -10,7 +10,7 @@ Welcome to Pybooru's documentation!
 
 - Version: **4.1.0**
 - Licensed under: `MIT License <https://github.com/LuqueDaniel/pybooru/blob/master/LICENSE>`_
-- Python: >= 2.7 or Python: >= 3.3
+- Python (tested against): >= 2.7 or Python: >= 3.5
 
 Dependencies
 ------------

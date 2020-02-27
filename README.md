@@ -10,24 +10,45 @@
 - Licensed under: **MIT License**
 
 ## Dependencies
-- Python: >= 2.7 or Python: >= 3.3
+- Python (tested against): >= 2.7 or Python: >= 3.5
 - [requests](http://docs.python-requests.org/en/latest/)
 
 ## Installation
-### from Python Package Index (Pypi)
+We recommend using a virtualenv, but nothing prevents you installing it into
+the root system.
+
+### From Python Package Index (Pypi)
 [Pybooru on Pypi.](https://pypi.python.org/pypi/Pybooru/)
 
 ```bash
-pip install --user Pybooru
+pip install Pybooru
 ```
 
-### Manual installation
+### Installing for development
 ```bash
 git clone git://github.com/luquedaniel/pybooru.git
 cd pybooru
-pip install --user -r requirements.txt
-sudo python setup.py build
-python setup.py install
+pip install -e .[tests]
+
+# If you use pyenv you might have to run this as well to get the `tests` command
+pyenv rehash
+
+ Now you can simply use `tests` to run all tests
+tests
+```
+
+### Previewing the documentation
+
+To preview the documentation in it's final as in [here](https://pybooru.rtfd.io) you have to
+additionally install sphinx etc. like this:
+```bash
+pip install -e .[docs]
+```
+
+Then to build the docs:
+```bash
+cd docs/
+make html  # index.html is generated to docs/build/html/index.html
 ```
 
 ## Examples of use
