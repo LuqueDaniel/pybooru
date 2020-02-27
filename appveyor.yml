@@ -34,6 +34,7 @@ install:
   - pipenv install --dev"
 
 test_script:
-  - pipenv run pylint pybooru\
+  # TODO: configure pylint properly
+  - pipenv run pylint --errors-only pybooru\
   # Run test script, but at the moment is a provisional test
   - pipenv run provisional_test.py
