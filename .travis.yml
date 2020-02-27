@@ -25,12 +25,12 @@ matrix:
 
     # OSX ENV
     - os: osx
-      osx_image: xcode9.3
+      osx_image: xcode9.4
       env: PYTHON_VERSION=2.7
       language: generic
 
     - os: osx
-      osx_image: xcode9.3
+      osx_image: xcode9.4
       env: PYTHON_VERSION=3.7
       language: generic
 
@@ -38,10 +38,21 @@ branches:
   - master
 
 install:
-  - pip install pipenv
-  - pipenv install --dev
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      pip install --user pipenv;
+      python -m pipenv install --dev --skip-lock;
+    else
+      pip install pipenv;
+      pipenv install --dev --skip-lock;
+    fi
 
 script:
-  - pylint pybooru/
   # Run test script, but at the moment is a provisional test
-  - python provisional_test.py
+  # TODO: configure pylint properly
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      python -m pipenv run pylint --errors-only pybooru/;
+      python -m pipenv run python provisional_test.py;
+    else
+      pylint --errors-only pybooru/ ;
+      python provisional_test.py;
+    fi

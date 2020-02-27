@@ -6,9 +6,6 @@ build: off
 environment:
   matrix:
     # List: https://www.appveyor.com/docs/windows-images-software/#python
-    - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.17"
-      PYTHON_ARCH: "64"
     - PYTHON: "C:\\Python35-x64"
       PYTHON_VERSION: "3.5.4"
       PYTHON_ARCH: "64"
@@ -28,12 +25,10 @@ init:
 install:
   - ps: python -W ignore -m pip install --upgrade pip
   - ps: python -W ignore -m pip install pipenv
-  - ps: rm Pipfile.lock
   - ps: $PIPENV_QUIET="true"
   - pipenv --python %PYTHON_VERSION%
-  - pipenv install --dev"
+  - pipenv install --dev --skip-lock
 
 test_script:
-  - pipenv run pylint pybooru\
   # Run test script, but at the moment is a provisional test
   - pipenv run provisional_test.py
