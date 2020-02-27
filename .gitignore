@@ -4,6 +4,7 @@
 *.pyd
 *.egg-info
 __pycache__
+Pipfile.lock
 
 # ignore test file
 .pytest_cache

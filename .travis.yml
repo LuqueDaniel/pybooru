@@ -43,6 +43,7 @@ install:
     else
       pip install pipenv;
     fi
+  - PIPENV_VERBOSITY=-1
   - pipenv install --dev
 
 script:
