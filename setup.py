@@ -20,6 +20,7 @@ setup(
     author=pybooru.__author__,
     description="Pybooru is a Python package to access to the API of Danbooru/Moebooru based sites.",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     author_email="danielluque14@gmail.com",
     url="https://github.com/LuqueDaniel/pybooru",
     license="MIT License",
