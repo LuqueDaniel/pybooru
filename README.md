@@ -6,7 +6,7 @@
 
 **Pybooru** is a Python package to access to the API of Danbooru/Moebooru based sites.
 
-- Version: **4.1.0**
+- Version: **4.2.0**
 - Licensed under: **MIT License**
 
 ## Dependencies
@@ -87,7 +87,7 @@ You can consult the documentation on **[Read the Docs](https://pybooru.readthedo
 ## Status
 | Platform       | Master         | Develop |
 | :------------- | :------------- | :------- |
-| [Linux & OSX (Travis CI)](https://travis-ci.org/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.org/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.org/LuqueDaniel/pybooru.svg?branch=develop)](https://travis-ci.org/LuqueDaniel/pybooru) |
+| [Linux & OSX (Travis CI)](https://travis-ci.com/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.com/LuqueDaniel/pybooru.svg?branch=master)](https://travis-ci.com/LuqueDaniel/pybooru) | [![Travis CI](https://travis-ci.com/LuqueDaniel/pybooru.svg?branch=develop)](https://travis-ci.com/LuqueDaniel/pybooru) |
 | [Windows (AppVeyor)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) | [![AppVeyor](https://img.shields.io/appveyor/ci/luquedaniel/pybooru.svg)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) | [![AppVeyor](https://img.shields.io/appveyor/ci/luquedaniel/pybooru/develop.svg)](https://ci.appveyor.com/project/LuqueDaniel/pybooru) |
 
 ## Contributing
