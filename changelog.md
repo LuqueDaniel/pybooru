@@ -1,10 +1,20 @@
 # Pybooru - Changelog
 
-## Pybooru 4.2.0 - (unreleased)
+## Pybooru 4.2.0 - (2020-06-06)
 
-- Add support for Lolibooru
+**Note**: Pybooru 4.2.0 Is the last version that support Python 2.7
+
+- Add support for Lolibooru [#44](https://github.com/LuqueDaniel/pybooru/pull/44) by [@Nachtalb](https://github.com/Nachtalb)
+- Add support for safebooru.donmai.us to default sites [#37](https://github.com/LuqueDaniel/pybooru/pull/37) by [@mirukana](https://github.com/mirukana)
+- Add `count_posts()` function to Danbooru API [#35](https://github.com/LuqueDaniel/pybooru/pull/35) by [@mirukana](https://github.com/mirukana)
+- Replaced all `http` URLs for `https` [#36](https://github.com/LuqueDaniel/pybooru/pull/36) by [@mirukana](https://github.com/mirukana)
+- Fixes the file url in the download example [#39](https://github.com/LuqueDaniel/pybooru/pull/39) by [@Luk3M](https://github.com/Luk3M)
+- Fixes `Moebooru._build_hash_string`
+- Small refactors
+- Small fixes
 
 ## Pybooru 4.1.0 - (2017-02-08)
+
 - Pybooru: refactored `_get_status()`
 - Python 3.6 support
 - Fixed `PybooruHTTPError`
@@ -31,9 +41,11 @@
 - Documentation improvement
 
 ## Pybooru 4.0.1 - (2016/12/09)
+
 - Fix problems with Pypi
 
 ## Pybooru 4.0.0 - (2016/12/09)
+
 - Added support to Danbooru
 - Now Danbooru and Moebooru are two separed classes
 - Pybooru has been refactored
@@ -49,9 +61,11 @@
 - In this version there's a nice amount of improvements
 
 ## Pybooru 3.0.1 - (2015/01/13)
+
 - Minors changes
 
 ## Pybooru 3.0 - (2014/12/06)
+
 - In this version there's a nice amount of code improvements
 - Added compatibility with Python 3
 - Pybooru now use requests
@@ -60,9 +74,11 @@
 - Added Travis CI to the project
 
 ## Pybooru 2.1.1 - (2013/12/26)
+
 - Improve documentation style
 
 ## Pybooru 2.1 - (2013/10/14)
+
 - Added login suppport for any Moebooru based site
 - Fixed a bug: #c4b3435
 - Added new information to setup.py
