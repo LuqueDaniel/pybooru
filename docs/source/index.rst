@@ -23,7 +23,7 @@ Dependencies
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Table of Contents:
 
    quick_start_guide
    danbooru
