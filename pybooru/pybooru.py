@@ -175,8 +175,10 @@ class _Pybooru(object):
                 'headers': response.headers
                 })
 
-            if response.status_code in (200, 201, 202, 204):
+            if response.status_code in (200, 201, 202):
                 return response.json()
+            elif response.status_code == 204:
+                return True
             raise PybooruHTTPError("In _request", response.status_code,
                                    response.url)
         except requests.exceptions.Timeout:
