@@ -19,11 +19,13 @@
 
 import os
 import sys
+import inspect
+
 import sphinx_rtd_theme
 
 # Adds Pybooru to sys.path
 sys.path.insert(0, os.path.abspath('../../'))
-
+import pybooru
 
 #-------------------------------------------------------------------------------
 # General Configuration
@@ -81,13 +83,41 @@ extensions = [
     'sphinx.ext.napoleon',  # sphinx.ext.napoleon for Google style docstrings
     'sphinx_rtd_theme',
     'sphinx.ext.autosectionlabel',
-    'sphinx.ext.autosummary'
+    'sphinx.ext.autosummary',
+    'sphinx.ext.duration',
+    'sphinx.ext.todo',
+    'sphinx.ext.linkcode'
 ]
 
 # Autosectionlabel
 autosectionlabel_prefix_document = True
 # Autodoc
 autodoc_member_order = 'bysource'
+# Todo
+todo_include_todos = True
+
+
+# Linkcode
+def linkcode_resolve(domain, info):
+    def find_source():
+        # try to find the file and line number, based on code:
+        # https://github.com/Lasagne/Lasagne/blob/master/docs/conf.py#L114-L135
+        obj = sys.modules[info['module']]
+        for part in info['fullname'].split('.'):
+            obj = getattr(obj, part)
+        fn = inspect.getsourcefile(obj)
+        fn = os.path.relpath(fn, start=os.path.dirname(pybooru.__file__))
+        source, lineno = inspect.getsourcelines(obj)
+        return fn, lineno, lineno + len(source) - 1
+
+    if domain != 'py' or not info['module']:
+        return None
+
+    try:
+        filename = 'pybooru/{0}#L{1}-L{2}'.format(*find_source())
+    except Exception:
+        filename = info['module'].replace('.', '/') + '.py'
+    return "https://github.com/LuqueDaniel/pybooru/blob/master/{}".format(filename)
 
 
 #-------------------------------------------------------------------------------
@@ -108,6 +138,7 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
+
 
 #-------------------------------------------------------------------------------
 # Options for HTMLHelp output
