@@ -50,5 +50,6 @@ HTTP_STATUS_CODE = {
     423: ("Already Exists", "Resource already exists"),
     424: ("Invalid Parameters", "The given parameters were invalid"),
     500: ("Internal Server Error", "Some unknown error occurred on the server"),
-    503: ("Service Unavailable", "Server cannot currently handle the request")
+    503: ("Service Unavailable", "Server cannot currently handle the request"),
+    504: ("Gateway Timeout", "The server timed out while waiting for a response")
     }
