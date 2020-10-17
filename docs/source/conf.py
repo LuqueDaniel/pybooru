@@ -80,7 +80,8 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.napoleon',  # sphinx.ext.napoleon for Google style docstrings
     'sphinx_rtd_theme',
-    'sphinx.ext.autosectionlabel'
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.autosummary'
 ]
 
 # Autosectionlabel

@@ -1,6 +1,8 @@
 Danbooru Reference
 ==================
 
+.. autosummary:: pybooru.danbooru
+
 .. automodule:: pybooru.danbooru
     :show-inheritance:
     :members:

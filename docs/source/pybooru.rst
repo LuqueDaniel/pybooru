@@ -1,6 +1,13 @@
 Pybooru Reference
 =================
 
+.. autosummary::
+    :recursive:
+
+    pybooru.pybooru
+    pybooru.exceptions
+    pybooru.resources
+
 Pybooru
 -------
 
