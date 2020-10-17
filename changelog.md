@@ -1,5 +1,10 @@
 # Pybooru - Changelog
 
+## Pybooru 4.2.2 - (2020-10-17)
+
+- Added 504 error to HTTP_STATUS_CODE [#52](https://github.com/LuqueDaniel/pybooru/pull/52) by [@chlorofomduck](https://github.com/chlorofomduck)
+- Fixed Danbooru client.favorite_remove() [#51](https://github.com/LuqueDaniel/pybooru/issues/51) and all 204 responses.
+
 ## Pybooru 4.2.0 - (2020-06-06)
 
 **Note**: Pybooru 4.2.0 Is the last version that support Python 2.7
