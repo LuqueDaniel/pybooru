@@ -1,7 +1,7 @@
-.. Pybooru documentation master file, created by
-   sphinx-quickstart on Wed Dec  7 14:53:54 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+..  Pybooru documentation master file, created by
+    sphinx-quickstart on Wed Dec  7 14:53:54 2016.
+    You can adapt this file completely to your liking, but it should at least
+    contain the root `toctree` directive.
 
 Welcome to Pybooru's documentation!
 ===================================
@@ -22,15 +22,15 @@ Dependencies
 
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: Table of Contents:
 
-   quick_start_guide
-   danbooru
-   api_danbooru
-   moebooru
-   api_moebooru
-   pybooru
+    quick_start_guide
+    danbooru
+    api_danbooru
+    moebooru
+    api_moebooru
+    pybooru
 
 Changelog
 ---------
