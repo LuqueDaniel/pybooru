@@ -64,7 +64,6 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
                             for functions that modify the content).
         """
         super(Moebooru, self).__init__(site_name, site_url, username)
-
         self.api_version = api_version.lower()
         self.hash_string = hash_string
         self.password = password

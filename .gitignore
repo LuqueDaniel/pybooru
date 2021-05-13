@@ -11,6 +11,9 @@ Pipfile.lock
 pro.py
 test.json
 
+# ignore local dev / util files
+pybooru/resources.py
+
 # build/dist files
 build/
 dist/
