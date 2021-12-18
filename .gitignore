@@ -1,24 +1,21 @@
-# Ignore files .pyc
+# Python files
 *.pyc
 *.pyo
 *.pyd
 *.egg-info
 __pycache__
-Pipfile.lock
-
-# ignore test file
-.pytest_cache
-pro.py
-test.json
+.venv
 
 # build/dist files
 build/
 dist/
 Pybooru.egg-info/
 
-# IDEs config files/folders
+# IDEs/Editors config files/folders
 *.nja
 .vscode
 
-# node dirs and files
-node_modules/
+# ignore test file
+.pytest_cache
+pro.py
+test.json
