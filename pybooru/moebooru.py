@@ -48,7 +48,7 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
     """
 
     def __init__(self, site_name='', site_url='', username='', password='',
-                 hash_string='', api_version='1.13.0+update.3'):
+                 hash_string='', api_version='1.13.0+update.3', proxies=None):
         """Initialize Moebooru.
 
         Keyword arguments:
@@ -62,6 +62,8 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
                              functions that modify the content).
             password (str): Your user password in plain text (Required only
                             for functions that modify the content).
+            proxies (dict): Your proxies to connect to the danbooru site
+                            (Required only when your network is blocked).
         """
         super(Moebooru, self).__init__(site_name, site_url, username)
 
@@ -69,6 +71,7 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
         self.hash_string = hash_string
         self.password = password
         self.password_hash = None
+        self.proxies = proxies
 
     @_Pybooru.site_name.setter
     def site_name(self, site_name):
@@ -151,6 +154,10 @@ class Moebooru(_Pybooru, MoebooruApi_Mixin):
             params['login'] = self.username
             params['password_hash'] = self.password_hash
             request_args = {'data': params, 'files': file_}
+
+        # Add proxies if have
+        if self.proxies:
+            request_args['proxies'] = self.proxies
 
         # Do call
         return self._request(url, api_call, request_args, method)
