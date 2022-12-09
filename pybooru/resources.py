@@ -27,6 +27,12 @@ SITE_LIST = {
         'url': "https://safebooru.donmai.us"},
     'lolibooru': {
         'url': "https://lolibooru.moe"},
+    'gelbooru': {
+        'url': "https://gelbooru.com"},
+    'rule34': {
+        'url': "https://rule34.xxx"},
+    'e621': {
+        'url': "https://e621.net"},
     }
 
 

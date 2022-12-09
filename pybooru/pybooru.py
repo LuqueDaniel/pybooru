@@ -15,6 +15,7 @@ from __future__ import absolute_import
 # External imports
 import re
 import requests
+import xmltodict
 
 # pybooru imports
 from . import __version__
@@ -146,6 +147,7 @@ class _Pybooru(object):
         return "{0}, {1}".format(*HTTP_STATUS_CODE.get(
             status_code, ('Undefined', 'undefined')))
 
+
     def _request(self, url, api_call, request_args, method='GET'):
         """Function to request and returning JSON data.
 
@@ -175,7 +177,10 @@ class _Pybooru(object):
                 'headers': response.headers
                 })
 
-            if response.status_code in (200, 201, 202):
+            if response.status_code in (200, 201, 202, 204):
+                # PUT returns empty JSON entry on success
+                if method == 'PUT':
+                    return []
                 return response.json()
             elif response.status_code == 204:
                 return True
@@ -185,4 +190,52 @@ class _Pybooru(object):
             raise PybooruError("Timeout! url: {0}".format(response.url))
         except ValueError as e:
             raise PybooruError("JSON Error: {0} in line {1} column {2}".format(
+                e.msg, e.lineno, e.colno))
+
+
+    def _try(self, url):
+        """Try GET request for url
+
+        Parameters:
+            url (str): url call.
+
+        Returns:
+            True on HTTP success
+        """
+        try:
+          response = self.client.request('GET', url)
+          if response.status_code in (200, 201, 202, 204):
+            return True
+          else:
+            return False
+        except:
+            return False
+
+    def _request_xml(self, url, api_call, request_args):
+        try:
+            response = self.client.request('GET', url, **request_args)
+            self.last_call.update({
+                'API': api_call,
+                'url': response.url,
+                'status_code': response.status_code,
+                'status': self._get_status(response.status_code),
+                'headers': response.headers
+                })
+            if response.status_code in (200, 201, 202, 204):
+                req = xmltodict.parse(response.content)[api_call+'s'][api_call]
+                if type(req) != list:
+                    req = [req]
+                json_array = []
+                for index,entry in enumerate(req):
+                    entry_dictionary = {}
+                    for key, value in entry.items():
+                        entry_dictionary.update({key[1:]:value})
+                    json_array += [entry_dictionary]
+                return json_array
+            raise PybooruHTTPError("In _request", response.status_code,
+                                   response.url)
+        except requests.exceptions.Timeout:
+            raise PybooruError("Timeout! url: {0}".format(response.url))
+        except ValueError as e:
+            raise PybooruError("XML Error: {0} in line {1} column {2}".format(
                 e.msg, e.lineno, e.colno))
