@@ -50,10 +50,9 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
             proxies (dict): Your proxies to connect to the danbooru site
                             (Required only when your network is blocked).
         """
-        super(Danbooru, self).__init__(site_name, site_url, username)
+        super(Danbooru, self).__init__(site_name, site_url, username, proxies)
 
         self.api_key = api_key
-        self.proxies = proxies
 
     def _get(self, api_call, params=None, method='GET', auth=False,
              file_=None):
@@ -84,10 +83,6 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
             else:
                 raise PybooruError("'username' and 'api_key' attribute of "
                                    "Danbooru are required.")
-
-        # Add proxies if have
-        if self.proxies:
-            request_args['proxies'] = self.proxies
 
         # Do call
         return self._request(url, api_call, request_args, method)
