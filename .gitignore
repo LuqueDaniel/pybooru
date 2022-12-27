@@ -6,14 +6,16 @@
 __pycache__
 .venv
 
-# build/dist files
+# build/dist/venv files
 build/
 dist/
 Pybooru.egg-info/
+venv/
 
 # IDEs/Editors config files/folders
 *.nja
 .vscode
+.idea
 
 # ignore test file
 .pytest_cache

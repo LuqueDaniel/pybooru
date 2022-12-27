@@ -37,7 +37,7 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
         last_call (dict): Return last call.
     """
 
-    def __init__(self, site_name='', site_url='', username='', api_key=''):
+    def __init__(self, site_name='', site_url='', username='', api_key='', proxies=None):
         """Initialize Danbooru.
 
         Keyword arguments:
@@ -47,8 +47,10 @@ class Danbooru(_Pybooru, DanbooruApi_Mixin):
                             functions that modify the content).
             api_key (str): Your api key of the site (Required only for
                            functions that modify the content).
+            proxies (dict): Your proxies to connect to the danbooru site
+                            (Required only when your network is blocked).
         """
-        super(Danbooru, self).__init__(site_name, site_url, username)
+        super(Danbooru, self).__init__(site_name, site_url, username, proxies)
 
         self.api_key = api_key
 

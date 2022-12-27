@@ -32,7 +32,7 @@ class _Pybooru(object):
         last_call (dict): Return last call.
     """
 
-    def __init__(self, site_name='', site_url='', username=''):
+    def __init__(self, site_name='', site_url='', username='', proxies=None):
         """Initialize Pybooru.
 
         Keyword arguments:
@@ -48,6 +48,7 @@ class _Pybooru(object):
         self.__site_name = ''  # for site_name property
         self.__site_url = ''  # for site_url property
         self.username = username
+        self.proxies = proxies
         self.last_call = {}
 
         # Set HTTP Client
@@ -165,7 +166,7 @@ class _Pybooru(object):
                 # Reset content-type for data encoded as a multipart form
                 self.client.headers.update({'content-type': None})
 
-            response = self.client.request(method, url, **request_args)
+            response = self.client.request(method, url, proxies=self.proxies, **request_args)
 
             self.last_call.update({
                 'API': api_call,
