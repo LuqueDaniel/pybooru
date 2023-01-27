@@ -11,6 +11,8 @@ Classes:
 # __future__ imports
 from __future__ import absolute_import
 
+import warnings
+
 # pybooru imports
 from .exceptions import PybooruAPIError
 
@@ -988,7 +990,7 @@ class DanbooruApi_Mixin(object):
         return self._get('pool_versions.json', params)
 
     def tag_list(self, name_matches=None, name=None, category=None,
-                 hide_empty=None, has_wiki=None, has_artist=None, order=None):
+                 hide_empty=None, has_wiki=None, has_artist=None, order=None, limit=1000, page=1):
         """Get a list of tags.
 
         Parameters:
@@ -1004,7 +1006,11 @@ class DanbooruApi_Mixin(object):
             has_wiki (str): Can be: yes, no.
             has_artist (str): Can be: yes, no.
             order (str): Can be: name, date, count.
+            limit (int): Limit of one page, no more than 1000.
+            page (int): Page.
         """
+        if limit > 1000:
+            warnings.warn(UserWarning(f'Limit over 1000 is not supported by API, but {limit!r} found.'), stacklevel=2)
         params = {
             'search[name_matches]': name_matches,
             'search[name]': name,
@@ -1012,7 +1018,9 @@ class DanbooruApi_Mixin(object):
             'search[hide_empty]': hide_empty,
             'search[has_wiki]': has_wiki,
             'search[has_artist]': has_artist,
-            'search[order]': order
+            'search[order]': order,
+            'limit': str(limit),
+            'page': str(page),
             }
         return self._get('tags.json', params)
 
